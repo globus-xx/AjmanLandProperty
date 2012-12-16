@@ -215,7 +215,7 @@ else
 
 </table>
 <div class="beforetable" style="margin-top: 5px;">
-	جرى تسجيل المال غير المنقول المبين أوصافه بإسم / أسماء المالك / المالكين الذين انتقل إليهم بطريق <span id="howithappened"> <? echo $deed->Remarks; ?></span> 
+	جرى تسجيل المال غير المنقول المبين أوصافه بإسم / أسماء المالك / المالكين الذين انتقل إليهم بطريق<span id="howithappened">&nbsp;<? echo $deed->Remarks; ?></span> 
 	من المالك السابق <span id="previousowner"><?
 
 if(!$deed->PreviousOwners)
