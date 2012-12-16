@@ -1,0 +1,294 @@
+<html dir="rtl">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+	<title>Deed</title>
+	</head>
+<body <body style='-webkit-print-color-adjust:exact;'>
+
+<style>
+
+@page
+{
+	size: A4;
+	margin:0px;
+}
+
+table
+{ 
+	margin: auto;
+	width: 15cm;
+	border-collapse: collapse;
+    border: 3px solid black; 
+    cellspacing: 0px;
+}
+tr, td
+{
+	
+	
+	vertical-align: center;
+	horizontal-align: center;
+	text-align: center;
+	border-collapse:collapse;
+	border: 2px solid black;
+	
+}
+td.title
+{
+	font-weight: bold;
+}
+td.textleft
+{
+	text-align:right;
+}
+span.dots
+{
+	text-align:center;
+	font-size: 14px;
+	font-weight: bold;
+}
+#directions
+{
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+	text-align: right
+}	
+#previousowner, #howithappened
+{
+	font-weight:bold;
+}
+div.beforetable
+{
+	width: 15cm;
+	margin: auto;
+}
+</style>
+
+<div>
+<div style="text-align: center; width:4.5cm; padding:0cm; border:0cm; margin:0cm;position:absolute;right:2.3cm;top:6.5cm;">
+<h3><? echo $deed->LandID; ?></h3>
+</div>
+</div>
+
+<div style="position:absolute;right:2.3cm;top:9cm; padding:0px;">
+
+<div class="beforetable">
+
+<div style="float:right; width:33%"><span style="font-weight:900;">البلدة &nbsp;&nbsp;&nbsp;:</span><span style="font-weight:bold;">عجمــــان</span></div>
+<div style="float: right; width:33%">الموقع:&nbsp;&nbsp; <? echo $deed->land->location; ?></div>
+<div style="float: right; width:33%">الحوض:&nbsp;&nbsp; <? echo $deed->land->Plot_No; ?></div>
+
+<div style="float:right; width:33%">القطعة&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;<? echo $deed->land->Piece; ?></div>
+<div style="float: right; width:33%">الطول&nbsp;:&nbsp;&nbsp;<? echo $deed->land->length; ?> متر</div>
+<div style="float: right; width:33%">العرض&nbsp;:&nbsp;&nbsp;<? echo $deed->land->width; ?>  متر</div>
+
+<div style="float: right; width:100%">المساحة: <? echo $deed->land->TotalArea;?> متر مربع</b></div>
+
+</div>
+<br><br>
+<table>
+<tr>
+<td id="topheading" class="title" colspan="3">الحـــــدود</td>
+</tr>
+
+<tr>
+<td id="directions" colspan="3">
+	<div style="float:right; width:50%">&nbsp;<b>شمالاً: </b><span class="dots"><? echo $deed->land->North; ?></span></div>
+	<div style="float:right; width:50%"><b>جنوباً: </b><span class="dots"><? echo $deed->land->South; ?></span></div><br>
+	
+	<div style="float:right; width:50%">&nbsp;<b>شرقاً : </b><span class="dots"><? echo $deed->land->East; ?></span></div>
+	<div style="float:right; width:50%"><b>غرباً : </b><span class="dots"><? echo $deed->land->West; ?></span></div>
+</td>
+</tr>
+
+
+
+<tr>
+	<td class="title" style="width:60%;">اســـم المالك</td>
+	<td class="title" style="width:30%;">الحصص المتصرف بها "كتابة"</td>
+	<td class="title" style="width:10%;">رقما</td>
+</tr>
+
+<tr>
+	<td class="textleft">&nbsp;<? echo $deed->deedDetails[0]->customer->CustomerNameArabic; ?>&nbsp;</td>
+	<td class="textleft"><?php $obj = new I18N_Arabic('Numbers');
+ 
+     $obj->setFeminine(2);
+     $obj->setFormat(1);
+ 
+     $integer = $deed->deedDetails[0]->Share;
+ 
+     $text = $obj->int2str($integer);
+     $text.=' &nbsp; باالمائه';
+ 
+     echo $text; ?></td>
+	<td><? echo $deed->deedDetails[0]->Share." %"; ?></td>
+</tr>
+
+<tr>
+	<td class="textleft">&nbsp;<? 
+	if ($cnt>1) {
+	echo $deed->deedDetails[1]->customer->CustomerNameArabic; } ?>&nbsp;</td>
+	<td class="textleft"><?php //$obj = new I18N_Arabic('Numbers');
+	if ($cnt>1)
+	{
+     $obj->setFeminine(2);
+     $obj->setFormat(1);
+ 
+     $integer = $deed->deedDetails[1]->Share;
+ 
+     $text = $obj->int2str($integer);
+     $text.=' &nbsp;  باالمائه';
+ 
+     echo $text; } ?></td>
+	<td><? if ($cnt>1) {
+	echo intval($deed->deedDetails[1]->Share)." %"; } ?>
+	</td>
+</tr>
+
+<tr>
+	<td class="textleft">&nbsp;<?	if ($cnt>2) {
+	echo $deed->deedDetails[2]->customer->CustomerNameArabic; } ?>&nbsp;</td>
+	<td class="textleft"><?php //$obj = new I18N_Arabic('Numbers');
+	if ($cnt>2) {
+     $obj->setFeminine(2);
+     $obj->setFormat(1);
+ 
+     $integer = $deed->deedDetails[2]->Share;
+ 
+     $text = $obj->int2str($integer);
+     $text.=' &nbsp;  باالمائه';
+ 
+     echo $text; } ?></td>
+	<td><?	if ($cnt>2) {
+	echo $deed->deedDetails[2]->Share." %"; } ?></td>
+</tr>
+
+<tr>
+	<td class="textleft">&nbsp;<?	if ($cnt>3) {
+	echo $deed->deedDetails[3]->customer->CustomerNameArabic; } ?>&nbsp;</td>
+	<td class="textleft"><?php //$obj = new I18N_Arabic('Numbers');
+	if ($cnt>3) {
+     $obj->setFeminine(2);
+     $obj->setFormat(1);
+ 
+     $integer = $deed->deedDetails[3]->Share;
+ 
+     $text = $obj->int2str($integer);
+     $text.=' &nbsp;  باالمائه';
+ 
+     echo $text; } ?></td>
+	<td><?	if ($cnt>3) {
+	echo $deed->deedDetails[3]->Share." %"; } ?></td>
+</tr>
+
+<tr>
+	<td class="textleft">&nbsp;<?	if ($cnt>4) {
+	echo $deed->deedDetails[4]->customer->CustomerNameArabic; } ?>&nbsp;</td>
+	<td class="textleft"><?php //$obj = new I18N_Arabic('Numbers');
+	if ($cnt>4) {
+     $obj->setFeminine(2);
+     $obj->setFormat(1);
+ 
+     $integer = $deed->deedDetails[4]->Share;
+ 
+     $text = $obj->int2str($integer);
+     $text.=' &nbsp;  باالمائه';
+ 
+     echo $text; } ?>
+	</div>
+	<div id="shareval5" style="position:absolute;right:16.2cm;top:18.8cm;">
+	<?	if ($cnt>4) {
+	echo $deed->deedDetails[4]->Share." %"; } ?></td>
+	<td><?	if ($cnt>4) {
+	echo $deed->deedDetails[4]->Share." %"; } ?></td>
+</tr>
+
+<tr>
+	<td class="textleft">&nbsp;<?	if ($cnt>5) {
+	echo $deed->deedDetails[5]->customer->CustomerNameArabic; } ?>&nbsp;</td>
+	<td class="textleft"><?php //$obj = new I18N_Arabic('Numbers');
+	if ($cnt>5) {
+     $obj->setFeminine(2);
+     $obj->setFormat(1);
+ 
+     $integer = $deed->deedDetails[5]->Share;
+ 
+     $text = $obj->int2str($integer);
+     $text.=' &nbsp;  باالمائه';
+ 
+     echo $text; } ?></td>
+	<td><?	if ($cnt>5) {
+	echo $deed->deedDetails[5]->Share." %"; } ?></td>
+</tr>
+
+<tr>
+	<td class="textleft">&nbsp;<?	if ($cnt>6) {
+	echo $deed->deedDetails[6]->customer->CustomerNameArabic; } ?>&nbsp;</td>
+	<td class="textleft"><?php //$obj = new I18N_Arabic('Numbers');
+	if ($cnt>6) {
+     $obj->setFeminine(2);
+     $obj->setFormat(1);
+ 
+     $integer = $deed->deedDetails[6]->Share;
+ 
+     $text = $obj->int2str($integer);
+     $text.=' &nbsp;  باالمائه';
+ 
+     echo $text; } ?></td>
+	<td><?	if ($cnt>6) {
+	echo $deed->deedDetails[6]->Share." %"; } ?></td>
+</tr>
+
+<tr>
+	<td class="textleft">&nbsp;<?	if ($cnt>7) {
+	echo $deed->deedDetails[7]->customer->CustomerNameArabic; } ?>&nbsp;</td>
+	<td class="textleft"><?php //$obj = new I18N_Arabic('Numbers');
+	if ($cnt>7) {
+     $obj->setFeminine(2);
+     $obj->setFormat(1);
+ 
+     $integer = $deed->deedDetails[7]->Share;
+ 
+     $text = $obj->int2str($integer);
+     $text.=' &nbsp;  باالمائه';
+ 
+     echo $text; } ?></td>
+	<td><?	if ($cnt>7) {
+	echo $deed->deedDetails[7]->Share." %"; } ?></td>
+</tr>
+</table>
+<div class="beforetable" style="margin-top: 5px;">
+	جرى تسجيل المال غير المنقول المبين او صافه بإسم / أسماء المالك / المالكين الذين انتقل إليهم بطريق <span id="howithappened"><? echo $deed->Remarks; ?></span><br>
+	من المالك السابق <span id="previousowner"><?
+if(!$deed->ContractID)
+{
+	echo "مالك جديد";
+}
+else
+{
+	$olddeed = DeedMaster::model()->findByPk($deed->contract->DeedID);
+	
+	$searchCriteria=new CDbCriteria;
+	$searchCriteria->condition = 'DeedID = :deedid';
+	$searchCriteria->params = array(':deedid'=> $olddeed->DeedID);
+	
+	$cntline = DeedDetails::model()->count($searchCriteria);
+	
+	for($i=0; $i<$cntline; $i++)
+	{
+		echo $olddeed->deedDetails[$i]->customer->CustomerNameArabic.", "; 
+	}
+}
+?></span><br>
+	و فد اعطي هذا السند اثباتا بذلك<br>
+<div style='padding-top:7px;'>	تاريخ: <span id="deeddate"><?php echo $deed->DateCreated; ?></span> م</div>
+</div>
+
+</div>
+<div style="padding-top:20px; position:absolute; top:24cm;right:2cm;">
+<h3>رقـم&nbsp;&nbsp;<?php echo $deed->DeedID; ?></h3>
+</div>
+
+</body>
+</html>
