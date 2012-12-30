@@ -19,16 +19,6 @@ foreach($locationsT as $key=>$value)
 }
 
 ?>
-
-
-<?php
-
-	$this->menu=array(
-		array('label'=>'قائمة ملكيات', 'url'=>array('index')),
-		array('label'=>'إدارة الملكيات', 'url'=>array('admin')),
-	);
-?>
-
 <h1 align="right">ملكية جديدة</h1>
 
 <script type='text/javascript'> //on loading the page, hides all elements.
@@ -38,10 +28,11 @@ foreach($locationsT as $key=>$value)
 		$("#DeedInfo").hide();
 		$("#newland").html("");
 		$("#createdeed").hide();		
+		$('#deedRemarksdiv').hide()
 	}
 </script>
 <div align="right">
-إبحث عن سند أو ادخل رقم سند جديد
+إبحث عن سند أو ادخل رقم سند جديد<br>
 <?php
 				$url = $this->createUrl("DeedMaster/landsfind");
                 $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
@@ -53,7 +44,8 @@ foreach($locationsT as $key=>$value)
                         'minLength'=>'3',
                     ),
                     'htmlOptions'=>array(
-                        'style'=>'height:20px;'
+                        'style'=>'height:20px;',
+                        'size'=>'15px;',
                     ),
                 ));
             ?>
@@ -67,6 +59,17 @@ foreach($locationsT as $key=>$value)
 	));*/
 ?>
 <input type="button" value="حدث" id="makenew">
+<div id='deedRemarksdiv' style='float:left;'>نوع المعاملة: 
+<select id='deedRemarks'>
+	<option value='ألشراء'>الشراء</option>
+	<option value='العطاء والتمليك'>العطاء والتمليك</option>
+	<option value='التعويض عن اراضي مستقطعه'>التعويض عن اراضي مستقطعه</option>
+	<option value='الافراز'>الافراز</option>
+	<option value='الدمج'>الدمج</option>
+</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type='checkbox' value='الاسكان'>برنامج الشيخ زايد للاسكان</input>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+رقم السند أو أرقام السند التي دمجت<span><input type='text' id='enteredlandid' size='20px'></span></div>
 </div>
 <p id="newland" align="right"></p>
 
@@ -124,6 +127,7 @@ foreach($locationsT as $key=>$value)
 			$('#East').val(results.lands[0].East);
 			$('#West').val(results.lands[0].West);
 			$('#Remarks').val(results.lands[0].Remarks);
+			$('#deedRemarksdiv').hide();	
 			
 			
 		}
@@ -148,6 +152,7 @@ foreach($locationsT as $key=>$value)
 			$('#East').val(results.lands[0].East);
 			$('#West').val(results.lands[0].West);
 			$('#Remarks').val(results.lands[0].Remarks);
+			$('#deedRemarksdiv').show();
 			
 		}
 		else if(results.errors="Land ID not in database")
@@ -170,6 +175,7 @@ foreach($locationsT as $key=>$value)
 			$('#East').val("");
 			$('#West').val("");
 			$('#Remarks').val("");
+			$('#deedRemarksdiv').show();
 			
 			console.log("land doesn't exist");
 		}
@@ -205,6 +211,7 @@ foreach($locationsT as $key=>$value)
 	});
 </script>
 <input type="hidden" id="LocationID">
+<input type='hidden' id='Remarks'>
 <div id="DeedInfo" align="right">
 	Deeds here? 
 </div>
@@ -212,7 +219,7 @@ foreach($locationsT as $key=>$value)
 <div id="LandInfo">
 	<table>
 		
-		<tr>
+		<tr style='background-color:#EFEFFC;'>
 		<td>المنطقة: <?php
 			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                     'name'=>'location',
@@ -234,9 +241,9 @@ foreach($locationsT as $key=>$value)
 		</tr>
 		
 		<tr><td>الطوول: <input type='text' id='length' size=2px></td>
-		<td>العرض: <input type='text' id='width' size=2px></td></tr>
+		<td>العرض: <input type='text' id='width' size=2px></td>
 		
-		<tr><td>المساحة: <input type='text' id='TotalArea' size=3px></td>
+		<td>المساحة: <input type='text' id='TotalArea' size=3px></td>
 		<td>وحدة المساحة: <input type='text' id='AreaUnit' size=5px></td></tr>
 		
 		<tr><td>شمالا:<input type='text' id='North'></td>
@@ -244,7 +251,7 @@ foreach($locationsT as $key=>$value)
 		<td>شرقا: <input type='text' id='East'></td>
 		<td>غربا: <input type='text' id='West'></td></tr>
 		
-		<tr><td colspan='4'>الملاحظات للارض:<input type='text' id='Remarks'></td></tr>
+		
 	</table>
 </div>
 <style>
@@ -275,7 +282,7 @@ foreach($locationsT as $key=>$value)
 	<br><br>
 	التاريخ: <input type='text' id='date' value=<?= date("d/m/Y"); ?> size=7px>
 	التاريخ (هجري): <input type='text' id='HijriDate' size=7px>
-	الملاحظات للملكية: <input type='text' id='deedRemarks' size=25px>
+	
 	<h3><br><br>اسم المالك الجديد</h3>
 
 	<?php

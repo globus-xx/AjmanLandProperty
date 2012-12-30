@@ -53,10 +53,10 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=192.168.5.137;dbname=AjmanLandProperty',
+			'connectionString' => 'mysql:host=localhost;dbname=AjmanLandProperty',
 			'emulatePrepare' => true,
-			'username' => 'omarmarosh',
-			'password' => 'oAiHmH112358',
+			'username' => 'www-data',
+			'password' => 'oAiHmH',
 			'charset' => 'utf8',
 		),
         'authManager'=>array(

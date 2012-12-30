@@ -4,30 +4,77 @@
 
 table, th, td
 {
-	border: 1px solid black;
+	border: 1px solid white;
+}
+.tab{
+    background-color: #EFFDFF;
+    padding: 2px;
+}
+.deed {
+    background-color: #C9E0ED
 }
 
-</style>
-<body dir='rtl'>
-	
-	<span id='searchmsg'>دخول الأراضي ID، اسم العميل، رقم الجوال، البلد أو المنطقة لمزيد من العمل &nbsp;</span>
-	
-	  <?php
+.previousOwnerhead {
+    background-color: #EFFDFF;
+    font-size: 13px;
+    margin: 2px 2px;
+}
 
-		$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-			'name'=>'searchstring',
-			'source'=>$autocomplete, //came from the controller.. the array we constructed of all names, arabic and english
-			// additional javascript options for the autocomplete plugin
-			'options'=>array(
-				'minLength'=>'4',
-			),
-			'htmlOptions'=>array(
-				'style'=>'height:20px;'
-			),
-		));
-	?>
+.previousOwnerEven {
+    background-color: #ccc;
+     margin: 2px 2px;    
+}
+
+.previousOwnerOdd {
+    background-color: #F8F8F8
+}
+.landDetails {
+    background-color: #C9E0ED
+}
+.currentOwners {
+    background-color: #ccc
+}
+#letterTable {
+    background-color: #80CFFF;
+}
+</style>
+
+<script type="text/javascript" >
+function EmptyTextbox() {
+ 
+// check if the textbox is blank
+if (letterForm.destination.value == "") {
+
+alert("من فضلك ادخل اسم الوجهة !!!");
+return false;
+} // end if
+
+} // end function
+</script>
+
+<body dir="rtl" >
+
+     <form id="SearchForm" method="post">من فضلك ادخل أي كلمة
+    <?php
+				$url = $this->createUrl("CustomerService/CustomerSearch");
+                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                    'name'=>'searchstring',
+                    'source'=>$url,
+                    //'source'=>$customerNames, //came from the controller.. the array we constructed of all names, arabic and english
+                    // additional javascript options for the autocomplete plugin
+                    'options'=>array(
+                        'minLength'=>'3',
+                    ),
+                    'htmlOptions'=>array(
+                        'style'=>'height:20px;'
+                    ),
+                ));
+            ?>
+ <input type="submit" value ="البحث">
+    </form>
 	
 	<br><br>
+<form action="Letters/generatefile" method="post" id="letterForm" name="letterForm" target="_SELF" >	
 	
 	<div class='searchresult'>
 	
@@ -49,9 +96,13 @@ table, th, td
 			</table>
 			
 		</div>
+            
+            <div id='previouslandresult'>123</div>
+            <div id='fines'></div>
+            <div id='previousowner'></div>
 		
 		<div id='customerresult'>
-			Info for Customer Name: Omar Ali Ibrahim
+			Loading...
 		</div>
 		
 		<div id='areasearch'>
@@ -59,110 +110,145 @@ table, th, td
 		</div>
 		
 		<div id='countryresult'>
-			List of customers of a country
+			Loading...
+		</div>
+                
+                <div id='loadingresult'>
+			Loading...
+		</div>
+            
+                <div id='customerprofile'>
+			Loading...
 		</div>
 	
 	</div>
-	
-</body>
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/search.js'); ?>
 
-	<script type='text/javascript'>
-		
+    
+<table style="width:400px;" id="letterTable">
+    <tr><td>من فضلك ادخل المعلومات التالية لتوليد رسالة:</td></tr>
+<tr><td>وجهة الرسالة :</td>
+    <td>
+                  <?php
+		$url = $this->createUrl("Letters/autow");
+                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                    'name'=>'destination',
+                    'source'=>$url,
+                    // additional javascript options for the autocomplete plugin
+                    'options'=>array(
+                    'minLength'=>'4',
+                    ),
+                    'htmlOptions'=>array(
+                        'style'=>'width:150px;'
+                    ),
+                ));
+                
+                
+            ?>
+    </td></tr>
+
+<tr><td>وصف الارض :</td><td><input type="text" name="landdesc" size="20" dir="ltr"></td></tr>
+<tr><td>سعر الارض (ليس ضروري) :</td><td><input type="text" name="landprice" size="20" dir="ltr"></td></tr>
+
+<tr><td >من فضلك اختر نوع الرسالة :</td>   
+    <td>
+        <select name="letterid" style="width:155px;height:23px;" >  
+                   
+           <?php 
+            foreach($docs as $row)
+           { 
+             ?>  
+                     <option value="<?php echo $row->LetterID ?>"><?php echo $row->Title ?></option>           
+           <?php
+            }
+           ?>
+            
+        </select> 
+    </td>
+</tr>
+<tr><td>
+        <input type="hidden" name="landid" id="landid" value="">       
+        <input type="submit" name="stype" value="التالي" onclick="return EmptyTextbox()"></td></tr>
+
+</table>
+
+</form>
+        
+        <script type="text/javascript" >
+            
+		var listType;
 		//Hide all on-load
-		$('#landresult').hide(); 
-		$('#customerresult').hide(); 
-		$('#areasearch').hide();
-		$('#countryresult').hide(); 
+		hideAll();
 		
-		$("#searchstring").keyup(function() 
-		{
-			var searchstring = $("#searchstring").val();
+		$("#SearchForm").submit(function(event) 
+		{ event.preventDefault();
+                    $('#letterForm #landid').val($('#searchstring').val());
+			 $('#loadingresult').show();
+                        var searchstring =  new Array();
+                          searchstring["action"] = "search";
 
-			if (searchstring.length<4)
-			{
-				return;
-			}
 
 			var paramJSON = JSON.stringify(searchstring);	 //ensuring that info sent to the server is stringed!
-			
-			$.post(
-				'CustomerService/Search', 
-				{ data: paramJSON },
-				function(data) 
-				{
+
+                        $.ajax({ 
+                                type: "POST",
+				url:'CustomerService/Search', 
+				data: "action=search&string="+$("#searchstring").val(),
+                                async:false,
+				success: function(data) { 
 					var Results = JSON.parse(data); 	
 					console.log(Results);
 					//LAND ID entered and only 1 returned LAND ID	
-					if (Results[0]['LandID'])
+				
+					//One particular customer-name found
+					if (Results.length ==1 && Results[0]['CustomerID'])
 					{
+						hideAll(); 
+						$('#customerresult').show(); 
+						
+						console.log(Results);
+//						displayCustomerInfo(Results);
+                                                diplayUserDetails(Results[0]['CustomerID'], 0)
+					}
+					
+					//A country was entered, and a list of customers belonging to the country are returned
+					else if (Results.length >1 && Results[0]['CustomerID'])
+					{
+						hideAll();
+						
+						console.log(Results);
+						displayCountryInfo(Results);
+                                                $('#loadingresult').hide();
+						
+					}
+                                        
+                                        else if (typeof(Results["landInfo"])!="undefined" )
+					{ 
+                                                 hideAll();
 						$('#landresult').show();
-						$('#customerresult').hide(); 
-						$('#areasearch').hide();
-						$('#countryresult').hide(); 
+                                                 $('#letterTable').show();	
+
 						console.log(Results);
 						displayLandInfo(Results);
 						
 					}	
-					
-					//One particular customer-name found
-					if (Results.length ==1 && Results[0]['CustomerID'])
-					{
-						$('#landresult').hide();
-						$('#customerresult').show(); 
-						$('#areasearch').hide();
-						$('#countryresult').hide(); 
-						console.log(Results);
-						displayCustomerInfo(Results);
-					}
-					
-					//A country was entered, and a list of customers belonging to the country are returned
-					if (Results.length >1 && Results[0]['CustomerID'])
-					{
-						$('#landresult').hide();
-						$('#customerresult').hide(); 
-						$('#areasearch').hide();
-						$('#countryresult').show(); 
-						console.log(Results);
-						displayCountryInfo(Results);
-						
-					}
-						
+
+				 $('#loadingresult').hide();		
 				}
-			);
+                        });
+                        
+                        $('.searchLink').unbind('click').click(function(){
+                            var searchString = $(this).text()
+                             $("#searchstring").val(searchString);
+                              $("#SearchForm").trigger('submit')
+                          });
+ 		});
+		
+	
+        </script>
 
-		});
-		
-		function displayLandInfo(result)
-		{
-			$('#landid').text(result[0]['LandID']);
-			
-			//****************************Land Info Table*****************************************
-			var landstr = "<tr><td>"+result[0]['location']+"</td>	<td>Plot No: "+result[0]['Plot_No']+"</td><td>Piece No: "+result[0]['Piece']+"</td><td>Total Area: "+result[0]['TotalArea']+"</td></tr><tr><td>شمالا: "+result[0]['North']+"</td><td>جنوبا: "+result[0]['South']+"</td><td>شرقا: "+result[0]['East']+"</td><td>غربا: "+result[0]['West']+"</td></tr>";
-						
-			$('#landinfo').empty();
-			$('#landinfo').html('<tbody></tbody>');
-			$('#landinfo').find('tbody').append(landstr);
-			//*************************************************************************************
-			
-			//*************************Current Owners**********************************************
-			
-			var currentowners = "<tr><td>ID</td><td>Omar</td><td>Palestine</td><td>100%</td></tr>"
-								
-			$('#currentowners').empty();
-			$('#currentowners').html('<tbody><th>customer ID</th>	<th>Customer Name</th>	<th>Nationality</th>	<th>Share</th></tbody>');
-			$('#currentowners').find('tbody').append(currentowners);
-			
-		}
-		
-		function displayCustomerInfo(result)
-		{
-		}
-		
-		function displayCountryInfo(result)
-		{
-		}
-	</script>
 
+</body>
 </html>
 
 
