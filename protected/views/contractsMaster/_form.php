@@ -17,7 +17,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'LandID'); ?>
-		<?php echo $form->textField($model,'LandID',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->textField($model,'LandID',array('size'=>10,'maxlength'=>10,'disabled'=>'disabled')); ?>
 		<?php echo $form->error($model,'LandID'); ?>
 	</div>
 
@@ -41,7 +41,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'DeedID'); ?>
-		<?php echo $form->textField($model,'DeedID',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->textField($model,'DeedID',array('size'=>10,'maxlength'=>10,'disabled'=>'disabled')); ?>
 		<?php echo $form->error($model,'DeedID'); ?>
 	</div>
 
@@ -83,7 +83,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'InvoiceNo'); ?>
-		<?php echo $form->textField($model,'InvoiceNo'); ?>
+		<?php echo $form->textField($model,'InvoiceNo',array('disabled'=>'disabled')); ?>
 		<?php echo $form->error($model,'InvoiceNo'); ?>
 	</div>
 	
@@ -95,7 +95,7 @@
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'Status'); ?>
-		<?php echo $form->textField($model,'Status'); ?>
+		<?php echo $form->textField($model,'Status',array('disabled'=>'disabled')); ?>
 		<?php echo $form->error($model,'Status'); ?>
 	</div>
 

@@ -16,6 +16,7 @@
             ?>
 
 <input type='button' value='اطبع' id='print'>
+<input type='button' value='اطبع السابق' id='printold'>
 
 <script>
 $('#print').click(function() { 
@@ -32,6 +33,25 @@ $('#print').click(function() {
 					console.log(deedResult);
 					var url = '<?php echo $this->createUrl("deedMaster/Print/"); ?>';
 					url+="/"+deedResult;
+					var contractPrint = window.open(url);
+				}
+			)});
+
+$('#printold').click(function() { 
+	
+	var searchstring = $("#landid").val();
+	var paramJSON = JSON.stringify(searchstring);
+	
+	$.post(
+	'<?php echo $this->createUrl("deedMaster/getdeedold")?>', //who will receive the ajax data and process it.. landresult action in contractsMaster controller
+				{ data: paramJSON },
+				function(data) //The function that will be called when data is sent back.
+				{					
+					var deedResult = JSON.parse(data); 
+					console.log(deedResult);
+					console.log(deedResult.length);
+					var url = '<?php echo $this->createUrl("deedMaster/Printold/"); ?>';
+					url+="/"+deedResult[deedResult.length-1];
 					var contractPrint = window.open(url);
 				}
 			)});

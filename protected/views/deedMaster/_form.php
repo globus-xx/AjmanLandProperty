@@ -17,13 +17,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'DeedID'); ?>
-		<?php echo $form->textField($model,'DeedID',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->textField($model,'DeedID',array('size'=>10,'maxlength'=>10,'disabled'=>'disabled')); ?>
 		<?php echo $form->error($model,'DeedID'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'LandID'); ?>
-		<?php echo $form->textField($model,'LandID',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->textField($model,'LandID',array('size'=>10,'maxlength'=>100,'disabled'=>'disabled')); ?>
 		<?php echo $form->error($model,'LandID'); ?>
 	</div>
 
@@ -53,7 +53,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'ContractID'); ?>
-		<?php echo $form->textField($model,'ContractID',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->textField($model,'ContractID',array('size'=>10,'maxlength'=>10,'disabled'=>'disabled')); ?>
 		<?php echo $form->error($model,'ContractID'); ?>
 	</div>
 

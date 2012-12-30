@@ -334,7 +334,7 @@ $this->menu=array(
 			}
 			
 		});
-	
+		console.log(total);	
 	    if (total>100 || total<100 || selected==0)
         {
 			if (total==111)
@@ -392,9 +392,13 @@ $this->menu=array(
 								
 								var url1 = '<?php echo $this->createUrl("contractsMaster/printdeedcertificate/"); ?>';
 								url1+="/"+result.newdeedid;
+
+								var url2 = '<?php echo $this->createUrl("contractsMaster/printmukhattat/"); ?>';
+								url2+="/"+result.newdeedid;
                         		
                         		var contractPrint = window.open(url);
                         		var deedCertificate = window.open(url1);
+                        		var mukhattat = window.open(url2);
                         		location.href =   '<?php echo $this->createUrl("contractsMaster/admin")?>'
                         }             
 		            }

@@ -18,16 +18,15 @@ $how = array(
 		
 		@font-face
 		{
-			font-family: GEMedium;
-			font-stretch: ultra-expanded;
-			src: url("/AjmanLandProperty/images/GEMedium.otf") format("opentype");
+			font-family: GE SS Two Medium;
+			
 			
 		}
 		
 		@font-face
 		{
-			font-family: GELight;
-			src: url("/AjmanLandProperty/images/GELight.otf") format("opentype");
+			font-family: GE SS Two Light;
+			
 		}
 		
 		@page 
@@ -44,7 +43,7 @@ $how = array(
 		{
 			text-align: center;
 			border:1px solid rgb(90,20,0);
-			font-family: GELight;
+			font-family:GE SS Two Light;
 		}
 		td.heading
 		{
@@ -61,7 +60,7 @@ $how = array(
 <body style='-webkit-print-color-adjust:exact;'>
 <br><br><br><br><br><br><br>
 
-<h1 style='font-family:GEMEdium; text-align:center;'>شهادة ملكية</h1>
+<h1 style='font-family:GE SS Two Medium; text-align:center;'>شهادة ملكية</h1>
 
 <table style="width:18cm; margin:auto;">
 
@@ -110,7 +109,7 @@ $how = array(
 		
 </table>
 
-<div style="padding-top: 10px; width:18cm; margin:auto; font-family:GELight;">
+<div style="padding-top: 10px; width:18cm; margin:auto; font-family:GE SS Two Light;">
 آلت إليه&nbsp;<?php $cm = ContractsMaster::model()->findByPk($deed->ContractID); echo $how[$cm->ContractType]; ?>&nbsp;من&nbsp;&nbsp;<span id="previousowner">&nbsp;&nbsp;&nbsp;&nbsp;<?
 
 if(!$deed->PreviousOwners)
@@ -143,7 +142,7 @@ else
 بتاريخ <?php echo date('d-m-Y'); ?>
 
 <br><br><br><br><br>
-<div style="width:18cm; margin:auto; font-family:GELight; text-align:left;">رئيس قسم التصرفات العقارية</div>
+<div style="width:18cm; margin:auto; font-family:GE SS Two Light; text-align:left;">رئيس قسم التصرفات العقارية</div>
 <br>
-<div style="width:11cm; margin:right; font-family:GELight; text-align:right; font-size:0.7em;">هذه الشهادة تعتبر لاغية في حالة محو أو شطب أي بيان من بياناتها أو إضافة بيانات أخرى إليها, وينتفي العمل بها في  حال اصدار سند الملكية  أو مضي ثلاثة أشهر من تاريخ اصدارها</div>
+<div style="width:11cm; margin:right; font-family:GE SS Two Light; text-align:right; font-size:0.7em;">هذه الشهادة تعتبر لاغية في حالة محو أو شطب أي بيان من بياناتها أو إضافة بيانات أخرى إليها, وينتفي العمل بها في  حال اصدار سند الملكية  أو مضي ثلاثة أشهر من تاريخ اصدارها</div>
 

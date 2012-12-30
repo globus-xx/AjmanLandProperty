@@ -446,7 +446,13 @@ foreach($locationsT as $key=>$value)
                 }
         });   
         
-        if (total>100 || total<100)
+        if (location == "" || Plot_No =="" || Piece =="" || Land_Type=="")
+		{
+			alert("يرجى إدخال معلومات الأساسية");
+			return;
+		}
+	
+	if (total>100 || total<100)
         {
 			if (total==111)
 			{
@@ -455,7 +461,7 @@ foreach($locationsT as $key=>$value)
 			}
 			else
 			{
-				alert('تأكد تحديد حصة أو حدد الجانبين في الوكيل أو الوسيط');
+				alert('من فضلك أدخل معلومات المالك و الحصص');
 				return;
 			}
 			

@@ -33,13 +33,13 @@ foreach($countriesT as $key=>$value)
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'CustomerNameArabic'); ?>
-		<?php echo $form->textField($model,'CustomerNameArabic',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'CustomerNameArabic',array('size'=>60,'maxlength'=>250)); ?>
 		<?php echo $form->error($model,'CustomerNameArabic'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'CustomerNameEnglish'); ?>
-		<?php echo $form->textField($model,'CustomerNameEnglish',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'CustomerNameEnglish',array('size'=>60,'maxlength'=>250)); ?>
 		<?php echo $form->error($model,'CustomerNameEnglish'); ?>
 	</div>
 
@@ -51,13 +51,13 @@ foreach($countriesT as $key=>$value)
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'HomePhone'); ?>
-		<?php echo $form->textField($model,'HomePhone',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->textField($model,'HomePhone',array('size'=>10,'maxlength'=>20)); ?>
 		<?php echo $form->error($model,'HomePhone'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'MobilePhone'); ?>
-		<?php echo $form->textField($model,'MobilePhone',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->textField($model,'MobilePhone',array('size'=>10,'maxlength'=>20)); ?>
 		<?php echo $form->error($model,'MobilePhone'); ?>
 	</div>
 

@@ -20,7 +20,13 @@ $('#print').click(function() {
 						console.log(deedResult);
 						var url = '<?php echo $this->createUrl("contractsMaster/printdeedcertificate"); ?>';
 						url+="/"+deedResult;
+						
+						var url1 = '<?php echo $this->createUrl("contractsMaster/printmukhattat"); ?>';
+						url1+="/"+deedResult;
+						
+						var mukhattat = window.open(url1);
 						var contractPrint = window.open(url);
+						
 					}
 		)
 		});

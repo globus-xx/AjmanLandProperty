@@ -32,7 +32,7 @@ class ContractsMasterController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','create','update','landsearch','landresult', 'searchbuyers', 'searchrealstate', 'createcontract','Print','printfrom','printdeedcertificate','auto','autow'),
+				'actions'=>array('admin','create','update','landsearch','landresult', 'searchbuyers', 'searchrealstate', 'createcontract','Print','printfrom','printdeedcertificate','savedeedcertificate','printmukhattat','mukhattat','auto','autow'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -685,10 +685,42 @@ public function actionCreate()
 	 
 	public function actionprintdeedcertificate($id)
 	{
+		
 		$dm = DeedMaster::model()->findByPk($id);
 		$cnt = DeedDetails::model()->count('DeedID LIKE :id', array(':id'=>$id));
 		
 		$this->renderpartial('printdeedcertificate',array('deed'=>$dm,'cnt'=>$cnt));
+		
+	}
+	
+	public function actionmukhattat()
+	{
+		$this->render('printmukhattat');
+	}
+		
+	public function actionprintmukhattat($id)
+	{
+		$dm = DeedMaster::model()->findByPk($id);
+		$cnt = DeedDetails::model()->count('DeedID LIKE :id', array(':id'=>$id));
+		
+		$this->renderpartial('mukhattat',array('deed'=>$dm,'cnt'=>$cnt));
+	}
+	
+	public function actionsavedeedcertificate()
+	{
+		 if(isset($_POST["data"]))
+		 {
+			 $data = json_decode($_POST["data"]); 
+			 
+			 $deedcertificate = new DeedCertificate;
+			 $deedcertificate->sha1 = $data->code;
+			 $deedcertificate->LandID = $data->LandID;
+			 $deedcertificate->DeedID = $data->DeedID;
+			 $deedcertificate->ContractsID = $data->ContractID;
+			 $deedcertificate->UserID = $data->UserID;
+			 $deedcertificate->DateTime = date("d-m-y, G:i:s");
+			 $deedcertificate->save();
+		 }
 	}
 	 	 
 	public function actionPrintfrom()

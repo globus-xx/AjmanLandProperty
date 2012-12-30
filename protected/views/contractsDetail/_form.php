@@ -23,7 +23,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'Type'); ?>
-		<?php echo $form->textField($model,'Type',array('size'=>11,'maxlength'=>11)); ?>
+		<?php echo $form->textField($model,'Type'); ?>
 		<?php echo $form->error($model,'Type'); ?>
 	</div>
 
@@ -50,6 +50,13 @@
 		<?php echo $form->textField($model,'Side',array('size'=>10,'maxlength'=>10)); ?>
 		<?php echo $form->error($model,'Side'); ?>
 	</div>
+
+	<div class="row">
+                <?php echo $form->labelEx($model,'remarks'); ?>
+                <?php echo $form->textField($model,'remarks',array('size'=>25,'maxlength'=>250)); ?>
+                <?php echo $form->error($model,'remarks'); ?>
+        </div>
+
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

@@ -32,7 +32,7 @@ class DeedMasterController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('admin','printfrom','getdeed','getdeedfromcontract','create','update','LandInfo','SaveDeed','Print','canceldeed','landsfind','updateinfo'),
+				'actions'=>array('admin','printfrom','getdeed','getdeedold','getdeedfromcontract','create','update','LandInfo','SaveDeed','Print','Printold','canceldeed','landsfind','updateinfo'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -315,6 +315,21 @@ class DeedMasterController extends Controller
 		print CJSON::encode($res);
 	}
 	
+	public function actiongetdeedold()
+	{
+		
+		if(isset($_POST["data"]))
+		{
+			$qtxt = "SELECT DeedID from DeedMaster WHERE LandID LIKE :landid AND Remarks LIKE 'cancelled'";
+			$command = Yii::app()->db->createCommand($qtxt);
+			$command->bindValue(':landid',json_decode($_POST["data"]),PDO::PARAM_STR);
+			$res = $command->queryColumn();
+			
+		}
+		
+		print CJSON::encode($res);
+	}
+	
 	public function actiongetdeedfromcontract()
 	{
 		if(isset($_POST["data"]))
@@ -365,6 +380,23 @@ class DeedMasterController extends Controller
 		$deedtracker->save();
 		
 		$this->renderpartial('printout',array('deed'=>$deed,'cnt'=>$cnt,));
+	}
+	
+	public function actionPrintold($id)
+	{
+		$deed = DeedMaster::model()->findByPk($id);
+		$d = $deed->DeedID;
+		$cnt = DeedDetails::model()->count('DeedID LIKE :id',array(':id'=>$d));
+		
+		$deedtracker = new DeedTracker;
+		$deedtracker->DeedID = $d;
+		$deedtracker->LandID = $deed->LandID;
+		$deedtracker->UserID = Yii::app()->User->ID;
+		$deedtracker->DateTime = date('d-m-Y, G:i A');
+		$deedtracker->Status = "طباعة";
+		$deedtracker->save();
+		
+		$this->renderpartial('printoutold',array('deed'=>$deed,'cnt'=>$cnt,));
 	}
 	
 	

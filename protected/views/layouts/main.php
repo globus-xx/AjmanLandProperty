@@ -84,7 +84,10 @@
 								array('label'=>'Manage Customers', 'url'=>array('/CustomerMaster/admin')),
                 )),
             
-                array('label'=>'أراضي','url'=>array('/LandMaster/update')),
+                array('label'=>'أراضي','url'=>array('/LandMaster/update'),
+					'items'=>array(
+								array('label'=>'طباعة مجطط','url'=>array('/ContractsMaster/mukhattat')),
+		)),
                 
                 array('label'=>'خدمة العملاء','url'=>array('/CustomerService')),
             
