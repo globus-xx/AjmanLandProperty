@@ -1,8 +1,8 @@
 function landTab(listType, customerID){
         var userTab="<table class=tab><tr>"
-                userTab+="<td><a onclick=switchToView('landresult')><strong>Land details</strong></a></td>" ;
-                userTab+="<td><a onclick=switchToView('fines')><strong>Fines and Remarks</strong></a></td>" ;
-                userTab+="<td align='right'><a onclick=switchToView('previousowner')><strong>Previous Owners</strong></a></td>";
+                userTab+="<td><a onclick=switchToView('landresult')><strong>تفاصيل الارض</strong></a></td>" ;
+                userTab+="<td><a onclick=switchToView('fines')><strong>الغرامات و الملاحظات</strong></a></td>" ;
+                userTab+="<td align='right'><a onclick=switchToView('previousowner')><strong>المالك السابق</strong></a></td>";
                 userTab+="</tr>" ;
         return userTab+="</table>";
 } 
@@ -11,13 +11,13 @@ function userTab(listType, customerID){
            var userTab="<table class=tab><tr>"
                if(listType ==1){ 
 //                   userTab+="<a onclick=switchToView('countryresult')>Back to user listing</a></td>" ;
-                   userTab+="<td><a onclick=_displayCustomerProfile("+customerID+");switchToView('customerprofile')><strong>User Profile</strong></a></td>" ;
+                   userTab+="<td><a onclick=_displayCustomerProfile("+customerID+");switchToView('customerprofile')><strong>تفاصيل العضو</strong></a></td>" ;
                 }else { 
 //                    userTab+="<a onclick=switchToView('customerresult')>Back to user listing</a></td>" ;
-                    userTab+="<td><a onclick=switchToView('customerprofile')><strong>User Profile</strong></a></td>" ;
+                    userTab+="<td><a onclick=switchToView('customerprofile')><strong>تفاصيل العضو</strong></a></td>" ;
                 }
-                        userTab+="<td align='right'><a onclick=switchToView('landresult')><strong>Land List</strong></a></td>";
-                        userTab+="<td align='right'><a onclick=switchToView('previouslandresult')><strong>Previous Land List</strong></a></td>";
+                        userTab+="<td align='right'><a onclick=switchToView('landresult')><strong>قائمة الاراضي</strong></a></td>";
+                        userTab+="<td align='right'><a onclick=switchToView('previouslandresult')><strong>قائمة الاراضي السابقة</strong></a></td>";
                         userTab+="</tr>" ;
                return userTab+="</table>";
 } 
@@ -41,6 +41,7 @@ function hideAll(){// hide all the divs before loading the related one
         $('#customerresult').hide(); 
         $('#areasearch').hide();
         $('#countryresult').hide(); 
+        $('#loadingresult').hide(); 
         $("#customerprofile").hide(); 
 }
 function showDeedCustomersTR(deedid){
@@ -60,8 +61,8 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 {   
     // get the current owners and list them with links to the profile on the Arabic name
      var currentOwnersContent = "<table dir=rtl class=currentOwners>";
-    currentOwnersContent+="<tr><td colspan='3'><strong>Current Customers</strong></td></tr>";
-    currentOwnersContent+="<tr><td>customer name </td><td> customer nationality</td><td>Share(%)</td></tr>";
+    currentOwnersContent+="<tr><td colspan='3'><strong>الزبون الحالي</strong></td></tr>";
+    currentOwnersContent+="<tr><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
     if(typeof(Results["current"]["customers"])!="undefined"){
         var arrayNode= Results["current"]["customers"]
         for(var i = 0; i<arrayNode.length ; i++ ){
@@ -71,7 +72,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
             currentOwnersContent+=" </tr>"
     }
     } else{
-            currentOwnersContent+="<tr><td>Sorry no results found in this category</td></tr>"
+            currentOwnersContent+="<tr><td>عفوا لا توجد نتائج في هذا الصنف </td></tr>"
     }  
      currentOwnersContent+= "</table>";
 
@@ -82,12 +83,12 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
     landdetailsContent+= landTab();
     landdetailsContent+="</td></tr>" ;
     landdetailsContent+="<tr>";
-        landdetailsContent+="<td> <table width='50%' class=landDetails><tr> <td colspan='2'> <strong>Land Details</strong></tr>";
+        landdetailsContent+="<td> <table width='50%' class=landDetails><tr> <td colspan='2'> <strong>تفاصيل الارض</strong></tr>";
                 landdetailsContent+="<tr> <td> رمز المنطقة</td><td><a   >"+ Results["landInfo"]["LandID"]+"</a></td></tr>";
                 landdetailsContent+="<tr><td>الحوض</td><td>"+ Results["landInfo"]["Plot_No"]+"</td></tr>";
                 landdetailsContent+="<tr><td>القطعة</td><td>"+ Results["landInfo"]["Piece"]+"</td></tr>";
                 landdetailsContent+="<tr><td>المنطقة</td><td>"+ Results["landInfo"]["location"]+"</td></tr>";
-                landdetailsContent+="<tr><td>جنسية</td><td>"+ Results["landInfo"]["Land_Type"]+"</td></tr>";
+                landdetailsContent+="<tr><td>النوع</td><td>"+ Results["landInfo"]["Land_Type"]+"</td></tr>";
                 landdetailsContent+="<tr><td>المساحة</td><td>"+ Results["landInfo"]["TotalArea"]+"</td></tr>";
                 landdetailsContent+="<tr><td>شمالا</td><td>"+ Results["landInfo"]["North"]+"</td></tr>";
                 landdetailsContent+="<tr><td>جنوبا</td><td>"+ Results["landInfo"]["South"]+"</td></tr>";
@@ -108,18 +109,18 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
         previousOwnersContent+="</td></tr>" ;
             if(typeof(Results["previous"])!="undefined"){
                   var arrayNodeB= Results["previous"]["deed"]
-                  previousOwnersContent+="<tr><td colspan='2'>Previous Owners</td></tr>";
+                  previousOwnersContent+="<tr><td colspan='2'>المالك السابق</td></tr>";
                  
                      for(var j= 0; j<arrayNodeB.length; j++){ 
                            var arrayNode= Results["previous"]["deed"][j]["customers"]
                            
-                           previousOwnersContent+="<tr class='deed' onclick='showDeedCustomersTR("+arrayNodeB[j]["deed"]+")'><td colspan='2'><strong>Deed:"+arrayNodeB[j]["deed"]+"</strong></td></tr>";
-                           previousOwnersContent+="<tr class='"+arrayNodeB[j]["deed"]+" previousOwnerhead'><td>Customer Name </td><td> Customer Nationality</td></tr>";
+                           previousOwnersContent+="<tr class='deed' onclick='showDeedCustomersTR("+arrayNodeB[j]["deed"]+")'><td colspan='2'><strong>رقم العقد:"+arrayNodeB[j]["deed"]+"</strong></td></tr>";
+                           previousOwnersContent+="<tr class='"+arrayNodeB[j]["deed"]+" previousOwnerhead'><td>اسم الزبون </td><td> جنسية الزبون</td></tr>";
                           for(var i = 0; i<arrayNode.length ; i++ )
                               previousOwnersContent+="<tr  class='"+arrayNodeB[j]["deed"]+" previousOwnerEven'><td><input type='checkbox' name='prowners[]' value="+arrayNode[i]["CustomerID"]+"> <a class='searchLink' >"+ arrayNode[i]["CustomerNameArabic"]+"</a></td><td>"+ arrayNode[i]["Nationality"]+"</td></tr>";
                     }
             }else{
-                 previousOwnersContent+="<tr><td>Sorry no results found in this category</td></tr>"
+                 previousOwnersContent+="<tr><td>عفوا لا توجد نتائج في هذا الصنف</td></tr>"
             }       
         $("#previousowner").html(previousOwnersContent);
         previousOwnersContent+= "</table>";
@@ -130,8 +131,8 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
         finesContent+="</td></tr>" ;
        if(typeof(Results["fines"])!="undefined"){
                 var arrayNode= Results["fines"]
-               finesContent+="<tr><td colspan='5'><strong>Land Fines</strong></td></tr>";
-               finesContent+="<tr><td>ID </td><td> Remarks</td><td>Amount of Mortgaged </td><td>Type(Type Deatils) </td><td> Date</td></tr>";
+               finesContent+="<tr><td colspan='5'><strong>غرامات الارض</strong></td></tr>";
+               finesContent+="<tr><td>ID </td><td> ملاحظات</td><td>الكمية المرهونة </td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
                for(var i = 0; i<arrayNode.length ; i++ ){
                         finesContent+="<tr><td> <a onlick=''>"+ arrayNode[i]["HajzID"]+"</a></td><td>"+ arrayNode[i]["Remarks"]+"</td>";
                         finesContent+="<td>"+ arrayNode[i]["AmountMortgaged"]+"</td>"
@@ -139,7 +140,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                         finesContent+="</tr>";
                }
      }else{
-                 finesContent+="<tr><td>Sorry no results found in this category</td></tr>"
+                 finesContent+="<tr><td>عفوا لا توجد نتائج في هذا الصنف</td></tr>"
      }       
         $("#fines").html(finesContent);
         finesContent+= "</table>";
@@ -186,7 +187,7 @@ function displayCustomerProfile(Results){// Will load the customer profile from 
     userdetailsContent+="<tr ><td colspan= 6>  " ;
     userdetailsContent+= userTab();
     userdetailsContent+="</td></tr>" ;
-    userdetailsContent+="<tr><td><strong> User Profile</strong><table class=landDetails>"
+    userdetailsContent+="<tr><td><strong> تفاصيل العضو</strong><table class=landDetails>"
     userdetailsContent+="<tr><td>الإسم -- عربي</td><td>"+ Results[0]["CustomerNameArabic"]+"</td></tr>";
     userdetailsContent+="<tr><td>عنوان المنزل</td><td>"+ Results[0]["HomeAddress"]+"</td></tr>";
     userdetailsContent+="<tr><td>هاتف المنزل</td><td>"+ Results[0]["HomePhone"]+"</td></tr>";
@@ -312,7 +313,7 @@ function diplayUserDetails(customerID, type ){ // list the land info of any cust
                         if(typeof(Results["landDetails"]["previous"])!="undefined") 
                             displayPreviousLands(Results)
                         else  
-                            $("#previouslandresult").html( userTab(type,customerID)+"<center>sorry no previous land found</center>");
+                            $("#previouslandresult").html( userTab(type,customerID)+"<center>عفوا لا توجد أراضي سابقة</center>");
                         $("#landresult").show();
 
                 }//results

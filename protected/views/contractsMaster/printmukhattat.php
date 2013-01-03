@@ -15,13 +15,20 @@
                 ));
             ?>
 
-<input type='button' value='اطبع' id='print'>
+<input type='button' value='اطبـــع' id='print' style='margin-top:10px;'>
 
 <script>
 $('#print').click(function() { 
 	
 	var searchstring = $("#landid").val();
-	var paramJSON = JSON.stringify(searchstring);
+	
+	
+	var params = {
+		landid: searchstring,
+		
+	}
+	
+	var paramJSON = JSON.stringify(params);
 	
 	$.post(
 	'<?php echo $this->createUrl("deedMaster/getdeed")?>', //who will receive the ajax data and process it.. landresult action in contractsMaster controller
@@ -33,8 +40,11 @@ $('#print').click(function() {
 					var url = '<?php echo $this->createUrl("contractsMaster/printmukhattat/"); ?>';
 					url+="/"+deedResult;
 					var contractPrint = window.open(url);
+					
+					$('#landid').val("");
+					
 				}
 			)});
-			
+	
 </script>
 

@@ -44,7 +44,7 @@ foreach($locationsT as $key=>$value)
                         'minLength'=>'3',
                     ),
                     'htmlOptions'=>array(
-                        'style'=>'height:20px;',
+                        'style'=>'height:20px;float:right;',
                         'size'=>'15px;',
                     ),
                 ));
@@ -58,8 +58,8 @@ foreach($locationsT as $key=>$value)
 		'htmlOptions'=>array('style'=>'height:20px;'),
 	));*/
 ?>
-<input type="button" value="حدث" id="makenew">
-<div id='deedRemarksdiv' style='float:left;'>نوع المعاملة: 
+<input type="button" value="حدث" id="makenew" style='float:right;'>
+<div id='deedRemarksdiv' style='float:right; margin-right:10px;'>نوع المعاملة: 
 <select id='deedRemarks'>
 	<option value='ألشراء'>الشراء</option>
 	<option value='العطاء والتمليك'>العطاء والتمليك</option>
@@ -67,17 +67,36 @@ foreach($locationsT as $key=>$value)
 	<option value='الافراز'>الافراز</option>
 	<option value='الدمج'>الدمج</option>
 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type='checkbox' value='الاسكان'>برنامج الشيخ زايد للاسكان</input>
+<input type='checkbox' value='الاسكان' id='iskan'>برنامج الشيخ زايد للاسكان</input>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-رقم السند أو أرقام السند التي دمجت<span><input type='text' id='enteredlandid' size='20px'></span></div>
+<span id='extralandid'>رقم السند أو أرقام السند التي دمجت<input type='text' id='enteredlandid' size='20px'></span></div>
 </div>
-<p id="newland" align="right"></p>
+
+<br><p id="newland" align="right" style='margin-top:10px;'></p>
 
 <script type='text/javascript'>
+	
+	$("#extralandid").hide();
+	
+	$("#deedRemarks").bind('change',function() {
+		if ($("#deedRemarks").val()=='التعويض عن اراضي مستقطعه' || $("#deedRemarks").val()=='الافراز' || $("#deedRemarks").val()=='الدمج')
+		{	
+			$('#extralandid').show();
+			console.log($('#iskan').attr('checked'));
+		}
+		else
+			$('#extralandid').hide();
+		
+	});
+	
 	var results = "";
     $("#LandID").bind('dblclick',function() {
 	
 		var LandID = $("#LandID").val();
+		
+		if (LandID == "" )
+			return;
+			
 		var jLandID = JSON.stringify(LandID);	 
 		$.post(
 			'<?php echo $this->createUrl("DeedMaster/LandInfo")?>', 
@@ -210,8 +229,10 @@ foreach($locationsT as $key=>$value)
   		}		
 	});
 </script>
+
 <input type="hidden" id="LocationID">
 <input type='hidden' id='Remarks'>
+
 <div id="DeedInfo" align="right">
 	Deeds here? 
 </div>
@@ -219,7 +240,7 @@ foreach($locationsT as $key=>$value)
 <div id="LandInfo">
 	<table>
 		
-		<tr style='background-color:#EFEFFC;'>
+		<tr style='background-color:#EFEDAC;'>
 		<td>المنطقة: <?php
 			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                     'name'=>'location',
@@ -300,22 +321,7 @@ foreach($locationsT as $key=>$value)
 			),
 		));
 	?>
-	
-	<?php
-/*
-		$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-			'name'=>'buyers',
-			'source'=>$customerNames, //came from the controller.. the array we constructed of all names, arabic and english
-			// additional javascript options for the autocomplete plugin
-			'options'=>array(
-				'minLength'=>'4',
-			),
-			'htmlOptions'=>array(
-				'style'=>'height:20px;'
-			),
-		));*/
-	?>
-	
+
 	<input type="button" value="اضافة" id="addbuyer"/>
 	<div style="clear:both"></div>
 	<div id="buyernotfound">الاسم غير موجود هل تريد اضافة اسم  جديد؟<input type="button" value="نعم" onclick="yesnewcustomer()"></div>
@@ -374,7 +380,7 @@ foreach($locationsT as $key=>$value)
 						insertBuyer(customerResult);
 						initRemoveItem();
 				}				            
-				console.log('out of the data functio'); 
+				console.log('out of the data function'); 
 			}
 		);
 
@@ -431,7 +437,19 @@ foreach($locationsT as $key=>$value)
 		var Remarks =$('#Remarks').val();
 		var CreatedDate = $('#date').val();
 		var HijriDate = $('#HijriDate').val();
-		var deedRemarks = $('#deedRemarks').val();
+		
+		if ($("#deedRemarks").val()=='التعويض عن اراضي مستقطعه' || $("#deedRemarks").val()=='الافراز' || $("#deedRemarks").val()=='الدمج')
+		{
+			var deedRemarks = "ألشراء";
+			deedRemarks+= " "+$('#deedRemarks').val()+" السند"+$('#enteredlandid').val();
+		}
+		else
+			var deedRemarks = $('#deedRemarks').val();
+			
+		
+		if ($('#iskan').attr('checked')=='checked')
+			deedRemarks+=' -  برنامج الشيخ زايد للاسكان';
+			
 		
 		$(".onebuyer").each(function() {
                 if($(this).attr("id"))

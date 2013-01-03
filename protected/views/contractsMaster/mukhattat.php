@@ -131,13 +131,13 @@ $how = array(
 	
 </table>
 
-<div style="font-family:GE SS Two Light; font-size:70%; margin-right:8mm; margin-top:1mm; width:130mm;">
+<div style="font-family:GE SS Two Light; font-size:70%; margin-right:8mm; margin-top:1mm; width:130mm;" id='tochange'>
 آلت إليه&nbsp;<?php 
 
 $cm = ContractsMaster::model()->findByPk($deed->ContractID);
 
 if(!$cm)
-	echo "الشراء";
+	echo "با".$deed->Remarks;
 else
 	echo $how[$cm->ContractType]; 
 
@@ -188,3 +188,20 @@ else
 </div>
 
 </div>
+
+<link type="text/css" href="/AjmanLandProperty/css/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="/AjmanLandProperty/js/jquery-1.8.1.min.js"></script> 
+
+<script type='text/javascript'>
+
+$("#tochange").bind('dblclick',function() {
+	var Remarks = prompt("دخل الملاحظة");
+	if (Remarks== null)
+	{
+		return;
+	}
+	else
+		$("#tochange").html(Remarks);
+		
+});
+</script>

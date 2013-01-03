@@ -124,7 +124,7 @@ class CustomerServiceController extends Controller
 
                                          }
                                        //previous owners
-                                       $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring, "Remarks"=>"cancelled"));
+                                       $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring, "Remarks"=>"cancelled"),array('order'=>'DeedID DESC'));
 
                                         foreach ($deeds as $key=>$did) {
                                          $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$did->DeedID));

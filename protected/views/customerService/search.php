@@ -84,15 +84,15 @@ return false;
 			<table id='landinfo'>
 			</table>
 			
-			<h6>Current Owners:</h6>
+			<h6>المالك الحالي :</h6>
 			<table id='currentowners'>
-				<th>customer ID</th>	<th>Customer Name</th>	<th>Nationality</th>	<th>Share</th>
+				<th>رقم الزبون</th>	<th>اسم الزبون</th>	<th>الجنسية</th>	<th>مشاركة</th>
 			</table>
 			
-			<h6>Previous Owners:</h6>
+			<h6>المالك السابق:</h6>
 			<table id='previousowners'>
 				<tr><th>Date 1</th></tr>
-					<th>customer ID</th>	<th>Customer Name</th>	<th>Nationality</th>	<th>Share</th>			
+					<th>رقم الزبون</th>	<th>اسم الزبون</th>	<th>الجنسية</th>	<th>مشاركة</th>			
 			</table>
 			
 		</div>
@@ -102,23 +102,23 @@ return false;
             <div id='previousowner'></div>
 		
 		<div id='customerresult'>
-			Loading...
+			تحميل ...
 		</div>
 		
 		<div id='areasearch'>
-			List of Lands in a certain area
+			قائمة بالاراضي في منطقة معينة 
 		</div>
 		
 		<div id='countryresult'>
-			Loading...
+			تحميل ...
 		</div>
                 
                 <div id='loadingresult'>
-			Loading...
+			تحميل ...
 		</div>
             
                 <div id='customerprofile'>
-			Loading...
+			تحميل ...
 		</div>
 	
 	</div>

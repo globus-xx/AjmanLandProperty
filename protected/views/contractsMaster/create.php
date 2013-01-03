@@ -335,6 +335,12 @@ $this->menu=array(
 			
 		});
 		console.log(total);	
+		console.log(realstate.length);
+		if(realstate==0)
+		{
+				alert("NO waseet??");
+				return;
+		}
 	    if (total>100 || total<100 || selected==0)
         {
 			if (total==111)
@@ -557,7 +563,10 @@ $this->menu=array(
 				html += " <div class='onerealstate' id='onerealstate"+result.waseet['CardID']+"'> ";
 				html += "       <div> ";
 				html += "           <div style='float:right;width:50%;'><a target='_blank' href='/AjmanLandProperty/index.php/RealEstatePeople/"+result.waseet['CardID']+"'>"+result.waseet['Name']+"</a></div> ";
-				html += "           <div style='float:right; width:10%;'><input type='checkbox'  id='sellerstate"+result.waseet['CardID']+"'/></div> ";
+				if (result.waseet['CardID']==107)
+					html += "           <div style='float:right; width:10%;'><input type='checkbox'  id='sellerstate"+result.waseet['CardID']+"' checked disabled='disabled'/></div> ";
+				else
+					html += "           <div style='float:right; width:10%;'><input type='checkbox'  id='sellerstate"+result.waseet['CardID']+"'/></div> ";
 				html += "           <div style='float:right; width:10%;'><input type='checkbox'  id='buyerstate"+result.waseet['CardID']+"'/></div> ";
 				html += "			<div style='float:right; width:20%;'><select id='wakeeltype"+result.waseet['CardID']+"'><option value='waseet'>وسيط</option></select></div>";
 				html += "          <div style='float:right; width:10%;' class='removeitem' id='" + result.waseet['CardID']+ "'>&nbsp;</div>";

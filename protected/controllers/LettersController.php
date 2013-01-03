@@ -387,6 +387,8 @@ class LettersController extends Controller
             $landid=$_POST['landid'];                      
             $destination=$_POST['destination'];
             $landprice=$_POST['landprice'];
+            
+            $landdesc=$_POST['landdesc'];
           
          
             if(isset($_POST['cuowners']))
@@ -413,7 +415,7 @@ class LettersController extends Controller
                                       foreach($previos as $owns)
                                       {
                                           
-                                                $go=$owns[$g];
+                                                $go=$owns;
                                                                                                                                              
                                                 $searchCriteria->condition = "`CustomerID` =  $go";                                                                    
                                                 $customer = CustomerMaster::model()->findAll($searchCriteria);
@@ -452,12 +454,13 @@ class LettersController extends Controller
                                        if(isset($deeds[0]->DeedID))
                                        {
                                          
-                                         $buydate=$deeds[0]->DateCreated;
+                                         
                                            
                                          if(isset($deeds[0]->ContractID))
                                           {
                                                $contractMaster = ContractsMaster::model()->findAllByAttributes(array("ContractsID"=>$deeds[0]->ContractID));                                              
-                                               $landprice=$contractMaster[0]->AmountCorrected;                                               
+                                               $landprice=$contractMaster[0]->AmountCorrected; 
+                                               $buydate=$contractMaster[0]->DateCreated;                                              
                                           }
                                           
                                        }  
@@ -475,7 +478,7 @@ class LettersController extends Controller
                                       {
                                           
                                           
-                                       $go=$owns[$g];
+                                       $go=$owns;
                                                                              
                                       
                                        $searchCriteria->condition = "`CustomerID` =  $go";                                                                    
@@ -550,7 +553,7 @@ class LettersController extends Controller
                                            
                                             
                                             
-                                            if($username=="akhalfan")
+                                            if($username=="admin")
                                                 $represent="01";
                                             
                                             else if($username=="yalshamsi")
@@ -601,7 +604,7 @@ class LettersController extends Controller
                                               
                                               $str = str_replace("letterid", $letternumber, $str);
                                               $str = str_replace("employeename", $username, $str);
-                                              
+                                              $str = str_replace("landdesc", $landdesc, $str);
                                               
                                      
                                        
@@ -842,7 +845,7 @@ echo $text;
                 
                 $post=new Exportedletters;
                 $post->Exportedlettertext=$text;  
-                $post->Userid="";               
+                $post->Userid=Yii::app()->userID;               
                 $post->save();       
              
             // print CJSON::encode($text);

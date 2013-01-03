@@ -305,9 +305,11 @@ class DeedMasterController extends Controller
 		
 		if(isset($_POST["data"]))
 		{
+			$data = json_decode($_POST['data']);
+		
 			$qtxt = "SELECT DeedID from DeedMaster WHERE LandID LIKE :landid AND Remarks NOT LIKE 'cancelled'";
 			$command = Yii::app()->db->createCommand($qtxt);
-			$command->bindValue(':landid',json_decode($_POST["data"]),PDO::PARAM_STR);
+			$command->bindValue(':landid',$data->landid,PDO::PARAM_STR);
 			$res = $command->queryColumn();
 			
 		}
