@@ -94,7 +94,7 @@ class CustomerServiceController extends Controller
                                $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
                                $searchCriteria->params = array(':searchstring'=> $searchstring);
                                $searchCriteria->order = 'CustomerNameArabic';
-                               $searchCriteria->limit = '25';
+                               //$searchCriteria->limit = '25';
                                if (CustomerMaster::model()->count($searchCriteria)>0)
                                 {
                                        $customerResult = CustomerMaster::model()->findAll($searchCriteria);
@@ -228,7 +228,7 @@ class CustomerServiceController extends Controller
                                $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
                                $searchCriteria->params = array(':searchstring'=> $searchstring);
                                $searchCriteria->order = 'CustomerNameArabic';
-                               $searchCriteria->limit = '25';
+                              // $searchCriteria->limit = '25';
                                if (CustomerMaster::model()->count($searchCriteria)>0)
                                 {
                                        $lands["currentOwners"]=$customerResult = CustomerMaster::model()->findAll($searchCriteria);
