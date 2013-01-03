@@ -16,6 +16,10 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+        'application.modules.user.models.*',
+        'application.modules.user.components.*',
+        'application.modules.rights.*',
+        'application.modules.rights.components.*',
 	),
 
 	'modules'=>array(
@@ -28,13 +32,27 @@ return array(
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
 		
+		'user'=>array(
+				'tableUsers' => 'users',
+				'tableProfiles' => 'profiles',
+				'tableProfileFields' => 'profiles_fields',
+		),
+		
+		'rights'=>array(
+//					'superuserName'=>'admin',
+//        	        'install'=>true,
+		),
+		
 	),
 
 	// application components
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+                'class'=>'RWebUser',
+                // enable cookie-based authentication
+                'allowAutoLogin'=>true,
+                'loginUrl'=>array('/site/login'),
 		),
 		// uncomment the following to enable URLs in path-format
 		
@@ -60,8 +78,13 @@ return array(
 			'charset' => 'utf8',
 		),
         'authManager'=>array(
-            'class'=>'CDbAuthManager',
-            'connectionID'=>'db',
+                'class'=>'RDbAuthManager',
+				'assignmentTable' => 'authassignment',
+				'itemTable' => 'authitem',
+				'itemChildTable' => 'authitemchild',
+				'rightsTable' => 'rights',
+//                'connectionID'=>'db',
+//                'defaultRoles'=>array('Guest'),
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
