@@ -48,8 +48,8 @@ class Exportedletters extends CActiveRecord
 	//		array('DocumentNumber', 'length', 'max'=>25),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-                        array('ExportedletterID, Exportedlettertext,Userid,ExportedDate ', 'safe', 'on'=>'search'),
-			array('ExportedletterID, Exportedlettertext,Userid,ExportedDate', 'safe'),
+                        array('ExportedletterID, Exportedlettertext,UserName,ExportedDate ', 'safe', 'on'=>'search'),
+			array('ExportedletterID, Exportedlettertext,UserName,ExportedDate', 'safe'),
                         
 		);
 	}
@@ -77,7 +77,7 @@ class Exportedletters extends CActiveRecord
 		return array(
 			'ExportedletterID' => 'رقم الرسالة الصادرة',
 			'Exportedlettertext' => 'الرسالة الصادرة',
-			'Userid' => 'رقم المستخدم',
+			'UserName' => 'اسم المستخدم',
                         'ExportedDate' => 'تاريخ الاصدار',
 		);
 	}
@@ -95,7 +95,7 @@ class Exportedletters extends CActiveRecord
 
 		$criteria->compare('ExportedletterID',$this->ExportedletterID);
 		$criteria->compare('Exportedlettertext',$this->Exportedlettertext,true);
-                $criteria->compare('Userid',$this->Userid,true);
+                $criteria->compare('UserName',$this->UserName,true);
 		$criteria->compare('ExportedDate',$this->ExportedDate,true);
                 
 		return new CActiveDataProvider($this, array(

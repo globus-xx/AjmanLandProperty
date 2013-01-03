@@ -39,7 +39,7 @@
                             mywindow.close();                           
                             
       
-                                        
+                           //window.close();                                        
                           
                         });
 		});  

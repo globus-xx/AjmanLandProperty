@@ -208,7 +208,7 @@ return false;
 						
 						console.log(Results);
 //						displayCustomerInfo(Results);
-                                                diplayUserDetails(Results[0]['CustomerID'], 0)
+                                                diplayUserDetails(Results[0]['CustomerID'], 0, Results[0])
 					}
 					
 					//A country was entered, and a list of customers belonging to the country are returned

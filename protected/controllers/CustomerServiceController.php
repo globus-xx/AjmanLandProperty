@@ -147,10 +147,12 @@ class CustomerServiceController extends Controller
 		
 		}else{// this will find land of cutomerID provided in $_POST["string"]
                     	if(isset($_POST["action"]) and $_POST["action"]=="propertySearch") //check that this action is only called using POST.. not get, not regular.
-                         {
+                         {  $lands["landDetails"]["current"] ="";
+                            $lands["landDetails"]["previous"] ="";
 			 $searchstring = json_decode($_POST["string"]); 
 //                        will get deed data feom customer ID
 				$deedDetails = DeedDetails::model()->findAllByAttributes(array("CustomerID"=>$searchstring));
+                                $_dids= null;
 
                                   foreach ($deedDetails as $key=>$did) {
                                          $_dids[] = $did->DeedID;

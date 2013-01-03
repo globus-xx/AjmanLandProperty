@@ -228,7 +228,7 @@ function hideList(){
     else
         $("#customerList").show();
 }
-function displayPreviousLands(Results){
+function displayPreviousLands(Results){ 
     var arrayNode =Results["landDetails"]["previous"];
             var previousLands="";
             previousLands+="<table >";
@@ -247,7 +247,7 @@ function displayPreviousLands(Results){
         previousLands+="</table></td></tr><table>";
         $("#previouslandresult").html(previousLands);
 }
-function diplayUserDetails(customerID, type ){ // list the land info of any customerID provided
+function diplayUserDetails(customerID, type , CustomerResult){ // list the land info of any customerID provided
         $('#loadingresult').show();
         var searchstring = []
         searchstring["string"] = customerID;
@@ -275,17 +275,24 @@ function diplayUserDetails(customerID, type ){ // list the land info of any cust
                             content+="<td>القطعة</td>" ;
                             content+="<td></td>" ;
                             content+="</tr>" ;
-               if(typeof(Results["currentOwners"][0])!="undefined")  displayCustomerProfile(Results["currentOwners"][0]);
-                else displayCustomerProfile(Results["currentOwners"])
+                            CustomerResult[0]= null;
+                            CustomerResult[0] = CustomerResult;
+                            displayCustomerProfile(CustomerResult)
+//               if(typeof(Results["currentOwners"][0][0])!="undefined" )  displayCustomerProfile(Results["currentOwners"][0]);
+//                else 
+//                    displayCustomerProfile(Results["currentOwners"])
 
-                if(typeof(Results["landDetails"]["current"])!="undefined"){
+
+   
+                alert(typeof(Results["landDetails"]["current"])+"12");
+                if(typeof(Results["landDetails"]["current"])!="undefined"){ 
                             if(Results["landDetails"]["current"].length>0 && Results["landDetails"]["current"]!= null ){
                                     var arraryNode = Results["landDetails"]["current"];
-//                                    alert(">>"+Results["landDetails"]["current"][0])
+
 
                                     for(var i = 0 ; i<arraryNode.length; i++){
                                         var index = i+1
-//                                        alert(">>"+Results["currentOwners"][i][0]["CustomerNameArabic"]+Results["currentOwners"][i].length)
+
                                         var arraryNodeB =Results["currentOwners"][i]
                                         var CurrentOwner="";
                                         if(typeof(Results["currentOwners"][i])!="undefined" && Results["currentOwners"][i].length>=2 ){
@@ -309,14 +316,15 @@ function diplayUserDetails(customerID, type ){ // list the land info of any cust
                             }
                         content +="</table>";
                         $("#landresult").html(content);
-                        hideAll(); 
-                        if(typeof(Results["landDetails"]["previous"])!="undefined") 
+                        hideAll();
+
+                }//results wit current lands
+                else{  $("#landresult").html(userTab()); }
+                if(typeof(Results["landDetails"]["previous"])!="undefined") 
                             displayPreviousLands(Results)
                         else  
                             $("#previouslandresult").html( userTab(type,customerID)+"<center>عفوا لا توجد أراضي سابقة</center>");
                         $("#landresult").show();
-
-                }//results
             }//sucess
         });// ajax
 }

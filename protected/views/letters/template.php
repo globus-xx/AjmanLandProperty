@@ -92,13 +92,36 @@ $('.search-form form').submit(function(){
 </p>
 
 
+<table style="width:300px;margin: 0 auto;">
+    
+    <tr><td>اسم المتغيرات</td><td>الوظيفة</td></tr>
+    
+    <tr><td>tdate</td><td>تاريخ اليوم</td></tr>
+    <tr><td>letterid</td><td>رقم الصادر</td></tr>
+    <tr><td>letterid</td><td>رقم الصادر</td></tr>
+    
+    <tr><td>landid</td><td>سند ملك رقم</td></tr>
+    <tr><td>location</td><td>المنطقة</td></tr>
+    <tr><td>plotnum</td><td>رقم الحوض</td></tr>
+    <tr><td>peice</td><td>رقم القطعة</td></tr>
+    <tr><td>pgroup</td><td>المالك السابق</td></tr>
+    <tr><td>ogroup</td><td>المالك الحالي</td></tr> 
+    <tr><td>landprice</td><td>سعر بيع الارض </td></tr> 
+    <tr><td>buydate</td><td>تاريخ بيع الارض </td></tr> 
+    <tr><td>destination</td><td>اسم الوجهة</td></tr> 
+    <tr><td>employeename</td><td>اسم المستخدم</td></tr> 
+     
+</table>
+
 <form action="gosave" method="post" >
 
-<table>
+<table style="width:600px">
 <tr><td>لاضافة ملف</td></tr>
 <tr><td>عنوان الملف</td><td>:</td><td><input type="text" name="ftitle" size="130"></td></tr>
 <tr><td width="50%">محتوى الملف</td><td>:</td><td> <textarea id="elm1" name="ftext" rows="15" cols="100"  > </textarea></td></tr>
 <tr><td colspan="3"><input type="submit" name="go" value="حفط"></td></tr>
+
+
 </table>
 
 </form>
@@ -133,20 +156,43 @@ $this->widget('zii.widgets.grid.CGridView', array(
  */
 
 ?>
-<table >
-<tr><td>رقم الملف</td><td>عنوان الملف</td><td>تعديل</td></tr>
+<hr>
+<table style="width:350px;margin: 0 auto;">
+<tr><td colspan="2"><center><h3>الرسائل المولدة</h3></td></tr>    
+<tr><td>عنوان الملف</td><td>تعديل</td></tr>
 
 <?php
 foreach($item as $row)
 {  
   ?>
  
-<tr><td width="10%"><?php echo $row->LetterID ?> </td><td width="20%"><?php echo $row->Title ?></td><td width="20%"><a href="open/<?php echo $row->LetterID ?>"  ><img src="../../images/viewIcon.png" title="View" /></a>&nbsp;<a href="download/<?php echo $row->LetterID ?>" ><img src="../../images/download.png" title="Download"/></a>&nbsp;<a href="update/<?php echo $row->LetterID ?>" ><img src="../../images/update3.png" title="Update" /></a>&nbsp;<a href="delete/<?php echo $row->LetterID ?>" ><img src="../../images/delete.png" title="Delete"/></a></td></tr>
+<tr><td><?php echo $row->Title ?></td><td><a href="open/<?php echo $row->LetterID ?>"  ><img src="../../images/viewIcon.png" title="View" /></a>&nbsp;<a href="download/<?php echo $row->LetterID ?>" ><img src="../../images/download.png" title="Download"/></a>&nbsp;<a href="update/<?php echo $row->LetterID ?>" ><img src="../../images/update3.png" title="Update" /></a>&nbsp;<a href="delete/<?php echo $row->LetterID ?>" ><img src="../../images/delete.png" title="Delete"/></a></td></tr>
 
 <?php
 }
 ?>
 </table>
+
+
+
+<hr>
+<table style="width:150px;margin: 0 auto;">
+<tr><td colspan="2"><h3>الرسائل الصادرة</h3></td></tr>
+<tr><td>اسم المستخدم</td><td>رؤية</td></tr>
+
+<?php
+foreach($lettersgenerated as $row)
+{  
+  ?>
+ 
+<tr><td ><?php echo $row->UserName ?> </td><td><a href="viewExportedLetters/<?php echo $row->ExportedletterID ?>" ><img src="../../images/viewIcon.png" title="View" /></a></td></tr>
+
+<?php
+}
+?>
+</table>
+
+
 
 
 

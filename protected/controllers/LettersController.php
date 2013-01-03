@@ -93,6 +93,11 @@ class LettersController extends Controller
 				'users'=>array('@'),
 			),
                     
+                    array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('index','viewExportedLetters'),
+				'users'=>array('@'),
+			),
+                    
                      array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','download'),
 				'users'=>array('@'),
@@ -103,7 +108,7 @@ class LettersController extends Controller
 				'users'=>array('@'),
 			),
                         array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','Temp'),
+				'actions'=>array('index','temp'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -272,11 +277,15 @@ class LettersController extends Controller
             $criteria = new CDbCriteria;            		
             $items = Letters::model()->findAll($criteria);
 
+            $criteria2 = new CDbCriteria;            		
+            $exported= Exportedletters::model()->findAll($criteria2);
             
             
+            $criteria3 = new CDbCriteria;            		
+            $destination= Destination::model()->findAll($criteria3);
             
 		$this->render('template',array(
-			'item'=>$items,
+			'item'=>$items,'lettersgenerated'=>$exported,'destinations'=>$destination
 		));      
                 
                 
@@ -359,6 +368,7 @@ class LettersController extends Controller
 	{                                                                                              
                                                                        
            $destination="";
+           
            $error=0;
            $str="";
            $errormes="";
@@ -367,7 +377,8 @@ class LettersController extends Controller
            $location="";
            $plotno="";
            $peice="";
-           $buydate="";
+           
+           $buydate="no date";
            
            
            $prevcusname="";
@@ -380,16 +391,20 @@ class LettersController extends Controller
             $currentcusdoctype="";
             $currentcusdocnum="";
             
-            $currentowners="";            
-            $previousowners="";
+            $currentowners="no owners";            
+            $previousowners="no owners";
+            
+            $landdesc="no description";
                    
             $id=$_POST['letterid'];                        
             $landid=$_POST['landid'];                      
             $destination=$_POST['destination'];
             $landprice=$_POST['landprice'];
             
+            if(isset($_POST['landdesc']))
+            {
             $landdesc=$_POST['landdesc'];
-          
+            }
          
             if(isset($_POST['cuowners']))
             {
@@ -405,7 +420,7 @@ class LettersController extends Controller
           
                                       
                                       
-                                          
+                                       // The previous Owner information     
                                        if(isset($previos[0]))
                                        {
                                                                                                                                  
@@ -425,6 +440,19 @@ class LettersController extends Controller
                                                 $prevcusdoctype=$customer[0]->DocumentType;
                                                 $prevcusdocnum=$customer[0]->DocumentNumber;
                                                 
+                                                if($prevcusnationality=="")
+                                                {
+                                                    $prevcusnationality="no nationality";
+                                                }
+                                                else if($prevcusdoctype=="")
+                                                {
+                                                    $prevcusdoctype="no document type";
+                                                }
+                                                else if($prevcusdocnum=="")
+                                                {
+                                                    $prevcusdocnum="no document number";
+                                                }
+                                                
                                                 
                                                   if($g==0)
                                                     $previousowners=$prevcusname." (".$prevcusnationality.") "."بموجب ". $prevcusdoctype."  رقم ".$prevcusdocnum;
@@ -437,7 +465,7 @@ class LettersController extends Controller
                                        
                                        }
                                        else
-                                          $pgroup="no previous owners";
+                                          $previousowners="no previous owners";
                                         
                                        
                                        
@@ -452,17 +480,13 @@ class LettersController extends Controller
                                      
                                       
                                        if(isset($deeds[0]->DeedID))
-                                       {
-                                         
-                                         
-                                           
+                                       {                                                                                                                             
                                          if(isset($deeds[0]->ContractID))
                                           {
                                                $contractMaster = ContractsMaster::model()->findAllByAttributes(array("ContractsID"=>$deeds[0]->ContractID));                                              
                                                $landprice=$contractMaster[0]->AmountCorrected; 
                                                $buydate=$contractMaster[0]->DateCreated;                                              
-                                          }
-                                          
+                                          }                                          
                                        }  
                                      
                                       
@@ -470,7 +494,7 @@ class LettersController extends Controller
                                        if(isset($current[0]))
                                        {
                                      
-                                      // The Last Owner information  
+                                      // The current Owner information  
                                       $g=0;
                                       $searchCriteria=new CDbCriteria;
                                           
@@ -489,6 +513,18 @@ class LettersController extends Controller
                                        $currentcusdoctype=$customer[0]->DocumentType;
                                        $currentcusdocnum=$customer[0]->DocumentNumber;
                                        
+                                                if($currentcusnationality=="")
+                                                {
+                                                    $currentcusnationality="no nationality";
+                                                }
+                                                else if($currentcusdoctype=="")
+                                                {
+                                                    $currentcusdoctype="no document type";
+                                                }
+                                                else if($currentcusdocnum=="")
+                                                {
+                                                    $currentcusdocnum="no document number";
+                                                }
                                                                                                                                                         
                                           if($g==0)
                                           $currentowners=$currentcusname." (".$currentcusnationality.") "."بموجب ". $currentcusdoctype."  رقم ".$currentcusdocnum;
@@ -500,8 +536,37 @@ class LettersController extends Controller
                                       
                                       
                                         }
+                                        else if(isset($_POST['customerid']))
+                                        {
+                                            $customeridnumber=$_POST['customerid'];
+                                            
+                                             
+                                             $searchCriteria=new CDbCriteria;
+                                             $searchCriteria->condition = "`CustomerID` =  $customeridnumber";                                                                    
+                                             $customer = CustomerMaster::model()->findAll($searchCriteria);
+                                             
+                                                $currentcusname=$customer[0]->CustomerNameArabic;
+                                                $currentcusnationality=$customer[0]->Nationality;
+                                                $currentcusdoctype=$customer[0]->DocumentType;
+                                                $currentcusdocnum=$customer[0]->DocumentNumber;
+                                                
+                                               if($currentcusnationality=="")
+                                                {
+                                                    $currentcusnationality="no nationality";
+                                                }
+                                                else if($currentcusdoctype=="")
+                                                {
+                                                    $currentcusdoctype="no document type";
+                                                }
+                                                else if($currentcusdocnum=="")
+                                                {
+                                                    $currentcusdocnum="no document number";
+                                                }
+                                        
+                                                $currentowners=$currentcusname." (".$currentcusnationality.") "."بموجب ". $currentcusdoctype."  رقم ".$currentcusdocnum;
+                                        }
                                        else
-                                            $ogroup="no current owners";
+                                            $currentowners="no current owners";
 
 
                                       
@@ -760,6 +825,29 @@ $objWriter->save('helloWorld.docx');
 //            echo $text;
         }
         
+        public function actionviewExportedLetters($id)
+	{
+            
+            $criteria = new CDbCriteria;
+            $criteria->condition = "`ExportedletterID` = $id";
+		
+            $items = Exportedletters::model()->findAll($criteria);
+
+            foreach ($items as $item)            
+            {
+                $text=$item->Exportedlettertext;               
+            }
+            
+            
+       
+            
+            $this->render("viewletter" ,array(
+			'text'=>$text
+		));
+            
+            
+        }
+        
         
         public function actiondownload($id)
 	{
@@ -845,9 +933,10 @@ echo $text;
                 
                 $post=new Exportedletters;
                 $post->Exportedlettertext=$text;  
-                $post->Userid=Yii::app()->userID;               
-                $post->save();       
-             
+                $post->UserName=Yii::app()->user->name;               
+                $post->save(); 
+                
+            // Yii::app()->user->name
             // print CJSON::encode($text);
                       
                
