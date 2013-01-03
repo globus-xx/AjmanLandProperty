@@ -18,6 +18,11 @@ class ContractsMasterController extends Controller
 			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
+        
+        public function primaryKey()
+    {
+        return array('CustomerID');
+    }
 
 	/**
 	 * Specifies the access control rules.
