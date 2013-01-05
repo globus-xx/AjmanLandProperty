@@ -89,7 +89,13 @@
 								array('label'=>'طباعة مجطط','url'=>array('/ContractsMaster/mukhattat')),
 		)),
                 
-                array('label'=>'خدمة العملاء','url'=>array('/CustomerService')),
+                array('label'=>'خدمة العملاء','url'=>array('/CustomerService'),                    
+                     'items'=>array(
+								array('label'=>'Letter Management','url'=>array('/Letters/temp/')),
+                                                                array('label'=>'Destination Management','url'=>array('/destination/')),
+                                                                array('label'=>'Exported Letters Management','url'=>array('/exportedletters/')),
+								
+                )),
             
             	array('label'=>'دخول', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 			

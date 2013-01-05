@@ -418,6 +418,11 @@ class LettersController extends Controller
             {
                $previos=$_POST['prowners'];
             }
+            
+            if(isset($_POST['lands']))
+            {
+               $landids=$_POST['lands'];
+            }
           
           
                                       
@@ -468,6 +473,58 @@ class LettersController extends Controller
                                        }
                                        else
                                           $previousowners="no previous owners";
+                                       
+                                       
+                                       
+                                       
+                                      
+
+                                       
+                                       // The lands owned by a customer     
+                                       if(isset($landids[0]))
+                                       {
+                                                                                                                                 
+                                      $searchCriteria=new CDbCriteria;  
+                                      $landstable="<table style='min-width:400px;'><tr><td>سند ملك </td> <td>المنطقة</td><td>الحوض</td><td>رقم القطعة</td></tr>";
+                                      
+                                      
+                                      foreach($landids as $landowns)
+                                      {
+                                          
+                                                $go=$landowns;
+                                                                                                                                             
+                                                $searchCriteria->condition = "`LandID` =  '$go'";                                                                    
+                                                $items = LandMaster::model()->findAll($searchCriteria);
+
+                                                $location=$items[0]->location;
+                                                $plotno=$items[0]->Plot_No;
+                                                $peice=$items[0]->Piece;
+                                                
+                                                
+                                                if($location=="")
+                                                {
+                                                    $location="no location";
+                                                }
+                                                else if($plotno=="")
+                                                {
+                                                    $plotno="no plot number";
+                                                }
+                                                else if($peice=="")
+                                                {
+                                                    $peice="no peice";
+                                                }
+                                                
+                                                
+                                                  
+                                                    $landstable.="<tr ><td style='border:1px solid #000000'>".$landowns."</td><td style='border:1px solid #000000'>".$location."</td><td style='border:1px solid #000000'>".$plotno."</td><td style='border:1px solid #000000'>".$peice."</td></tr>";                                                                                                     
+                                                
+                                       }
+                                       
+                                       $landstable.="</table>";
+                                       
+                                       }
+                                       else
+                                          $landstable="no lands owned";
                                         
                                        
                                        
@@ -672,7 +729,7 @@ class LettersController extends Controller
                                               $str = str_replace("letterid", $letternumber, $str);
                                               $str = str_replace("employeename", $username, $str);
                                               $str = str_replace("landdesc", $landdesc, $str);
-                                              
+                                              $str = str_replace("landtable", $landstable, $str);
                                      
                                        
     

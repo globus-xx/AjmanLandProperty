@@ -110,6 +110,7 @@ $('.search-form form').submit(function(){
     <tr><td>buydate</td><td>تاريخ بيع الارض </td></tr> 
     <tr><td>destination</td><td>اسم الوجهة</td></tr> 
     <tr><td>employeename</td><td>اسم المستخدم</td></tr> 
+    <tr><td>landtable</td><td>جدول الاراضي المملوكة</td></tr> 
      
 </table>
 

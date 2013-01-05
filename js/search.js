@@ -25,7 +25,7 @@ function switchToView(viewName){
     hideAll()
    $("#"+viewName).show(); 
    
-    if(viewName=='landresult')
+    if(viewName=='landresult') 
        $("#letterTable").show(); 
    
    if(viewName=='previousowner')
@@ -284,7 +284,6 @@ function diplayUserDetails(customerID, type , CustomerResult){ // list the land 
 
 
    
-                alert(typeof(Results["landDetails"]["current"])+"12");
                 if(typeof(Results["landDetails"]["current"])!="undefined"){ 
                             if(Results["landDetails"]["current"].length>0 && Results["landDetails"]["current"]!= null ){
                                     var arraryNode = Results["landDetails"]["current"];
@@ -299,14 +298,14 @@ function diplayUserDetails(customerID, type , CustomerResult){ // list the land 
                                                  CurrentOwner="<span onclick='hideList()' id='expand' style='pading:0 10px ' >All&nbsp;</span>";
                                                  CurrentOwner+="<a class='searchLink2' onclick='doSearchSubmit($(this).text())'>"+arraryNodeB[0]["CustomerNameArabic"]+"</a>(1)<br>"
                                                  CurrentOwner+="<div id='customerList'>"
-                                                    for(var j = 1 ; j<=arraryNode.length; j++){
+                                                    for(var j = 1 ; j<=arraryNodeB.length-1; j++){
 
                                                         CurrentOwner+="<a class='searchLink2' onclick='doSearchSubmit($(this).text())' >"+arraryNodeB[j]["CustomerNameArabic"]+"</a>("+(j+1)+")<br>"
                                                     }    
                                              CurrentOwner+="</div>"
                                                }  else CurrentOwner+="<a class='searchLink2' onclick='doSearchSubmit($(this).text())' >"+arraryNodeB[0]["CustomerNameArabic"]+ "</a>(1)<br>"
                                                     content=content+"<tr class=currentOwners><td>"+i+"</td>" ;
-                                                    content+="<td><a class='searchLink2' onclick='doSearchSubmit($(this).text())'  >"+arraryNode[i]['LandID']+"</a> </td>";
+                                                    content+="<td><input type='checkbox' name='lands[]' value="+arraryNode[i]['LandID']+"><a class='searchLink2' onclick='doSearchSubmit($(this).text())'  >"+arraryNode[i]['LandID']+"</a> </td>";
                                                     content+="<td>"+arraryNode[i]['Land_Type']+"</td>" ;
                                                     content+="<td>"+arraryNode[i]['location']+"</td>" ;
                                                     content+="<td>"+arraryNode[i]['TotalArea']+"</td>" ;
@@ -325,6 +324,7 @@ function diplayUserDetails(customerID, type , CustomerResult){ // list the land 
                         else  
                             $("#previouslandresult").html( userTab(type,customerID)+"<center>عفوا لا توجد أراضي سابقة</center>");
                         $("#landresult").show();
+                        $('#letterTable').show();
             }//sucess
         });// ajax
 }

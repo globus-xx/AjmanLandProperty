@@ -125,7 +125,7 @@ return false;
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/search.js'); ?>
 
     
-<table style="width:400px;" id="letterTable">
+<table style="width:400px;" id="letterTable" name="letterTable">
     <tr><td>من فضلك ادخل المعلومات التالية لتوليد رسالة:</td></tr>
 <tr><td>وجهة الرسالة :</td>
     <td>
@@ -167,6 +167,7 @@ return false;
     </td>
 </tr>
 <tr><td>
+        <input type="hidden" name="customerid" id="customerid" value=""> 
         <input type="hidden" name="landid" id="landid" value="">       
         <input type="submit" name="stype" value="التالي" onclick="return EmptyTextbox()"></td></tr>
 
@@ -183,6 +184,7 @@ return false;
 		$("#SearchForm").submit(function(event) 
 		{ event.preventDefault();
                     $('#letterForm #landid').val($('#searchstring').val());
+                    
 			 $('#loadingresult').show();
                         var searchstring =  new Array();
                           searchstring["action"] = "search";
@@ -206,8 +208,12 @@ return false;
 						hideAll(); 
 						$('#customerresult').show(); 
 						
+                                                
 						console.log(Results);
+                                                $('#customerid').val(Results[0]['CustomerID']); 
 //						displayCustomerInfo(Results);
+                                                
+
                                                 diplayUserDetails(Results[0]['CustomerID'], 0, Results[0])
 					}
 					
