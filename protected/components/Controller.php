@@ -20,4 +20,6 @@ class Controller extends RController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
+	
+	
 }

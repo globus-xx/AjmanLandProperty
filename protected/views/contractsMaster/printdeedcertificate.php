@@ -65,22 +65,24 @@ $how = array(
 <table style="width:18cm; margin:auto;">
 
 	<tr>
-		<td class='heading'>المنطقة</td>
-		<td class='info'><?php echo $deed->land->location; ?></td>
-		<td class='heading'>رقم اﻷرض</td>
-		<td class='info'><?php echo $deed->land->Piece; ?></td>
+		<td class='heading'>المدينة</td>
+		<td class='info'><?php echo $deed->land->LocationID; ?></td>
+		<td class='heading'>القطاع</td>
+		<td class='info'><?php echo $deed->land->Plot_No; ?></td>
 	</tr>
 
 	<tr>
-		<td class='heading'>الحوض</td>
-		<td class='info'><?php echo $deed->land->Plot_No; ?></td>
-		<td class='heading'>رقم سند الملكية</td>
-		<td class='info'><?php echo $deed->land->LandID; ?></td>
+		<td class='heading'>الحي</td>
+		<td class='info'><?php echo $deed->land->location; ?></td>
+		<td class='heading'>القطعة</td>
+		<td class='info'><?php echo $deed->land->Piece; ?></td>
 	</tr>
 	
 	<tr>
+		<td class='heading'>رقم سند الملكية</td>
+		<td class='info'><?php echo $deed->land->LandID; ?></td>
 		<td class='heading'>المساحة</td>
-		<td colspan="3" style="text-align:center;" class='info'><?php echo $deed->land->TotalArea; ?>&nbsp;&nbsp;&nbsp; متر مربع</td>	
+		<td style="text-align:center;" class='info'><?php echo $deed->land->TotalArea; ?>&nbsp;&nbsp;&nbsp; متر مربع</td>	
 	</tr>
 	
 </table>
@@ -145,4 +147,5 @@ else
 <div style="width:18cm; margin:auto; font-family:GE SS Two Light; text-align:left;">رئيس قسم التصرفات العقارية</div>
 <br>
 <div style="width:11cm; margin:right; font-family:GE SS Two Light; text-align:right; font-size:0.7em;">هذه الشهادة تعتبر لاغية في حالة محو أو شطب أي بيان من بياناتها أو إضافة بيانات أخرى إليها, وينتفي العمل بها في  حال اصدار سند الملكية  أو مضي ثلاثة أشهر من تاريخ اصدارها</div>
+<div style="width:11cm; margin:right; font-family:GE SS Two Light; text-align:right; font-size:0.7em;">ملاحظة: رقم السند القديم <?php echo $deed->land->Remarks; ?></div>
 

@@ -194,6 +194,10 @@ class DeedMasterController extends Controller
 	
 	public function actionSaveDeed()
 	{
+		$city = array('1'=>'عجمان','2'=>'المنامة','3'=>'مصفوت');	
+		$qita = array('01'=>'الزوراء ','02'=>'قطاع مركز المدينة ','03'=>'القطاع الشمالي ','04'=>'القطاع الاوسط ','05'=>'القطاع الجنوبي ','06'=>'القطاع الشرقي ','07'=>'قطاع المنامة ','08'=>'قطاع مصفوت ');
+		$hayi = array('01'=>'الزراء', '02'=>'الراشدية 1', '03'=>'الراشدية 2', '04'=>'الراشدية 3', '05'=>'الرميلة 1', '06'=>'الرميلة 2', '07'=>'الرميلة 3', '08'=>'الصفيا ', '09'=>'النخيل 1', '10'=>'النخيل 2', '11'=>'النعيمة 1', '12'=>'النعيمية 2', '13'=>'النعيمية 3', '14'=>'ليوارة 1', '15'=>'ليوارة 2', '16'=>'مشيرف ', '17'=>'الباهية ', '18'=>'الجرف الصناعية 1', '19'=>'الجرف الصناعية 2', '20'=>'الجرف الصناعية 3', '21'=>'الجرف 1', '22'=>'الجرف 2', '23'=>'الحميدية 1', '24'=>'الحميدية 2', '25'=>'الرقايب 1', '26'=>'الرقايب 2', '27'=>'العالية ', '28'=>'التلة 1', '29'=>'التلة 2', '30'=>'الروضة 1', '31'=>'الروضة 2', '32'=>'الروضة 3 ', '33'=>'المنتزي 1', '34'=>'المنتزي 2', '35'=>'المويهات 1', '36'=>'المويهات 2', '37'=>'المويهات 3', '38'=>'عجمان الصناعية 1', '39'=>'عجمان الصناعية 2', '40'=>'الحليو 1', '41'=>'الحليو 2', '42'=>'الزاهية ', '43'=>'العامرة ', '44'=>'الياسمين ', '45'=>'المنامة 1', '46'=>'المنامة 2', '47'=>'المنامة 3', '48'=>'المنامة 4', '49'=>'المنامة 5', '50'=>'المنامة 6', '51'=>'المنامة 7', '52'=>'المنامة 8', '53'=>'المنامة 9', '54'=>'المنامة 10', '55'=>'المنامة 11', '56'=>'المنامة 12', '57'=>'المنامة 13', '58'=>'المنامة 14', '59'=>'المنامة 15', '60'=>'المنامة 16', '61'=>'المنامة 17', '62'=>'مصفوت 15', '63'=>'مصفوت 14', '64'=>'مصفوت 13', '65'=>'مصفوت 12', '66'=>'مصفوت 11', '67'=>'مصفوت 10', '68'=>'مصفوت 9', '69'=>'مصفوت 8', '70'=>'مصفوت 7', '71'=>'مصفوت 6', '72'=>'مصفوت 5', '73'=>'مصفوت 4', '74'=>'مصفوت 3', '75'=>'مصفوت 2', '76'=>'مصفوت 1',);
+		
 		if(isset($_POST["data"])) //check that this action is only called using POST.. not get, not regular.
 		{
 			$data = json_decode($_POST['data']);
@@ -247,16 +251,17 @@ class DeedMasterController extends Controller
 					if ($landupdate)
 					{						
 						$landupdate->LandID = $data->landid;
-						$landupdate->LocationID = $data->LocationID;
-						$landupdate->Plot_No = $data->Plot_No;
-						$landupdate->Piece = $data->Piece;
-						$landupdate->location = $data->location;
+						$landupdate->Remarks = $landupdate->LandID;
+						$landupdate->LocationID = $city[substr($data->landid, 0, 1)];
+						$landupdate->Plot_No = $qita[substr($data->landid,1,2)];
+						$landupdate->location = $hayi[substr($data->landid,3,2)];
+						$landupdate->Piece = substr($data->landid,5,strlen($data->landid));
 						$landupdate->Land_Type = $data->Land_Type;
 						$landupdate->TotalArea = floatval($data->TotalArea);
 						$landupdate->length = floatval($data->len);
 						$landupdate->width = floatval($data->width);
 						$landupdate->AreaUnit = $data->AreaUnit;
-						$landupdate->Remarks = $data->Remarks;
+						
 						$landupdate->North = $data->North;
 						$landupdate->South = $data->South;
 						$landupdate->East = $data->East;
@@ -271,16 +276,15 @@ class DeedMasterController extends Controller
 						
 						$landnew = new LandMaster;
 						$landnew->LandID = $data->landid;
-						$landnew->LocationID = $data->LocationID;
-						$landnew->Plot_No = $data->Plot_No;
-						$landnew->Piece = $data->Piece;
-						$landnew->location = $data->location;
+						$landnew->LocationID = $city[substr($data->landid, 0, 1)];
+						$landnew->Plot_No = $qita[substr($data->landid,1,2)];
+						$landnew->location = $hayi[substr($data->landid,3,2)];
+						$landnew->Piece = substr($data->landid,5,strlen($data->landid));
 						$landnew->Land_Type = $data->Land_Type;
 						$landnew->TotalArea = $data->TotalArea;
 						$landnew->length = $data->len;
 						$landnew->width = $data->width;
 						$landnew->AreaUnit = $data->AreaUnit;
-						$landnew->Remarks = $data->Remarks;
 						$landnew->North = $data->North;
 						$landnew->South = $data->South;
 						$landnew->East = $data->East;
@@ -311,7 +315,7 @@ class DeedMasterController extends Controller
 		
 			$qtxt = "SELECT DeedID from DeedMaster WHERE LandID LIKE :landid AND Remarks NOT LIKE 'cancelled'";
 			$command = Yii::app()->db->createCommand($qtxt);
-			$command->bindValue(':landid',$data->landid,PDO::PARAM_STR);
+			$command->bindValue(':landid',$data,PDO::PARAM_STR);
 			$res = $command->queryColumn();
 			
 		}

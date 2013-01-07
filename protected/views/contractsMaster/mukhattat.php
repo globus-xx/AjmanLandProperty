@@ -73,15 +73,15 @@ $how = array(
 <table style="width:130mm; margin-top:0mm; margin-bottom:0mm; margin-left:0mm; margin-right:8mm;">
 
 	<tr>
-		<td class='heading'>البلدة</td>
-		<td class='info'>عجمان</td>
-		<td class='heading'>المنطقة</td>
-		<td class='info'><?php echo $deed->land->location; ?></td>
+		<td class='heading'>المدينة</td>
+		<td class='info'><?php echo $deed->land->LocationID; ?></td>
+		<td class='heading'>القطاع</td>
+		<td class='info'><?php echo $deed->land->Plot_No; ?></td>
 	</tr>
 
 	<tr>
-		<td class='heading'>الحوض</td>
-		<td class='info'><?php echo $deed->land->Plot_No; ?></td>
+		<td class='heading'>الحي</td>
+		<td class='info'><?php echo $deed->land->location; ?></td>
 		<td class='heading'>القطعة</td>
 		<td class='info'><?php echo $deed->land->Piece; ?></td>
 	</tr>
@@ -173,6 +173,9 @@ else
 بتاريخ <?php echo date('d-m-Y'); ?></div>
 
 <div style="position:absolute; top:15.0cm;">
+<div style="font-family:GE SS Two Light; font-size:70%; margin-right:8mm; margin-top:1mm; width:130mm;">
+ملاحظة: رقم السند القديم <?php echo $deed->land->Remarks; ?>
+</div>
 <div style="font-family:GE SS Two Light; font-size:70%; margin-right:8mm; margin-top:1mm; width:130mm;">
 ملاحظة: هذا المخطط للاستعمال الرسمي لدائرة الأراضي والأملاك وفي حالة اتخاذ أي تغيرات على العقار يلزم مراجعة دائرة البلدية والتخطيط بعجمان
 </div>

@@ -11,6 +11,7 @@ defined('YII_DEBUG') or define('YII_DEBUG',false);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 include('/var/www/AjmanLandProperty/I18N/Arabic.php');
+
 require_once($yii);
 Yii::createWebApplication($config)->run();
 

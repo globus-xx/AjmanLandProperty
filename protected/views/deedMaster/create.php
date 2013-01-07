@@ -470,13 +470,13 @@ foreach($locationsT as $key=>$value)
                         console.log(total);
                 }
         });   
-        
+        /*
         if (location == "" || Plot_No =="" || Piece =="" || Land_Type=="")
 		{
 			alert("يرجى إدخال معلومات الأساسية");
 			return;
 		}
-	
+		*/
 	if (total>100 || total<100)
         {
 			if (total==111)

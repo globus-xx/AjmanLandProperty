@@ -22,13 +22,7 @@ $('#print').click(function() {
 	
 	var searchstring = $("#landid").val();
 	
-	
-	var params = {
-		landid: searchstring,
-		
-	}
-	
-	var paramJSON = JSON.stringify(params);
+	var paramJSON = JSON.stringify(searchstring);
 	
 	$.post(
 	'<?php echo $this->createUrl("deedMaster/getdeed")?>', //who will receive the ajax data and process it.. landresult action in contractsMaster controller

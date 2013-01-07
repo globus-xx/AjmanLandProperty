@@ -80,9 +80,9 @@ div.beforetable
 
 <div class="beforetable">
 
-<div style="float:right; width:33%"><span style="font-weight:900;">البلدة &nbsp;&nbsp;&nbsp;:</span><span style="font-weight:bold;">عجمــــان</span></div>
-<div style="float: right; width:33%"><span style="font-weight:900;">المنطقة:&nbsp;&nbsp;</span><span style="font-weight:bold;"> <? echo $deed->land->location; ?></span></div>
-<div style="float: right; width:33%"><span style="font-weight:900;">الحوض:&nbsp;&nbsp; </span><span style="font-weight:bold;"><? echo $deed->land->Plot_No; ?></span></div>
+<div style="float:right; width:33%"><span style="font-weight:900;">المدينة &nbsp;&nbsp;&nbsp;:</span><span style="font-weight:bold;"><? echo $deed->land->LocationID; ?></span></div>
+<div style="float: right; width:33%"><span style="font-weight:900;">القطاع:&nbsp;&nbsp;</span><span style="font-weight:bold;"> <? echo $deed->land->Plot_No; ?></span></div>
+<div style="float: right; width:33%"><span style="font-weight:900;">الحي:&nbsp;&nbsp; </span><span style="font-weight:bold;"><? echo $deed->land->location; ?></span></div>
 
 <div style="float:right; width:33%"><span style="font-weight:900;">القطعة&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;</span><span style="font-weight:bold;"><? echo $deed->land->Piece; ?></span></div>
 <div style="float: right; width:33%"><span style="font-weight:900;">الطول&nbsp;:&nbsp;&nbsp;</span><span style="font-weight:bold;">
@@ -242,7 +242,7 @@ else
 	echo $deed->PreviousOwners;
 
 ?></span>
-	وقد أعطي هذا السند إثباتاً بذلك.<br>
+	وقد أعطي هذا السند إثباتاً بذلك.<br><span style='font-weight:bold; font-size:75%;'>ملاحظة: رقم السند القديم: <?php echo $deed->land->Remarks; ?></span><br>
 <div style="padding-top:90px;">تاريخ : <span id="deeddate"><?php echo date('d-m-Y'); ?></span> م</div>
 </div>
 

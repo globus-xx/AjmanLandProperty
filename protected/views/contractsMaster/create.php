@@ -236,6 +236,8 @@ $this->menu=array(
 		var deedId =  <?= $deedMaster->DeedID ?>; //YES - You can actually do that. echo a php to be asigned a value! crazy shit!
         var contractType = $("#contractype").val();
         var landType = $("#landtype").val();
+        var newlandid = 0;
+        var newalready = false;
         var contractamount = $("#contractamount").val();
         var feeamount = $("#feeamount").val();
         var correctedamount = $("#correctedamount").val();
@@ -355,13 +357,30 @@ $this->menu=array(
 			}
 			
 		}
-    	
+		var oldlandid = '<?php echo $deedMaster->LandID; ?>';
+		
+		
+		if (oldlandid.search("/")==-1)
+			newalready=true;
+		else
+			newlandid = prompt("دخل رقم السند الجديد بناء على التقسيمات الإدارية الجديدة. يرجى التواصل مع قسم الهندسي");
+		
+		if (newalready != true)
+		{	
+			if (newlandid==null || newlandid=="" || newlandid.length < 8)
+				{
+					return;
+				}
+		}
+				
         var params = {
                 deedId: deedId,
                 owners: owners,
                 buyers:buyers,
                 contractype:contractType,
                 landtype:landType,
+                newalready:newalready,
+                newlandid:newlandid,
                 realstate:realstate,
                 wakeel:wakeel,
                 contractamount:contractamount,

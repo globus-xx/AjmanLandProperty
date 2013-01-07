@@ -167,7 +167,7 @@
 <table  width="650">-->
 <tr><td colspan="6" align="right"  style='background:rgb(150,150,150);font-weight:bold'>بيانات العقار</td></tr>
 <tr><td>رقم السند:</td><td><?php echo $cm->land->LandID; ?></td><td>تاريخ السند</td><td><?php echo $cm->deed->DateCreated; ?></td><td>نوع العقار</td><td><?php echo $cm->land->Land_Type; ?></td></tr>
-<tr><td>المنطقة</td><td><?php echo $cm->land->location; ?></td><td>الحوض</td><td><?php echo $cm->land->Plot_No; ?></td><td>رقم القطعة</td><td><?php echo $cm->land->Piece; ?></td></tr>
+<tr><td>القطاع</td><td><?php echo $cm->land->Plot_No; ?></td><td>الحي</td><td><?php echo $cm->land->location; ?></td><td>رقم القطعة</td><td><?php echo $cm->land->Piece; ?></td></tr>
 <tr><td>شمالا</td><td><?php echo $cm->land->North." متر"; ?></td><td>شرقا</td><td><?php echo $cm->land->East." متر"; ?></td><td>اجمالي المساحة</td><td><?php echo $cm->land->TotalArea." م<sup>2</sup>"; ?></td></tr>
 <tr><td>جنوبا</td><td><?php echo $cm->land->South." متر"; ?></td><td>غربا</td><td><?php echo $cm->land->West." متر"; ?></td><td>سعر العقار</td><td><?php echo number_format($cm->AmountCorrected); ?></td></tr>
 <tr><td>السعر باﻷحرف</td><td colspan="5"><?php $obj = new I18N_Arabic('Numbers');
