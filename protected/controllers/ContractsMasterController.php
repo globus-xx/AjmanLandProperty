@@ -244,6 +244,7 @@ LandResult will receive ajax-request from the view land-search and return Deed I
                     {             
                             $deedMaster = DeedMaster::model()->findByPk($data->deedId); 
                             $landupdate = LandMaster::model()->findByPk($deedMaster->LandID);
+                            $oldlandid = $deedMaster->LandID;
                             
                             $landupdate->Land_Type = $data->landtype;
                             
@@ -453,6 +454,20 @@ LandResult will receive ajax-request from the view land-search and return Deed I
 									}
                             	$deedMaster->Remarks="cancelled"; //set old deed to cancelled, so it isn't shown in the deed's list upon searching again
                             	$deedMaster->save();
+								
+								if($data->newalready==false)
+								{
+									
+									$q1 = "UPDATE DeedMaster SET LandID='".$data->newlandid."' WHERE LandID='".$oldlandid."'";
+									$command = Yii::app()->db->createCommand($q1);
+									$res = $command->execute();
+									
+									$q2 = "UPDATE ContractsMaster SET LandID='".$data->newlandid."' WHERE LandID='".$oldlandid."'";
+									$command = Yii::app()->db->createCommand($q2);
+									$res = $command->execute();
+									
+									
+								}
                             }
                             else
                             {
