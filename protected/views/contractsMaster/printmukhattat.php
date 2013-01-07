@@ -16,6 +16,25 @@
             ?>
 
 <input type='button' value='اطبـــع' id='print' style='margin-top:10px;'>
+<br><br>
+<b>تحويل معاملة قديمة الى جديدة:<br><br></b>
+رقم السند القديم:  <?php
+				$url = $this->createUrl("DeedMaster/landsfind");
+                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                    'name'=>'oldlandid',
+                    'source'=>$url,
+                    //'source'=>$customerNames, //came from the controller.. the array we constructed of all names, arabic and english
+                    // additional javascript options for the autocomplete plugin
+                    'options'=>array(
+                        'minLength'=>'3',
+                    ),
+                    'htmlOptions'=>array(
+                        'style'=>'height:20px;'
+                    ),
+                ));
+            ?>
+            ---> رقم السند الجديد<input type='text' id='newlandid'><input type='button' value='تحويل' id='convert'>
+
 
 <script>
 $('#print').click(function() { 
@@ -39,6 +58,33 @@ $('#print').click(function() {
 					
 				}
 			)});
+			
+$('#convert').click(function() {
+	
+	var oldlandid = $('#oldlandid').val();
+	var newlandid = $('#newlandid').val();
+	var params = {
+		oldlandid: oldlandid,
+		newlandid: newlandid,
+	}
+	
+	var paramJSON = JSON.stringify(params);
+	
+	$.post(
+	'<?php echo $this->createUrl("contractsMaster/convert"); ?>',
+	{ data: paramJSON },
+	function(data)
+	{
+		var result = JSON.parse(data);
+		console.log(result);
+		$('#landid').val("");
+		$('#oldlandid').val("");
+		$('#newlandid').val("");
+		if (result=='success')
+			alert("تم التحويل");
+	}
+	)});
+	
 	
 </script>
 
