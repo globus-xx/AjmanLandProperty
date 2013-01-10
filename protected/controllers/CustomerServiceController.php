@@ -68,13 +68,35 @@ class CustomerServiceController extends Controller
                 // if user arabic name 
                 // or english name 
                 // or miobile number match
+                    
+                               
+                                $keyword = $_GET["term"];
 
-			$qtxt = 'SELECT CustomerNameArabic cus from CustomerMaster WHERE CustomerNameArabic LIKE :name OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name';
+                               $searchCriteria=new CDbCriteria;
+//                             $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
+                             
+                               
+
+                               // the new library                                                                                                                    
+                               if (isset($_GET['term'])) 
+                               if ($keyword != '') {
+                                    $keyword = @$keyword;
+                                    $keyword = str_replace('\"', '"', $keyword);
+
+                                    $obj = new ArQuery();
+                                    $obj->setStrFields('CustomerNameArabic');
+                                    $obj->setMode(1);
+
+                                    $strCondition = $obj->getWhereCondition($keyword);
+                                } 
+                               //die($strCondition);
+
+			$qtxt = 'SELECT CustomerNameArabic cus from CustomerMaster WHERE '.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name';
 			$command = Yii::app()->db->createCommand($qtxt);
 			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
 			$res = $command->queryColumn();
-                            if( count($res)<1){//run if no customer found 
-                            //search DB if Land ID matches
+                           if( count($res)<1){//run if no customer found 
+                           //search DB if Land ID matches
 
                                     $qtxt = 'SELECT LandID lnd from LandMaster WHERE LandID Like :name';
                                     $command = Yii::app()->db->createCommand($qtxt);
@@ -84,19 +106,45 @@ class CustomerServiceController extends Controller
                             }
 		}
 		print CJSON::encode($res);
+                
+            // die ($strCondition);
 	}
 	
+
+    
+    
 	public function actionSearch()
 	{   
 		if(isset($_POST["action"]) and $_POST["action"]=="search") //check that this action is only called using POST.. not get, not regular.
                 {
-                                $searchstring = $_POST["string"];
+                     
+                               $searchstring=$_POST["string"];
+                               $keyword = $_POST["string"];
 
                                $searchCriteria=new CDbCriteria;
-                               $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
+//                             $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
+                             
+                               
+
+                               // the new library                                                                                                                    
+                               if (isset($_POST['string'])) 
+                               if ($keyword != '') {
+                                    $keyword = @$_POST['string'];
+                                    $keyword = str_replace('\"', '"', $keyword);
+
+                                    $obj = new ArQuery();
+                                    $obj->setStrFields('CustomerNameArabic');
+                                    $obj->setMode(1);
+
+                                    $strCondition = $obj->getWhereCondition($keyword);
+                                } 
+                              
+                                
+                               $searchCriteria->condition = $strCondition.' OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL';
+                               
                                $searchCriteria->params = array(':searchstring'=> $searchstring);
                                $searchCriteria->order = 'CustomerNameArabic';
-                               //$searchCriteria->limit = '25';
+                               $searchCriteria->limit = '25';
                                if (CustomerMaster::model()->count($searchCriteria)>0)
                                 {
                                        $customerResult = CustomerMaster::model()->findAll($searchCriteria);
@@ -230,7 +278,7 @@ class CustomerServiceController extends Controller
                                $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
                                $searchCriteria->params = array(':searchstring'=> $searchstring);
                                $searchCriteria->order = 'CustomerNameArabic';
-                              // $searchCriteria->limit = '25';
+                               $searchCriteria->limit = '25';
                                if (CustomerMaster::model()->count($searchCriteria)>0)
                                 {
                                        $lands["currentOwners"]=$customerResult = CustomerMaster::model()->findAll($searchCriteria);
