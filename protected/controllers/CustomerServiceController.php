@@ -292,6 +292,7 @@ class CustomerServiceController extends Controller
 
         public function actionpSearchProperty()
 	{// method not in use 
+            // this is a test commit
 		if(isset($_POST["data"])) //check that this action is only called using POST.. not get, not regular.
         {
 			$searchstring = json_decode($_POST["data"]); 
