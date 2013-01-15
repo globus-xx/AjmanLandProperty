@@ -79,12 +79,16 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 //        finesContent+="</td></tr>" ;
        if(typeof(Results["fines"])!="undefined"){
                 var arrayNode= Results["fines"]
-               finesContent+="<tr><td colspan='4'><strong>غرامات الارض</strong></td><td><input type=image id=addnew src='../images/add.png' title='add owner' alt='add owner'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
+               finesContent+="<tr><td colspan='4'><strong>غرامات الارض</strong></td><td><input type=image id=addnewFine src='../images/add.png' title='add hajaz' alt='add hajaz'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
                finesContent+="<tr><td>ID </td><td> ملاحظات</td><td>الكمية المرهونة </td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
                for(var i = 0; i<arrayNode.length ; i++ ){
-                        finesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["HajzID"]+" onclick=removeIT("+arrayNode[i]["HajzID"]+",fines) title=remove alt=remove value="+arrayNode[i]["HajzID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+">"+ arrayNode[i]["HajzID"]+"</td><td>"+ arrayNode[i]["Remarks"]+"</td>";
+                   
+                   if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
+                       if(typeof(arrayNode[i]["DateCreated"]!="undefined") && arrayNode[i]["DateCreated"]!=null) arrayNode[i]["DateCreated"] = dubaiDate(arrayNode[i]["DateCreated"]); 
+                             else arrayNode[i]["DateCreated"] =""
+                        finesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["HajzID"]+" onclick=removeIT("+arrayNode[i]["HajzID"]+",'fines') title=remove alt=remove value="+arrayNode[i]["HajzID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+">"+ arrayNode[i]["HajzID"]+"</td><td>"+ arrayNode[i]["Remarks"]+"</td>";
                         finesContent+="<td>"+ arrayNode[i]["AmountMortgaged"]+"</td>"
-                        finesContent+="<td>"+ arrayNode[i]["Type"]+"("+arrayNode[i]["Type Deatils"]+")</td><td>"+ arrayNode[i]["DateCreated"]+"</td>";
+                        finesContent+="<td>"+ arrayNode[i]["Type"]+"("+arrayNode[i]["TypeDetail"]+")</td><td>"+arrayNode[i]["DateCreated"]+ arrayNode[i]["IsActive"]+"</td>";
                         finesContent+="</tr>";
                }
      }else{
@@ -179,7 +183,11 @@ function _displayCustomerProfile(customerID){ // will load customre profile from
         });// ajax
      }// if customer ID exist
 }
-
+function dubaiDate(datestring){
+    var oldDate = datestring.split('-');
+    var newDate =  oldDate[2]+"-"+oldDate[1]+"-"+oldDate[0]
+    return newDate;
+}
 function displayCustomerProfile(Results){// Will load the customer profile from results provided
 
      var userdetailsContent = "<table dir=rtl>";
@@ -400,58 +408,115 @@ var name = $( "#name" ),
       }
     }
  
-    $( "#addOwner-form" ).dialog({
-      autoOpen: false,
-      height: 400,
-      width: 300,
-      modal: false,
-      buttons: {
-        "Add owner": function() {
-          var bValid = true;
-          allFields.removeClass( "ui-state-error" );
- 
-//          bValid = bValid && checkLength( name, "username", 3, 16 );
-//          bValid = bValid && checkLength( email, "email", 6, 80 );
-//          bValid = bValid && checkLength( password, "password", 5, 16 );
- 
-//          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
-           
-          if ( bValid ) { alert("data received");
-            var customerID = $("#_customerID").val() ;
-            var deedID = $("#_deedID").val()
-             var share = $("#_share").val()
-            $( this ).dialog( "close" );
-                $.ajax({ 
-                   type: "POST",
-                   url:'DocumentMaster/AddOwner', 
-                   data: "customerID="+customerID+"&deedID="+deedID+"&Share="+share,
-                   success: function(data) 
-                   {
-                       $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+$("#_customerID").val()+' onclick=removeIT('+$("#_customerID").val()+')> &nbsp; <input type=checkbox name=cuowners[] value='+$("#_customerID").val()+' >'+$("#customerSearch").val()+'</td> <td>'+$("#_nationality").val()+' </td> <td>'+$("#_share").val()+' </td></tr>').appendTo('.currentOwners');
+        $( "#addOwner-form" ).dialog({
+          autoOpen: false,
+          height: 400,
+          width: 300,
+          modal: false,
+          buttons: {
+            "Add owner": function() {
+              var bValid = true;
+              allFields.removeClass( "ui-state-error" );
 
-                   }
-               })
-            
-          }else{alert("problem")}
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
-        }
-      },
-      close: function() {
-        allFields.val( "" ).removeClass( "ui-state-error" );
-      }
-    });
- 
-    $( "#addOwner-form" )
-      .button()
-      .click(function() {
-        $( "#addOwner-form" ).dialog( "open" );
-      });
+    //          bValid = bValid && checkLength( name, "username", 3, 16 );
+    //          bValid = bValid && checkLength( email, "email", 6, 80 );
+    //          bValid = bValid && checkLength( password, "password", 5, 16 );
+
+    //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
+
+              if ( bValid ) { alert("data received");
+                var customerID = $("#_customerID").val() ;
+                var deedID = $("#_deedID").val()
+                 var share = $("#_share").val()
+                $( this ).dialog( "close" );
+                    $.ajax({ 
+                       type: "POST",
+                       url:'DocumentMaster/AddOwner', 
+                       data: "customerID="+customerID+"&deedID="+deedID+"&Share="+share,
+                       success: function(data) 
+                       {
+                           $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+$("#_customerID").val()+' onclick=removeIT('+$("#_customerID").val()+')> &nbsp; <input type=checkbox name=cuowners[] value='+$("#_customerID").val()+' >'+$("#customerSearch").val()+'</td> <td>'+$("#_nationality").val()+' </td> <td>'+$("#_share").val()+' </td></tr>').appendTo('.currentOwners');
+
+                       }
+                   })
+
+              }else{alert("problem")}
+            },
+            Cancel: function() {
+              $( this ).dialog( "close" );
+            }
+          },
+          close: function() {
+            allFields.val( "" ).removeClass( "ui-state-error" );
+          }
+        });
+
+        $( "#addOwner-form" )
+          .button()
+          .click(function() {
+            $( "#addOwner-form" ).dialog( "open" );
+          });
+
+         
+  
+        $( "#addFine-form" ).dialog({
+           autoOpen: false,
+           height: 600,
+           width: 300,
+           modal: false,
+           buttons: {
+             "Add Fine": function() {
+               var bValid = true;
+               allFields.removeClass( "ui-state-error" );
+
+     //          bValid = bValid && checkLength( name, "username", 3, 16 );
+     //          bValid = bValid && checkLength( email, "email", 6, 80 );
+     //          bValid = bValid && checkLength( password, "password", 5, 16 );
+
+     //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
+
+               if ( bValid ) { alert("data received");
+                 var ID = $("#_customerID").val() ;
+                 var Remarks = $("#_deedID").val()
+                  var AmountMortgaged = $("#AmountMortgaged").val()
+                  var type = $("input[name=Type]").val()
+                  var typeDetails = $("#TypeDetail").val()
+                  var DateCreated = $("#_DateCreated").val()
+                  var IsActive = $("input[name=IsActive]").val()
+
+                  
+                 $( this ).dialog( "close" );
+                     var values = $('#fineForm').serialize();
+                       values = JSON.stringify(values);
+                     $.ajax({ 
+                        type: "POST",
+                        url:'DocumentMaster/AddHajaz', 
+                        data: values,//"customerID="+customerID+"&deedID="+deedID+"&Share="+share,
+                        success: function(data) 
+                        {   
+                            var Results = JSON.parse(data); 
+                            ID = Results.HajzID
+//                            alert(ID+data["HajzID"]+Results.HajzID)
+                            
+                            $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+ID+' onclick=removeIT('+ID+',fines)> &nbsp; <input type=checkbox name=fines[] value='+ID+' >'+ID+'</td> <td>'+Remarks+' </td> <td>'+AmountMortgaged+' </td> <td>'+type+'('+typeDetails+') </td> <td>'+DateCreated+IsActive+' </td></tr>').appendTo('.landFines');
+
+                        }
+                    })
+
+               }else{alert("problem")}
+             },
+             Cancel: function() {
+               $( this ).dialog( "close" );
+             }
+           },
+           close: function() {
+             allFields.val( "" ).removeClass( "ui-state-error" );
+           }
+         });
   });
   
   function removeIT(id, type){
-      alert(id+"s"+ $("#removeWithID_"+id))
+     
       if(type=="fines") deleteFines(id)
           else
           deleteOwner(id)
@@ -478,8 +543,8 @@ var name = $( "#name" ),
         
         $.ajax({ 
             type: "POST",
-            url:'DocumentMaster/DeleteFines', 
-            data: "fineID="+id,
+            url:'DocumentMaster/DeleteFine', 
+            data: "HajzID="+id,
             success: function(data) 
             {
                alert("suseccfully removed")

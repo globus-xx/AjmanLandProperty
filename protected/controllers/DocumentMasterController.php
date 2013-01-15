@@ -76,29 +76,29 @@ class DocumentMasterController extends Controller
         public function actionAddHajaz() {
                 extract($_POST);
             $res=0;
-            $HajazMaster = new HajzMaster;
-                $HajazMaster->LandID = $LandID ; 
-                $HajazMaster->SchemeID = $SchemeID ; 
-                $HajazMaster->DeedID = $DeedID ; 
-                $HajazMaster->Remarks = $Remarks ; 
-                $HajazMaster->TYPE = $Type ; 
-                $HajazMaster->TypeDetail = $TypeDetail ; 
-                $HajazMaster->DocsCreated = $DocsCreated ; 
-                $HajazMaster->UserIDcreated = $UserIDcreated ; 
-                $HajazMaster->DateCreated = $DateCreated ; 
-                $HajazMaster->AmountMortgaged = $AmountMortgaged ; 
-                $HajazMaster->PeriodofTime = $PeriodofTime ; 
-                $HajazMaster->UserIDended = $UserIDended ; 
-                $HajazMaster->DateEnded = $DateEnded ; 
-                $HajazMaster->DocsEnded = $DocsEnded ; 
+            $HajzMaster = new HajzMaster;
+                $HajzMaster->LandID = $_LandID ; 
+//                $HajazMaster->SchemeID = $SchemeID ; 
+                $HajzMaster->DeedID = $_DeedID ; 
+                $HajzMaster->Remarks = $Remarks ; 
+                $HajzMaster->Type = $Type ; 
+                $HajzMaster->TypeDetail = $TypeDetail ; 
+//                $HajazMaster->DocsCreated = date(Y-m-d) ; 
+//                $HajazMaster->UserIDcreated = $UserIDcreated ; 
+                $HajzMaster->DateCreated = $DateCreated ; 
+                $HajzMaster->AmountMortgaged = $AmountMortgaged ; 
+//                $HajazMaster->PeriodofTime = $PeriodofTime ; 
+//                $HajazMaster->UserIDended = $UserIDended ; 
+//                $HajazMaster->DateEnded = $DateEnded ; 
+//                $HajazMaster->DocsEnded = $DocsEnded ; 
             
             
-            $HajazMaster->CustomerID = $customerID;
-            $HajazMaster->DeedID = $deedID;
-            $HajazMaster->Share = $Share;
-            if($HajazMaster->save()) $res=1;
-            
-            print CJSON::encode($res);
+//            $HajazMaster->CustomerID = $customerID;
+//            $HajazMaster->DeedID = $deedID;
+            $HajzMaster->IsActive = $IsActive;
+            if($HajzMaster->save()) $res=1;
+             
+            print CJSON::encode(array("HajzID"=>$HajzMaster->HajzID,"result"=>$res ));
         }
         public function actionDeleteOwner() {
                 extract($_POST);

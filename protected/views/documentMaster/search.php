@@ -224,6 +224,23 @@ return false;
 
                           $( "#addOwner-form" ).dialog( "open" );
                         });
+                        $("#addnewFine" ).click(function() { 
+
+                          $( "#addFine-form" ).dialog( "open" );
+                         
+                          $( "#addFine-form #_landIDspan" ).html( $("#LandID").val());
+                           $( "#addFine-form #_LandID" ).val( $("#LandID").val());
+                                                    
+//                          $( "#addFine-form #_deedIDspan" ).html($("#deedID" ).val());
+                           $( "#addFine-form #_DeedID" ).val( $("#_deedID").val());
+                          
+                        });
+                        
+                         $("#_DateCreated").datepicker({ 
+                            dateFormat: "dd-mm-yy",
+                            altField: "#DateCreated",
+                            altFormat: "yy-mm-dd"
+                          });
 //                         $(".currentOwners tr" ).on("click", "#removeWithID", function(){alert("i")
 ////                       .click(function() {
 //                            alert($(this).value+"ss")
@@ -294,15 +311,33 @@ return false;
  <div id="addFine-form" title="Add new Fine">
   <p class="validateTips">All form fields are required.</p>
  
-  <form>
+  <form id="fineForm" name="fineForm">
   <fieldset>
-    <label for="name">LandID</label>
-        <input type="text" name="_LandID" id="_LandID" class="text ui-widget-content ui-corner-all" />
-    <label for="email">Nationality</label>
-    <input type="text" name="_nationality" id="_nationality" value="" class="text ui-widget-content ui-corner-all" />
-    <input type="text" name="_share" id="_share" value="" class="text ui-widget-content ui-corner-all" />
+    <label for="name"><span id="_landIDspan">land id</span>&nbsp; :LandID &nbsp; 
+<!--        <br> DeedID:&nbsp; <span id="_deedIDspan">deed id</span> --></label>
+     <input type="hidden" name="test" id="test" class="text ui-widget-content ui-corner-all" />
+        <input type="hidden" name="_LandID" id="_LandID" class="text ui-widget-content ui-corner-all" />
+        <input type="hidden" name="_DeedID" id="_DeedID" class="text ui-widget-content ui-corner-all" />
+    <label for="email">Mortgaged Amount</label>
+    <input type="text" name="AmountMortgaged" id="AmountMortgaged" value="" class="text ui-widget-content ui-corner-all" />
+    <label for="email">Type</label>
     
-    <input type="hidden" name="_customerID" id="_customerID" value="" class="text ui-widget-content ui-corner-all" />
+    <input type="radio" name="Type" id="_isActive_active" checked="checked"   value="رهن" >&nbsp;رهن &nbsp;
+        <input type="radio" name="Type" id="_isActive_deactive" value= "حجز" >  &nbsp;  حجز  &nbsp; 
+   
+    <label for="email">Type Details</label>
+    <input type="text" name="TypeDetail" id="TypeDetail" value="" class="text ui-widget-content ui-corner-all" />
+    <label for="email">Remarks</label>
+    <input type="text" name="Remarks" id="Remarks" value="" class="text ui-widget-content ui-corner-all" />
+    <label for="email">Date Created</label>
+    <input type="text" name="_DateCreated" id="_DateCreated" value=""  class="text ui-widget-content ui-corner-all" />
+    <input type="hidden" name="DateCreated" id="DateCreated" value="" class="text ui-widget-content ui-corner-all" />
+    <label for="email">Status</label>
+    <input type="radio" name="IsActive" id="_isActive_active" value="1" checked="checked">Active &nbsp;
+    <input type="radio" name="IsActive" id="_isActive_deactive" value="0" >Not Active
+      
+         <input type="hidden" name="_test" id="_test" class="text ui-widget-content ui-corner-all" />
+
   </fieldset>
   </form>
 </div>       
