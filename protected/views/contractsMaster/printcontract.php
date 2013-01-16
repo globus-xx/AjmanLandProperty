@@ -139,7 +139,7 @@ $countnsw=0;
 $header=0;
 
 	for ($i = 0; $i<=$nsw-1; $i++)
-        if($countnsw<2)
+        if($countnsw<35)
         {
            $countnsw++;
             echo "<tr><td width=200 class=data>".$wsellers[$i]->customer->CustomerNameArabic."</td><td class=data>".$wsellers[$i]->customer->Nationality."</td><td class=data>".$wsellers[$i]->customer->DocumentType."</td><td class=data>".$wsellers[$i]->customer->DocumentNumber."</td><td class=data>".$wakeeltypes[$wsellers[$i]->Type]."</td><td>".""."</td></tr>";
@@ -162,7 +162,7 @@ $countns=$countnsw;
 $header=0;
 
 	for ($i = 0; $i<=$ns-1; $i++)
-        if($countns<2)
+        if($countns<35)
         {
           $countns++;
           echo "<tr><td width=200 class=data>".$sellers[$i]->customer->CustomerNameArabic."</td><td class=data>".$sellers[$i]->customer->Nationality."</td><td class=data>".$sellers[$i]->customer->DocumentType."</td><td class=data>".$sellers[$i]->customer->DocumentNumber."</td><td class=data>".$sellertype."</td><td class=data>".$sellers[$i]->Share."</td></tr>";  
