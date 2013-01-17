@@ -65,6 +65,15 @@ class DocumentMasterController extends Controller
         public function actionAddOwner() {
                 extract($_POST);
             $res=0;
+            
+            if($customerID=="new"){
+                $customerMaster = new CustomerMaster;
+                $customerMaster->CustomerNameArabic = $ArabicName;
+                $customerMaster->Nationality = $Nationality;
+                $customerMaster->save();
+                $customerID = $customerMaster->CustomerID;
+                }
+                
             $deedDtails = new DeedDetails;
             $deedDtails->CustomerID=$customerID;
             $deedDtails->DeedID=$deedID;

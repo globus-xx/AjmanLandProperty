@@ -144,7 +144,9 @@ return false;
       
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/searchDocumentDetails.js'); ?>
 
-        <script type="text/javascript" >
+           <script type="text/javascript" >
+           
+          
             
 		var listType;
 		//Hide all on-load
@@ -255,6 +257,8 @@ return false;
 		
 	
         </script>
+        <div style="display: none">
+        
 <div id="addOwner-form" title="Add new owner">
   <p class="validateTips">All form fields are required.</p>
  
@@ -295,7 +299,7 @@ return false;
     <input type="text" name="_nationality" id="_nationality" value="" class="text ui-widget-content ui-corner-all" />
     <input type="text" name="_share" id="_share" value="" class="text ui-widget-content ui-corner-all" />
     
-    <input type="hidden" name="_customerID" id="_customerID" value="" class="text ui-widget-content ui-corner-all" />
+    <input type="hidden" name="_customerID" id="_customerID" value="new" class="text ui-widget-content ui-corner-all" />
   </fieldset>
   </form>
 </div>
@@ -340,7 +344,8 @@ return false;
 
   </fieldset>
   </form>
-</div>       
+</div>  
+        </div>
 </body>
 </html>
 

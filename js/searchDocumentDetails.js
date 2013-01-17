@@ -1,4 +1,156 @@
-function landTab(listType, customerID){
+  $(document).ready(function() {
+                             
+                var name = $( "#name" ),
+      email = $( "#email" ),
+      password = $( "#password" ),
+      allFields = $( [] ).add( name ).add( email ).add( password ),
+      tips = $( ".validateTips" );
+ 
+    function updateTips( t ) {
+      tips
+        .text( t )
+        .addClass( "ui-state-highlight" );
+      setTimeout(function() {
+        tips.removeClass( "ui-state-highlight", 1500 );
+      }, 500 );
+    }
+ 
+    function checkLength( o, n, min, max ) {
+      if ( o.val().length > max || o.val().length < min ) {
+        o.addClass( "ui-state-error" );
+        updateTips( "Length of " + n + " must be between " +
+          min + " and " + max + "." );
+        return false;
+      } else {
+        return true;
+      }
+    }
+ 
+    function checkRegexp( o, regexp, n ) {
+      if ( !( regexp.test( o.val() ) ) ) {
+        o.addClass( "ui-state-error" );
+        updateTips( n );
+        return false;
+      } else {
+        return true;
+      }
+    }
+ 
+        $( "#addOwner-form" ).dialog({
+          autoOpen: false,
+          height: 400,
+          width: 300,
+          modal: false,
+          buttons: {
+            "Add owner": function() {
+              var bValid = true;
+              allFields.removeClass( "ui-state-error" );
+
+    //          bValid = bValid && checkLength( name, "username", 3, 16 );
+    //          bValid = bValid && checkLength( email, "email", 6, 80 );
+    //          bValid = bValid && checkLength( password, "password", 5, 16 );
+
+    //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
+
+              if ( bValid ) { alert("data received");
+                var customerID = $("#_customerID").val() ;
+                var deedID = $("#_deedID").val()
+                 var share = $("#_share").val()
+                if(customerID== "new" || customerID== "") {
+                    var ArabicName = $("#customerSearch").val();
+                    var Nationality = $("#_nationality").val();
+                    var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
+                }
+                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share;
+                
+                 
+                $( this ).dialog( "close" );
+                    $.ajax({ 
+                       type: "POST",
+                       url:'DocumentMaster/AddOwner', 
+                       data: dataTosend,
+                       success: function(data) 
+                       {
+                           $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+$("#_customerID").val()+' onclick=removeIT('+$("#_customerID").val()+')> &nbsp; <input type=checkbox name=cuowners[] value='+$("#_customerID").val()+' >'+$("#customerSearch").val()+'</td> <td>'+$("#_nationality").val()+' </td> <td>'+$("#_share").val()+' </td></tr>').appendTo('.currentOwners');
+
+                       }
+                   })
+
+              }else{alert("problem")}
+            },
+            Cancel: function() {
+              $( this ).dialog( "close" );
+            }
+          },
+          close: function() {
+            allFields.val( "" ).removeClass( "ui-state-error" );
+          }
+        });
+
+        $( "#addOwner-form" )
+          .button()
+          .click(function() {
+            $( "#addOwner-form" ).dialog( "open" );
+          });
+
+         
+  
+        $( "#addFine-form" ).dialog({
+           autoOpen: false,
+           height: 600,
+           width: 300,
+           modal: false,
+           buttons: {
+             "Add Fine": function() {
+               var bValid = true;
+               allFields.removeClass( "ui-state-error" );
+
+     //          bValid = bValid && checkLength( name, "username", 3, 16 );
+     //          bValid = bValid && checkLength( email, "email", 6, 80 );
+     //          bValid = bValid && checkLength( password, "password", 5, 16 );
+
+     //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
+
+               if ( bValid ) { alert("data received");
+                 var ID = $("#_customerID").val() ;
+                 var Remarks = $("#_deedID").val()
+                  var AmountMortgaged = $("#AmountMortgaged").val()
+                  var type = $("input[name=Type]").val()
+                  var typeDetails = $("#TypeDetail").val()
+                  var DateCreated = $("#_DateCreated").val()
+                  var IsActive = $("input[name=IsActive]").val()
+
+                  
+                 $( this ).dialog( "close" );
+                     var values = $('#fineForm').serialize();
+                       values = JSON.stringify(values);
+                     $.ajax({ 
+                        type: "POST",
+                        url:'DocumentMaster/AddHajaz', 
+                        data: values,//"customerID="+customerID+"&deedID="+deedID+"&Share="+share,
+                        success: function(data) 
+                        {   
+                            var Results = JSON.parse(data); 
+                            ID = Results.HajzID
+//                            alert(ID+data["HajzID"]+Results.HajzID)
+                            
+                            $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+ID+' onclick=removeIT('+ID+',fines)> &nbsp; <input type=checkbox name=fines[] value='+ID+' >'+ID+'</td> <td>'+Remarks+' </td> <td>'+AmountMortgaged+' </td> <td>'+type+'('+typeDetails+') </td> <td>'+DateCreated+IsActive+' </td></tr>').appendTo('.landFines');
+
+                        }
+                    })
+
+               }else{alert("problem")}
+             },
+             Cancel: function() {
+               $( this ).dialog( "close" );
+             }
+           },
+           close: function() {
+             allFields.val( "" ).removeClass( "ui-state-error" );
+           }
+         });
+  // Handler for .ready() called.
+});function landTab(listType, customerID){
         var userTab="<table class=tab><tr>"
                 userTab+="<td><a onclick=switchToView('landresult')><strong>تفاصيل الارض</strong></a></td>" ;
                 userTab+="<td><a onclick=switchToView('fines')><strong>الغرامات و الملاحظات</strong></a></td>" ;
@@ -371,149 +523,7 @@ var name = $( "#name" ),
       allFields = $( [] ).add( name ).add( email ).add( password ),
       tips = $( ".validateTips" );
  
-   $(function() {
-    var name = $( "#name" ),
-      email = $( "#email" ),
-      password = $( "#password" ),
-      allFields = $( [] ).add( name ).add( email ).add( password ),
-      tips = $( ".validateTips" );
- 
-    function updateTips( t ) {
-      tips
-        .text( t )
-        .addClass( "ui-state-highlight" );
-      setTimeout(function() {
-        tips.removeClass( "ui-state-highlight", 1500 );
-      }, 500 );
-    }
- 
-    function checkLength( o, n, min, max ) {
-      if ( o.val().length > max || o.val().length < min ) {
-        o.addClass( "ui-state-error" );
-        updateTips( "Length of " + n + " must be between " +
-          min + " and " + max + "." );
-        return false;
-      } else {
-        return true;
-      }
-    }
- 
-    function checkRegexp( o, regexp, n ) {
-      if ( !( regexp.test( o.val() ) ) ) {
-        o.addClass( "ui-state-error" );
-        updateTips( n );
-        return false;
-      } else {
-        return true;
-      }
-    }
- 
-        $( "#addOwner-form" ).dialog({
-          autoOpen: false,
-          height: 400,
-          width: 300,
-          modal: false,
-          buttons: {
-            "Add owner": function() {
-              var bValid = true;
-              allFields.removeClass( "ui-state-error" );
-
-    //          bValid = bValid && checkLength( name, "username", 3, 16 );
-    //          bValid = bValid && checkLength( email, "email", 6, 80 );
-    //          bValid = bValid && checkLength( password, "password", 5, 16 );
-
-    //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
-
-              if ( bValid ) { alert("data received");
-                var customerID = $("#_customerID").val() ;
-                var deedID = $("#_deedID").val()
-                 var share = $("#_share").val()
-                $( this ).dialog( "close" );
-                    $.ajax({ 
-                       type: "POST",
-                       url:'DocumentMaster/AddOwner', 
-                       data: "customerID="+customerID+"&deedID="+deedID+"&Share="+share,
-                       success: function(data) 
-                       {
-                           $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+$("#_customerID").val()+' onclick=removeIT('+$("#_customerID").val()+')> &nbsp; <input type=checkbox name=cuowners[] value='+$("#_customerID").val()+' >'+$("#customerSearch").val()+'</td> <td>'+$("#_nationality").val()+' </td> <td>'+$("#_share").val()+' </td></tr>').appendTo('.currentOwners');
-
-                       }
-                   })
-
-              }else{alert("problem")}
-            },
-            Cancel: function() {
-              $( this ).dialog( "close" );
-            }
-          },
-          close: function() {
-            allFields.val( "" ).removeClass( "ui-state-error" );
-          }
-        });
-
-        $( "#addOwner-form" )
-          .button()
-          .click(function() {
-            $( "#addOwner-form" ).dialog( "open" );
-          });
-
-         
   
-        $( "#addFine-form" ).dialog({
-           autoOpen: false,
-           height: 600,
-           width: 300,
-           modal: false,
-           buttons: {
-             "Add Fine": function() {
-               var bValid = true;
-               allFields.removeClass( "ui-state-error" );
-
-     //          bValid = bValid && checkLength( name, "username", 3, 16 );
-     //          bValid = bValid && checkLength( email, "email", 6, 80 );
-     //          bValid = bValid && checkLength( password, "password", 5, 16 );
-
-     //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
-
-               if ( bValid ) { alert("data received");
-                 var ID = $("#_customerID").val() ;
-                 var Remarks = $("#_deedID").val()
-                  var AmountMortgaged = $("#AmountMortgaged").val()
-                  var type = $("input[name=Type]").val()
-                  var typeDetails = $("#TypeDetail").val()
-                  var DateCreated = $("#_DateCreated").val()
-                  var IsActive = $("input[name=IsActive]").val()
-
-                  
-                 $( this ).dialog( "close" );
-                     var values = $('#fineForm').serialize();
-                       values = JSON.stringify(values);
-                     $.ajax({ 
-                        type: "POST",
-                        url:'DocumentMaster/AddHajaz', 
-                        data: values,//"customerID="+customerID+"&deedID="+deedID+"&Share="+share,
-                        success: function(data) 
-                        {   
-                            var Results = JSON.parse(data); 
-                            ID = Results.HajzID
-//                            alert(ID+data["HajzID"]+Results.HajzID)
-                            
-                            $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+ID+' onclick=removeIT('+ID+',fines)> &nbsp; <input type=checkbox name=fines[] value='+ID+' >'+ID+'</td> <td>'+Remarks+' </td> <td>'+AmountMortgaged+' </td> <td>'+type+'('+typeDetails+') </td> <td>'+DateCreated+IsActive+' </td></tr>').appendTo('.landFines');
-
-                        }
-                    })
-
-               }else{alert("problem")}
-             },
-             Cancel: function() {
-               $( this ).dialog( "close" );
-             }
-           },
-           close: function() {
-             allFields.val( "" ).removeClass( "ui-state-error" );
-           }
-         });
-  });
   
   function removeIT(id, type){
      
