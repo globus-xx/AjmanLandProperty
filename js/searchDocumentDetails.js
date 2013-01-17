@@ -38,7 +38,7 @@
  
         $( "#addOwner-form" ).dialog({
           autoOpen: false,
-          height: 400,
+          height: 420,
           width: 300,
           modal: false,
           buttons: {
@@ -53,10 +53,13 @@
     //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
 
               if ( bValid ) { alert("data received");
+                customerID ="old"
                 var customerID = $("#_customerID").val() ;
                 var deedID = $("#_deedID").val()
                  var share = $("#_share").val()
-                if(customerID== "new" || customerID== "") {
+               
+                if( $("#newCustomer").attr("checked")=="checked" ) { 
+                    customerID ="new"
                     var ArabicName = $("#customerSearch").val();
                     var Nationality = $("#_nationality").val();
                     var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
@@ -70,8 +73,11 @@
                        url:'DocumentMaster/AddOwner', 
                        data: dataTosend,
                        success: function(data) 
-                       {
+                       { var Results = JSON.parse(data); 
+                            var res = Results.result
+                            if(res==1)
                            $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+$("#_customerID").val()+' onclick=removeIT('+$("#_customerID").val()+')> &nbsp; <input type=checkbox name=cuowners[] value='+$("#_customerID").val()+' >'+$("#customerSearch").val()+'</td> <td>'+$("#_nationality").val()+' </td> <td>'+$("#_share").val()+' </td></tr>').appendTo('.currentOwners');
+                            else alert("Sorry This record could not be processed")
 
                        }
                    })
@@ -153,7 +159,7 @@
 });function landTab(listType, customerID){
         var userTab="<table class=tab><tr>"
                 userTab+="<td><a onclick=switchToView('landresult')><strong>تفاصيل الارض</strong></a></td>" ;
-                userTab+="<td><a onclick=switchToView('fines')><strong>الغرامات و الملاحظات</strong></a></td>" ;
+//                userTab+="<td><a onclick=switchToView('fines')><strong>الغرامات و الملاحظات</strong></a></td>" ;
                 userTab+="<td align='right'><a onclick=switchToView('previousowner')><strong>المالك السابق</strong></a></td>";
                 userTab+="</tr>" ;
         return userTab+="</table>";
@@ -209,7 +215,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 {   
     // get the current owners and list them with links to the profile on the Arabic name
      var currentOwnersContent = "<table dir=rtl class=currentOwners>";
-    currentOwnersContent+="<tr><td colspan='2'><input type=hidden id=_deedID value="+Results["current"]["deed"]+">"+Results["current"]["deed"]+"<strong>الزبون الحالي </strong></td><td><input type=image id=addnew src='../images/add.png' title='add owner' alt='add owner'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
+    currentOwnersContent+="<tr><td colspan='2'><input type=hidden id=_deedID value="+Results["current"]["deed"]+"><strong>الزبون الحالي </strong></td><td><input type=image id=addnew src='../images/add.png' title='add owner' alt='add owner'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
     currentOwnersContent+="<tr><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
     if(typeof(Results["current"]["customers"])!="undefined"){
         var arrayNode= Results["current"]["customers"]
@@ -252,6 +258,9 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
     landdetailsContent+="<tr ><td colspan= 6>  " ;
     landdetailsContent+= landTab();
     landdetailsContent+="</td></tr>" ;
+    landdetailsContent+="<tr ><td colspan= 6>  " ;
+    landdetailsContent+= "Deed Type:&nbsp; <input type=text id=deedRemarks name=deedRemarks value='"+Results["current"]["Remarks"]+"' />, created on "+Results["current"]["DateCreated"];
+    landdetailsContent+="</td></tr>" ;
     landdetailsContent+="<tr>";
         landdetailsContent+="<td> <form id=landInfoForm name=landInfoForm ><input type=hidden id=testField name=testField><table width='50%' class=landDetails><tr> <td> <strong>تفاصيل الارض</strong><td><img src='../images/save.png' onclick=UpdateLandData('"+ Results["landInfo"]["LandID"]+"')></td></tr>";
                 landdetailsContent+="<tr> <td> رمز المنطقة</td><td><a   >"+ Results["landInfo"]["LandID"]+"</a></td></tr>";
@@ -269,6 +278,9 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                 landdetailsContent+="<tr><td>Remarks</td><td><input id=Remarks name=Remarks type=text value='"+ Results["landInfo"]["Remarks"]+"'></td></tr>";
                 landdetailsContent+= "</td></tr></table><input type=hidden id=_testField name=_testField></form></td>"
         landdetailsContent+="<td>"+currentOwnersContent+finesContent+"</td></tr>";  
+        landdetailsContent+="<tr ><td colspan= 6>  " ;
+    landdetailsContent+=' '
+    landdetailsContent+="</td></tr>" ;
 //        landdetailsContent+="<td>"+finesContent+"</td></tr>";  
     landdetailsContent+= "</table>";
 

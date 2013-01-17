@@ -160,6 +160,8 @@ class CustomerServiceController extends Controller
                                        // current owners
                                        foreach ($deeds as $did) 
                                          $landDetails["current"]["deed"] = $did->DeedID;
+                                       $landDetails["current"]["Remarks"] = $did->Remarks;
+                                       $landDetails["current"]["DateCreated"] = $did->DateCreated;
                                          if(count($deedDetails)>0){
 
                                     foreach ($deedDetails as $key=>$cid) {

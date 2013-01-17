@@ -143,6 +143,9 @@ return false;
         
       
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/searchDocumentDetails.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.uploadify.min.js'); ?>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/uploadify.css" />
+        
 
            <script type="text/javascript" >
            
@@ -203,6 +206,7 @@ return false;
 					{ 
                                                  hideAll();
 						$('#landresult').show();
+                                                $("#uploadButton").show()
 //                                                 $('#letterTable').show();	
 
 						console.log(Results);
@@ -225,6 +229,12 @@ return false;
                         $("#addnew" ).click(function() {
 
                           $( "#addOwner-form" ).dialog( "open" );
+                          $("#_customerID").val("") ;
+                          $("#_nationality").val("") ;
+                          $("#_share").val("") ;
+                          $("#customerSearch").val("") ;
+                          
+                          
                         });
                         $("#addnewFine" ).click(function() { 
 
@@ -262,8 +272,10 @@ return false;
 <div id="addOwner-form" title="Add new owner">
   <p class="validateTips">All form fields are required.</p>
  
-  <form>
+  <form id="ownerForm" name="ownerForm">
   <fieldset>
+      
+      
     <label for="name">Name</label>
     <?php
 				$url = $this->createUrl("DocumentMaster/CustomerSearch");
@@ -283,7 +295,7 @@ return false;
                 //select function will tell where go each field
                 'select'=>'js:function( event, ui ) {
                      
-                   
+                   $("#newCustomer").attr("checked", false)
                     $( "#_nationality" ).val(ui.item.Nationality);
                     $( "#_customerID" ).val(ui.item.CustomerID);
                     return false;
@@ -294,11 +306,12 @@ return false;
                     ),
                 ));
             ?>
-<!--    <input type="text" _customerNameArabic="name" id="_customerNameArabic" class="text ui-widget-content ui-corner-all" />-->
+    
     <label for="email">Nationality</label>
     <input type="text" name="_nationality" id="_nationality" value="" class="text ui-widget-content ui-corner-all" />
+    <label for="_share">Share</label>
     <input type="text" name="_share" id="_share" value="" class="text ui-widget-content ui-corner-all" />
-    
+    <label for="newCustomer">New Customer</lable> <input type="checkbox" name="newCustomer" id="newCustomer" checked="checked" class="text ui-widget-content ui-corner-all" style="width:10px" />
     <input type="hidden" name="_customerID" id="_customerID" value="new" class="text ui-widget-content ui-corner-all" />
   </fieldset>
   </form>
@@ -344,8 +357,32 @@ return false;
 
   </fieldset>
   </form>
+  
+  
 </div>  
         </div>
+        <div id="uploadButton" style="display: none">
+            <form>
+		<div id="queue"></div>
+		<input id="file_upload" name="file_upload" type="file" multiple="true">
+	</form>
+
+	<script type="text/javascript">alert('http://localhost<?php print Yii::app()->baseUrl?>/index.php/documentMaster/uploadify');
+		<?php $timestamp = time();?>
+		$(function() {
+			$('#file_upload').uploadify({
+				'formData'     : {
+					'timestamp' : '<?php echo $timestamp;?>',
+					'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+				},
+				'swf'      : '<?php print Yii::app()->baseUrl . '/js/'?>uploadify.swf',
+//				'uploader' : '<?php print Yii::app()->baseUrl?>/uploadify.php'
+                                'uploader' : 'http://localhost<?php print Yii::app()->baseUrl?>/index.php/documentMaster/uploadify'       
+			});
+		});
+	</script>
+        </div>
+        	
 </body>
 </html>
 

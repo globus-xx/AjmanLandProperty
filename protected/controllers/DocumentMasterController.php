@@ -73,37 +73,27 @@ class DocumentMasterController extends Controller
                 $customerMaster->save();
                 $customerID = $customerMaster->CustomerID;
                 }
-                
-            $deedDtails = new DeedDetails;
-            $deedDtails->CustomerID=$customerID;
-            $deedDtails->DeedID=$deedID;
-            $deedDtails->Share = $Share;
-            if($deedDtails->save()) $res=1;
-            
-            print CJSON::encode($res);
+             if($customerID!="" and $customerID!="new" and $customerID!="old" and $customerID!= NULL){   
+                    $deedDtails = new DeedDetails;
+                    $deedDtails->CustomerID=$customerID;
+                    $deedDtails->DeedID=$deedID;
+                    $deedDtails->Share = $Share;
+                    if($deedDtails->save()) $res=1;
+             }
+            print CJSON::encode(array("result"=>$res ));
         }
         public function actionAddHajaz() {
                 extract($_POST);
             $res=0;
             $HajzMaster = new HajzMaster;
                 $HajzMaster->LandID = $_LandID ; 
-//                $HajazMaster->SchemeID = $SchemeID ; 
                 $HajzMaster->DeedID = $_DeedID ; 
                 $HajzMaster->Remarks = $Remarks ; 
                 $HajzMaster->Type = $Type ; 
                 $HajzMaster->TypeDetail = $TypeDetail ; 
-//                $HajazMaster->DocsCreated = date(Y-m-d) ; 
-//                $HajazMaster->UserIDcreated = $UserIDcreated ; 
                 $HajzMaster->DateCreated = $DateCreated ; 
                 $HajzMaster->AmountMortgaged = $AmountMortgaged ; 
-//                $HajazMaster->PeriodofTime = $PeriodofTime ; 
-//                $HajazMaster->UserIDended = $UserIDended ; 
-//                $HajazMaster->DateEnded = $DateEnded ; 
-//                $HajazMaster->DocsEnded = $DocsEnded ; 
-            
-            
-//            $HajazMaster->CustomerID = $customerID;
-//            $HajazMaster->DeedID = $deedID;
+
             $HajzMaster->IsActive = $IsActive;
             if($HajzMaster->save()) $res=1;
              
@@ -141,8 +131,6 @@ class DocumentMasterController extends Controller
            extract($_POST);
 
                 $landDetails=LandMaster::model()->findByPk($LandID);
-                
-//                $landDetails->LocationID = $LocationID ; 
                 $landDetails->Plot_No = $Plot_No ; 
                 $landDetails->Piece = $Piece ; 
                 $landDetails->location = $location ; 
@@ -150,15 +138,12 @@ class DocumentMasterController extends Controller
                 $landDetails->TotalArea = $TotalArea ; 
                 $landDetails->length = $length ; 
                 $landDetails->width = $width ; 
-//                $landDetails->AreaUnit = $AreaUnit ; 
                 $landDetails->Remarks = $Remarks ; 
                 $landDetails->North = $North ; 
                 $landDetails->South = $South ; 
                 $landDetails->East = $East ; 
                 $landDetails->West = $West;
-                               
-                
-//                $landDetails->save(); // save the change to database
+
                  if($landDetails->save()) $res=1;
             print CJSON::encode($res);
         }
@@ -192,11 +177,11 @@ class DocumentMasterController extends Controller
                                 } 
                                //die($strCondition);
 
-			$qtxt = 'SELECT CustomerID, Nationality, CustomerNameArabic from CustomerMaster WHERE '.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name limit 25';
-			$command = Yii::app()->db->createCommand($qtxt);
-			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
-			$res = $command->queryAll();
-                           if( count($res)<1){//run if no customer found 
+//			$qtxt = 'SELECT CustomerID, Nationality, CustomerNameArabic from CustomerMaster WHERE '.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name limit 25';
+//			$command = Yii::app()->db->createCommand($qtxt);
+//			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
+//			$res = $command->queryAll();
+//                           if( count($res)<1){//run if no customer found 
                            //search DB if Land ID matches
 
                                     $qtxt = 'SELECT LandID lnd from LandMaster WHERE LandID Like :name';
@@ -204,7 +189,7 @@ class DocumentMasterController extends Controller
                                     $command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
                                     $res = $command->queryColumn();
 
-                            }
+//                            }
 		}
 		print CJSON::encode($res);
                 
@@ -261,6 +246,7 @@ class DocumentMasterController extends Controller
                                        // current owners
                                        foreach ($deeds as $did) 
                                          $landDetails["current"]["deed"] = $did->DeedID;
+                                        print ">>".$landDetails["current"]["Remarks"] = $did->Remarks;
                                          if(count($deedDetails)>0){
 
                                     foreach ($deedDetails as $key=>$cid) {
@@ -390,7 +376,36 @@ class DocumentMasterController extends Controller
                        }
                 }	
 	}
+        public function actionuploadify(){
+/*
+Uploadify
+Copyright (c) 2012 Reactive Apps, Ronnie Garcia
+Released under the MIT License <http://www.opensource.org/licenses/mit-license.php> 
+*/
 
+// Define a destination
+$targetFolder = Yii::app()->baseUrl.'/images/uploads'; // Relative to the root
+
+$verifyToken = md5('unique_salt' . $_POST['timestamp']);
+	print ">>".$targetPath =  $targetFolder;
+
+if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
+	$tempFile = $_FILES['Filedata']['tmp_name'];
+	print ">>".$targetPath =  $targetFolder;
+	$targetFile = rtrim($targetPath,'/') . '/' . $_FILES['Filedata']['name'];
+	
+	// Validate the file type
+	$fileTypes = array('jpg','jpeg','gif','png'); // File extensions
+	$fileParts = pathinfo($_FILES['Filedata']['name']);
+	
+	if (in_array($fileParts['extension'],$fileTypes)) {
+		move_uploaded_file($tempFile,$targetFile);
+		echo '1';
+	} else {
+		echo 'Invalid file type.';
+	}
+}
+        }
         public function actionpSearchProperty()
 	{// method not in use 
             // this is a test commit// j comiited
