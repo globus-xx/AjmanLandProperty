@@ -98,42 +98,89 @@
 		body
 		{
 			margin: 0;
-			padding; 0;
+			padding: 0;
 		}
 		table,th,td
 		{
 			border-collapse:collapse;
 			border:1px solid black;
+                }
+                
 		td
 		{
-			font-size:0.6em;
+			
+                        text-overflow: string;
+                        white-space: nowrap;
 		}
-		
+                
+                
+                                      
+    	
 	</style>
 </head>
 <body style='-webkit-print-color-adjust:exact;'>
-	<br><br><br><br>
-	
+	<br>
+       
+        
+        <div id="printarea" style="width:800px;margin:0 auto;padding:50px; ">
+                               
 	<h1 align="center">عقــــد <?php echo $contype; ?></h1>
 	<h4 align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      رقم ألعقد &nbsp;<?php echo $cm->ContractsID; ?></h4>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;إنه في يوم <?php echo $daysofweek[date('l', strtotime($cm->DateCreated))]; ?> الموافق <?php echo '<span dir="ltr">'.$cm->DateCreated.'</span>'; ?> بإمارة عجمان تم التوقيع على العقد المذكور بياناته أدناه:
 
 <h3 align="right" style="background:grey;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;بيانات اﻷطراف</h3>
 
-<div id="sellertable" style="margin:0.5cm;"><table width="650">
+<div id="sellertable" style="margin:0.5cm;"><table width="780" style="text-align:center">
 <tr><td colspan="6" style='background:rgb(150,150,150);font-weight:bold'>الطرف اﻷول:</td></tr>
 <th>الإسم</th><th>الجنسية</th><th>الإثبات</th><th>رقم الإثبات</th><th>الصفة</th><th>النسبة</th>
 
 <?php
+$countnsw=0;
+$header=0;
 
 	for ($i = 0; $i<=$nsw-1; $i++)
-		echo "<tr></td><td>".$wsellers[$i]->customer->CustomerNameArabic."</td><td>".$wsellers[$i]->customer->Nationality."</td><td>".$wsellers[$i]->customer->DocumentType."</td><td>".$wsellers[$i]->customer->DocumentNumber."</td><td>".$wakeeltypes[$wsellers[$i]->Type]."</td><td>".""."</td></tr>";
+        if($countnsw<35)
+        {
+           $countnsw++;
+            echo "<tr><td width=200 class=data>".$wsellers[$i]->customer->CustomerNameArabic."</td><td class=data>".$wsellers[$i]->customer->Nationality."</td><td class=data>".$wsellers[$i]->customer->DocumentType."</td><td class=data>".$wsellers[$i]->customer->DocumentNumber."</td><td class=data>".$wakeeltypes[$wsellers[$i]->Type]."</td><td>".""."</td></tr>";
+        }
+		
+        else 
+        {
+$countnsw=1;            
 ?>
-
+<tr><td colspan="6" style='background:rgb(150,150,150);font-weight:bold'>الطرف اﻷول:</td></tr>
+<th>الإسم</th><th>الجنسية</th><th>الإثبات</th><th>رقم الإثبات</th><th>الصفة</th><th>النسبة</th>
 <?php
+echo "<tr><td width=200 class=data>".$wsellers[$i]->customer->CustomerNameArabic."</td><td class=data>".$wsellers[$i]->customer->Nationality."</td><td class=data>".$wsellers[$i]->customer->DocumentType."</td><td class=data>".$wsellers[$i]->customer->DocumentNumber."</td><td class=data>".$wakeeltypes[$wsellers[$i]->Type]."</td><td>".""."</td></tr>";
+$header++;
+        }
+       
+        
+       
+$countns=$countnsw;
+$header=0;
 
 	for ($i = 0; $i<=$ns-1; $i++)
-		echo "<tr></td><td>".$sellers[$i]->customer->CustomerNameArabic."</td><td>".$sellers[$i]->customer->Nationality."</td><td>".$sellers[$i]->customer->DocumentType."</td><td>".$sellers[$i]->customer->DocumentNumber."</td><td>".$sellertype."</td><td>".$sellers[$i]->Share."</td></tr>";
+        if($countns<35)
+        {
+          $countns++;
+          echo "<tr><td width=200 class=data>".$sellers[$i]->customer->CustomerNameArabic."</td><td class=data>".$sellers[$i]->customer->Nationality."</td><td class=data>".$sellers[$i]->customer->DocumentType."</td><td class=data>".$sellers[$i]->customer->DocumentNumber."</td><td class=data>".$sellertype."</td><td class=data>".$sellers[$i]->Share."</td></tr>";  
+        }
+		
+        else 
+        {
+          $countns=1;
+            ?>
+            <tr><td colspan="6" style='background:rgb(150,150,150);font-weight:bold'>الطرف اﻷول:</td></tr>
+            <th>الإسم</th><th>الجنسية</th><th>الإثبات</th><th>رقم الإثبات</th><th>الصفة</th><th>النسبة</th>
+            <?php
+            echo "<tr><td width=200 class=data>".$sellers[$i]->customer->CustomerNameArabic."</td><td class=data>".$sellers[$i]->customer->Nationality."</td><td class=data>".$sellers[$i]->customer->DocumentType."</td><td class=data>".$sellers[$i]->customer->DocumentNumber."</td><td class=data>".$sellertype."</td><td class=data>".$sellers[$i]->Share."</td></tr>";
+            $header++;        
+
+        }
+        
+		
 ?>
 <!-- 
 </table>
@@ -146,19 +193,76 @@
 
 <?php
 
-	for ($i = 0; $i<=$nbw-1; $i++)
-		echo "<tr></td><td>".$wbuyers[$i]->customer->CustomerNameArabic."</td><td>".$wbuyers[$i]->customer->Nationality."</td><td>".$wbuyers[$i]->customer->DocumentType."</td><td>".$wbuyers[$i]->customer->DocumentNumber."</td><td>".$wakeeltypes[$wbuyers[$i]->Type]."</td><td>".""."</td></tr>";
-?>
-<?php
+$countnbw=$countns;
+$header=0;
 
+	for ($i = 0; $i<=$nbw-1; $i++)
+        if($countnbw<35)
+        {
+            $countnbw++;
+            echo "<tr><td class=data>".$wbuyers[$i]->customer->CustomerNameArabic."</td><td class=data>".$wbuyers[$i]->customer->Nationality."</td><td class=data>".$wbuyers[$i]->customer->DocumentType."</td><td class=data>".$wbuyers[$i]->customer->DocumentNumber."</td><td class=data>".$wakeeltypes[$wbuyers[$i]->Type]."</td><td>".""."</td></tr>";
+        }
+	
+        else 
+        {
+            $countnbw=1;
+            ?>
+<tr><td colspan="6"  style='background:rgb(0,0,0);font-weight:bold;'>jhg</td></tr>
+<tr><td colspan="6"  style='background:rgb(150,150,150);font-weight:bold;'>الطرف الثاني:</td></tr>
+<th>الإسم</th><th>الجنسية</th><th>الإثبات</th><th>رقم الإثبات</th><th>الصفة</th><th>النسبة</th>
+
+<?php
+echo "<tr><td class=data>".$wbuyers[$i]->customer->CustomerNameArabic."</td><td class=data>".$wbuyers[$i]->customer->Nationality."</td><td class=data>".$wbuyers[$i]->customer->DocumentType."</td><td class=data>".$wbuyers[$i]->customer->DocumentNumber."</td><td class=data>".$wakeeltypes[$wbuyers[$i]->Type]."</td><td>".""."</td></tr>";
+$header++; 
+        }        
+            
+?>
+
+               
+    
+    <?php
+    
+$countnb=$countnbw;
+$header=0; 
+    
 	for ($i = 0; $i<=$nb-1; $i++)
 	{
-		if ($buyers[$i]->Share=="كامل الحصص")
-			echo "<tr></td><td>".$buyers[$i]->customer->CustomerNameArabic."</td><td>".$buyers[$i]->customer->Nationality."</td><td>".$buyers[$i]->customer->DocumentType."</td><td>".$buyers[$i]->customer->DocumentNumber."</td><td>".$buyertype."</td><td>".$buyers[$i]->Share."</td></tr>";
+            if($countnb<35)
+            {
+                $countnb++;
+                if ($buyers[$i]->Share=="كامل الحصص")
+			echo "<tr><td class=data>".$buyers[$i]->customer->CustomerNameArabic."</td><td class=data>".$buyers[$i]->customer->Nationality."</td><td class=data>".$buyers[$i]->customer->DocumentType."</td><td class=data>".$buyers[$i]->customer->DocumentNumber."</td><td class=data>".$buyertype."</td><td class=data>".$buyers[$i]->Share."</td></tr>";
 		else
-			echo "<tr></td><td>".$buyers[$i]->customer->CustomerNameArabic."</td><td>".$buyers[$i]->customer->Nationality."</td><td>".$buyers[$i]->customer->DocumentType."</td><td>".$buyers[$i]->customer->DocumentNumber."</td><td>".$buyertype."</td><td>".$buyers[$i]->Share."%</td></tr>";
+			echo "<tr><td class=data>".$buyers[$i]->customer->CustomerNameArabic."</td><td class=data>".$buyers[$i]->customer->Nationality."</td><td class=data>".$buyers[$i]->customer->DocumentType."</td><td class=data>".$buyers[$i]->customer->DocumentNumber."</td><td class=data>".$buyertype."</td><td class=data>".$buyers[$i]->Share."%</td></tr>";
+               
+            }
+            
+            else 
+            {
+                $countnb=1;
+                ?>
+<tr><td colspan="6"  style='font-weight:bold;'>&nbsp;</td></tr>
+<tr><td colspan="6"  style='background:rgb(150,150,150);font-weight:bold;'>الطرف الثاني:</td></tr>
+<th>الإسم</th><th>الجنسية</th><th>الإثبات</th><th>رقم الإثبات</th><th>الصفة</th><th>النسبة</th>
+<?php
+
+if ($buyers[$i]->Share=="كامل الحصص")
+			echo "<tr><td class=data>".$buyers[$i]->customer->CustomerNameArabic."</td><td class=data>".$buyers[$i]->customer->Nationality."</td><td class=data>".$buyers[$i]->customer->DocumentType."</td><td class=data>".$buyers[$i]->customer->DocumentNumber."</td><td class=data>".$buyertype."</td><td class=data>".$buyers[$i]->Share."</td></tr>";
+else
+			echo "<tr><td class=data>".$buyers[$i]->customer->CustomerNameArabic."</td><td class=data>".$buyers[$i]->customer->Nationality."</td><td class=data>".$buyers[$i]->customer->DocumentType."</td><td class=data>".$buyers[$i]->customer->DocumentNumber."</td><td class=data>".$buyertype."</td><td class=data>".$buyers[$i]->Share."%</td></tr>";
+               
+$header++; 
+            }
+            
+            
 	}
+        
+        
 ?>
+
+
+
+
 <!--
 </table>
 </div>	
@@ -182,9 +286,31 @@
  
      echo $text; ?></td></tr>
 <tr><td>الملاحظات</td><td colspan="5"><?php echo $cm->Remarks; ?></td></tr>
+
+
+
+
+
+
 </table>
 </div>
 
+
+<?      
+
+$breakpage=$countnb;        
+if($countnb<35&&$countnb>12)
+{
+    while($breakpage<35)
+    {
+       
+        $breakpage++;
+        ?>
+<br>
+<?php
+    }
+}
+?>
 <div id="stuff" style="margin:0.5cm;font-size:13px;"><p style="first-child:10px;">
 أولاَ: يقر الطرف اﻷول أن العقار المذكور أعلاه خال من أي رهونات أو التزمات مالية أو حجز ﻷمر قضائي أو من سائر الحقوق للغير أيا كان نوعها و كما يقر لاستلامه كامل المبلغ المذكور أعلاه.
 </p>
@@ -205,7 +331,9 @@
 
 </div>
 
-  
+
+ </div>
+        
 
 </body>
 <link type="text/css" href="/AjmanLandProperty/css/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
