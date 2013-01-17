@@ -122,7 +122,7 @@
 	<br>
        
         
-        <div id="printarea" style="width:800px;margin:0 auto;padding:50px;border:5px solid black; ">
+        <div id="printarea" style="width:800px;margin:0 auto;padding:50px; ">
                                
 	<h1 align="center">عقــــد <?php echo $contype; ?></h1>
 	<h4 align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      رقم ألعقد &nbsp;<?php echo $cm->ContractsID; ?></h4>
@@ -258,7 +258,6 @@ $header++;
 	}
         
         
-        
 ?>
 
 
@@ -287,9 +286,31 @@ $header++;
  
      echo $text; ?></td></tr>
 <tr><td>الملاحظات</td><td colspan="5"><?php echo $cm->Remarks; ?></td></tr>
+
+
+
+
+
+
 </table>
 </div>
 
+
+<?      
+
+$breakpage=$countnb;        
+if($countnb<35&&$countnb>12)
+{
+    while($breakpage<35)
+    {
+       
+        $breakpage++;
+        ?>
+<br>
+<?php
+    }
+}
+?>
 <div id="stuff" style="margin:0.5cm;font-size:13px;"><p style="first-child:10px;">
 أولاَ: يقر الطرف اﻷول أن العقار المذكور أعلاه خال من أي رهونات أو التزمات مالية أو حجز ﻷمر قضائي أو من سائر الحقوق للغير أيا كان نوعها و كما يقر لاستلامه كامل المبلغ المذكور أعلاه.
 </p>
