@@ -251,8 +251,33 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                }
      }else{
                  finesContent+="<tr><td>عفوا لا توجد نتائج في هذا الصنف</td></tr>"
-     }       
-//        $("#landresult").append(finesContent);
+     }    
+     
+             //****************************Fines Table*****************************************
+ var filesContent = "<table dir=rtl class=landFiles>";
+//        finesContent+="<tr ><td colspan= 6>  " ;
+//        finesContent+= landTab();
+//        finesContent+="</td></tr>" ;
+       if(typeof(Results["current"]["files"])!="undefined"){
+                var arrayNode= Results["current"]["files"]
+               filesContent+="<tr><td colspan='4'><strong> Files</strong></td><td></td></tr>";
+               filesContent+="<tr><td>ID </td><td> ملاحظات</td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
+               for(var i = 0; i<arrayNode.length ; i++ ){
+                   
+                   if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
+                       if(typeof(arrayNode[i]["created_on"]!="undefined") && arrayNode[i]["created_on"]!=null) arrayNode[i]["created_on"] = dubaiDate(arrayNode[i]["created_on"]); 
+                             else arrayNode[i]["created_on"] =""
+                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["id"]+" onclick=removeIT("+arrayNode[i]["id"]+",'files') title=remove alt=remove value="+arrayNode[i]["id"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+">"+ arrayNode[i]["id"]+"</td><td><input type=text value="+ arrayNode[i]["caption"]+" ></td>";
+//                        filesContent+="<td>"+ arrayNode[i]["caption"]+"</td>"
+                        filesContent+="<td>"+arrayNode[i]["image"]+"</td><td>"+arrayNode[i]["created_on"]+"</td>";
+                        filesContent+="</tr>";
+               }
+     }else{
+                 filesContent+="<tr><td>عفوا لا توجد نتائج في هذا الصنف</td></tr>"
+     } 
+                  //****************************Files Table*****************************************
+
+        $("#fileList").html(filesContent);
         finesContent+= "</table>";
     var landdetailsContent = "<table dir=rtl  >";
     landdetailsContent+="<tr ><td colspan= 6>  " ;
@@ -348,7 +373,9 @@ function _displayCustomerProfile(customerID){ // will load customre profile from
      }// if customer ID exist
 }
 function dubaiDate(datestring){
-    var oldDate = datestring.split('-');
+    datestring= datestring.split(' ')
+
+    var oldDate = datestring[0].split('-');
     var newDate =  oldDate[2]+"-"+oldDate[1]+"-"+oldDate[0]
     return newDate;
 }
@@ -541,6 +568,8 @@ var name = $( "#name" ),
      
       if(type=="fines") deleteFines(id)
           else
+      if(type=="files") deleteFiles(id)
+          else        
           deleteOwner(id)
       $("#removeWithID_"+id).closest('tr').remove();
       
@@ -567,6 +596,19 @@ var name = $( "#name" ),
             type: "POST",
             url:'DocumentMaster/DeleteFine', 
             data: "HajzID="+id,
+            success: function(data) 
+            {
+               alert("suseccfully removed")
+            }
+        })
+      
+  }
+    function deleteFiles(id){
+        
+        $.ajax({ 
+            type: "POST",
+            url:'DocumentMaster/DeleteFile', 
+            data: "FileID="+id,
             success: function(data) 
             {
                alert("suseccfully removed")

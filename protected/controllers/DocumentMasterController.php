@@ -46,7 +46,7 @@ class DocumentMasterController extends Controller
 			),
 		);
 	}
-
+        public function allowedActions() { return 'index, uploadify'; }
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
@@ -121,6 +121,16 @@ class DocumentMasterController extends Controller
             $res=0;
             $searchCriteria=new CDbCriteria;
             print $query = "Delete From `HajzMaster` where `HajzID`='$HajzID'";//AND  LandID = '$LandID'
+            $command =Yii::app()->db->createCommand($query);
+            
+            if($command->execute()) $res=1;
+            print CJSON::encode($res);
+        }
+        public function actionDeleteFile() {
+                extract($_POST);
+            $res=0;
+            $searchCriteria=new CDbCriteria;
+            print $query = "Delete From `Images` where `id`='$FileID'";//AND  LandID = '$LandID'
             $command =Yii::app()->db->createCommand($query);
             
             if($command->execute()) $res=1;
@@ -243,13 +253,16 @@ class DocumentMasterController extends Controller
                                        $landDetails["landInfo"] = $lands[0];
                                        $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring), 'Remarks <> "cancelled"');
                                        $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
+                                       $deedFiles = Image::model()->findAllByAttributes(array("item_id"=>$deeds[0]->DeedID));
                                        // current owners
-                                       foreach ($deeds as $did) 
+                                       foreach ($deeds as $did){ 
                                          $landDetails["current"]["deed"] = $did->DeedID;
-                                        print ">>".$landDetails["current"]["Remarks"] = $did->Remarks;
+                                         $landDetails["current"]["Remarks"] = $did->Remarks;
+                                         $landDetails["current"]["files"] = $deedFiles;
+                                        }
                                          if(count($deedDetails)>0){
 
-                                    foreach ($deedDetails as $key=>$cid) {
+                                        foreach ($deedDetails as $key=>$cid) {
                                          $_cids[] = $cid->CustomerID;
                                          $_share[$cid->CustomerID] = $cid->Share;
                                          
@@ -377,34 +390,9 @@ class DocumentMasterController extends Controller
                 }	
 	}
         public function actionuploadify(){
-/*
-Uploadify
-Copyright (c) 2012 Reactive Apps, Ronnie Garcia
-Released under the MIT License <http://www.opensource.org/licenses/mit-license.php> 
-*/
-
-// Define a destination
-$targetFolder = Yii::app()->baseUrl.'/images/uploads'; // Relative to the root
-
-$verifyToken = md5('unique_salt' . $_POST['timestamp']);
-	print ">>".$targetPath =  $targetFolder;
-
-if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
-	$tempFile = $_FILES['Filedata']['tmp_name'];
-	print ">>".$targetPath =  $targetFolder;
-	$targetFile = rtrim($targetPath,'/') . '/' . $_FILES['Filedata']['name'];
-	
-	// Validate the file type
-	$fileTypes = array('jpg','jpeg','gif','png'); // File extensions
-	$fileParts = pathinfo($_FILES['Filedata']['name']);
-	
-	if (in_array($fileParts['extension'],$fileTypes)) {
-		move_uploaded_file($tempFile,$targetFile);
-		echo '1';
-	} else {
-		echo 'Invalid file type.';
-	}
-}
+                return array(
+            'upload'=>'application.controllers.upload.UploadFileAction',
+        );
         }
         public function actionpSearchProperty()
 	{// method not in use 

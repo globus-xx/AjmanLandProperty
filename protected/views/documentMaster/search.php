@@ -362,22 +362,36 @@ return false;
 </div>  
         </div>
         <div id="uploadButton" style="display: none">
+            Uploaded Files
+            <div id="fileList"><strong>Land/Deed Files</strong></div><br>
             <form>
 		<div id="queue"></div>
 		<input id="file_upload" name="file_upload" type="file" multiple="true">
 	</form>
 
-	<script type="text/javascript">alert('http://localhost<?php print Yii::app()->baseUrl?>/index.php/documentMaster/uploadify');
+	<script type="text/javascript">//alert('http://localhost<?php print Yii::app()->baseUrl?>/index.php/documentMaster/uploadify');
 		<?php $timestamp = time();?>
 		$(function() {
 			$('#file_upload').uploadify({
 				'formData'     : {
 					'timestamp' : '<?php echo $timestamp;?>',
-					'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+					'token'     : '<?php echo md5('unique_salt' . $timestamp);?>',
+                                        'deedID'    :   '',
+                                        'landID'    :   ''
 				},
+                                'onUploadStart' : function(file) 
+                                    {
+                                        var deedID = $("#_deedID").val();
+                                        var landID = $("#LandID").val();
+                                        $('#file_upload').uploadify('settings','formData',{ 'deedID' : deedID, 'landID' : landID });
+                                    },
+                                'onUploadComplete' : function(file) {
+//                                        alert('The file ' + file.name + ' finished processing.');
+                                        $("#fileList").append("<br><span>"+file.name+"</span>")
+                                    },
 				'swf'      : '<?php print Yii::app()->baseUrl . '/js/'?>uploadify.swf',
-//				'uploader' : '<?php print Yii::app()->baseUrl?>/uploadify.php'
-                                'uploader' : 'http://localhost<?php print Yii::app()->baseUrl?>/index.php/documentMaster/uploadify'       
+				'uploader' : '<?php print Yii::app()->baseUrl?>/js/uploadify.php'
+//                                'uploader' : 'http://localhost<?php print Yii::app()->baseUrl?>/index.php/documentMaster/uploadify'       
 			});
 		});
 	</script>
