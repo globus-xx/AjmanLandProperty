@@ -283,6 +283,11 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                    if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
                        if(typeof(arrayNode[i]["created_on"]!="undefined") && arrayNode[i]["created_on"]!=null) arrayNode[i]["created_on"] = dubaiDate(arrayNode[i]["created_on"]); 
                              else arrayNode[i]["created_on"] =""
+                             
+                        if(typeof(arrayNode[i]["caption"]!="undefined") && arrayNode[i]["caption"]!=null) {
+                            arrayNode[i]["caption"] =arrayNode[i]["caption"].split(".")
+                            arrayNode[i]["caption"] = arrayNode[i]["caption"][0]
+                        }
                         filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["id"]+" onclick=removeIT("+arrayNode[i]["id"]+",'files') title=remove alt=remove value="+arrayNode[i]["id"]+"> &nbsp;"
                         filesContent+="<input type='checkbox' name='cuowners[]' value="+arrayNode[i]["id"]+"></td>"
                         filesContent+="<td><input id='caption_"+arrayNode[i]["id"]+"' name='caption_"+arrayNode[i]["id"]+"' type=text value='"+ arrayNode[i]["caption"]+"'  onblur=updateCaption('"+arrayNode[i]["id"]+"') > "
@@ -669,7 +674,8 @@ function updateCaption(id){
                    data: "id="+id+"&caption="+caption,
                    success: function(data) 
                    {
-//                      alert("suseccfully updated")
+                    $("#caption_"+id).closest('tr').css("background-color", "#CCFFCC");
+                    setTimeout(function(){ $("#caption_"+id).closest('tr').css("background-color", "white");},3000);
                    }
                })
     }
