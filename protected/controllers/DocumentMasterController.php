@@ -136,7 +136,19 @@ class DocumentMasterController extends Controller
             if($command->execute()) $res=1;
             print CJSON::encode($res);
         }
-        public function actionMarkUpdated() {
+        public function actionUpdateImageCaption() {
+                extract($_POST);
+            $res=0;
+            
+            $searchCriteria=new CDbCriteria;
+             $ImageTable=Images::model()->findByPk($id);
+             $ImageTable->link ="test"; 
+              $ImageTable->caption = $caption;
+              if($ImageTable->save()) $res=1;
+                else print_r( $ImageTable->getErrors() );
+            print CJSON::encode($res);
+        }
+         public function actionMarkUpdated() {
                 extract($_POST);
             $res=0;
             $searchCriteria=new CDbCriteria;

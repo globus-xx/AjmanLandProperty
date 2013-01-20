@@ -283,7 +283,10 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                    if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
                        if(typeof(arrayNode[i]["created_on"]!="undefined") && arrayNode[i]["created_on"]!=null) arrayNode[i]["created_on"] = dubaiDate(arrayNode[i]["created_on"]); 
                              else arrayNode[i]["created_on"] =""
-                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["id"]+" onclick=removeIT("+arrayNode[i]["id"]+",'files') title=remove alt=remove value="+arrayNode[i]["id"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["id"]+"></td><td><input type=text value="+ arrayNode[i]["caption"]+" ></td>";
+                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["id"]+" onclick=removeIT("+arrayNode[i]["id"]+",'files') title=remove alt=remove value="+arrayNode[i]["id"]+"> &nbsp;"
+                        filesContent+="<input type='checkbox' name='cuowners[]' value="+arrayNode[i]["id"]+"></td>"
+                        filesContent+="<td><input id='caption_"+arrayNode[i]["id"]+"' name='caption_"+arrayNode[i]["id"]+"' type=text value='"+ arrayNode[i]["caption"]+"'  onblur=updateCaption('"+arrayNode[i]["id"]+"') > "
+                        filesContent+="<input id='_caption_"+arrayNode[i]["id"]+"' name='_caption_"+arrayNode[i]["id"]+"' type=hidden value='"+ arrayNode[i]["caption"]+"'  ></td>";
 //                        filesContent+="<td>"+ arrayNode[i]["caption"]+"</td>"
                         filesContent+="<td><a href='../images/uploads/"+arrayNode[i]["image"]+"' target='_blank'>"+arrayNode[i]["caption"]+"</a></td><td>"+arrayNode[i]["created_on"]+"</td>";
                         filesContent+="</tr>";
@@ -653,6 +656,23 @@ var name = $( "#name" ),
                    }
                })
       
-  }  
+  }
+function updateCaption(id){
+//    alert(id)
+    var caption= $("#caption_"+id).val();
+    var captionOld= $("#_caption_"+id).val();
+    if( caption != captionOld && caption!=""){
+//        alert(id+caption);
+     $.ajax({ 
+                   type: "POST",
+                   url:'DocumentMaster/UpdateImageCaption', 
+                   data: "id="+id+"&caption="+caption,
+                   success: function(data) 
+                   {
+//                      alert("suseccfully updated")
+                   }
+               })
+    }
+}  
   
  
