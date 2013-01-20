@@ -366,7 +366,7 @@ return false;
             <div id="fileList"><strong>Land/Deed Files</strong></div>
             <form>
 		<div id="queue"></div>
-		Uploaded Files<br><div id ="fileUploadList"></div><br>
+		Uploaded Files(Only Image files are allowed)<br><div id ="fileUploadList"></div><br>
                 <input id="file_upload" name="file_upload" type="file" multiple="true">
 	</form>
 
