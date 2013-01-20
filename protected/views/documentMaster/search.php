@@ -362,11 +362,12 @@ return false;
 </div>  
         </div>
         <div id="uploadButton" style="display: none">
-            Uploaded Files
-            <div id="fileList"><strong>Land/Deed Files</strong></div><br>
+            
+            <div id="fileList"><strong>Land/Deed Files</strong></div>
             <form>
 		<div id="queue"></div>
-		<input id="file_upload" name="file_upload" type="file" multiple="true">
+		Uploaded Files<br><div id ="fileUploadList"></div><br>
+                <input id="file_upload" name="file_upload" type="file" multiple="true">
 	</form>
 
 	<script type="text/javascript">//alert('http://localhost<?php print Yii::app()->baseUrl?>/index.php/documentMaster/uploadify');
@@ -387,7 +388,7 @@ return false;
                                     },
                                 'onUploadComplete' : function(file) {
 //                                        alert('The file ' + file.name + ' finished processing.');
-                                        $("#fileList").append("<br><span>"+file.name+"</span>")
+                                        $("#fileUploadList").append("<br><span>"+file.name+"</span>")
                                     },
 				'swf'      : '<?php print Yii::app()->baseUrl . '/js/'?>uploadify.swf',
 				'uploader' : '<?php print Yii::app()->baseUrl?>/js/uploadify.php'
@@ -395,7 +396,12 @@ return false;
 			});
 		});
 	</script>
+        <div id="divMarkUpdate" > 
+            
+            <input type="button" id="markUpdate" name="markUpdate" value="Mark Updated by Archive" width="5" height="5" />
         </div>
+        </div>
+        
         	
 </body>
 </html>

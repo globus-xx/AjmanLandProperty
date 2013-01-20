@@ -136,6 +136,16 @@ class DocumentMasterController extends Controller
             if($command->execute()) $res=1;
             print CJSON::encode($res);
         }
+        public function actionMarkUpdated() {
+                extract($_POST);
+            $res=0;
+            $searchCriteria=new CDbCriteria;
+             $landDetails=LandMaster::model()->findByPk($LandID);
+              $landDetails->Remarks = 777;
+             if($landDetails->save()) $res=1;
+            
+            print CJSON::encode($res);
+        }
         public function actionUpdateLandData() {
             $res = "0";
            extract($_POST);

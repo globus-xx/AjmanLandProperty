@@ -22,7 +22,7 @@ if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
 	$targetFile = rtrim($targetPath,'/') . '/' . time().".".$fileParts['extension'];$_FILES['Filedata']['name'];
 	
 	if (in_array($fileParts['extension'],$fileTypes)) {
-                    $sql = 'insert into images set item="deed" , land_id="'.$_POST['landID'].'", item_id="'.$_POST['deedID'].'", created_on="'.date('Y-m-d').'", image="'.time().".".$fileParts['extension'].'"';
+                    $sql = 'insert into images set item="deed" , land_id="'.$_POST['landID'].'", item_id="'.$_POST['deedID'].'", created_on="'.date('Y-m-d').'", caption="'.$_FILES['Filedata']['name'].'", image="'.time().".".$fileParts['extension'].'"';
             $link = mysql_connect('localhost', 'root', '');
             if (!$link) {
                 die('Not connected : ' . mysql_error());

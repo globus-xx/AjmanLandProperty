@@ -35,7 +35,21 @@
         return true;
       }
     }
- 
+    $( "#markUpdate" ).click(function(){
+        confirm("mark this as updated??")
+        $("#content").css("background-color","#CCFFCC");
+         $.ajax({ 
+            type: "POST",
+            url:'DocumentMaster/MarkUpdated', 
+            data: "LandID="+$("#LandID").val(),
+            success: function(data) 
+            {
+                setTimeout(function(){ $("#content").css("background-color","white");},3000);
+            }
+        })
+       
+       
+    })
         $( "#addOwner-form" ).dialog({
           autoOpen: false,
           height: 420,
@@ -182,6 +196,7 @@ function userTab(listType, customerID){
 function switchToView(viewName){
     hideAll()
    $("#"+viewName).show(); 
+   if(viewName =="landresult") $("#uploadButton").show();  
    
  
 }
@@ -197,6 +212,7 @@ function hideAll(){// hide all the divs before loading the related one
         $('#countryresult').hide(); 
         $('#loadingresult').hide(); 
         $("#customerprofile").hide(); 
+        $("#uploadButton").hide();
 }
 function showDeedCustomersTR(deedid){
 
@@ -261,15 +277,15 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
        if(typeof(Results["current"]["files"])!="undefined"){
                 var arrayNode= Results["current"]["files"]
                filesContent+="<tr><td colspan='4'><strong> Files</strong></td><td></td></tr>";
-               filesContent+="<tr><td>ID </td><td> ملاحظات</td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
+               filesContent+="<tr><td>Actions </td><td> ملاحظات</td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
                for(var i = 0; i<arrayNode.length ; i++ ){
                    
                    if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
                        if(typeof(arrayNode[i]["created_on"]!="undefined") && arrayNode[i]["created_on"]!=null) arrayNode[i]["created_on"] = dubaiDate(arrayNode[i]["created_on"]); 
                              else arrayNode[i]["created_on"] =""
-                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["id"]+" onclick=removeIT("+arrayNode[i]["id"]+",'files') title=remove alt=remove value="+arrayNode[i]["id"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+">"+ arrayNode[i]["id"]+"</td><td><input type=text value="+ arrayNode[i]["caption"]+" ></td>";
+                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["id"]+" onclick=removeIT("+arrayNode[i]["id"]+",'files') title=remove alt=remove value="+arrayNode[i]["id"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["id"]+"></td><td><input type=text value="+ arrayNode[i]["caption"]+" ></td>";
 //                        filesContent+="<td>"+ arrayNode[i]["caption"]+"</td>"
-                        filesContent+="<td>"+arrayNode[i]["image"]+"</td><td>"+arrayNode[i]["created_on"]+"</td>";
+                        filesContent+="<td><a href='../images/uploads/"+arrayNode[i]["image"]+"' target='_blank'>"+arrayNode[i]["caption"]+"</a></td><td>"+arrayNode[i]["created_on"]+"</td>";
                         filesContent+="</tr>";
                }
      }else{
@@ -523,7 +539,7 @@ function diplayUserDetails(customerID, type , CustomerResult){ // list the land 
                         else  
                             $("#previouslandresult").html( userTab(type,customerID)+"<center>عفوا لا توجد أراضي سابقة</center>");
                         $("#landresult").show();
-                        $('#letterTable').show();
+                       
             }//sucess
         });// ajax
 }
