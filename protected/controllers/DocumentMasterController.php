@@ -209,11 +209,11 @@ class DocumentMasterController extends Controller
                                 } 
                                //die($strCondition);
 
-//			$qtxt = 'SELECT CustomerID, Nationality, CustomerNameArabic from CustomerMaster WHERE '.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name limit 25';
-//			$command = Yii::app()->db->createCommand($qtxt);
-//			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
-//			$res = $command->queryAll();
-//                           if( count($res)<1){//run if no customer found 
+			$qtxt = 'SELECT CustomerID, Nationality, CustomerNameArabic from CustomerMaster WHERE '.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name limit 25';
+			$command = Yii::app()->db->createCommand($qtxt);
+			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
+			$res = $command->queryAll();
+                           if( count($res)<1){//run if no customer found 
                            //search DB if Land ID matches
 
                                     $qtxt = 'SELECT LandID lnd from LandMaster WHERE LandID Like :name';
@@ -221,7 +221,7 @@ class DocumentMasterController extends Controller
                                     $command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
                                     $res = $command->queryColumn();
 
-//                            }
+                            }
 		}
 		print CJSON::encode($res);
                 
