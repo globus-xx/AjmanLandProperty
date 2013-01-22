@@ -157,9 +157,14 @@ class CustomerServiceController extends Controller
                                        $landDetails["landInfo"] = $lands[0];
                                        $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring), 'Remarks <> "cancelled"');
                                        $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
+                                       $deedFiles = Images::model()->findAllByAttributes(array("item_id"=>$deeds[0]->DeedID));
                                        // current owners
                                        foreach ($deeds as $did) 
-                                         $landDetails["current"]["deed"] = $did->DeedID;
+                                       {$landDetails["current"]["deed"] = $did->DeedID;
+                                       $landDetails["current"]["Remarks"] = $did->Remarks;
+                                       $landDetails["current"]["DateCreated"] = $did->DateCreated;
+                                        $landDetails["current"]["files"] = $deedFiles;
+                                       }
                                          if(count($deedDetails)>0){
 
                                     foreach ($deedDetails as $key=>$cid) {

@@ -1,7 +1,179 @@
-function landTab(listType, customerID){
+  $(document).ready(function() {
+                             
+                var name = $( "#name" ),
+      email = $( "#email" ),
+      password = $( "#password" ),
+      allFields = $( [] ).add( name ).add( email ).add( password ),
+      tips = $( ".validateTips" );
+ 
+    function updateTips( t ) {
+      tips
+        .text( t )
+        .addClass( "ui-state-highlight" );
+      setTimeout(function() {
+        tips.removeClass( "ui-state-highlight", 1500 );
+      }, 500 );
+    }
+ 
+    function checkLength( o, n, min, max ) {
+      if ( o.val().length > max || o.val().length < min ) {
+        o.addClass( "ui-state-error" );
+        updateTips( "Length of " + n + " must be between " +
+          min + " and " + max + "." );
+        return false;
+      } else {
+        return true;
+      }
+    }
+ 
+    function checkRegexp( o, regexp, n ) {
+      if ( !( regexp.test( o.val() ) ) ) {
+        o.addClass( "ui-state-error" );
+        updateTips( n );
+        return false;
+      } else {
+        return true;
+      }
+    }
+    $( "#markUpdate" ).click(function(){
+        confirm("mark this as updated??")
+        $("#content").css("background-color","#CCFFCC");
+         $.ajax({ 
+            type: "POST",
+            url:'DocumentMaster/MarkUpdated', 
+            data: "LandID="+$("#LandID").val(),
+            success: function(data) 
+            {
+                setTimeout(function(){ $("#content").css("background-color","white");},3000);
+            }
+        })
+       
+       
+    })
+        $( "#addOwner-form" ).dialog({
+          autoOpen: false,
+          height: 420,
+          width: 300,
+          modal: false,
+          buttons: {
+            "Add owner": function() {
+              var bValid = true;
+              allFields.removeClass( "ui-state-error" );
+
+    //          bValid = bValid && checkLength( name, "username", 3, 16 );
+    //          bValid = bValid && checkLength( email, "email", 6, 80 );
+    //          bValid = bValid && checkLength( password, "password", 5, 16 );
+
+    //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
+
+              if ( bValid ) { alert("data received");
+                customerID ="old"
+                var customerID = $("#_customerID").val() ;
+                var deedID = $("#_deedID").val()
+                 var share = $("#_share").val()
+               
+                if( $("#newCustomer").attr("checked")=="checked" ) { 
+                    customerID ="new"
+                    var ArabicName = $("#customerSearch").val();
+                    var Nationality = $("#_nationality").val();
+                    var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
+                }
+                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share;
+                
+                 
+                $( this ).dialog( "close" );
+                    $.ajax({ 
+                       type: "POST",
+                       url:'DocumentMaster/AddOwner', 
+                       data: dataTosend,
+                       success: function(data) 
+                       { var Results = JSON.parse(data); 
+                            var res = Results.result
+                            if(res==1)
+                           $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+$("#_customerID").val()+' onclick=removeIT('+$("#_customerID").val()+')> &nbsp; <input type=checkbox name=cuowners[] value='+$("#_customerID").val()+' >'+$("#customerSearch").val()+'</td> <td>'+$("#_nationality").val()+' </td> <td>'+$("#_share").val()+' </td></tr>').appendTo('.currentOwners');
+                            else alert("Sorry This record could not be processed")
+
+                       }
+                   })
+
+              }else{alert("problem")}
+            },
+            Cancel: function() {
+              $( this ).dialog( "close" );
+            }
+          },
+          close: function() {
+            allFields.val( "" ).removeClass( "ui-state-error" );
+          }
+        });
+
+        $( "#addOwner-form" )
+          .button()
+          .click(function() {
+            $( "#addOwner-form" ).dialog( "open" );
+          });
+
+         
+  
+        $( "#addFine-form" ).dialog({
+           autoOpen: false,
+           height: 600,
+           width: 300,
+           modal: false,
+           buttons: {
+             "Add Fine": function() {
+               var bValid = true;
+               allFields.removeClass( "ui-state-error" );
+
+     //          bValid = bValid && checkLength( name, "username", 3, 16 );
+     //          bValid = bValid && checkLength( email, "email", 6, 80 );
+     //          bValid = bValid && checkLength( password, "password", 5, 16 );
+
+     //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
+
+               if ( bValid ) { alert("data received");
+                 var ID = $("#_customerID").val() ;
+                 var Remarks = $("#_deedID").val()
+                  var AmountMortgaged = $("#AmountMortgaged").val()
+                  var type = $("input[name=Type]").val()
+                  var typeDetails = $("#TypeDetail").val()
+                  var DateCreated = $("#_DateCreated").val()
+                  var IsActive = $("input[name=IsActive]").val()
+
+                  
+                 $( this ).dialog( "close" );
+                     var values = $('#fineForm').serialize();
+                       values = JSON.stringify(values);
+                     $.ajax({ 
+                        type: "POST",
+                        url:'DocumentMaster/AddHajaz', 
+                        data: values,//"customerID="+customerID+"&deedID="+deedID+"&Share="+share,
+                        success: function(data) 
+                        {   
+                            var Results = JSON.parse(data); 
+                            ID = Results.HajzID
+//                            alert(ID+data["HajzID"]+Results.HajzID)
+                            
+                            $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+ID+' onclick=removeIT('+ID+',fines)> &nbsp; <input type=checkbox name=fines[] value='+ID+' >'+ID+'</td> <td>'+Remarks+' </td> <td>'+AmountMortgaged+' </td> <td>'+type+'('+typeDetails+') </td> <td>'+DateCreated+IsActive+' </td></tr>').appendTo('.landFines');
+
+                        }
+                    })
+
+               }else{alert("problem")}
+             },
+             Cancel: function() {
+               $( this ).dialog( "close" );
+             }
+           },
+           close: function() {
+             allFields.val( "" ).removeClass( "ui-state-error" );
+           }
+         });
+  // Handler for .ready() called.
+});function landTab(listType, customerID){
         var userTab="<table class=tab><tr>"
                 userTab+="<td><a onclick=switchToView('landresult')><strong>تفاصيل الارض</strong></a></td>" ;
-                userTab+="<td><a onclick=switchToView('fines')><strong>الغرامات و الملاحظات</strong></a></td>" ;
+//                userTab+="<td><a onclick=switchToView('fines')><strong>الغرامات و الملاحظات</strong></a></td>" ;
                 userTab+="<td align='right'><a onclick=switchToView('previousowner')><strong>المالك السابق</strong></a></td>";
                 userTab+="</tr>" ;
         return userTab+="</table>";
@@ -24,6 +196,7 @@ function userTab(listType, customerID){
 function switchToView(viewName){
     hideAll()
    $("#"+viewName).show(); 
+   if(viewName =="landresult") $("#uploadButton").show();  
    
  
 }
@@ -39,6 +212,7 @@ function hideAll(){// hide all the divs before loading the related one
         $('#countryresult').hide(); 
         $('#loadingresult').hide(); 
         $("#customerprofile").hide(); 
+        $("#uploadButton").hide();
 }
 function showDeedCustomersTR(deedid){
 
@@ -57,7 +231,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 {   
     // get the current owners and list them with links to the profile on the Arabic name
      var currentOwnersContent = "<table dir=rtl class=currentOwners>";
-    currentOwnersContent+="<tr><td colspan='2'><input type=hidden id=_deedID value="+Results["current"]["deed"]+">"+Results["current"]["deed"]+"<strong>الزبون الحالي </strong></td><td><input type=image id=addnew src='../images/add.png' title='add owner' alt='add owner'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
+    currentOwnersContent+="<tr><td colspan='2'><input type=hidden id=_deedID value="+Results["current"]["deed"]+"><strong>الزبون الحالي </strong></td><td><input type=image id=addnew src='../images/add.png' title='add owner' alt='add owner'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
     currentOwnersContent+="<tr><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
     if(typeof(Results["current"]["customers"])!="undefined"){
         var arrayNode= Results["current"]["customers"]
@@ -93,12 +267,48 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                }
      }else{
                  finesContent+="<tr><td>عفوا لا توجد نتائج في هذا الصنف</td></tr>"
-     }       
-//        $("#landresult").append(finesContent);
+     }    
+     
+             //****************************Fines Table*****************************************
+ var filesContent = "<table dir=rtl class=landFiles>";
+//        finesContent+="<tr ><td colspan= 6>  " ;
+//        finesContent+= landTab();
+//        finesContent+="</td></tr>" ;
+       if(typeof(Results["current"]["files"])!="undefined"){
+                var arrayNode= Results["current"]["files"]
+               filesContent+="<tr><td colspan='4'><strong> Files</strong></td><td></td></tr>";
+               filesContent+="<tr><td>Actions </td><td> ملاحظات</td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
+               for(var i = 0; i<arrayNode.length ; i++ ){
+                   
+                   if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
+                       if(typeof(arrayNode[i]["created_on"]!="undefined") && arrayNode[i]["created_on"]!=null) arrayNode[i]["created_on"] = dubaiDate(arrayNode[i]["created_on"]); 
+                             else arrayNode[i]["created_on"] =""
+                             
+                        if(typeof(arrayNode[i]["caption"]!="undefined") && arrayNode[i]["caption"]!=null) {
+                            arrayNode[i]["caption"] =arrayNode[i]["caption"].split(".")
+                            arrayNode[i]["caption"] = arrayNode[i]["caption"][0]
+                        }
+                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["id"]+" onclick=removeIT("+arrayNode[i]["id"]+",'files') title=remove alt=remove value="+arrayNode[i]["id"]+"> &nbsp;"
+                        filesContent+="<input type='checkbox' name='cuowners[]' value="+arrayNode[i]["id"]+"></td>"
+                        filesContent+="<td><input id='caption_"+arrayNode[i]["id"]+"' name='caption_"+arrayNode[i]["id"]+"' type=text value='"+ arrayNode[i]["caption"]+"'  onblur=updateCaption('"+arrayNode[i]["id"]+"') > "
+                        filesContent+="<input id='_caption_"+arrayNode[i]["id"]+"' name='_caption_"+arrayNode[i]["id"]+"' type=hidden value='"+ arrayNode[i]["caption"]+"'  ></td>";
+//                        filesContent+="<td>"+ arrayNode[i]["caption"]+"</td>"
+                        filesContent+="<td><a href='../images/uploads/"+arrayNode[i]["image"]+"' target='_blank'>"+arrayNode[i]["caption"]+"</a></td><td>"+arrayNode[i]["created_on"]+"</td>";
+                        filesContent+="</tr>";
+               }
+     }else{
+                 filesContent+="<tr><td>عفوا لا توجد نتائج في هذا الصنف</td></tr>"
+     } 
+                  //****************************Files Table*****************************************
+
+        $("#fileList").html(filesContent);
         finesContent+= "</table>";
     var landdetailsContent = "<table dir=rtl  >";
     landdetailsContent+="<tr ><td colspan= 6>  " ;
     landdetailsContent+= landTab();
+    landdetailsContent+="</td></tr>" ;
+    landdetailsContent+="<tr ><td colspan= 6>  " ;
+    landdetailsContent+= "Deed Type:&nbsp; <input type=text id=deedRemarks name=deedRemarks value='"+Results["current"]["Remarks"]+"' />, created on "+Results["current"]["DateCreated"];
     landdetailsContent+="</td></tr>" ;
     landdetailsContent+="<tr>";
         landdetailsContent+="<td> <form id=landInfoForm name=landInfoForm ><input type=hidden id=testField name=testField><table width='50%' class=landDetails><tr> <td> <strong>تفاصيل الارض</strong><td><img src='../images/save.png' onclick=UpdateLandData('"+ Results["landInfo"]["LandID"]+"')></td></tr>";
@@ -117,6 +327,9 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                 landdetailsContent+="<tr><td>Remarks</td><td><input id=Remarks name=Remarks type=text value='"+ Results["landInfo"]["Remarks"]+"'></td></tr>";
                 landdetailsContent+= "</td></tr></table><input type=hidden id=_testField name=_testField></form></td>"
         landdetailsContent+="<td>"+currentOwnersContent+finesContent+"</td></tr>";  
+        landdetailsContent+="<tr ><td colspan= 6>  " ;
+    landdetailsContent+=' '
+    landdetailsContent+="</td></tr>" ;
 //        landdetailsContent+="<td>"+finesContent+"</td></tr>";  
     landdetailsContent+= "</table>";
 
@@ -184,7 +397,9 @@ function _displayCustomerProfile(customerID){ // will load customre profile from
      }// if customer ID exist
 }
 function dubaiDate(datestring){
-    var oldDate = datestring.split('-');
+    datestring= datestring.split(' ')
+
+    var oldDate = datestring[0].split('-');
     var newDate =  oldDate[2]+"-"+oldDate[1]+"-"+oldDate[0]
     return newDate;
 }
@@ -332,7 +547,7 @@ function diplayUserDetails(customerID, type , CustomerResult){ // list the land 
                         else  
                             $("#previouslandresult").html( userTab(type,customerID)+"<center>عفوا لا توجد أراضي سابقة</center>");
                         $("#landresult").show();
-                        $('#letterTable').show();
+                       
             }//sucess
         });// ajax
 }
@@ -371,154 +586,14 @@ var name = $( "#name" ),
       allFields = $( [] ).add( name ).add( email ).add( password ),
       tips = $( ".validateTips" );
  
-   $(function() {
-    var name = $( "#name" ),
-      email = $( "#email" ),
-      password = $( "#password" ),
-      allFields = $( [] ).add( name ).add( email ).add( password ),
-      tips = $( ".validateTips" );
- 
-    function updateTips( t ) {
-      tips
-        .text( t )
-        .addClass( "ui-state-highlight" );
-      setTimeout(function() {
-        tips.removeClass( "ui-state-highlight", 1500 );
-      }, 500 );
-    }
- 
-    function checkLength( o, n, min, max ) {
-      if ( o.val().length > max || o.val().length < min ) {
-        o.addClass( "ui-state-error" );
-        updateTips( "Length of " + n + " must be between " +
-          min + " and " + max + "." );
-        return false;
-      } else {
-        return true;
-      }
-    }
- 
-    function checkRegexp( o, regexp, n ) {
-      if ( !( regexp.test( o.val() ) ) ) {
-        o.addClass( "ui-state-error" );
-        updateTips( n );
-        return false;
-      } else {
-        return true;
-      }
-    }
- 
-        $( "#addOwner-form" ).dialog({
-          autoOpen: false,
-          height: 400,
-          width: 300,
-          modal: false,
-          buttons: {
-            "Add owner": function() {
-              var bValid = true;
-              allFields.removeClass( "ui-state-error" );
-
-    //          bValid = bValid && checkLength( name, "username", 3, 16 );
-    //          bValid = bValid && checkLength( email, "email", 6, 80 );
-    //          bValid = bValid && checkLength( password, "password", 5, 16 );
-
-    //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
-
-              if ( bValid ) { alert("data received");
-                var customerID = $("#_customerID").val() ;
-                var deedID = $("#_deedID").val()
-                 var share = $("#_share").val()
-                $( this ).dialog( "close" );
-                    $.ajax({ 
-                       type: "POST",
-                       url:'DocumentMaster/AddOwner', 
-                       data: "customerID="+customerID+"&deedID="+deedID+"&Share="+share,
-                       success: function(data) 
-                       {
-                           $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+$("#_customerID").val()+' onclick=removeIT('+$("#_customerID").val()+')> &nbsp; <input type=checkbox name=cuowners[] value='+$("#_customerID").val()+' >'+$("#customerSearch").val()+'</td> <td>'+$("#_nationality").val()+' </td> <td>'+$("#_share").val()+' </td></tr>').appendTo('.currentOwners');
-
-                       }
-                   })
-
-              }else{alert("problem")}
-            },
-            Cancel: function() {
-              $( this ).dialog( "close" );
-            }
-          },
-          close: function() {
-            allFields.val( "" ).removeClass( "ui-state-error" );
-          }
-        });
-
-        $( "#addOwner-form" )
-          .button()
-          .click(function() {
-            $( "#addOwner-form" ).dialog( "open" );
-          });
-
-         
   
-        $( "#addFine-form" ).dialog({
-           autoOpen: false,
-           height: 600,
-           width: 300,
-           modal: false,
-           buttons: {
-             "Add Fine": function() {
-               var bValid = true;
-               allFields.removeClass( "ui-state-error" );
-
-     //          bValid = bValid && checkLength( name, "username", 3, 16 );
-     //          bValid = bValid && checkLength( email, "email", 6, 80 );
-     //          bValid = bValid && checkLength( password, "password", 5, 16 );
-
-     //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
-
-               if ( bValid ) { alert("data received");
-                 var ID = $("#_customerID").val() ;
-                 var Remarks = $("#_deedID").val()
-                  var AmountMortgaged = $("#AmountMortgaged").val()
-                  var type = $("input[name=Type]").val()
-                  var typeDetails = $("#TypeDetail").val()
-                  var DateCreated = $("#_DateCreated").val()
-                  var IsActive = $("input[name=IsActive]").val()
-
-                  
-                 $( this ).dialog( "close" );
-                     var values = $('#fineForm').serialize();
-                       values = JSON.stringify(values);
-                     $.ajax({ 
-                        type: "POST",
-                        url:'DocumentMaster/AddHajaz', 
-                        data: values,//"customerID="+customerID+"&deedID="+deedID+"&Share="+share,
-                        success: function(data) 
-                        {   
-                            var Results = JSON.parse(data); 
-                            ID = Results.HajzID
-//                            alert(ID+data["HajzID"]+Results.HajzID)
-                            
-                            $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+ID+' onclick=removeIT('+ID+',fines)> &nbsp; <input type=checkbox name=fines[] value='+ID+' >'+ID+'</td> <td>'+Remarks+' </td> <td>'+AmountMortgaged+' </td> <td>'+type+'('+typeDetails+') </td> <td>'+DateCreated+IsActive+' </td></tr>').appendTo('.landFines');
-
-                        }
-                    })
-
-               }else{alert("problem")}
-             },
-             Cancel: function() {
-               $( this ).dialog( "close" );
-             }
-           },
-           close: function() {
-             allFields.val( "" ).removeClass( "ui-state-error" );
-           }
-         });
-  });
   
   function removeIT(id, type){
      
       if(type=="fines") deleteFines(id)
           else
+      if(type=="files") deleteFiles(id)
+          else        
           deleteOwner(id)
       $("#removeWithID_"+id).closest('tr').remove();
       
@@ -552,6 +627,19 @@ var name = $( "#name" ),
         })
       
   }
+    function deleteFiles(id){
+        
+        $.ajax({ 
+            type: "POST",
+            url:'DocumentMaster/DeleteFile', 
+            data: "FileID="+id,
+            success: function(data) 
+            {
+               alert("suseccfully removed")
+            }
+        })
+      
+  }
   function UpdateLandData(id){
       
             var landID = id ;
@@ -573,6 +661,24 @@ var name = $( "#name" ),
                    }
                })
       
-  }  
+  }
+function updateCaption(id){
+//    alert(id)
+    var caption= $("#caption_"+id).val();
+    var captionOld= $("#_caption_"+id).val();
+    if( caption != captionOld && caption!=""){
+//        alert(id+caption);
+     $.ajax({ 
+                   type: "POST",
+                   url:'DocumentMaster/UpdateImageCaption', 
+                   data: "id="+id+"&caption="+caption,
+                   success: function(data) 
+                   {
+                    $("#caption_"+id).closest('tr').css("background-color", "#CCFFCC");
+                    setTimeout(function(){ $("#caption_"+id).closest('tr').css("background-color", "white");},3000);
+                   }
+               })
+    }
+}  
   
  

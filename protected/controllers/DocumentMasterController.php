@@ -46,7 +46,7 @@ class DocumentMasterController extends Controller
 			),
 		);
 	}
-
+        public function allowedActions() { return 'index, uploadify'; }
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
@@ -65,36 +65,35 @@ class DocumentMasterController extends Controller
         public function actionAddOwner() {
                 extract($_POST);
             $res=0;
-            $deedDtails = new DeedDetails;
-            $deedDtails->CustomerID=$customerID;
-            $deedDtails->DeedID=$deedID;
-            $deedDtails->Share = $Share;
-            if($deedDtails->save()) $res=1;
             
-            print CJSON::encode($res);
+            if($customerID=="new"){
+                $customerMaster = new CustomerMaster;
+                $customerMaster->CustomerNameArabic = $ArabicName;
+                $customerMaster->Nationality = $Nationality;
+                $customerMaster->save();
+                $customerID = $customerMaster->CustomerID;
+                }
+             if($customerID!="" and $customerID!="new" and $customerID!="old" and $customerID!= NULL){   
+                    $deedDtails = new DeedDetails;
+                    $deedDtails->CustomerID=$customerID;
+                    $deedDtails->DeedID=$deedID;
+                    $deedDtails->Share = $Share;
+                    if($deedDtails->save()) $res=1;
+             }
+            print CJSON::encode(array("result"=>$res ));
         }
         public function actionAddHajaz() {
                 extract($_POST);
             $res=0;
             $HajzMaster = new HajzMaster;
                 $HajzMaster->LandID = $_LandID ; 
-//                $HajazMaster->SchemeID = $SchemeID ; 
                 $HajzMaster->DeedID = $_DeedID ; 
                 $HajzMaster->Remarks = $Remarks ; 
                 $HajzMaster->Type = $Type ; 
                 $HajzMaster->TypeDetail = $TypeDetail ; 
-//                $HajazMaster->DocsCreated = date(Y-m-d) ; 
-//                $HajazMaster->UserIDcreated = $UserIDcreated ; 
                 $HajzMaster->DateCreated = $DateCreated ; 
                 $HajzMaster->AmountMortgaged = $AmountMortgaged ; 
-//                $HajazMaster->PeriodofTime = $PeriodofTime ; 
-//                $HajazMaster->UserIDended = $UserIDended ; 
-//                $HajazMaster->DateEnded = $DateEnded ; 
-//                $HajazMaster->DocsEnded = $DocsEnded ; 
-            
-            
-//            $HajazMaster->CustomerID = $customerID;
-//            $HajazMaster->DeedID = $deedID;
+
             $HajzMaster->IsActive = $IsActive;
             if($HajzMaster->save()) $res=1;
              
@@ -127,13 +126,43 @@ class DocumentMasterController extends Controller
             if($command->execute()) $res=1;
             print CJSON::encode($res);
         }
+        public function actionDeleteFile() {
+                extract($_POST);
+            $res=0;
+            $searchCriteria=new CDbCriteria;
+            print $query = "Delete From `Images` where `id`='$FileID'";//AND  LandID = '$LandID'
+            $command =Yii::app()->db->createCommand($query);
+            
+            if($command->execute()) $res=1;
+            print CJSON::encode($res);
+        }
+        public function actionUpdateImageCaption() {
+                extract($_POST);
+            $res=0;
+            
+            $searchCriteria=new CDbCriteria;
+             $ImageTable=Images::model()->findByPk($id);
+             $ImageTable->link ="test"; 
+              $ImageTable->caption = $caption;
+              if($ImageTable->save()) $res=1;
+                else print_r( $ImageTable->getErrors() );
+            print CJSON::encode($res);
+        }
+         public function actionMarkUpdated() {
+                extract($_POST);
+            $res=0;
+            $searchCriteria=new CDbCriteria;
+             $landDetails=LandMaster::model()->findByPk($LandID);
+              $landDetails->Remarks = 777;
+             if($landDetails->save()) $res=1;
+            
+            print CJSON::encode($res);
+        }
         public function actionUpdateLandData() {
             $res = "0";
            extract($_POST);
 
                 $landDetails=LandMaster::model()->findByPk($LandID);
-                
-//                $landDetails->LocationID = $LocationID ; 
                 $landDetails->Plot_No = $Plot_No ; 
                 $landDetails->Piece = $Piece ; 
                 $landDetails->location = $location ; 
@@ -141,15 +170,12 @@ class DocumentMasterController extends Controller
                 $landDetails->TotalArea = $TotalArea ; 
                 $landDetails->length = $length ; 
                 $landDetails->width = $width ; 
-//                $landDetails->AreaUnit = $AreaUnit ; 
                 $landDetails->Remarks = $Remarks ; 
                 $landDetails->North = $North ; 
                 $landDetails->South = $South ; 
                 $landDetails->East = $East ; 
                 $landDetails->West = $West;
-                               
-                
-//                $landDetails->save(); // save the change to database
+
                  if($landDetails->save()) $res=1;
             print CJSON::encode($res);
         }
@@ -249,12 +275,16 @@ class DocumentMasterController extends Controller
                                        $landDetails["landInfo"] = $lands[0];
                                        $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring), 'Remarks <> "cancelled"');
                                        $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
+                                       $deedFiles = Image::model()->findAllByAttributes(array("item_id"=>$deeds[0]->DeedID));
                                        // current owners
-                                       foreach ($deeds as $did) 
+                                       foreach ($deeds as $did){ 
                                          $landDetails["current"]["deed"] = $did->DeedID;
+                                         $landDetails["current"]["Remarks"] = $did->Remarks;
+                                         $landDetails["current"]["files"] = $deedFiles;
+                                        }
                                          if(count($deedDetails)>0){
 
-                                    foreach ($deedDetails as $key=>$cid) {
+                                        foreach ($deedDetails as $key=>$cid) {
                                          $_cids[] = $cid->CustomerID;
                                          $_share[$cid->CustomerID] = $cid->Share;
                                          
@@ -381,7 +411,11 @@ class DocumentMasterController extends Controller
                        }
                 }	
 	}
-
+        public function actionuploadify(){
+                return array(
+            'upload'=>'application.controllers.upload.UploadFileAction',
+        );
+        }
         public function actionpSearchProperty()
 	{// method not in use 
             // this is a test commit// j comiited
