@@ -262,13 +262,31 @@ $header++;
 
 
 
-
+</table>
 <!--
 </table>
 </div>	
 
 <div id="landinfo" style="margin:0.5cm;">
 <table  width="650">-->
+
+<?      
+
+$breakpage=$countnb;        
+if($countnb<35&&$countnb>12)
+{
+    while($breakpage<47)
+    {
+       
+        $breakpage++;
+        ?>
+<br>
+<?php
+    }
+}
+?>
+
+<table width="780" style="text-align:center">
 <tr><td colspan="6" align="right"  style='background:rgb(150,150,150);font-weight:bold'>بيانات العقار</td></tr>
 <tr><td>رقم السند:</td><td><?php echo $cm->land->LandID; ?></td><td>تاريخ السند</td><td><?php echo $cm->deed->DateCreated; ?></td><td>نوع العقار</td><td><?php echo $cm->land->Land_Type; ?></td></tr>
 <tr><td>القطاع</td><td><?php echo $cm->land->Plot_No; ?></td><td>الحي</td><td><?php echo $cm->land->location; ?></td><td>رقم القطعة</td><td><?php echo $cm->land->Piece; ?></td></tr>
@@ -296,21 +314,7 @@ $header++;
 </div>
 
 
-<?      
 
-$breakpage=$countnb;        
-if($countnb<35&&$countnb>12)
-{
-    while($breakpage<35)
-    {
-       
-        $breakpage++;
-        ?>
-<br>
-<?php
-    }
-}
-?>
 <div id="stuff" style="margin:0.5cm;font-size:13px;"><p style="first-child:10px;">
 أولاَ: يقر الطرف اﻷول أن العقار المذكور أعلاه خال من أي رهونات أو التزمات مالية أو حجز ﻷمر قضائي أو من سائر الحقوق للغير أيا كان نوعها و كما يقر لاستلامه كامل المبلغ المذكور أعلاه.
 </p>
