@@ -120,8 +120,8 @@
 </head>
 <body style='-webkit-print-color-adjust:exact;'>
 	<br>
-       
-        
+       <?php $pagecounter=1; ?>
+        <font color="#876532" style="float:right;margin:10px 100px 0px 0px;">Page :<?php echo $pagecounter ?>, contract id : <?php echo $cm->ContractsID; ?></font>
         <div id="printarea" style="width:800px;margin:0 auto;padding:50px; ">
                                
 	<h1 align="center">عقــــد <?php echo $contype; ?></h1>
@@ -139,7 +139,7 @@ $countnsw=0;
 $header=0;
 
 	for ($i = 0; $i<=$nsw-1; $i++)
-        if($countnsw<35)
+        if($countnsw<34)
         {
            $countnsw++;
             echo "<tr><td width=200 class=data>".$wsellers[$i]->customer->CustomerNameArabic."</td><td class=data>".$wsellers[$i]->customer->Nationality."</td><td class=data>".$wsellers[$i]->customer->DocumentType."</td><td class=data>".$wsellers[$i]->customer->DocumentNumber."</td><td class=data>".$wakeeltypes[$wsellers[$i]->Type]."</td><td>".""."</td></tr>";
@@ -148,12 +148,21 @@ $header=0;
         else 
         {
 $countnsw=1;            
-?>
+$pagecounter++;
+                ?>
+
+</table>
+<br>
+<font color="#876532" style="float:right;margin:10px 0px 220px 0px;">Page :<?php echo $pagecounter ?>, contract id : <?php echo $cm->ContractsID; ?></font>    
+<table width="780" style="text-align:center">
+
+<tr><td colspan="6"  style='font-weight:bold;'>&nbsp;</td></tr>
 <tr><td colspan="6" style='background:rgb(150,150,150);font-weight:bold'>الطرف اﻷول:</td></tr>
 <th>الإسم</th><th>الجنسية</th><th>الإثبات</th><th>رقم الإثبات</th><th>الصفة</th><th>النسبة</th>
 <?php
 echo "<tr><td width=200 class=data>".$wsellers[$i]->customer->CustomerNameArabic."</td><td class=data>".$wsellers[$i]->customer->Nationality."</td><td class=data>".$wsellers[$i]->customer->DocumentType."</td><td class=data>".$wsellers[$i]->customer->DocumentNumber."</td><td class=data>".$wakeeltypes[$wsellers[$i]->Type]."</td><td>".""."</td></tr>";
 $header++;
+
         }
        
         
@@ -162,7 +171,7 @@ $countns=$countnsw;
 $header=0;
 
 	for ($i = 0; $i<=$ns-1; $i++)
-        if($countns<35)
+        if($countns<34)
         {
           $countns++;
           echo "<tr><td width=200 class=data>".$sellers[$i]->customer->CustomerNameArabic."</td><td class=data>".$sellers[$i]->customer->Nationality."</td><td class=data>".$sellers[$i]->customer->DocumentType."</td><td class=data>".$sellers[$i]->customer->DocumentNumber."</td><td class=data>".$sellertype."</td><td class=data>".$sellers[$i]->Share."</td></tr>";  
@@ -170,14 +179,22 @@ $header=0;
 		
         else 
         {
-          $countns=1;
-            ?>
+            $countns=1;
+           $pagecounter++;
+                ?>
+
+</table>
+<br>
+<font color="#876532" style="float:right;margin:10px 0px 220px 0px;">Page :<?php echo $pagecounter ?>, contract id : <?php echo $cm->ContractsID; ?></font>    
+<table width="780" style="text-align:center">
+    
+            <tr><td colspan="6"  style='font-weight:bold;'>&nbsp;</td></tr>
             <tr><td colspan="6" style='background:rgb(150,150,150);font-weight:bold'>الطرف اﻷول:</td></tr>
             <th>الإسم</th><th>الجنسية</th><th>الإثبات</th><th>رقم الإثبات</th><th>الصفة</th><th>النسبة</th>
             <?php
             echo "<tr><td width=200 class=data>".$sellers[$i]->customer->CustomerNameArabic."</td><td class=data>".$sellers[$i]->customer->Nationality."</td><td class=data>".$sellers[$i]->customer->DocumentType."</td><td class=data>".$sellers[$i]->customer->DocumentNumber."</td><td class=data>".$sellertype."</td><td class=data>".$sellers[$i]->Share."</td></tr>";
             $header++;        
-
+            
         }
         
 		
@@ -197,7 +214,7 @@ $countnbw=$countns;
 $header=0;
 
 	for ($i = 0; $i<=$nbw-1; $i++)
-        if($countnbw<35)
+        if($countnbw<34)
         {
             $countnbw++;
             echo "<tr><td class=data>".$wbuyers[$i]->customer->CustomerNameArabic."</td><td class=data>".$wbuyers[$i]->customer->Nationality."</td><td class=data>".$wbuyers[$i]->customer->DocumentType."</td><td class=data>".$wbuyers[$i]->customer->DocumentNumber."</td><td class=data>".$wakeeltypes[$wbuyers[$i]->Type]."</td><td>".""."</td></tr>";
@@ -206,14 +223,22 @@ $header=0;
         else 
         {
             $countnbw=1;
-            ?>
-<tr><td colspan="6"  style='background:rgb(0,0,0);font-weight:bold;'>jhg</td></tr>
+            $pagecounter++;
+                ?>
+
+</table>
+<br>
+<font color="#876532" style="float:right;margin:10px 0px 220px 0px;">Page :<?php echo $pagecounter ?>, contract id : <?php echo $cm->ContractsID; ?></font>    
+<table width="780" style="text-align:center">
+    
+<tr><td colspan="6"  style='font-weight:bold;'>&nbsp;</td></tr>
 <tr><td colspan="6"  style='background:rgb(150,150,150);font-weight:bold;'>الطرف الثاني:</td></tr>
 <th>الإسم</th><th>الجنسية</th><th>الإثبات</th><th>رقم الإثبات</th><th>الصفة</th><th>النسبة</th>
 
 <?php
 echo "<tr><td class=data>".$wbuyers[$i]->customer->CustomerNameArabic."</td><td class=data>".$wbuyers[$i]->customer->Nationality."</td><td class=data>".$wbuyers[$i]->customer->DocumentType."</td><td class=data>".$wbuyers[$i]->customer->DocumentNumber."</td><td class=data>".$wakeeltypes[$wbuyers[$i]->Type]."</td><td>".""."</td></tr>";
 $header++; 
+
         }        
             
 ?>
@@ -227,7 +252,7 @@ $header=0;
     
 	for ($i = 0; $i<=$nb-1; $i++)
 	{
-            if($countnb<35)
+            if($countnb<34)
             {
                 $countnb++;
                 if ($buyers[$i]->Share=="كامل الحصص")
@@ -240,8 +265,14 @@ $header=0;
             else 
             {
                 $countnb=1;
+                $pagecounter++;
                 ?>
-<tr><td colspan="6"  style='font-weight:bold;'>&nbsp;</td></tr>
+
+</table>
+<br>
+<font color="#876532" style="float:right;margin:10px 0px 220px 0px;">Page :<?php echo $pagecounter ?>, contract id : <?php echo $cm->ContractsID; ?></font>    
+<table width="780" style="text-align:center">
+
 <tr><td colspan="6"  style='background:rgb(150,150,150);font-weight:bold;'>الطرف الثاني:</td></tr>
 <th>الإسم</th><th>الجنسية</th><th>الإثبات</th><th>رقم الإثبات</th><th>الصفة</th><th>النسبة</th>
 <?php
@@ -252,6 +283,7 @@ else
 			echo "<tr><td class=data>".$buyers[$i]->customer->CustomerNameArabic."</td><td class=data>".$buyers[$i]->customer->Nationality."</td><td class=data>".$buyers[$i]->customer->DocumentType."</td><td class=data>".$buyers[$i]->customer->DocumentNumber."</td><td class=data>".$buyertype."</td><td class=data>".$buyers[$i]->Share."%</td></tr>";
                
 $header++; 
+
             }
             
             
@@ -262,13 +294,44 @@ $header++;
 
 
 
-
+</table>
 <!--
 </table>
 </div>	
 
 <div id="landinfo" style="margin:0.5cm;">
 <table  width="650">-->
+
+<?      
+$w=0;
+$breakpage=$countnb;        
+if($countnb<34&&$countnb>12)
+{
+    $pagecounter++;
+    $w=1;
+    while($breakpage<47)
+    {
+        
+        $breakpage++;
+        ?>
+<br>
+<?php
+    }
+}
+?>
+
+
+
+<?php
+if($w==1)
+{
+?>
+<font color="#876532" style="float:left;">Page :<?php echo $pagecounter ?>, contract id : <?php echo $cm->ContractsID; ?></font>
+<?
+}
+?>
+
+<table width="780" style="text-align:center">
 <tr><td colspan="6" align="right"  style='background:rgb(150,150,150);font-weight:bold'>بيانات العقار</td></tr>
 <tr><td>رقم السند:</td><td><?php echo $cm->land->LandID; ?></td><td>تاريخ السند</td><td><?php echo $cm->deed->DateCreated; ?></td><td>نوع العقار</td><td><?php echo $cm->land->Land_Type; ?></td></tr>
 <tr><td>القطاع</td><td><?php echo $cm->land->Plot_No; ?></td><td>الحي</td><td><?php echo $cm->land->location; ?></td><td>رقم القطعة</td><td><?php echo $cm->land->Piece; ?></td></tr>
@@ -296,21 +359,7 @@ $header++;
 </div>
 
 
-<?      
 
-$breakpage=$countnb;        
-if($countnb<35&&$countnb>12)
-{
-    while($breakpage<35)
-    {
-       
-        $breakpage++;
-        ?>
-<br>
-<?php
-    }
-}
-?>
 <div id="stuff" style="margin:0.5cm;font-size:13px;"><p style="first-child:10px;">
 أولاَ: يقر الطرف اﻷول أن العقار المذكور أعلاه خال من أي رهونات أو التزمات مالية أو حجز ﻷمر قضائي أو من سائر الحقوق للغير أيا كان نوعها و كما يقر لاستلامه كامل المبلغ المذكور أعلاه.
 </p>
