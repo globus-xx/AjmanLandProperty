@@ -92,6 +92,7 @@ return false;
                 ));
             ?>
  <input type="submit" value ="البحث">
+ <div id="verifiedDeed" style="display: none; float: left; background-color: #CCFFCC; border-bottom-color: #ccc ; border: 1px; width: 200px; height: 55px; text-align: center; padding: 5px;"> ملاحظة : تم التحقق من السجل   <br> Notice: Record is verified</div>
     </form>
 	
 	<br><br><div class='searchresult'>
@@ -311,7 +312,7 @@ return false;
     <input type="text" name="_nationality" id="_nationality" value="" class="text ui-widget-content ui-corner-all" />
     <label for="_share">Share</label>
     <input type="text" name="_share" id="_share" value="" class="text ui-widget-content ui-corner-all" />
-    <label for="newCustomer">New Customer</lable> <input type="checkbox" name="newCustomer" id="newCustomer" checked="checked" class="text ui-widget-content ui-corner-all" style="width:10px" />
+<!--    <label for="newCustomer">New Customer</lable> <input type="checkbox" name="newCustomer" id="newCustomer" checked="checked" class="text ui-widget-content ui-corner-all" style="width:10px" />-->
     <input type="hidden" name="_customerID" id="_customerID" value="new" class="text ui-widget-content ui-corner-all" />
   </fieldset>
   </form>

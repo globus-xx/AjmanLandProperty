@@ -41,7 +41,7 @@
          $.ajax({ 
             type: "POST",
             url:'DocumentMaster/MarkUpdated', 
-            data: "LandID="+$("#LandID").val(),
+            data: "DeedID="+$("#_deedID").val(),
             success: function(data) 
             {
                 setTimeout(function(){ $("#content").css("background-color","white");},3000);
@@ -71,14 +71,13 @@
                 var customerID = $("#_customerID").val() ;
                 var deedID = $("#_deedID").val()
                  var share = $("#_share").val()
-               
-                if( $("#newCustomer").attr("checked")=="checked" ) { 
-                    customerID ="new"
-                    var ArabicName = $("#customerSearch").val();
-                    var Nationality = $("#_nationality").val();
+                var ArabicName = $("#customerSearch").val();
+                 var Nationality = $("#_nationality").val();
+//                 if( $("#newCustomer").attr("checked")=="checked" ) { 
+//                    customerID ="new"
                     var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
-                }
-                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share;
+//                }
+//                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
                 
                  
                 $( this ).dialog( "close" );
@@ -213,6 +212,7 @@ function hideAll(){// hide all the divs before loading the related one
         $('#loadingresult').hide(); 
         $("#customerprofile").hide(); 
         $("#uploadButton").hide();
+        $("#verifiedDeed").hide();
 }
 function showDeedCustomersTR(deedid){
 
@@ -236,7 +236,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
     if(typeof(Results["current"]["customers"])!="undefined"){
         var arrayNode= Results["current"]["customers"]
         for(var i = 0; i<arrayNode.length ; i++ ){
-            currentOwnersContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["CustomerID"]+" onclick=removeIT("+arrayNode[i]["CustomerID"]+") title=remove alt=remove value="+arrayNode[i]["CustomerID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+"><a class='searchLink' >"+ arrayNode[i]["CustomerNameArabic"]+"</a></td>";
+            currentOwnersContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["CustomerID"]+" onclick=removeIT("+arrayNode[i]["CustomerID"]+") title=remove alt=remove value="+arrayNode[i]["CustomerID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+"><a href='customerMaster/update/"+arrayNode[i]["CustomerID"]+"' target=_blank >"+ arrayNode[i]["CustomerNameArabic"]+"</a></td>";
             currentOwnersContent+="<td>"+ arrayNode[i]["Nationality"]+"</td>";
             currentOwnersContent+="<td> "+ Results["current"]["share"][arrayNode[i]["CustomerID"]]+"</td>";
             currentOwnersContent+=" </tr>"
@@ -247,6 +247,8 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
      currentOwnersContent+= "</table>";
 
         //****************************Current Owners Table*****************************************
+        
+        
  var finesContent = "<table dir=rtl class=landFines>";
 //        finesContent+="<tr ><td colspan= 6>  " ;
 //        finesContent+= landTab();
@@ -270,6 +272,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
      }    
      
              //****************************Fines Table*****************************************
+             if(Results["current"]["ArchiveUpdate"] == "True") {$("#verifiedDeed").css("display","");}alert("I am"+Results["current"]["ArchiveUpdate"])
  var filesContent = "<table dir=rtl class=landFiles>";
 //        finesContent+="<tr ><td colspan= 6>  " ;
 //        finesContent+= landTab();

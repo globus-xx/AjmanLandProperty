@@ -162,8 +162,9 @@ class CustomerServiceController extends Controller
                                        foreach ($deeds as $did) 
                                        {$landDetails["current"]["deed"] = $did->DeedID;
                                        $landDetails["current"]["Remarks"] = $did->Remarks;
+                                       $landDetails["current"]["ArchiveUpdate"] = $did->ArchiveUpdate;
                                        $landDetails["current"]["DateCreated"] = $did->DateCreated;
-                                        $landDetails["current"]["files"] = $deedFiles;
+                                       $landDetails["current"]["files"] = $deedFiles;
                                        }
                                          if(count($deedDetails)>0){
 

@@ -65,21 +65,28 @@ class DocumentMasterController extends Controller
         public function actionAddOwner() {
                 extract($_POST);
             $res=0;
+            $customerNameString = $customerMaster->CustomerNameArabic;
+            $qtxt = 'SELECT customerNameArabic name from CustomerMaster WHERE CustomerNameArabic = :name';
+                                    $command = Yii::app()->db->createCommand($qtxt);
+                                    $command->bindValue(':name',$customerNameString,PDO::PARAM_STR);
+                                    $res = $command->queryColumn();
+//                                    print "c".count($res);
             
-            if($customerID=="new"){
-                $customerMaster = new CustomerMaster;
+             if( count($res)<1){
+                 $customerMaster = new CustomerMaster;
                 $customerMaster->CustomerNameArabic = $ArabicName;
                 $customerMaster->Nationality = $Nationality;
                 $customerMaster->save();
                 $customerID = $customerMaster->CustomerID;
-                }
-             if($customerID!="" and $customerID!="new" and $customerID!="old" and $customerID!= NULL){   
-                    $deedDtails = new DeedDetails;
+             }
+//            else{
+                $deedDtails = new DeedDetails;
                     $deedDtails->CustomerID=$customerID;
                     $deedDtails->DeedID=$deedID;
                     $deedDtails->Share = $Share;
                     if($deedDtails->save()) $res=1;
-             }
+//                }
+             
             print CJSON::encode(array("result"=>$res ));
         }
         public function actionAddHajaz() {
@@ -152,9 +159,9 @@ class DocumentMasterController extends Controller
                 extract($_POST);
             $res=0;
             $searchCriteria=new CDbCriteria;
-             $landDetails=LandMaster::model()->findByPk($LandID);
-              $landDetails->Remarks = 777;
-             if($landDetails->save()) $res=1;
+             $deedMaster= DeedMaster::model()->findByPk($DeedID);
+              $deedMaster->ArchiveUpdate = True;
+             if($deedMaster->save()) $res=1;
             
             print CJSON::encode($res);
         }
