@@ -162,7 +162,7 @@ class DocumentMasterController extends  Controller
                 extract($_POST);
             $res=0;
             $searchCriteria=new CDbCriteria;
-            print $query = "Delete From `Images` where `id`='$FileID'";//AND  LandID = '$LandID'
+            print $query = "Delete From `filemaster` where `FileID`='$FileID'";//AND  LandID = '$LandID'
             $command =Yii::app()->db->createCommand($query);
             
             if($command->execute()) $res=1;

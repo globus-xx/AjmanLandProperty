@@ -306,7 +306,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                             arrayNode[i]["Title"] =arrayNode[i]["Title"].split(".")
                             arrayNode[i]["Title"] = arrayNode[i]["Title"][0]
                         }
-                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["id"]+" onclick=removeIT("+arrayNode[i]["FileID"]+",'files') title=remove alt=remove value="+arrayNode[i]["FileID"]+"> &nbsp;"
+                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["FileID"]+" onclick=removeIT("+arrayNode[i]["FileID"]+",'files') title=remove alt=remove value="+arrayNode[i]["FileID"]+"> &nbsp;"
                         filesContent+="<input type='checkbox' name='cuowners[]' value="+arrayNode[i]["id"]+"></td>"
                         filesContent+="<td><input id='caption_"+arrayNode[i]["FileID"]+"' name='caption_"+arrayNode[i]["FileID"]+"' type=text value='"+ arrayNode[i]["Title"]+"'  onblur=updateCaption('"+arrayNode[i]["FileID"]+"') > "
                         filesContent+="<input id='_caption_"+arrayNode[i]["FileID"]+"' name='_caption_"+arrayNode[i]["FileID"]+"' type=hidden value='"+ arrayNode[i]["Tile"]+"'  ></td>";
