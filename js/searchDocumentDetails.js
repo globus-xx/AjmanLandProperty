@@ -36,8 +36,11 @@
       }
     }
     $( "#markUpdate" ).click(function(){
-        confirm("mark this as updated??")
-        $("#content").css("background-color","#CCFFCC");
+        
+        var r=confirm("mark this as updated??");
+                if (r==true)
+                  {
+                  $("#content").css("background-color","#CCFFCC");
          $.ajax({ 
             type: "POST",
             url:'DocumentMaster/MarkUpdated', 
@@ -47,6 +50,14 @@
                 setTimeout(function(){ $("#content").css("background-color","white");},3000);
             }
         })
+                  }
+                else
+                  {
+                  x="You pressed Cancel!";
+                   confirm(x)
+                  }
+       
+        
        
        
     })
@@ -66,7 +77,7 @@
 
     //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
 
-              if ( bValid ) { alert("data received");
+              if ( bValid ) { showMessage("Data of owner received");
                 customerID ="old"
                 var customerID = $("#_customerID").val() ;
                 var deedID = $("#_deedID").val()
@@ -88,9 +99,12 @@
                        success: function(data) 
                        { var Results = JSON.parse(data); 
                             var res = Results.result
-                            if(res==1)
-                           $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+$("#_customerID").val()+' onclick=removeIT('+$("#_customerID").val()+')> &nbsp; <input type=checkbox name=cuowners[] value='+$("#_customerID").val()+' >'+$("#customerSearch").val()+'</td> <td>'+$("#_nationality").val()+' </td> <td>'+$("#_share").val()+' </td></tr>').appendTo('.currentOwners');
-                            else alert("Sorry This record could not be processed")
+                            var customerID = Results.customerID;
+                            if(res==1){
+                           $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+')> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td>'+$("#_share").val()+' </td></tr>').appendTo('.currentOwners');
+                            showMessage("Add Owner Complete");
+                            }
+                            else {alert("Sorry This record could not be processed"); showMessage("Sorry This record could not be processed");}
 
                        }
                    })
@@ -130,7 +144,7 @@
 
      //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
 
-               if ( bValid ) { alert("data received");
+               if ( bValid ) { //alert("data received");
                  var ID = $("#_customerID").val() ;
                  var Remarks = $("#_deedID").val()
                   var AmountMortgaged = $("#AmountMortgaged").val()
@@ -231,12 +245,13 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 {   
     // get the current owners and list them with links to the profile on the Arabic name
      var currentOwnersContent = "<table dir=rtl class=currentOwners>";
-    currentOwnersContent+="<tr><td colspan='2'><input type=hidden id=_deedID value="+Results["current"]["deed"]+"><strong>الزبون الحالي </strong></td><td><input type=image id=addnew src='../images/add.png' title='add owner' alt='add owner'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
-    currentOwnersContent+="<tr><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
+    currentOwnersContent+="<tr ><td colspan='3'><input type=hidden id=_deedID value="+Results["current"]["deed"]+"><strong>الزبون الحالي </strong></td><td><input type=image id=addnew src='../images/add.png' title='add owner' alt='add owner'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
+    currentOwnersContent+="<tr bgcolor=#C9E0ED><td></td><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
     if(typeof(Results["current"]["customers"])!="undefined"){
         var arrayNode= Results["current"]["customers"]
         for(var i = 0; i<arrayNode.length ; i++ ){
-            currentOwnersContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["CustomerID"]+" onclick=removeIT("+arrayNode[i]["CustomerID"]+") title=remove alt=remove value="+arrayNode[i]["CustomerID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+"><a href='customerMaster/update/"+arrayNode[i]["CustomerID"]+"' target=_blank >"+ arrayNode[i]["CustomerNameArabic"]+"</a></td>";
+            currentOwnersContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["CustomerID"]+" onclick=removeIT("+arrayNode[i]["CustomerID"]+") title=remove alt=remove value="+arrayNode[i]["CustomerID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+"></td>";
+            currentOwnersContent+="<td><a href='customerMaster/update/"+arrayNode[i]["CustomerID"]+"' target=_blank >"+ arrayNode[i]["CustomerNameArabic"]+"</a></td>";
             currentOwnersContent+="<td>"+ arrayNode[i]["Nationality"]+"</td>";
             currentOwnersContent+="<td> "+ Results["current"]["share"][arrayNode[i]["CustomerID"]]+"</td>";
             currentOwnersContent+=" </tr>"
@@ -255,8 +270,8 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 //        finesContent+="</td></tr>" ;
        if(typeof(Results["fines"])!="undefined"){
                 var arrayNode= Results["fines"]
-               finesContent+="<tr><td colspan='4'><strong>غرامات الارض</strong></td><td><input type=image id=addnewFine src='../images/add.png' title='add hajaz' alt='add hajaz'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
-               finesContent+="<tr><td>ID </td><td> ملاحظات</td><td>الكمية المرهونة </td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
+               finesContent+="<tr ><td colspan='4'><strong>غرامات الارض</strong></td><td><input type=image id=addnewFine src='../images/add.png' title='add hajaz' alt='add hajaz'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
+               finesContent+="<tr bgcolor=#C9E0ED><td>ID </td><td> ملاحظات</td><td>الكمية المرهونة </td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
                for(var i = 0; i<arrayNode.length ; i++ ){
                    
                    if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
@@ -272,7 +287,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
      }    
      
              //****************************Fines Table*****************************************
-             if(Results["current"]["ArchiveUpdate"] == "True") {$("#verifiedDeed").css("display","");}alert("I am"+Results["current"]["ArchiveUpdate"])
+             if(Results["current"]["ArchiveUpdate"] == "True") {$("#verifiedDeed").css("display","");}//alert("I am"+Results["current"]["ArchiveUpdate"])
  var filesContent = "<table dir=rtl class=landFiles>";
 //        finesContent+="<tr ><td colspan= 6>  " ;
 //        finesContent+= landTab();
@@ -284,19 +299,19 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                for(var i = 0; i<arrayNode.length ; i++ ){
                    
                    if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
-                       if(typeof(arrayNode[i]["created_on"]!="undefined") && arrayNode[i]["created_on"]!=null) arrayNode[i]["created_on"] = dubaiDate(arrayNode[i]["created_on"]); 
-                             else arrayNode[i]["created_on"] =""
+                       if(typeof(arrayNode[i]["DateCreated"]!="undefined") && arrayNode[i]["DateCreated"]!=null) arrayNode[i]["DateCreated"] = dubaiDate(arrayNode[i]["DateCreated"]); 
+                             else arrayNode[i]["DateCreated"] = ""
                              
-                        if(typeof(arrayNode[i]["caption"]!="undefined") && arrayNode[i]["caption"]!=null) {
-                            arrayNode[i]["caption"] =arrayNode[i]["caption"].split(".")
-                            arrayNode[i]["caption"] = arrayNode[i]["caption"][0]
+                        if(typeof(arrayNode[i]["caption"]!="undefined") && arrayNode[i]["Title"]!=null) {
+                            arrayNode[i]["Title"] =arrayNode[i]["Title"].split(".")
+                            arrayNode[i]["Title"] = arrayNode[i]["Title"][0]
                         }
-                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["id"]+" onclick=removeIT("+arrayNode[i]["id"]+",'files') title=remove alt=remove value="+arrayNode[i]["id"]+"> &nbsp;"
+                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["id"]+" onclick=removeIT("+arrayNode[i]["FileID"]+",'files') title=remove alt=remove value="+arrayNode[i]["FileID"]+"> &nbsp;"
                         filesContent+="<input type='checkbox' name='cuowners[]' value="+arrayNode[i]["id"]+"></td>"
-                        filesContent+="<td><input id='caption_"+arrayNode[i]["id"]+"' name='caption_"+arrayNode[i]["id"]+"' type=text value='"+ arrayNode[i]["caption"]+"'  onblur=updateCaption('"+arrayNode[i]["id"]+"') > "
-                        filesContent+="<input id='_caption_"+arrayNode[i]["id"]+"' name='_caption_"+arrayNode[i]["id"]+"' type=hidden value='"+ arrayNode[i]["caption"]+"'  ></td>";
+                        filesContent+="<td><input id='caption_"+arrayNode[i]["FileID"]+"' name='caption_"+arrayNode[i]["FileID"]+"' type=text value='"+ arrayNode[i]["Title"]+"'  onblur=updateCaption('"+arrayNode[i]["FileID"]+"') > "
+                        filesContent+="<input id='_caption_"+arrayNode[i]["FileID"]+"' name='_caption_"+arrayNode[i]["FileID"]+"' type=hidden value='"+ arrayNode[i]["Tile"]+"'  ></td>";
 //                        filesContent+="<td>"+ arrayNode[i]["caption"]+"</td>"
-                        filesContent+="<td><a href='../images/uploads/"+arrayNode[i]["image"]+"' target='_blank'>"+arrayNode[i]["caption"]+"</a></td><td>"+arrayNode[i]["created_on"]+"</td>";
+                        filesContent+="<td><a href='../images/uploads/"+arrayNode[i]["Image"]+"' target='_blank'>"+arrayNode[i]["Title"]+"</a></td><td>"+arrayNode[i]["DateCreated"]+"</td>";
                         filesContent+="</tr>";
                }
      }else{
@@ -611,8 +626,8 @@ var name = $( "#name" ),
                    url:'DocumentMaster/DeleteOwner', 
                    data: "customerID="+customerID+"&deedID="+deedID,
                    success: function(data) 
-                   {
-                      alert("suseccfully removed")
+                   { 
+                       showMessage("Owner Removed");
                    }
                })
       
@@ -625,7 +640,7 @@ var name = $( "#name" ),
             data: "HajzID="+id,
             success: function(data) 
             {
-               alert("suseccfully removed")
+                showMessage("Fine Removed");
             }
         })
       
@@ -638,7 +653,7 @@ var name = $( "#name" ),
             data: "FileID="+id,
             success: function(data) 
             {
-               alert("suseccfully removed")
+                showMessage("File removed sucessfully");
             }
         })
       
@@ -660,7 +675,9 @@ var name = $( "#name" ),
                    data: values,
                    success: function(data) 
                    {
-                      alert("suseccfully updated")
+//                      alert("suseccfully updated")
+                       showMessage("Land Data suseccfully updated");
+                        
                    }
                })
       
@@ -683,5 +700,11 @@ function updateCaption(id){
                })
     }
 }  
+function showMessage(messageContent){
+     $("#messagDiv").addClass("messageDiv");
+     $("#messagDiv").css("display", "");
+                        $("#messagDiv").html(messageContent);
+                        setTimeout(function(){ $("#messagDiv").css("display","none");},3000);
+}
   
  

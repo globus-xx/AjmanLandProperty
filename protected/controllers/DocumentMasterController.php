@@ -1,6 +1,6 @@
 <?php
 
-class DocumentMasterController extends Controller
+class DocumentMasterController extends  Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -87,7 +87,32 @@ class DocumentMasterController extends Controller
                     if($deedDtails->save()) $res=1;
 //                }
              
-            print CJSON::encode(array("result"=>$res ));
+            print CJSON::encode(array("result"=>$res, "customerID"=>$customerID ));
+        }
+        public function actionAddFile(){
+            
+           $formData = CJSON::decode(stripslashes($_POST['formData']));
+           $fileData = CJSON::decode($formData["fileData"]);
+            $res=0;
+//            print "count".count(CJSON::decode($formData["fileData"])); 
+//            print_r($fileData);
+//            print "ddd".$formData["fileData"][0]["fileName"];
+            if(count($fileData)>0 and is_array($fileData)){
+                    foreach ($fileData as $imageFile) {
+
+                            $file = new FileMaster();
+                            $file->Type = "deed";
+                             $file->LandID = $formData["landID"];
+                             $file->DeedID = $formData["deedID"];
+                             $file->DateCreated = date('Y-m-d');
+                             $file->Title = $imageFile["fileName"];
+                             $file->Image = $imageFile["imageName"];
+                                if($file->save()) $res=1;
+                                   else  print_r( $file->getErrors() );
+                    }    
+            
+            }else print "Files not found";
+           print CJSON::encode($res);
         }
         public function actionAddHajaz() {
                 extract($_POST);
@@ -148,11 +173,10 @@ class DocumentMasterController extends Controller
             $res=0;
             
             $searchCriteria=new CDbCriteria;
-             $ImageTable=Images::model()->findByPk($id);
-             $ImageTable->link ="test"; 
-              $ImageTable->caption = $caption;
-              if($ImageTable->save()) $res=1;
-                else print_r( $ImageTable->getErrors() );
+             $fileMaster=  FileMaster::model()->findByPk($id);
+             $fileMaster->Title = $caption;
+              if($fileMaster->save()) $res=1;
+                else print_r( $fileMaster->getErrors() );
             print CJSON::encode($res);
         }
          public function actionMarkUpdated() {
@@ -234,6 +258,54 @@ class DocumentMasterController extends Controller
                 
             // die ($strCondition);
 	}
+         public function actionNationalitySearch()
+	{// for autocomplete will do DB search for Customers and Lands
+		
+		if (isset($_GET['term'])) { // first search that 
+                // if user arabic name 
+                // or english name 
+                // or miobile number match
+                    
+                               
+                                $keyword = $_GET["term"];
+
+                               $searchCriteria=new CDbCriteria;
+//                             $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
+                             
+                               
+
+                               // the new library                                                                                                                    
+                               if (isset($_GET['term'])) 
+                               if ($keyword != '') {
+                                    $keyword = @$keyword;
+                                    $keyword = str_replace('\"', '"', $keyword);
+
+                                    $obj = new ArQuery();
+                                    $obj->setStrFields('CustomerNameArabic');
+                                    $obj->setMode(1);
+
+                                    $strCondition = $obj->getWhereCondition($keyword);
+                                } 
+                               //die($strCondition);
+
+//			$qtxt = 'SELECT CustomerID, Nationality, CustomerNameArabic from CustomerMaster WHERE '.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name limit 25';
+//			$command = Yii::app()->db->createCommand($qtxt);
+//			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
+//			$res = $command->queryAll();
+//                           if( count($res)<1){//run if no customer found 
+                           //search DB if Land ID matches
+
+                                    $qtxt = 'SELECT distinct Nationality nat from CustomerMaster WHERE Nationality Like :name';
+                                    $command = Yii::app()->db->createCommand($qtxt);
+                                    $command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
+                                    $res = $command->queryColumn();
+
+//                            }
+		}
+		print CJSON::encode($res);
+                
+            // die ($strCondition);
+	}
 	
 
     
@@ -282,7 +354,8 @@ class DocumentMasterController extends Controller
                                        $landDetails["landInfo"] = $lands[0];
                                        $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring), 'Remarks <> "cancelled"');
                                        $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
-                                       $deedFiles = Image::model()->findAllByAttributes(array("item_id"=>$deeds[0]->DeedID));
+                                       $deedFiles = FileMaster::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
+                                       print "deedfiles".print_r($deedFiles);
                                        // current owners
                                        foreach ($deeds as $did){ 
                                          $landDetails["current"]["deed"] = $did->DeedID;
