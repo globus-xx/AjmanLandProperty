@@ -49,7 +49,7 @@ label { display:block; }
     div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
     .ui-dialog .ui-state-error { padding: .3em; }
     .validateTips { border: 1px solid transparent; padding: 0.3em; }
-.messageDiv{background-color: #EFEDAC; border-bottom-color: #ccc ; border: 1px; width: 200px; height: 55px; text-align: center; padding: 5px; display: block}    
+.messageDiv{background-color: #EFEDAC; border-bottom-color: #ccc ; border: 1px; width: 200px; height: 55px; text-align: center; padding: 5px; margin: -95px 450px 0 0px; position: fixed;}    
   </style>
 
 <script type="text/javascript" >
