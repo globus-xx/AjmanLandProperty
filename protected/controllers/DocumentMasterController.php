@@ -65,12 +65,9 @@ class DocumentMasterController extends  Controller
         public function actionAddOwner() {
                 extract($_POST);
             $res=0;
-            $customerNameString = $customerMaster->CustomerNameArabic;
-            $qtxt = 'SELECT customerNameArabic name from CustomerMaster WHERE CustomerNameArabic = :name';
-                                    $command = Yii::app()->db->createCommand($qtxt);
-                                    $command->bindValue(':name',$customerNameString,PDO::PARAM_STR);
-                                    $res = $command->queryColumn();
-//                                    print "c".count($res);
+            
+           $res = CustomerMaster::model()->findByAttributes(array('CustomerNameArabic'=>$ArabicName));
+
             
              if( count($res)<1){
                  $customerMaster = new CustomerMaster;
@@ -78,7 +75,7 @@ class DocumentMasterController extends  Controller
                 $customerMaster->Nationality = $Nationality;
                 $customerMaster->save();
                 $customerID = $customerMaster->CustomerID;
-             }
+             }else{ $customerID = $res->CustomerID;}
 //            else{
                 $deedDtails = new DeedDetails;
                     $deedDtails->CustomerID=$customerID;

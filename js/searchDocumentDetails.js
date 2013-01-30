@@ -90,27 +90,29 @@
 //                }
 //                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
                 
-                 
-                $( this ).dialog( "close" );
-                    $.ajax({ 
-                       type: "POST",
-                       url:'DocumentMaster/AddOwner', 
-                       data: dataTosend,
-                       success: function(data) 
-                       { var Results = JSON.parse(data); 
-                            var res = Results.result
-                            var customerID = Results.customerID;
-                            var sharID = Results.shareID;
-                            if(res==1){
-                           $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+')> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+$("#_share").val()+'" class=sharetxt id="share_'+sharID+' size=5"> </td></tr>').appendTo('.currentOwners');
-                            showMessage("Add Owner Complete");
-                            updateShare()
-                            }
-                            else {alert("Sorry This record could not be processed"); showMessage("Sorry This record could not be processed");}
+                 var shaertotal=getShareTotal();
+                
+                     if(shaertotal > 100) showMessage("Total of shares percentage must be less than 100 to add new Owner.", "error",5000);
+                else {
+                        $.ajax({ 
+                           type: "POST",
+                           url:'DocumentMaster/AddOwner', 
+                           data: dataTosend,
+                           success: function(data) 
+                           { var Results = JSON.parse(data); 
+                                var res = Results.result
+                                var customerID = Results.customerID;
+                                var shareID = Results.shareID;
+                                if(res==1){
+                               $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+')> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+$("#_share").val()+'" class=sharetxt id="share_'+shareID+'"  onblur=updateShare("'+shareID+'") size=5> </td></tr>').appendTo('.currentOwners');
+                                showMessage("Add Owner Complete");
+                                updateShare()
+                                }
+                                else {alert("Sorry This record could not be processed"); showMessage("Sorry This record could not be processed");}
 
-                       }
-                   })
-
+                           }
+                       })
+                }  
               }else{alert("problem")}
             },
             Cancel: function() {
@@ -125,7 +127,8 @@
         $( "#addOwner-form" )
           .button()
           .click(function() {
-            $( "#addOwner-form" ).dialog( "open" );
+            if(getShareTotal()<100) $( "#addOwner-form" ).dialog( "open" );
+            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
           });
 
          
@@ -513,7 +516,6 @@ function updateShare(id){
                 var DeedDetailsID = $(this).attr('id');
                 DeedDetailsID = DeedDetailsID.split('_')
                 DeedDetailsID = DeedDetailsID[1];
-                debugger;
                 shareJson += "{DeedDetailsID: '"+DeedDetailsID+"' ,sharePercentage:'"+$(this).val()+"'}," 
             })
             shareJson = shareJson.split(",");
@@ -545,6 +547,16 @@ function showMessage(messageContent, alertType, delay){
      if(alertType == "error")   $("#messagDiv").css("background-color", "pink");
                         $("#messagDiv").html(messageContent);
                         setTimeout(function(){ $("#messagDiv").css("display","none");},delay);
+}
+function getShareTotal(){
+    var total = 0;
+                $( this ).dialog( "close" );
+                    $.each($(".sharetxt"),function(i,j){
+//                  alert($(this).id)
+                    total+=eval($(this).val());
+                
+                })
+   return total;
 }
   
  

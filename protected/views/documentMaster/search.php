@@ -230,15 +230,15 @@ return false;
                           
 
                         $("#addnew" ).click(function() {
-
-                          $( "#addOwner-form" ).dialog( "open" );
-                          $("#_customerID").val("") ;
-                          $("#_nationality").val("") ;
-                          $("#_share").val("") ;
-                          $("#customerSearch").val("") ;
-                          
-                          
-                        });
+                             if(getShareTotal()<100) {
+                                                    $( "#addOwner-form" ).dialog( "open" );
+                                                    $("#_customerID").val("") ;
+                                                    $("#_nationality").val("") ;
+                                                    $("#_share").val(100-getShareTotal()) ;
+                                                    $("#customerSearch").val("") ;
+                             }
+                            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
+                       });
                         $("#addnewFine" ).click(function() { 
 
                           $( "#addFine-form" ).dialog( "open" );
@@ -329,7 +329,7 @@ return false;
             ?>
     
     <label for="_share">Share</label>
-    <input type="text" name="_share" id="_share" value="" class="text ui-widget-content ui-corner-all" />
+    <input type="text" name="_share" id="_share" value="" class="text ui-widget-content ui-corner-all" disabled="disabled" size="5" />
 <!--    <label for="newCustomer">New Customer</lable> <input type="checkbox" name="newCustomer" id="newCustomer" checked="checked" class="text ui-widget-content ui-corner-all" style="width:10px" />-->
     <input type="hidden" name="_customerID" id="_customerID" value="new" class="text ui-widget-content ui-corner-all" />
   </fieldset>
