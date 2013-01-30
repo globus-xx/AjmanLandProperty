@@ -36,17 +36,28 @@
       }
     }
     $( "#markUpdate" ).click(function(){
-        confirm("mark this as updated??")
-        $("#content").css("background-color","#CCFFCC");
+        
+        var r=confirm("mark this as updated??");
+                if (r==true)
+                  {
+                  $("#content").css("background-color","#CCFFCC");
          $.ajax({ 
             type: "POST",
             url:'DocumentMaster/MarkUpdated', 
-            data: "LandID="+$("#LandID").val(),
+            data: "DeedID="+$("#_deedID").val(),
             success: function(data) 
             {
                 setTimeout(function(){ $("#content").css("background-color","white");},3000);
             }
         })
+                  }
+                else
+                  {
+                  x="You pressed Cancel!";
+                   confirm(x)
+                  }
+       
+        
        
        
     })
@@ -66,36 +77,42 @@
 
     //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
 
-              if ( bValid ) { alert("data received");
+              if ( bValid ) { showMessage("Data of owner received");
                 customerID ="old"
                 var customerID = $("#_customerID").val() ;
                 var deedID = $("#_deedID").val()
                  var share = $("#_share").val()
-               
-                if( $("#newCustomer").attr("checked")=="checked" ) { 
-                    customerID ="new"
-                    var ArabicName = $("#customerSearch").val();
-                    var Nationality = $("#_nationality").val();
+                var ArabicName = $("#customerSearch").val();
+                 var Nationality = $("#_nationality").val();
+//                 if( $("#newCustomer").attr("checked")=="checked" ) { 
+//                    customerID ="new"
                     var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
-                }
-                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share;
+//                }
+//                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
                 
-                 
-                $( this ).dialog( "close" );
-                    $.ajax({ 
-                       type: "POST",
-                       url:'DocumentMaster/AddOwner', 
-                       data: dataTosend,
-                       success: function(data) 
-                       { var Results = JSON.parse(data); 
-                            var res = Results.result
-                            if(res==1)
-                           $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+$("#_customerID").val()+' onclick=removeIT('+$("#_customerID").val()+')> &nbsp; <input type=checkbox name=cuowners[] value='+$("#_customerID").val()+' >'+$("#customerSearch").val()+'</td> <td>'+$("#_nationality").val()+' </td> <td>'+$("#_share").val()+' </td></tr>').appendTo('.currentOwners');
-                            else alert("Sorry This record could not be processed")
+                 var shaertotal=getShareTotal();
+                
+                     if(shaertotal > 100) showMessage("Total of shares percentage must be less than 100 to add new Owner.", "error",5000);
+                else {
+                        $.ajax({ 
+                           type: "POST",
+                           url:'DocumentMaster/AddOwner', 
+                           data: dataTosend,
+                           success: function(data) 
+                           { var Results = JSON.parse(data); 
+                                var res = Results.result
+                                var customerID = Results.customerID;
+                                var shareID = Results.shareID;
+                                if(res==1){
+                               $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+')> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+$("#_share").val()+'" class=sharetxt id="share_'+shareID+'"  onblur=updateShare("'+shareID+'") size=5> </td></tr>').appendTo('.currentOwners');
+                                showMessage("Add Owner Complete");
+                                updateShare()
+                                }
+                                else {alert("Sorry This record could not be processed"); showMessage("Sorry This record could not be processed");}
 
-                       }
-                   })
-
+                           }
+                       })
+                }  
               }else{alert("problem")}
             },
             Cancel: function() {
@@ -110,7 +127,8 @@
         $( "#addOwner-form" )
           .button()
           .click(function() {
-            $( "#addOwner-form" ).dialog( "open" );
+            if(getShareTotal()<100) $( "#addOwner-form" ).dialog( "open" );
+            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
           });
 
          
@@ -131,7 +149,7 @@
 
      //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
 
-               if ( bValid ) { alert("data received");
+               if ( bValid ) { //alert("data received");
                  var ID = $("#_customerID").val() ;
                  var Remarks = $("#_deedID").val()
                   var AmountMortgaged = $("#AmountMortgaged").val()
@@ -178,21 +196,6 @@
                 userTab+="</tr>" ;
         return userTab+="</table>";
 } 
-function userTab(listType, customerID){
-
-           var userTab="<table class=tab><tr>"
-               if(listType ==1){ 
-//                   userTab+="<a onclick=switchToView('countryresult')>Back to user listing</a></td>" ;
-                   userTab+="<td><a onclick=_displayCustomerProfile("+customerID+");switchToView('customerprofile')><strong>تفاصيل العضو</strong></a></td>" ;
-                }else { 
-//                    userTab+="<a onclick=switchToView('customerresult')>Back to user listing</a></td>" ;
-                    userTab+="<td><a onclick=switchToView('customerprofile')><strong>تفاصيل العضو</strong></a></td>" ;
-                }
-                        userTab+="<td align='right'><a onclick=switchToView('landresult')><strong>قائمة الاراضي</strong></a></td>";
-                        userTab+="<td align='right'><a onclick=switchToView('previouslandresult')><strong>قائمة الاراضي السابقة</strong></a></td>";
-                        userTab+="</tr>" ;
-               return userTab+="</table>";
-} 
 function switchToView(viewName){
     hideAll()
    $("#"+viewName).show(); 
@@ -213,6 +216,7 @@ function hideAll(){// hide all the divs before loading the related one
         $('#loadingresult').hide(); 
         $("#customerprofile").hide(); 
         $("#uploadButton").hide();
+        $("#verifiedDeed").hide();
 }
 function showDeedCustomersTR(deedid){
 
@@ -231,14 +235,20 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 {   
     // get the current owners and list them with links to the profile on the Arabic name
      var currentOwnersContent = "<table dir=rtl class=currentOwners>";
-    currentOwnersContent+="<tr><td colspan='2'><input type=hidden id=_deedID value="+Results["current"]["deed"]+"><strong>الزبون الحالي </strong></td><td><input type=image id=addnew src='../images/add.png' title='add owner' alt='add owner'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
-    currentOwnersContent+="<tr><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
+    currentOwnersContent+="<tr ><td colspan='3'><input type=hidden id=_deedID value="+Results["current"]["deed"]+"><strong>الزبون الحالي </strong></td><td><input type=image id=addnew src='../images/add.png' title='add owner' alt='add owner'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
+    currentOwnersContent+="<tr bgcolor=#C9E0ED><td></td><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
     if(typeof(Results["current"]["customers"])!="undefined"){
         var arrayNode= Results["current"]["customers"]
+       
+        
         for(var i = 0; i<arrayNode.length ; i++ ){
-            currentOwnersContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["CustomerID"]+" onclick=removeIT("+arrayNode[i]["CustomerID"]+") title=remove alt=remove value="+arrayNode[i]["CustomerID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+"><a class='searchLink' >"+ arrayNode[i]["CustomerNameArabic"]+"</a></td>";
+             var Shareid = Results["current"]["share"][arrayNode[i]["CustomerID"]]["shareDeedDetaisID"];
+             var sharePercentage = Results["current"]["share"][arrayNode[i]["CustomerID"]]["sharePercentage"];
+            currentOwnersContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["CustomerID"]+" onclick=removeIT("+arrayNode[i]["CustomerID"]+") title=remove alt=remove value="+arrayNode[i]["CustomerID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+"></td>";
+            currentOwnersContent+="<td><a href='customerMaster/update/"+arrayNode[i]["CustomerID"]+"' target=_blank >"+ arrayNode[i]["CustomerNameArabic"]+"</a></td>";
             currentOwnersContent+="<td>"+ arrayNode[i]["Nationality"]+"</td>";
-            currentOwnersContent+="<td> "+ Results["current"]["share"][arrayNode[i]["CustomerID"]]+"</td>";
+            currentOwnersContent+="<td> <input id='share_"+Shareid+"' name='share_"+Shareid+"' type=text class=sharetxt value='"+ sharePercentage+"'  onblur=updateShare('"+Shareid+"') size=5 >";
+            currentOwnersContent+="<input id='_share_"+Shareid+"' name='_share_"+Shareid+"' type=hidden value='"+ sharePercentage+"'  onblur=updateShare('"+Shareid+"')  ></td>";
             currentOwnersContent+=" </tr>"
     }
     } else{
@@ -247,14 +257,16 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
      currentOwnersContent+= "</table>";
 
         //****************************Current Owners Table*****************************************
+        
+        
  var finesContent = "<table dir=rtl class=landFines>";
 //        finesContent+="<tr ><td colspan= 6>  " ;
 //        finesContent+= landTab();
 //        finesContent+="</td></tr>" ;
        if(typeof(Results["fines"])!="undefined"){
                 var arrayNode= Results["fines"]
-               finesContent+="<tr><td colspan='4'><strong>غرامات الارض</strong></td><td><input type=image id=addnewFine src='../images/add.png' title='add hajaz' alt='add hajaz'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
-               finesContent+="<tr><td>ID </td><td> ملاحظات</td><td>الكمية المرهونة </td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
+               finesContent+="<tr ><td colspan='4'><strong>غرامات الارض</strong></td><td><input type=image id=addnewFine src='../images/add.png' title='add hajaz' alt='add hajaz'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
+               finesContent+="<tr bgcolor=#C9E0ED><td>ID </td><td> ملاحظات</td><td>الكمية المرهونة </td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
                for(var i = 0; i<arrayNode.length ; i++ ){
                    
                    if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
@@ -270,6 +282,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
      }    
      
              //****************************Fines Table*****************************************
+             if(Results["current"]["ArchiveUpdate"] == "True") {$("#verifiedDeed").css("display","");}//alert("I am"+Results["current"]["ArchiveUpdate"])
  var filesContent = "<table dir=rtl class=landFiles>";
 //        finesContent+="<tr ><td colspan= 6>  " ;
 //        finesContent+= landTab();
@@ -281,19 +294,19 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                for(var i = 0; i<arrayNode.length ; i++ ){
                    
                    if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
-                       if(typeof(arrayNode[i]["created_on"]!="undefined") && arrayNode[i]["created_on"]!=null) arrayNode[i]["created_on"] = dubaiDate(arrayNode[i]["created_on"]); 
-                             else arrayNode[i]["created_on"] =""
+                       if(typeof(arrayNode[i]["DateCreated"]!="undefined") && arrayNode[i]["DateCreated"]!=null) arrayNode[i]["DateCreated"] = dubaiDate(arrayNode[i]["DateCreated"]); 
+                             else arrayNode[i]["DateCreated"] = ""
                              
-                        if(typeof(arrayNode[i]["caption"]!="undefined") && arrayNode[i]["caption"]!=null) {
-                            arrayNode[i]["caption"] =arrayNode[i]["caption"].split(".")
-                            arrayNode[i]["caption"] = arrayNode[i]["caption"][0]
+                        if(typeof(arrayNode[i]["caption"]!="undefined") && arrayNode[i]["Title"]!=null) {
+                            arrayNode[i]["Title"] =arrayNode[i]["Title"].split(".")
+                            arrayNode[i]["Title"] = arrayNode[i]["Title"][0]
                         }
-                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["id"]+" onclick=removeIT("+arrayNode[i]["id"]+",'files') title=remove alt=remove value="+arrayNode[i]["id"]+"> &nbsp;"
+                        filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["FileID"]+" onclick=removeIT("+arrayNode[i]["FileID"]+",'files') title=remove alt=remove value="+arrayNode[i]["FileID"]+"> &nbsp;"
                         filesContent+="<input type='checkbox' name='cuowners[]' value="+arrayNode[i]["id"]+"></td>"
-                        filesContent+="<td><input id='caption_"+arrayNode[i]["id"]+"' name='caption_"+arrayNode[i]["id"]+"' type=text value='"+ arrayNode[i]["caption"]+"'  onblur=updateCaption('"+arrayNode[i]["id"]+"') > "
-                        filesContent+="<input id='_caption_"+arrayNode[i]["id"]+"' name='_caption_"+arrayNode[i]["id"]+"' type=hidden value='"+ arrayNode[i]["caption"]+"'  ></td>";
+                        filesContent+="<td><input id='caption_"+arrayNode[i]["FileID"]+"' name='caption_"+arrayNode[i]["FileID"]+"' type=text value='"+ arrayNode[i]["Title"]+"'  onblur=updateCaption('"+arrayNode[i]["FileID"]+"') > "
+                        filesContent+="<input id='_caption_"+arrayNode[i]["FileID"]+"' name='_caption_"+arrayNode[i]["FileID"]+"' type=hidden value='"+ arrayNode[i]["Tile"]+"'  ></td>";
 //                        filesContent+="<td>"+ arrayNode[i]["caption"]+"</td>"
-                        filesContent+="<td><a href='../images/uploads/"+arrayNode[i]["image"]+"' target='_blank'>"+arrayNode[i]["caption"]+"</a></td><td>"+arrayNode[i]["created_on"]+"</td>";
+                        filesContent+="<td><a href='../images/uploads/"+arrayNode[i]["Image"]+"' target='_blank'>"+arrayNode[i]["Title"]+"</a></td><td>"+arrayNode[i]["DateCreated"]+"</td>";
                         filesContent+="</tr>";
                }
      }else{
@@ -352,7 +365,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                            previousOwnersContent+="<tr class='deed' onclick='showDeedCustomersTR("+arrayNodeB[j]["deed"]+")'><td colspan='2'><strong>رقم العقد:"+arrayNodeB[j]["deed"]+"</strong></td></tr>";
                            previousOwnersContent+="<tr class='"+arrayNodeB[j]["deed"]+" previousOwnerhead'><td>اسم الزبون </td><td> جنسية الزبون</td></tr>";
                           for(var i = 0; i<arrayNode.length ; i++ )
-                              previousOwnersContent+="<tr  class='"+arrayNodeB[j]["deed"]+" previousOwnerEven'><td><input type='checkbox' name='prowners[]' value="+arrayNode[i]["CustomerID"]+"> <a class='searchLink' >"+ arrayNode[i]["CustomerNameArabic"]+"</a></td><td>"+ arrayNode[i]["Nationality"]+"</td></tr>";
+                              previousOwnersContent+="<tr  class='"+arrayNodeB[j]["deed"]+" previousOwnerEven'><td> "+ arrayNode[i]["CustomerNameArabic"]+"</td><td>"+ arrayNode[i]["Nationality"]+"</td></tr>";
                     }
             }else{
                  previousOwnersContent+="<tr><td>عفوا لا توجد نتائج في هذا الصنف</td></tr>"
@@ -364,38 +377,6 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
         //****************************Fines  Table*****************************************
 }
 
-function _displayCustomerProfile(customerID){ // will load customre profile from customer ID provided, get the DB data from Ajax request
-    if( customerID != null ) {
-         $.ajax({ 
-                type: "POST",
-                url:'CustomerService/Search', 
-                data: "action=search&string="+customerID,
-                success: function(data) 
-                { 
-                        var Results = JSON.parse(data); 	
-                        console.log(Results);
-
-                        if(Results[0]["CustomerID"]){
-                                var userdetailsContent = "<table dir=rtl>";
-
-                               userdetailsContent+="<tr ><td colspan= 6>  " ;
-                               userdetailsContent+= userTab(1);
-                               userdetailsContent+="</td></tr>" ;
-                               userdetailsContent+="<tr><td>الإسم -- عربي</td><td>"+ Results[0]["CustomerNameArabic"]+"</td></tr>";
-                               userdetailsContent+="<tr><td>عنوان المنزل</td><td>"+ Results[0]["HomeAddress"]+"</td></tr>";
-                               userdetailsContent+="<tr><td>هاتف المنزل</td><td>"+ Results[0]["HomePhone"]+"</td></tr>";
-                               userdetailsContent+="<tr><td>هاتف محمول</td><td>"+ Results[0]["MobilePhone"]+"</td></tr>";
-                               userdetailsContent+="<tr><td>تاريخ الميلاد</td><td>"+ Results[0]["DateofBirth"]+"</td></tr>";
-                               userdetailsContent+="<tr><td>جنسية</td><td>"+ Results[0]["Nationality"]+"</td></tr>";
-                               userdetailsContent+="<tr><td>البريد الإلكتروني</td><td>"+ Results[0]["EmailAddress"]+"</td></tr>";
-                               userdetailsContent+= "</table>";
-
-                                $("#customerprofile").html(userdetailsContent);
-                     }//results
-            }//sucess
-        });// ajax
-     }// if customer ID exist
-}
 function dubaiDate(datestring){
     datestring= datestring.split(' ')
 
@@ -403,41 +384,7 @@ function dubaiDate(datestring){
     var newDate =  oldDate[2]+"-"+oldDate[1]+"-"+oldDate[0]
     return newDate;
 }
-function displayCustomerProfile(Results){// Will load the customer profile from results provided
 
-     var userdetailsContent = "<table dir=rtl>";
-
-    userdetailsContent+="<tr ><td colspan= 6>  " ;
-    userdetailsContent+= userTab();
-    userdetailsContent+="</td></tr>" ;
-    userdetailsContent+="<tr><td><strong> تفاصيل العضو</strong><table class=landDetails>"
-    userdetailsContent+="<tr><td>الإسم -- عربي</td><td>"+ Results[0]["CustomerNameArabic"]+"</td></tr>";
-    userdetailsContent+="<tr><td>عنوان المنزل</td><td>"+ Results[0]["HomeAddress"]+"</td></tr>";
-    userdetailsContent+="<tr><td>هاتف المنزل</td><td>"+ Results[0]["HomePhone"]+"</td></tr>";
-    userdetailsContent+="<tr><td>هاتف محمول</td><td>"+ Results[0]["MobilePhone"]+"</td></tr>";
-    userdetailsContent+="<tr><td>تاريخ الميلاد</td><td>"+ Results[0]["DateofBirth"]+"</td></tr>";
-    userdetailsContent+="<tr><td>جنسية</td><td>"+ Results[0]["Nationality"]+"</td></tr>";
-    userdetailsContent+="<tr><td>البريد الإلكتروني</td><td>"+ Results[0]["EmailAddress"]+"</td></tr>";
-    userdetailsContent+= "</tabe></td></tr></table>";
-
-     $("#customerprofile").html(userdetailsContent);
-
-}
-function displayCustomerInfo(Results)// will load list off customers returned from country or any other result
-{   var type = "customer"
-    setlistType(type);
-    displayCustomerProfile(Results);
-    var content ="<div><ol style='margin: 50px'>";
-    for(var i = 0 ; i<Results.length; i++){
-        var index = i+1
-        if(content.length >1)
-              var content =content+"<li style='float:right; width: 250px;'>&nbsp;<a onclick='diplayUserDetails("+Results[i]['CustomerID']+", 0)'   target='blank'>"+Results[i]['CustomerNameArabic']+"</a> </li>" 
-
-    }	
-    content +="</ol></div>";
-    content +="";
-    $("#customerresult").html(content);
-}
 
 function setlistType(listType){
      listType = listType;
@@ -451,135 +398,7 @@ function hideList(){
     else
         $("#customerList").show();
 }
-function displayPreviousLands(Results){ 
-    var arrayNode =Results["landDetails"]["previous"];
-            var previousLands="";
-            previousLands+="<table >";
-                    previousLands+="<tr ><td colspan= 6>  " ;
-                    previousLands+=       userTab();
-                    previousLands+="</td></tr>" ;
-                     previousLands+="<tr><td><table class=landDetails>" ;
-                    previousLands+="<tr><td>رقم الارض</td>" ;
-                    previousLands+="<td align='right'>نوع الارض </td>";
-                    previousLands+="<td> عنوان المنزل</td>" ;
-                    previousLands+="<td>القطعة</td>" ;
-                    previousLands+="</tr>" ;
-                    for(var i = 0 ; i<arrayNode.length; i++){
-                        previousLands+="<tr><td><a class='searchLink2' onclick='doSearchSubmit($(this).text())'>"+arrayNode[i]["LandID"]+"</a> </td><td>"+arrayNode[i]["Land_Type"]+" </td><td>"+arrayNode[i]["location"]+" </td><td>"+arrayNode[i]["TotalArea"]+" </td></tr>"
-                    } 
-        previousLands+="</table></td></tr><table>";
-        $("#previouslandresult").html(previousLands);
-}
-function diplayUserDetails(customerID, type , CustomerResult){ // list the land info of any customerID provided
-        $('#loadingresult').show();
-        var searchstring = []
-        searchstring["string"] = customerID;
-        searchstring["action"] = "search";
 
-        var paramJSON = JSON.stringify(searchstring);	 //ensuring that info sent to the server is stringed!
-             $.ajax({ 
-                type: "POST",
-                url:'CustomerService/Search', 
-                data: "action=propertySearch&string="+customerID,
-                success: function(data) 
-                { 
-                        var Results = JSON.parse(data); 	
-                        console.log(Results);
-                        //LAND ID entered and only 1 returned LAND ID
-                         var content ="<table border=1 dir='rtl' class='items'>";
-                            var width = "130px";
-                            content+="<tr ><td colspan= 6>  " ;
-                            content+=       userTab(type,customerID);
-                            content+="</td></tr>" ;
-                            content+="<tr class =currentOwners><td>رقم الارض</td>" ;
-                            content+="<td align='right'>نوع الارض </td>";
-                            content+="<td>جنسية</td>" ;
-                            content+="<td> عنوان المنزل</td>" ;
-                            content+="<td>القطعة</td>" ;
-                            content+="<td></td>" ;
-                            content+="</tr>" ;
-                            CustomerResult[0]= null;
-                            CustomerResult[0] = CustomerResult;
-                            displayCustomerProfile(CustomerResult)
-//               if(typeof(Results["currentOwners"][0][0])!="undefined" )  displayCustomerProfile(Results["currentOwners"][0]);
-//                else 
-//                    displayCustomerProfile(Results["currentOwners"])
-
-
-   
-                if(typeof(Results["landDetails"]["current"])!="undefined"){ 
-                            if(Results["landDetails"]["current"].length>0 && Results["landDetails"]["current"]!= null ){
-                                    var arraryNode = Results["landDetails"]["current"];
-
-
-                                    for(var i = 0 ; i<arraryNode.length; i++){
-                                        var index = i+1
-
-                                        var arraryNodeB =Results["currentOwners"][i]
-                                        var CurrentOwner="";
-                                        if(typeof(Results["currentOwners"][i])!="undefined" && Results["currentOwners"][i].length>=2 ){
-                                                 CurrentOwner="<span onclick='hideList()' id='expand' style='pading:0 10px ' >All&nbsp;</span>";
-                                                 CurrentOwner+="<a class='searchLink2' onclick='doSearchSubmit($(this).text())'>"+arraryNodeB[0]["CustomerNameArabic"]+"</a>(1)<br>"
-                                                 CurrentOwner+="<div id='customerList'>"
-                                                    for(var j = 1 ; j<=arraryNodeB.length-1; j++){
-
-                                                        CurrentOwner+="<a class='searchLink2' onclick='doSearchSubmit($(this).text())' >"+arraryNodeB[j]["CustomerNameArabic"]+"</a>("+(j+1)+")<br>"
-                                                    }    
-                                             CurrentOwner+="</div>"
-                                               }  else CurrentOwner+="<a class='searchLink2' onclick='doSearchSubmit($(this).text())' >"+arraryNodeB[0]["CustomerNameArabic"]+ "</a>(1)<br>"
-                                                    content=content+"<tr class=currentOwners><td>"+i+"</td>" ;
-                                                    content+="<td><input type='checkbox' name='lands[]' value="+arraryNode[i]['LandID']+"><a class='searchLink2' onclick='doSearchSubmit($(this).text())'  >"+arraryNode[i]['LandID']+"</a> </td>";
-                                                    content+="<td>"+arraryNode[i]['Land_Type']+"</td>" ;
-                                                    content+="<td>"+arraryNode[i]['location']+"</td>" ;
-                                                    content+="<td>"+arraryNode[i]['TotalArea']+"</td>" ;
-                                                    content+="<td>"+CurrentOwner+"</td>" ;
-                                                    content+="</tr>" ;
-                                    }	
-                            }
-                        content +="</table>";
-                        $("#landresult").html(content);
-                        hideAll();
-
-                }//results wit current lands
-                else{  $("#landresult").html(userTab()); }
-                if(typeof(Results["landDetails"]["previous"])!="undefined") 
-                            displayPreviousLands(Results)
-                        else  
-                            $("#previouslandresult").html( userTab(type,customerID)+"<center>عفوا لا توجد أراضي سابقة</center>");
-                        $("#landresult").show();
-                       
-            }//sucess
-        });// ajax
-}
-function displayCountryInfo(Results)
-{ 
-    setlistType("country")
-    var content ="<table border=1 dir='rtl' class='items'>";
-    var width = "130px";
-     content+="<tr><td>رقم العميل</td>" ;
-     content+="<td align='right'>الإسم -- عربي </td>";
-     content+="<td>ألإسم -- إنجليزي</td>" ;
-     content+="<td> عنوان المنزل</td>" ;
-     content+="<td>هاتف المنزل</td>" ;
-     content+="<td>هاتف محمول</td>" ;
-     content+="</tr>" ;
-
-    var type ="country"
-    for(var i = 0 ; i<Results.length; i++){
-        if(content.length >1)
-              content=content+"<tr><td>"+(i+1)+"</td>" ;
-              content+="<td><a onclick='diplayUserDetails("+Results[i]['CustomerID']+", 1)'  target='blank' title="+Results[i]['CustomerID']+" >"+Results[i]['CustomerNameArabic']+"</a> </td>";
-              content+="<td>"+Results[i]['CustomerNameEnglish']+"</td>" ;
-              content+="<td>"+Results[i]['HomeAddress']+"</td>" ;
-              content+="<td>"+Results[i]['HomePhone']+"</td>" ;
-              content+="<td>"+Results[i]['MobilePhone']+"</td>" ;
-              content+="</tr>" ;
-
-
-    }
-    content +="</table>";
-    $("#countryresult").html(content);
-}
 var name = $( "#name" ),
       email = $( "#email" ),
       password = $( "#password" ),
@@ -608,8 +427,8 @@ var name = $( "#name" ),
                    url:'DocumentMaster/DeleteOwner', 
                    data: "customerID="+customerID+"&deedID="+deedID,
                    success: function(data) 
-                   {
-                      alert("suseccfully removed")
+                   { 
+                       showMessage("Owner Removed");
                    }
                })
       
@@ -622,7 +441,7 @@ var name = $( "#name" ),
             data: "HajzID="+id,
             success: function(data) 
             {
-               alert("suseccfully removed")
+                showMessage("Fine Removed");
             }
         })
       
@@ -635,7 +454,7 @@ var name = $( "#name" ),
             data: "FileID="+id,
             success: function(data) 
             {
-               alert("suseccfully removed")
+                showMessage("File removed sucessfully");
             }
         })
       
@@ -657,7 +476,9 @@ var name = $( "#name" ),
                    data: values,
                    success: function(data) 
                    {
-                      alert("suseccfully updated")
+//                      alert("suseccfully updated")
+                       showMessage("Land Data suseccfully updated");
+                        
                    }
                })
       
@@ -674,11 +495,68 @@ function updateCaption(id){
                    data: "id="+id+"&caption="+caption,
                    success: function(data) 
                    {
+                       showMessage("File title suseccfully updated");
                     $("#caption_"+id).closest('tr').css("background-color", "#CCFFCC");
                     setTimeout(function(){ $("#caption_"+id).closest('tr').css("background-color", "white");},3000);
                    }
                })
     }
-}  
+}
+function updateShare(id){
+//    alert(id)
+//    var share= $("#share_"+id).val();
+//    var shareOld= $("#_share_"+id).val();
+//    if( share != shareOld && share!=""){
+        if($(".shareTxt").length<1){
+            var total = 0;
+            var shareJson = "["; 
+            $.each($(".sharetxt"),function(i,j){
+//                alert($(this).id)
+                total+=eval($(this).val());
+                var DeedDetailsID = $(this).attr('id');
+                DeedDetailsID = DeedDetailsID.split('_')
+                DeedDetailsID = DeedDetailsID[1];
+                shareJson += "{DeedDetailsID: '"+DeedDetailsID+"' ,sharePercentage:'"+$(this).val()+"'}," 
+            })
+            shareJson = shareJson.split(",");
+            shareJson += "]"
+            if(total< 100 || total > 100) showMessage("Total of shares percentage must be 100", "error",5000);
+                else {
+                    showMessage("Saving Shares");
+                         $.ajax({ 
+                                type: "POST",
+                                url:'DocumentMaster/UpdateLandOwnerShare', 
+                                data: "id="+id+"&shareData="+shareJson,
+                                success: function(data) 
+                                {
+                                     showMessage("Land Share suseccfully updated");
+                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
+                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
+                        }
+                    })    
+                }
+        }
+
+//    }
+}
+function showMessage(messageContent, alertType, delay){
+    if(delay == null || delay =="") delay = 3000;
+    if(alertType == null || alertType =="") alertType =  "normal";
+     $("#messagDiv").addClass("messageDiv");
+     $("#messagDiv").css("display", "");
+     if(alertType == "error")   $("#messagDiv").css("background-color", "pink");
+                        $("#messagDiv").html(messageContent);
+                        setTimeout(function(){ $("#messagDiv").css("display","none");},delay);
+}
+function getShareTotal(){
+    var total = 0;
+                $( this ).dialog( "close" );
+                    $.each($(".sharetxt"),function(i,j){
+//                  alert($(this).id)
+                    total+=eval($(this).val());
+                
+                })
+   return total;
+}
   
  

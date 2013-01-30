@@ -47,12 +47,13 @@ class Images extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('caption, item, item_id, created_by, created_on, views, last_update, last_update_by, link, image', 'required'),
-			array('approved, primary', 'numerical', 'integerOnly'=>true),
-			array('caption, item', 'length', 'max'=>255),
-			array('item_id, created_by, views, last_update_by', 'length', 'max'=>20),
-			array('land_id', 'length', 'max'=>25),
-			array('link, image', 'length', 'max'=>800),
+			array('caption, item, item_id, created_on', 'required'),
+//			array('approved, primary', 'numerical', 'integerOnly'=>true),
+//			array('caption, item', 'length', 'max'=>255),
+//			array('item_id, created_by, views, last_update_by', 'length', 'max'=>20),
+//			array('land_id', 'length', 'max'=>25),
+//			array('link, image', 'length', 'max'=>800),
+//			array('last_update', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, caption, item, item_id, land_id, approved, created_by, created_on, views, primary, last_update, last_update_by, link, image', 'safe', 'on'=>'search'),

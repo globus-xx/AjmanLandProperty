@@ -61,6 +61,50 @@ class CustomerServiceController extends Controller
 				'docs'=>$items,));
 		
 	}
+         public function actionNationalitySearch(){
+        if (isset($_GET['term'])) { // first search that 
+                // if user arabic name 
+                // or english name 
+                // or miobile number match
+                    
+                               
+                                $keyword = $_GET["term"];
+
+                               $searchCriteria=new CDbCriteria;
+//                             $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
+                             
+                               
+
+                               // the new library                                                                                                                    
+                               if (isset($_GET['term'])) 
+                               if ($keyword != '') {
+                                    $keyword = @$keyword;
+                                    $keyword = str_replace('\"', '"', $keyword);
+
+                                    $obj = new ArQuery();
+                                    $obj->setStrFields('CustomerNameArabic');
+                                    $obj->setMode(1);
+
+                                    $strCondition = $obj->getWhereCondition($keyword);
+                                } 
+                               //die($strCondition);
+
+//			$qtxt = 'SELECT CustomerID, Nationality, CustomerNameArabic from CustomerMaster WHERE '.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name limit 25';
+//			$command = Yii::app()->db->createCommand($qtxt);
+//			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
+//			$res = $command->queryAll();
+//                           if( count($res)<1){//run if no customer found 
+                           //search DB if Land ID matches
+
+                                    $qtxt = 'SELECT distinct Nationality nat from CustomerMaster WHERE Nationality Like :name';
+                                    $command = Yii::app()->db->createCommand($qtxt);
+                                    $command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
+                                    $res = $command->queryColumn();
+
+//                            }
+		}
+		print CJSON::encode($res);
+        }       
         public function actionCustomerSearch()
 	{// for autocomplete will do DB search for Customers and Lands
 		
@@ -157,19 +201,21 @@ class CustomerServiceController extends Controller
                                        $landDetails["landInfo"] = $lands[0];
                                        $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring), 'Remarks <> "cancelled"');
                                        $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
-                                       $deedFiles = Images::model()->findAllByAttributes(array("item_id"=>$deeds[0]->DeedID));
+                                       $deedFiles = FileMaster::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
                                        // current owners
                                        foreach ($deeds as $did) 
                                        {$landDetails["current"]["deed"] = $did->DeedID;
                                        $landDetails["current"]["Remarks"] = $did->Remarks;
+                                       $landDetails["current"]["ArchiveUpdate"] = $did->ArchiveUpdate;
                                        $landDetails["current"]["DateCreated"] = $did->DateCreated;
-                                        $landDetails["current"]["files"] = $deedFiles;
+                                       $landDetails["current"]["files"] = $deedFiles;
                                        }
                                          if(count($deedDetails)>0){
 
                                     foreach ($deedDetails as $key=>$cid) {
                                          $_cids[] = $cid->CustomerID;
-                                         $_share[$cid->CustomerID] = $cid->Share;
+                                         $_share[$cid->CustomerID]["sharePercentage"] = $cid->Share;
+                                         $_share[$cid->CustomerID]["shareDeedDetaisID"] = $cid->DeedDetailsID;
                                          
                                          }
                                        $searchCriteria=new CDbCriteria;

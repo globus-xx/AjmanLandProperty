@@ -49,6 +49,7 @@ label { display:block; }
     div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
     .ui-dialog .ui-state-error { padding: .3em; }
     .validateTips { border: 1px solid transparent; padding: 0.3em; }
+.messageDiv{background-color: #EFEDAC; border-bottom-color: #ccc ; border: 1px; width: 200px; height: 55px; text-align: center; padding: 5px; margin: -95px 450px 0 0px; position: fixed; border-radius: 10px;  }    
   </style>
 
 <script type="text/javascript" >
@@ -92,6 +93,8 @@ return false;
                 ));
             ?>
  <input type="submit" value ="البحث">
+ <div id="verifiedDeed" style="display: none; float: left; background-color: #CCFFCC; border-bottom-color: #ccc ; border: 1px; width: 200px; height: 55px; text-align: center; padding: 5px;"> ملاحظة : تم التحقق من السجل   <br> Notice: Record is verified</div>
+ <div id="messagDiv" style=" float: left; "></div>
     </form>
 	
 	<br><br><div class='searchresult'>
@@ -227,15 +230,15 @@ return false;
                           
 
                         $("#addnew" ).click(function() {
-
-                          $( "#addOwner-form" ).dialog( "open" );
-                          $("#_customerID").val("") ;
-                          $("#_nationality").val("") ;
-                          $("#_share").val("") ;
-                          $("#customerSearch").val("") ;
-                          
-                          
-                        });
+                             if(getShareTotal()<100) {
+                                                    $( "#addOwner-form" ).dialog( "open" );
+                                                    $("#_customerID").val("") ;
+                                                    $("#_nationality").val("") ;
+                                                    $("#_share").val(100-getShareTotal()) ;
+                                                    $("#customerSearch").val("") ;
+                             }
+                            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
+                       });
                         $("#addnewFine" ).click(function() { 
 
                           $( "#addFine-form" ).dialog( "open" );
@@ -308,10 +311,26 @@ return false;
             ?>
     
     <label for="email">Nationality</label>
-    <input type="text" name="_nationality" id="_nationality" value="" class="text ui-widget-content ui-corner-all" />
+    <?php
+                $url = $this->createUrl("DocumentMaster/NationalitySearch");
+                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                    'name'=>'_nationality',
+                    'source'=>$url,
+                    // additional javascript options for the autocomplete plugin
+                    'options'=>array(
+                    'minLength'=>'3', // min chars to start search
+                    'showAnim'=>'fold',
+                    //select function will tell where go each field
+                    ),
+                    'htmlOptions'=>array(
+                        'style'=>'height:20px;'
+                    ),
+                ));
+            ?>
+    
     <label for="_share">Share</label>
-    <input type="text" name="_share" id="_share" value="" class="text ui-widget-content ui-corner-all" />
-    <label for="newCustomer">New Customer</lable> <input type="checkbox" name="newCustomer" id="newCustomer" checked="checked" class="text ui-widget-content ui-corner-all" style="width:10px" />
+    <input type="text" name="_share" id="_share" value="" class="text ui-widget-content ui-corner-all" disabled="disabled" size="5" />
+<!--    <label for="newCustomer">New Customer</lable> <input type="checkbox" name="newCustomer" id="newCustomer" checked="checked" class="text ui-widget-content ui-corner-all" style="width:10px" />-->
     <input type="hidden" name="_customerID" id="_customerID" value="new" class="text ui-widget-content ui-corner-all" />
   </fieldset>
   </form>
@@ -371,8 +390,22 @@ return false;
 	</form>
 
 	<script type="text/javascript">//alert('http://localhost<?php print Yii::app()->baseUrl?>/index.php/documentMaster/uploadify');
-		<?php $timestamp = time();?>
+		var index = 0;
+                    var filesArray = new Array();
+                    filesArray =  '['; 
+                    function setFileArrayToNull(){filesArray=""; filesArray =  '[';}
+                   function setFileArray(file, name){
+                    
+                    filesArray +='{ fileName:"'+file+'" , imageName:"'+name+'" },';
+                    }
+                    function getFileArray(){//alert(filesArray[1]["imageName"]);
+                        filesArray = filesArray.replace(/(^,)|(,$)/g, "")
+                        return filesArray+"]"}
+                        <?php $timestamp = time();?>
 		$(function() {
+                    
+                                      
+                      
 			$('#file_upload').uploadify({
 				'formData'     : {
 					'timestamp' : '<?php echo $timestamp;?>',
@@ -386,9 +419,36 @@ return false;
                                         var landID = $("#LandID").val();
                                         $('#file_upload').uploadify('settings','formData',{ 'deedID' : deedID, 'landID' : landID });
                                     },
-                                'onUploadComplete' : function(file) {
-//                                        alert('The file ' + file.name + ' finished processing.');
-                                        $("#fileUploadList").append("<br><span>"+file.name+"</span>")
+
+                                    'onUploadSuccess' : function(file, data, response) {
+//            alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+             $("#fileUploadList").append("<br><span>"+file.name+"</span>")
+             setFileArray(file.name, data)
+//                                        debugger
+                                       
+        },
+                                'onQueueComplete' : function(queueData) {
+                                        
+                                         var deedID = $("#_deedID").val();
+                                        var landID = $("#LandID").val();
+//                                        debugger;
+                                        var fileData = getFileArray()
+                                        setFileArrayToNull()
+
+                                        $.ajax({ 
+                                                type: "POST",
+                                                 dataType: "json",
+                                                url:'DocumentMaster/AddFile', 
+//                                                data: fileData,//"action=search&string="+$("#searchstring").val(),
+                                                data:"&formData="+JSON.stringify({deedID:deedID,landID:landID,
+                                                      fileData: fileData}),
+                                                async:false,
+                                                success: function(data) { 
+
+                                                            $("#SearchForm").trigger('submit')
+                                                            showMessage("All Files Uploaded Sucessfully");
+                                                }        
+                                       });
                                     },
 				'swf'      : '<?php print Yii::app()->baseUrl . '/js/'?>uploadify.swf',
 				'uploader' : '<?php print Yii::app()->baseUrl?>/js/uploadify.php'
