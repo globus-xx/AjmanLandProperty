@@ -214,7 +214,8 @@ class CustomerServiceController extends Controller
 
                                     foreach ($deedDetails as $key=>$cid) {
                                          $_cids[] = $cid->CustomerID;
-                                         $_share[$cid->CustomerID] = $cid->Share;
+                                         $_share[$cid->CustomerID]["sharePercentage"] = $cid->Share;
+                                         $_share[$cid->CustomerID]["shareDeedDetaisID"] = $cid->DeedDetailsID;
                                          
                                          }
                                        $searchCriteria=new CDbCriteria;

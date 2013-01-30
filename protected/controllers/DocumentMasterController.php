@@ -85,9 +85,10 @@ class DocumentMasterController extends  Controller
                     $deedDtails->DeedID=$deedID;
                     $deedDtails->Share = $Share;
                     if($deedDtails->save()) $res=1;
+                    $shareID = $deedDtails->DeedDetailsID;
 //                }
              
-            print CJSON::encode(array("result"=>$res, "customerID"=>$customerID ));
+            print CJSON::encode(array("result"=>$res, "customerID"=>$customerID , "shareID"=>$shareID ));
         }
         public function actionAddFile(){
             
@@ -172,12 +173,38 @@ class DocumentMasterController extends  Controller
                 extract($_POST);
             $res=0;
             
-            $searchCriteria=new CDbCriteria;
+//            $searchCriteria=new CDbCriteria;
              $fileMaster=  FileMaster::model()->findByPk($id);
              $fileMaster->Title = $caption;
               if($fileMaster->save()) $res=1;
                 else print_r( $fileMaster->getErrors() );
             print CJSON::encode($res);
+        }
+        public function actionUpdateLandOwnerShare() {
+            
+            $shareData = CJSON::decode(stripslashes($_POST['shareData']));
+
+            $res=0;
+
+            if(count($shareData)>0 and is_array($shareData)){
+                    foreach ($shareData as $shareRow) {
+                             $share = DeedDetails::model()->findByPk($shareRow["DeedDetailsID"]);
+                             $share->Share = $shareRow["sharePercentage"];
+                                if($share->save()) $res=1;
+//                                   else  print_r( $share->getErrors() );
+                    }    
+            
+            }else print "ShareData not found";
+           print CJSON::encode($res);
+//                extract($_POST);
+//            $res=0;
+//            
+//            $searchCriteria=new CDbCriteria;
+//             $DeedDetails= DeedDetails::model()->findByPk($id);
+//             $DeedDetails->Share = $share;
+//              if($DeedDetails->save()) $res=1;
+//                else print_r( $DeedDetails->getErrors() );
+//            print CJSON::encode($res);
         }
          public function actionMarkUpdated() {
                 extract($_POST);
