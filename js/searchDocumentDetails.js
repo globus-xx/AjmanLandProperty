@@ -68,67 +68,29 @@
           modal: false,
           buttons: {
             "Add owner": function() {
-              var bValid = true;
-              allFields.removeClass( "ui-state-error" );
-
-    //          bValid = bValid && checkLength( name, "username", 3, 16 );
-    //          bValid = bValid && checkLength( email, "email", 6, 80 );
-    //          bValid = bValid && checkLength( password, "password", 5, 16 );
-
-    //          bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
-
-              if ( bValid ) { showMessage("Data of owner received");
-                customerID ="old"
-                var customerID = $("#_customerID").val() ;
-                var deedID = $("#_deedID").val()
-                 var share = $("#_share").val()
-                var ArabicName = $("#customerSearch").val();
-                 var Nationality = $("#_nationality").val();
-//                 if( $("#newCustomer").attr("checked")=="checked" ) { 
-//                    customerID ="new"
-                    var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
-//                }
-//                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
-                
-                 var shaertotal=getShareTotal();
-                
-                     if(shaertotal > 100) showMessage("Total of shares percentage must be less than 100 to add new Owner.", "error",5000);
-                else {
-                        $.ajax({ 
-                           type: "POST",
-                           url:'DocumentMaster/AddOwner', 
-                           data: dataTosend,
-                           success: function(data) 
-                           { var Results = JSON.parse(data); 
-                                var res = Results.result
-                                var customerID = Results.customerID;
-                                var shareID = Results.shareID;
-                                if(res==1){
-                               $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+')> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+$("#_share").val()+'" class=sharetxt id="share_'+shareID+'"  onblur=updateShare("'+shareID+'") size=5> </td></tr>').appendTo('.currentOwners');
-                                showMessage("Add Owner Complete");
-                                updateShare()
-                                }
-                                else {alert("Sorry This record could not be processed"); showMessage("Sorry This record could not be processed");}
-
-                           }
-                       })
-                }  
-              }else{alert("problem")}
+              addOwnerRow();
+               $( this ).dialog( "close" );
             },
             Cancel: function() {
               $( this ).dialog( "close" );
             }
+            ,
+            "Submit & Add New": function() {
+                 addOwnerRow();
+//              $( this ).dialog( "close" );
+            }
           },
           close: function() {
             allFields.val( "" ).removeClass( "ui-state-error" );
+            $("#_share").val("0")
           }
         });
 
         $( "#addOwner-form" )
           .button()
-          .click(function() {
-            if(getShareTotal()<100) $( "#addOwner-form" ).dialog( "open" );
-            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
+          .click(function() {$( "#addOwner-form" ).dialog( "open" );
+//            if(getShareTotal()<100) 
+//            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
           });
 
          
@@ -231,23 +193,25 @@ function doSearchSubmit(searchString){// will call on the click of customer name
     $("#SearchForm").trigger('submit')
 
 }
+var currentOwnerArray = new Array();
 function displayLandInfo(Results)// lsit previous and currnt lands from result of land search
 {   
     // get the current owners and list them with links to the profile on the Arabic name
      var currentOwnersContent = "<table dir=rtl class=currentOwners>";
-    currentOwnersContent+="<tr ><td colspan='3'><input type=hidden id=_deedID value="+Results["current"]["deed"]+"><strong>الزبون الحالي </strong></td><td><input type=image id=addnew src='../images/add.png' title='add owner' alt='add owner'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
+    currentOwnersContent+="<tr ><td colspan='3'><input type=hidden id=_deedID value="+Results["current"]["deed"]+"><strong>الزبون الحالي </strong></td><td>&nbsp; <img onclick=updateShare('true') src=../images/save.png  />&nbsp;<input type=image id=addnew src='../images/add.png' title='add owner' alt='add owner'>  &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
     currentOwnersContent+="<tr bgcolor=#C9E0ED><td></td><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
     if(typeof(Results["current"]["customers"])!="undefined"){
         var arrayNode= Results["current"]["customers"]
        
         
         for(var i = 0; i<arrayNode.length ; i++ ){
+            currentOwnerArray.push(arrayNode[i]["CustomerID"]);
              var Shareid = Results["current"]["share"][arrayNode[i]["CustomerID"]]["shareDeedDetaisID"];
              var sharePercentage = Results["current"]["share"][arrayNode[i]["CustomerID"]]["sharePercentage"];
-            currentOwnersContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["CustomerID"]+" onclick=removeIT("+arrayNode[i]["CustomerID"]+") title=remove alt=remove value="+arrayNode[i]["CustomerID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+"></td>";
+            currentOwnersContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["CustomerID"]+" onclick=removeIT('"+arrayNode[i]["CustomerID"]+"','owner') title=remove alt=remove value="+arrayNode[i]["CustomerID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+"></td>";
             currentOwnersContent+="<td><a href='customerMaster/update/"+arrayNode[i]["CustomerID"]+"' target=_blank >"+ arrayNode[i]["CustomerNameArabic"]+"</a></td>";
             currentOwnersContent+="<td>"+ arrayNode[i]["Nationality"]+"</td>";
-            currentOwnersContent+="<td> <input id='share_"+Shareid+"' name='share_"+Shareid+"' type=text class=sharetxt value='"+ sharePercentage+"'  onblur=updateShare('"+Shareid+"') size=5 >";
+            currentOwnersContent+="<td> <input id='share_"+Shareid+"' name='share_"+Shareid+"' type=text class=sharetxt value='"+ sharePercentage+"'  onblur=updateShare() size=5 >";
             currentOwnersContent+="<input id='_share_"+Shareid+"' name='_share_"+Shareid+"' type=hidden value='"+ sharePercentage+"'  onblur=updateShare('"+Shareid+"')  ></td>";
             currentOwnersContent+=" </tr>"
     }
@@ -265,7 +229,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 //        finesContent+="</td></tr>" ;
        if(typeof(Results["fines"])!="undefined"){
                 var arrayNode= Results["fines"]
-               finesContent+="<tr ><td colspan='4'><strong>غرامات الارض</strong></td><td><input type=image id=addnewFine src='../images/add.png' title='add hajaz' alt='add hajaz'> &nbsp; <img src='../images/remove.png' title=remove alt=remove ></td></tr>";
+               finesContent+="<tr ><td colspan='4'><strong>غرامات الارض</strong></td><td><input type=image id=addnewFine src='../images/add.png' title='add hajaz' alt='add hajaz'> &nbsp; <img src='../images/remove.png' title=remove alt=remove >&nbsp;  </td></tr>";
                finesContent+="<tr bgcolor=#C9E0ED><td>ID </td><td> ملاحظات</td><td>الكمية المرهونة </td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
                for(var i = 0; i<arrayNode.length ; i++ ){
                    
@@ -303,7 +267,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                         }
                         filesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["FileID"]+" onclick=removeIT("+arrayNode[i]["FileID"]+",'files') title=remove alt=remove value="+arrayNode[i]["FileID"]+"> &nbsp;"
                         filesContent+="<input type='checkbox' name='cuowners[]' value="+arrayNode[i]["id"]+"></td>"
-                        filesContent+="<td><input id='caption_"+arrayNode[i]["FileID"]+"' name='caption_"+arrayNode[i]["FileID"]+"' type=text value='"+ arrayNode[i]["Title"]+"'  onblur=updateCaption('"+arrayNode[i]["FileID"]+"') > "
+                        filesContent+="<td>"+getFileTilteDD(arrayNode[i]["FileID"],arrayNode[i]["Title"])
                         filesContent+="<input id='_caption_"+arrayNode[i]["FileID"]+"' name='_caption_"+arrayNode[i]["FileID"]+"' type=hidden value='"+ arrayNode[i]["Tile"]+"'  ></td>";
 //                        filesContent+="<td>"+ arrayNode[i]["caption"]+"</td>"
                         filesContent+="<td><a href='../images/uploads/"+arrayNode[i]["Image"]+"' target='_blank'>"+arrayNode[i]["Title"]+"</a></td><td>"+arrayNode[i]["DateCreated"]+"</td>";
@@ -408,20 +372,22 @@ var name = $( "#name" ),
   
   
   function removeIT(id, type){
-     
-      if(type=="fines") deleteFines(id)
-          else
-      if(type=="files") deleteFiles(id)
-          else        
-          deleteOwner(id)
-      $("#removeWithID_"+id).closest('tr').remove();
-      
+      if(type=="fines") if(deleteFines(id)) $("#removeWithID_"+id).closest('tr').remove();
+          
+      if(type=="files") if(deleteFiles(id)) $("#removeWithID_"+id).closest('tr').remove();
+//          else{ debugger;if(deleteOwner(id))
+      if(type=="owner")  { $("#removeWithID_"+id).closest('tr').remove(); currentOwnerArray.splice(currentOwnerArray.indexOf(id),1)}
+//         }      
   }
   function deleteOwner(id){
       
             var customerID = id ;
             var deedID = $("#_deedID").val()
-            var share = $("#_share").val()
+//            var share =  $("#_share").val()
+            var shareTotal = getShareTotal();
+            var thisShareToDel = $("#removeWithID_"+customerID).closest('input [type=text]' ).val()
+            debugger;
+            if(shareTotal == 100 && thisShareToDel==0){ 
                  $.ajax({ 
                    type: "POST",
                    url:'DocumentMaster/DeleteOwner', 
@@ -431,7 +397,8 @@ var name = $( "#name" ),
                        showMessage("Owner Removed");
                    }
                })
-      
+           }else {showMessage("Please set the share to zero '0' and Totak of share to 100 and try again.", "error"); return false}
+      return true
   }
   function deleteFines(id){
         
@@ -444,7 +411,7 @@ var name = $( "#name" ),
                 showMessage("Fine Removed");
             }
         })
-      
+     return true
   }
     function deleteFiles(id){
         
@@ -457,9 +424,9 @@ var name = $( "#name" ),
                 showMessage("File removed sucessfully");
             }
         })
-      
+      return true
   }
-  function UpdateLandData(id){
+  function UpdateLandData(){
       
             var landID = id ;
             var $inputs = $('#landInfoForm :input');
@@ -470,7 +437,7 @@ var name = $( "#name" ),
     values = JSON.stringify(values);
 //            var deedID = $("#_deedID").val()
 //            var share = $("#_share").val()
-                 $.ajax({ 
+                $.ajax({ 
                    type: "POST",
                    url:'DocumentMaster/UpdateLandData', 
                    data: values,
@@ -502,38 +469,49 @@ function updateCaption(id){
                })
     }
 }
-function updateShare(id){
+function updateShare(doAjax){
 //    alert(id)
 //    var share= $("#share_"+id).val();
 //    var shareOld= $("#_share_"+id).val();
 //    if( share != shareOld && share!=""){
+if(doAjax == "" || doAjax == null)doAjax =false;
+ var deedID = $("#_deedID").val()
         if($(".shareTxt").length<1){
             var total = 0;
-            var shareJson = "["; 
+             
+             
+             var shareJson = "["; 
             $.each($(".sharetxt"),function(i,j){
+                var shareValue = $(this).val();
 //                alert($(this).id)
-                total+=eval($(this).val());
-                var DeedDetailsID = $(this).attr('id');
-                DeedDetailsID = DeedDetailsID.split('_')
-                DeedDetailsID = DeedDetailsID[1];
-                shareJson += "{DeedDetailsID: '"+DeedDetailsID+"' ,sharePercentage:'"+$(this).val()+"'}," 
+                if(shareValue > 0 && $(this).val()!="NaN"){    
+                    total+=eval($(this).val());
+
+                    var CustomerID = currentOwnerArray[i];
+//                    debugger
+                    shareJson += "{CustomerID:'"+CustomerID+"', sharePercentage:'"+shareValue+"'}," 
+                }
             })
-            shareJson = shareJson.split(",");
+            shareJson = shareJson.replace(/(^,)|(,$)/g, "");
             shareJson += "]"
-            if(total< 100 || total > 100) showMessage("Total of shares percentage must be 100", "error",5000);
+            
+            if((total< 100 || total > 100) ) showMessage("Total of shares percentage must be 100", "error",5000);
                 else {
-                    showMessage("Saving Shares");
+                    showMessage("Total of Sahre is 100%");
+                     if(doAjax=="true"){ 
                          $.ajax({ 
                                 type: "POST",
                                 url:'DocumentMaster/UpdateLandOwnerShare', 
-                                data: "id="+id+"&shareData="+shareJson,
+                                data:"&formData="+JSON.stringify({deedID:deedID,shareData: shareJson}),
                                 success: function(data) 
                                 {
-                                     showMessage("Land Share suseccfully updated");
-                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
-                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
+                                     showMessage("Land Owners And Share Data Suseccfully Updated");
+                                     
+//                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
+//                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
                         }
-                    })    
+                    })
+                   } 
                 }
         }
 
@@ -553,10 +531,79 @@ function getShareTotal(){
                 $( this ).dialog( "close" );
                     $.each($(".sharetxt"),function(i,j){
 //                  alert($(this).id)
+                    shareValue = $(this).val();
+                    if(shareValue > 0 && $(this).val()!="NaN")
                     total+=eval($(this).val());
                 
                 })
    return total;
+}
+function addOwnerToDB(){
+      var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
+//                }
+//                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
+//                    $( this ).dialog( "close" ); //commented so diloge remains opened as discussed with Omar           
+               
+
+                 var shaertotal=getShareTotal();
+               
+                     if(shaertotal > 100) showMessage("Total of shares percentage must be less than or 100 to add new Owner.", "error",5000);
+              $.ajax({ 
+                           type: "POST",
+                           url:'DocumentMaster/AddOwner', 
+                           data: dataTosend,
+                           success: function(data) 
+                           { var Results = JSON.parse(data); 
+                                var res = Results.result
+                                var customerID = Results.customerID;
+                                var shareID = Results.shareID;
+                                if(res==1){
+                               $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+')> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+$("#_share").val()+'" class=sharetxt id="share_'+shareID+'"  onblur=updateShare() size=5> </td></tr>').appendTo('.currentOwners');
+                                showMessage("Owner Added");
+                               
+                                 
+                                 updateShare(true);
+                                }
+                                else {alert("Sorry This record could not be processed"); showMessage("Sorry This record could not be processed", "error");}
+
+                           }
+                       })
+}
+function addOwnerRow(){
+   
+               showMessage("Data of owner received");
+                customerID ="old"
+                var customerID = $("#_customerID").val() ;
+                var deedID = $("#_deedID").val()
+                 var share = $("#_share").val()
+                var ArabicName = $("#customerSearch").val();
+                 var Nationality = $("#_nationality").val();
+//                 if( $("#newCustomer").attr("checked")=="checked" ) { 
+//                    customerID ="new"
+                    var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
+//                }
+//                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
+                    //commented so diloge remains opened as discussed with Omar           
+               if(customerID!="undefined" && customerID!=""){
+                           if(jQuery.inArray(customerID, currentOwnerArray)=="-1") 
+                               {
+                                   $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+',"owner")> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+$("#_share").val()+'" class=sharetxt  size=5> </td></tr>').appendTo('.currentOwners');
+                                    currentOwnerArray.push(customerID);
+                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
+                               
+                           }else showMessage("Customer is already in land list", "error");
+                 }
+             
+}
+function getFileTilteDD(DDID, selected){
+    var DDoptionArray = ['1','b','c'];
+    var DD = "<select id=caption_"+DDID+" onchange=updateCaption('"+DDID+"')>"
+        $.each(DDoptionArray, function(i,j){
+            if(j==selected)DD+=       "<option value="+j+" selected=selected>"+j+"</option>"
+                else DD+=       "<option value="+j+">"+j+"</option>"
+        })
+        DD+= "</select>"
+        return DD;
 }
   
  

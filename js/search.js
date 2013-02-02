@@ -275,8 +275,8 @@ function diplayUserDetails(customerID, type , CustomerResult){ // list the land 
                             content+="<td>القطعة</td>" ;
                             content+="<td></td>" ;
                             content+="</tr>" ;
-                            CustomerResult[0]= null;
-                            CustomerResult[0] = CustomerResult;
+                            CustomerResult[0][0]= null;
+                            CustomerResult[0][0] = CustomerResult;
                             displayCustomerProfile(CustomerResult)
 //               if(typeof(Results["currentOwners"][0][0])!="undefined" )  displayCustomerProfile(Results["currentOwners"][0]);
 //                else 

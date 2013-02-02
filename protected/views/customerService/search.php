@@ -195,13 +195,14 @@ return false;
                         $.ajax({ 
                                 type: "POST",
 				url:'CustomerService/Search', 
-				data: "action=search&string="+$("#searchstring").val(),
+				data: "action=propertySearch&string="+$("#searchstring").val(),
                                 async:false,
 				success: function(data) { 
 					var Results = JSON.parse(data); 	
 					console.log(Results);
 					//LAND ID entered and only 1 returned LAND ID	
-				
+                                        alert(">>"+Results["currentOwners"][0]["CustomerID"])
+				diplayUserDetails(Results["currentOwners"][0]["CustomerID"], 0, Results)
 					//One particular customer-name found
 					if (Results.length ==1 && Results[0]['CustomerID'])
 					{
@@ -214,9 +215,9 @@ return false;
 //						displayCustomerInfo(Results);
                                                 
 
-                                                diplayUserDetails(Results[0]['CustomerID'], 0, Results[0])
+                                               
 					}
-					
+					 
 					//A country was entered, and a list of customers belonging to the country are returned
 					else if (Results.length >1 && Results[0]['CustomerID'])
 					{
