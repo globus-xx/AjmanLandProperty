@@ -98,8 +98,10 @@
                 )),
             
             	array('label'=>'دخول', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                
+                array('label'=>'(profile'.'('.Yii::app()->user->name, 'url'=>array('/site/profile/'.Yii::app()->user->ID), 'visible'=>!Yii::app()->user->isGuest),                            
 			
-				array('label'=>'خروج '.'('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+		array('label'=>'خروج '.'('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
               
 			),
 		)); ?>

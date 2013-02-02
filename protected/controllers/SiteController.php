@@ -125,4 +125,81 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+        
+        
+        public function actionProfile($id,$mess="")
+	{                       
+		$userdata = Users::model()->findAllByAttributes(array("id"=>$id));   
+                $userprofile = Profiles::model()->findAllByAttributes(array("user_id"=>$id)); 
+		$this->render('/user/edit-user-profile',array('userdata'=>$userdata,'mess'=>$mess,'userprofile'=>$userprofile));                
+	}
+        
+       public function actionsendEmail()
+        {
+           $this->load->library('email');
+
+                        $config['protocol']='sendmail';
+                        $config['charset']='utf-8';
+//                        $config['smtp_host']='mail.eim.ae';
+//                        $config['smtp_port']='25';
+                        $config['mailtype'] = 'html';
+
+                        
+                        $this->email->initialize($config);
+                        
+                                                                                                
+                        $this->email->from("it@ajmanland.gov.ae", "emazoo");
+                        $this->email->to("emady87@yahoo.com"); 
+                        
+
+                        $this->email->subject('Email Test');
+                        $this->email->message('<b>Testing the email .</b>');	
+
+                        
+                        if(!$this->email->send())
+                        echo $this->email->print_debugger();    
+        }
+        
+        
+        public function actionupdateUser()
+        {                          
+                $id=$_POST['id'];
+                $fname=$_POST['fname'];
+                $lname=$_POST['lname'];
+                
+                $userpass=md5($_POST['userpassword']);
+                $useremail=$_POST['useremail'];
+                
+            
+                                       
+            
+                $post=Users::model()->findByPk($id);                
+                $post->password=$userpass;      
+                $post->email=$useremail;  
+                $post->save(); // save the change to database
+                
+                
+                $post= Profiles::model()->findByPk($id);                
+                $post->lastname=$lname;      
+                $post->firstname=$fname;  
+                $post->save(); // save the change to database
+                
+                $mess=" تم تعديل المعلومات بنجاح !!!";
+                
+                //$this->actionProfile($id,$mess);
+		$userdata = Users::model()->findAllByAttributes(array("id"=>$id));     
+                $userprofile = Profiles::model()->findAllByAttributes(array("user_id"=>$id)); 
+                 
+                
+                        
+                                         
+		$this->render('/user/edit-user-profile',array('userdata'=>$userdata,'mess'=>$mess,'userprofile'=>$userprofile));  
+                
+        }
+        
+        
+        
+        
+        
+        
 }
