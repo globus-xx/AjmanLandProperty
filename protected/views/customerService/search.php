@@ -213,7 +213,7 @@ return false;
                                                 $('#customerid').val(Results[0]['CustomerID']); 
 //						displayCustomerInfo(Results);
                                                 
-
+//debugger
                                                 diplayUserDetails(Results[0]['CustomerID'], 0, Results[0])
 					}
 					
@@ -221,9 +221,10 @@ return false;
 					else if (Results.length >1 && Results[0]['CustomerID'])
 					{
 						hideAll();
-						
+//debugger						
 						console.log(Results);
-						displayCountryInfo(Results);
+                                                diplayUserDetails(Results[0]['CustomerID'], 0, Results[0])
+//						displayCountryInfo(Results);
                                                 $('#loadingresult').hide();
 						
 					}
