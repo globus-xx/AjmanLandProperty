@@ -275,9 +275,11 @@ function diplayUserDetails(customerID, type , CustomerResult){ // list the land 
                             content+="<td>القطعة</td>" ;
                             content+="<td></td>" ;
                             content+="</tr>" ;
-                            CustomerResult[0]= null;
+                            if(typeof(CustomerResult)!="undefined") {
+                                CustomerResult[0]= null;
+                            
                             CustomerResult[0] = CustomerResult;
-                            displayCustomerProfile(CustomerResult)
+                            displayCustomerProfile(CustomerResult)}
 //               if(typeof(Results["currentOwners"][0][0])!="undefined" )  displayCustomerProfile(Results["currentOwners"][0]);
 //                else 
 //                    displayCustomerProfile(Results["currentOwners"])
@@ -345,7 +347,7 @@ function displayCountryInfo(Results)
     for(var i = 0 ; i<Results.length; i++){
         if(content.length >1)
               content=content+"<tr><td>"+(i+1)+"</td>" ;
-              content+="<td><a onclick='diplayUserDetails("+Results[i]['CustomerID']+", 1)'  target='blank' title="+Results[i]['CustomerID']+" >"+Results[i]['CustomerNameArabic']+"</a> </td>";
+              content+='<td><a onclick="diplayUserDetails('+Results[i]['CustomerID']+', 1)"  target=blank title='+Results[i]['CustomerID']+' >'+Results[i]['CustomerNameArabic']+'</a> </td>';
               content+="<td>"+Results[i]['CustomerNameEnglish']+"</td>" ;
               content+="<td>"+Results[i]['HomeAddress']+"</td>" ;
               content+="<td>"+Results[i]['HomePhone']+"</td>" ;
@@ -356,4 +358,6 @@ function displayCountryInfo(Results)
     }
     content +="</table>";
     $("#countryresult").html(content);
+    $("#countryresult").show();
+//    debugger;
 }

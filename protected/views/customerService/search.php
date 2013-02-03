@@ -221,10 +221,10 @@ return false;
 					else if (Results.length >1 && Results[0]['CustomerID'])
 					{
 						hideAll();
-//debugger						
+//debugger //	سمو الشيخ/ عمار بن حميد بن راشد النعيمي					
 						console.log(Results);
-                                                diplayUserDetails(Results[0]['CustomerID'], 0, Results[0])
-//						displayCountryInfo(Results);
+//                                                diplayUserDetails(Results[0]['CustomerID'], 0, Results[0])
+						displayCountryInfo(Results);
                                                 $('#loadingresult').hide();
 						
 					}
