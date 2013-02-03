@@ -142,12 +142,25 @@ class CustomerServiceController extends Controller
                            if( count($res)<1){//run if no customer found 
                            //search DB if Land ID matches
 
-                                    $qtxt = 'SELECT LandID lnd from LandMaster WHERE LandID Like :name';
+                                    $qtxt = 'SELECT LandID lnd from LandMaster WHERE LandID Like :name ';
                                     $command = Yii::app()->db->createCommand($qtxt);
-                                    $command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
+                                    $command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);                                    
                                     $res = $command->queryColumn();
+                                    
+                                     if( count($res)<1){
+                                        
+                                            $qtxt = 'SELECT CONCAT(LandID,"<-->",Remarks)  lnd from LandMaster WHERE  Remarks LIKE :rmark';
+                                            $command = Yii::app()->db->createCommand($qtxt);                                            
+                                            $command->bindValue(':rmark','%'.$_GET['term'].'%',PDO::PARAM_STR);
+                                            $res = $command->queryColumn();
+                                        
+                                     }  
 
                             }
+                            
+                          
+                            
+                            
 		}
 		print CJSON::encode($res);
                 
@@ -161,8 +174,14 @@ class CustomerServiceController extends Controller
 	{   
 		if(isset($_POST["action"]) and $_POST["action"]=="search") //check that this action is only called using POST.. not get, not regular.
                 {
-                     
-                               $searchstring=$_POST["string"];
+
+                                if($stringToexplode = explode("<-->",$_POST["string"]))
+                                $searchstring = $stringToexplode[0];
+                                else
+                                    $searchstring=$_POST["string"];
+//                               //$stringvarify=explode("<-->",$searchstring);
+//                               //print $stringvarify[0];
+////                               if($stringvarify)
                                $keyword = $_POST["string"];
 
                                $searchCriteria=new CDbCriteria;
