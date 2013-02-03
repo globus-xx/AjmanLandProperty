@@ -68,7 +68,9 @@
           modal: false,
           buttons: {
             "Add owner": function() {
-              addOwnerRow();
+              //addOwnerRow();
+              addOwnerToDB()
+              $("#_share").val("0")
                $( this ).dialog( "close" );
             },
             Cancel: function() {
@@ -76,7 +78,7 @@
             }
             ,
             "Submit & Add New": function() {
-                 addOwnerRow();
+                 addOwnerToDB();
 //              $( this ).dialog( "close" );
             }
           },
@@ -113,7 +115,7 @@
 
                if ( bValid ) { //alert("data received");
                  var ID = $("#_customerID").val() ;
-                 var Remarks = $("#_deedID").val()
+                 var Remarks = $("#Remarks").val()
                   var AmountMortgaged = $("#AmountMortgaged").val()
                   var type = $("input[name=Type]").val()
                   var typeDetails = $("#TypeDetail").val()
@@ -134,7 +136,7 @@
                             ID = Results.HajzID
 //                            alert(ID+data["HajzID"]+Results.HajzID)
                             
-                            $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+ID+' onclick=removeIT('+ID+',fines)> &nbsp; <input type=checkbox name=fines[] value='+ID+' >'+ID+'</td> <td>'+Remarks+' </td> <td>'+AmountMortgaged+' </td> <td>'+type+'('+typeDetails+') </td> <td>'+DateCreated+IsActive+' </td></tr>').appendTo('.landFines');
+                            $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+ID+' onclick=removeIT('+ID+',"fines")> &nbsp; <input type=checkbox name=fines[] value='+ID+' >'+ID+'</td> <td>'+Remarks+' </td> <td>'+AmountMortgaged+' </td> <td>'+type+'('+typeDetails+') </td> <td>'+DateCreated+IsActive+' </td></tr>').appendTo('.landFines');
 
                         }
                     })
@@ -421,12 +423,12 @@ var name = $( "#name" ),
             data: "FileID="+id,
             success: function(data) 
             {
-                showMessage("File removed sucessfully");
+                showMessage("File removed sucessfully", "sucess");
             }
         })
       return true
   }
-  function UpdateLandData(){
+  function UpdateLandData(id){
       
             var landID = id ;
             var $inputs = $('#landInfoForm :input');
@@ -469,7 +471,9 @@ function updateCaption(id){
                })
     }
 }
-function updateShare(doAjax){
+function updateShare(doAjax){ 
+    
+/* This method will create the array of shares and send it to server to perform DB update*/
 //    alert(id)
 //    var share= $("#share_"+id).val();
 //    var shareOld= $("#_share_"+id).val();
@@ -505,7 +509,7 @@ if(doAjax == "" || doAjax == null)doAjax =false;
                                 data:"&formData="+JSON.stringify({deedID:deedID,shareData: shareJson}),
                                 success: function(data) 
                                 {
-                                     showMessage("Land Owners And Share Data Suseccfully Updated");
+                                     showMessage("Land Owners And Share Data Suseccfully Updated","sucess");
                                      
 //                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
 //                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
@@ -523,6 +527,8 @@ function showMessage(messageContent, alertType, delay){
      $("#messagDiv").addClass("messageDiv");
      $("#messagDiv").css("display", "");
      if(alertType == "error")   $("#messagDiv").css("background-color", "pink");
+     if(alertType == "sucess")   $("#messagDiv").css("background-color", "#CCFFCC");
+     else $("#messagDiv").css("background-color", "#EFEDAC")
                         $("#messagDiv").html(messageContent);
                         setTimeout(function(){ $("#messagDiv").css("display","none");},delay);
 }
@@ -539,6 +545,12 @@ function getShareTotal(){
    return total;
 }
 function addOwnerToDB(){
+    
+     var customerID = $("#_customerID").val() ;
+                var deedID = $("#_deedID").val()
+                 var share = $("#_share").val()
+                var ArabicName = $("#customerSearch").val();
+                 var Nationality = $("#_nationality").val();
       var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
 //                }
 //                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
@@ -558,7 +570,17 @@ function addOwnerToDB(){
                                 var customerID = Results.customerID;
                                 var shareID = Results.shareID;
                                 if(res==1){
-                               $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+')> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+$("#_share").val()+'" class=sharetxt id="share_'+shareID+'"  onblur=updateShare() size=5> </td></tr>').appendTo('.currentOwners');
+//                               $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+')> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+$("#_share").val()+'" class=sharetxt id="share_'+shareID+'"  onblur=updateShare() size=5> </td></tr>').appendTo('.currentOwners');
+                                   if(customerID!="undefined" && customerID!=""){
+                           if(jQuery.inArray(customerID, currentOwnerArray)=="-1") 
+                               {
+                                   $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+',"owner")> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+share+'" class=sharetxt  size=5> </td></tr>').appendTo('.currentOwners');
+                                    currentOwnerArray.push(customerID);
+//                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
+                                      $("#_share").val("0")
+                               
+                           }else showMessage("Customer is already in land list", "error");
+                 }
                                 showMessage("Owner Added");
                                
                                  

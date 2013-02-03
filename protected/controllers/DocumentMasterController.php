@@ -162,15 +162,15 @@ class DocumentMasterController extends  Controller
                 extract($_POST);
             $res=0;
 //            $searchCriteria=new CDbCriteria;
-            $res = CustomerMaster::model()->findByAttributes(array('FileID'=>$FileID));
-            $pathToFile = base_url()."/images/uploads/";
-            $fileTiDelete = $res->Image;
-            print "path and file is".$pathToFile.$fileTiDelete;
-//            unlink($pathToFile.$fileTiDelete);
-//            print $query = "Delete From `filemaster` where `FileID`='$FileID'";//AND  LandID = '$LandID'
-//            $command =Yii::app()->db->createCommand($query);
+            $res = FileMaster::model()->findByAttributes(array('FileID'=>$FileID));
+            $pathToFile = Yii::app()->basePath."/../images/uploads/";
+            $fileToDelete = $res->Image;
+            print "path and file is".$pathToFile.$fileToDelete;
+            unlink($pathToFile.$fileToDelete) or die("File not deleted");
+            print $query = "Delete From `filemaster` where `FileID`='$FileID'";//AND  LandID = '$LandID'
+            $command =Yii::app()->db->createCommand($query);
 //            
-//            if($command->execute()) $res=1;
+            if($command->execute()) $res=1;
             print CJSON::encode($res);
         }
         public function actionUpdateImageCaption() {
@@ -188,8 +188,8 @@ class DocumentMasterController extends  Controller
             
             $formData = CJSON::decode(stripslashes($_POST['formData']));
              $shareData = CJSON::decode($formData['shareData']);
-//             print_r($shareData);
-             $_DeedID = $formData['deedID'];
+             print_r($shareData);
+            print $_DeedID = $formData['deedID'];
             DeedDetails::model()->deleteAllByAttributes(array("DeedID"=>$formData['deedID']));
             $res=0;
 
@@ -200,7 +200,7 @@ class DocumentMasterController extends  Controller
                         $DeedDetails->DeedID = $_DeedID ; 
                         $DeedDetails->Share = $shareRow["sharePercentage"]    ; 
                                     if($DeedDetails->save()) $res=1;
-                                       else  print_r( $share->getErrors() );
+                                       else  print_r( $DeedDetails->getErrors() );
                     }    
             
             }else print "ShareData not found";
