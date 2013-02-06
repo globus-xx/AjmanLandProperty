@@ -14,36 +14,15 @@ class LPDWebServiceController extends Controller
                                           
              $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);
              $resultstring = explode("|",$resultstring);
-             
-             $landid=$resultstring[2];
-             
             
              
-              
-             ?>
-<script type="text/javascript" src="/AjmanLandProperty/js/jquery-1.8.1.min.js"></script> 
-             <script>
-                   
+             $landid=$resultstring[2];
+                                      
+             $data['landid']=$landid;                        
              
-               var landid ='<?php echo $landid; ?>'
-            $.ajax({ 
-                                type: "POST",
-				url:'http://localhost/AjmanLandProperty/index.php/CustomerService/Search', 
-				data: "action=search&string="+landid+"&returnType=ws",
-                                async:false,
-				success: function(data) { 
-					var Results = JSON.parse(data); 	
-					console.log(Results);                                        
-                                        document.write(data);                               
-				}
-                        });  
-                                                     
-             </script> 
-               
-              
-             
-<? 
-  
+             $this->renderPartial('getdata', array(
+				'landid'=>$landid
+				));             
 }
 
 	
