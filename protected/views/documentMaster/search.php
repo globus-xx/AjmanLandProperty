@@ -49,7 +49,7 @@ label { display:block; }
     div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
     .ui-dialog .ui-state-error { padding: .3em; }
     .validateTips { border: 1px solid transparent; padding: 0.3em; }
-.messageDiv{background-color: #EFEDAC; border-bottom-color: #ccc ; border: 1px; width: 200px; height: 55px; text-align: center; padding: 5px; margin: -95px 450px 0 0px; position: fixed; border-radius: 10px;  }    
+.messageDiv{background-color: #EFEDAC; border-bottom-color: #ccc ; border: 1px; width: 200px; height: 55px; text-align: center; padding: 5px; margin: -95px 650px 0 0px; position: fixed; border-radius: 10px;z-index: 10;  }    
   </style>
 
 <script type="text/javascript" >
@@ -230,14 +230,18 @@ return false;
                           
 
                         $("#addnew" ).click(function() {
-                             if(getShareTotal()<100) {
+                             $("#_share").val("");
+                             var shareTotal = getShareTotal();
+                            
+                           
+//                             if(shareTotal<100) 
                                                     $( "#addOwner-form" ).dialog( "open" );
                                                     $("#_customerID").val("") ;
-                                                    $("#_nationality").val("") ;
-                                                    $("#_share").val(100-getShareTotal()) ;
+                                                    $("#_nationality").val("") ;//alert(100-getShareTotal());
+                                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
                                                     $("#customerSearch").val("") ;
-                             }
-                            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
+//                             }
+//                            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
                        });
                         $("#addnewFine" ).click(function() { 
 
@@ -329,8 +333,7 @@ return false;
             ?>
     
     <label for="_share">Share</label>
-    <input type="text" name="_share" id="_share" value="" class="text ui-widget-content ui-corner-all" disabled="disabled" size="5" />
-<!--    <label for="newCustomer">New Customer</lable> <input type="checkbox" name="newCustomer" id="newCustomer" checked="checked" class="text ui-widget-content ui-corner-all" style="width:10px" />-->
+    <input type="text" name="_share" id="_share" value="" class="sharetxt" size="5"  />
     <input type="hidden" name="_customerID" id="_customerID" value="new" class="text ui-widget-content ui-corner-all" />
   </fieldset>
   </form>

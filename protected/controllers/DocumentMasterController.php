@@ -76,14 +76,16 @@ class DocumentMasterController extends  Controller
                 $customerMaster->save();
                 $customerID = $customerMaster->CustomerID;
              }else{ $customerID = $res->CustomerID;}
-//            else{
-                $deedDtails = new DeedDetails;
+
+              $res = DeedDetails::model()->findByAttributes(array('CustomerID'=>$customerID, 'DeedID'=>$deedID));
+                    if( count($res)<1){
+                    $deedDtails = new DeedDetails;
                     $deedDtails->CustomerID=$customerID;
                     $deedDtails->DeedID=$deedID;
                     $deedDtails->Share = $Share;
                     if($deedDtails->save()) $res=1;
                     $shareID = $deedDtails->DeedDetailsID;
-//                }
+                }
              
             print CJSON::encode(array("result"=>$res, "customerID"=>$customerID , "shareID"=>$shareID ));
         }
@@ -159,10 +161,15 @@ class DocumentMasterController extends  Controller
         public function actionDeleteFile() {
                 extract($_POST);
             $res=0;
-            $searchCriteria=new CDbCriteria;
+//            $searchCriteria=new CDbCriteria;
+            $res = FileMaster::model()->findByAttributes(array('FileID'=>$FileID));
+            $pathToFile = Yii::app()->basePath."/../images/uploads/";
+            $fileToDelete = $res->Image;
+            print "path and file is".$pathToFile.$fileToDelete;
+            unlink($pathToFile.$fileToDelete) or die("File not deleted");
             print $query = "Delete From `filemaster` where `FileID`='$FileID'";//AND  LandID = '$LandID'
             $command =Yii::app()->db->createCommand($query);
-            
+//            
             if($command->execute()) $res=1;
             print CJSON::encode($res);
         }
@@ -179,29 +186,26 @@ class DocumentMasterController extends  Controller
         }
         public function actionUpdateLandOwnerShare() {
             
-            $shareData = CJSON::decode(stripslashes($_POST['shareData']));
-
+            $formData = CJSON::decode(stripslashes($_POST['formData']));
+             $shareData = CJSON::decode($formData['shareData']);
+             print_r($shareData);
+            print $_DeedID = $formData['deedID'];
+            DeedDetails::model()->deleteAllByAttributes(array("DeedID"=>$formData['deedID']));
             $res=0;
 
             if(count($shareData)>0 and is_array($shareData)){
                     foreach ($shareData as $shareRow) {
-                             $share = DeedDetails::model()->findByPk($shareRow["DeedDetailsID"]);
-                             $share->Share = $shareRow["sharePercentage"];
-                                if($share->save()) $res=1;
-//                                   else  print_r( $share->getErrors() );
+                        $DeedDetails = new DeedDetails;
+                        $DeedDetails->CustomerID = $shareRow["CustomerID"] ; 
+                        $DeedDetails->DeedID = $_DeedID ; 
+                        $DeedDetails->Share = $shareRow["sharePercentage"]    ; 
+                                    if($DeedDetails->save()) $res=1;
+                                       else  print_r( $DeedDetails->getErrors() );
                     }    
             
             }else print "ShareData not found";
            print CJSON::encode($res);
-//                extract($_POST);
-//            $res=0;
-//            
-//            $searchCriteria=new CDbCriteria;
-//             $DeedDetails= DeedDetails::model()->findByPk($id);
-//             $DeedDetails->Share = $share;
-//              if($DeedDetails->save()) $res=1;
-//                else print_r( $DeedDetails->getErrors() );
-//            print CJSON::encode($res);
+
         }
          public function actionMarkUpdated() {
                 extract($_POST);
@@ -264,7 +268,7 @@ class DocumentMasterController extends  Controller
                                 } 
                                //die($strCondition);
 
-			$qtxt = 'SELECT CustomerID, Nationality, CustomerNameArabic from CustomerMaster WHERE '.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name limit 25';
+			$qtxt = 'SELECT CustomerID, Nationality, CustomerNameArabic from CustomerMaster WHERE ('.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name) limit 25';
 			$command = Yii::app()->db->createCommand($qtxt);
 			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
 			$res = $command->queryAll();
