@@ -131,6 +131,20 @@ class DocumentMasterController extends  Controller
              
             print CJSON::encode(array("HajzID"=>$HajzMaster->HajzID,"result"=>$res ));
         }
+         public function actionAddDeed() {
+//                extract($_POST);
+              $formData = CJSON::decode(stripslashes($_POST['formData']));
+              extract($formData);
+            $res=0;
+            $DeedMaster = new DeedMaster;
+            $DeedMaster->LandID = $LandID ; 
+            $DeedMaster->Remarks = $Type ; 
+            $DeedMaster->DateCreated = $DateCreated ; 
+//            $DeedMaster->IsActive = $IsActive;
+              if($DeedMaster->save()) $res=1;
+             
+            print CJSON::encode(array("DeedID"=>$DeedMaster->DeedID,"result"=>$res ));
+        }
         public function actionDeleteOwner() {
                 extract($_POST);
             $res=0;
@@ -188,8 +202,8 @@ class DocumentMasterController extends  Controller
             
             $formData = CJSON::decode(stripslashes($_POST['formData']));
              $shareData = CJSON::decode($formData['shareData']);
-             print_r($shareData);
-            print $_DeedID = $formData['deedID'];
+//             print_r($shareData);
+             $_DeedID = $formData['deedID'];
             DeedDetails::model()->deleteAllByAttributes(array("DeedID"=>$formData['deedID']));
             $res=0;
 

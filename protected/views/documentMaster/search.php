@@ -235,11 +235,37 @@ return false;
                             
                            
 //                             if(shareTotal<100) 
+                                                    $("#addDeed").hide();
+                                                    $( "#addOwner-form" ).dialog( "open" );
+                                                    $("#_customerID").val("") ;
+                                                    $("#previous_DeedID").val("") ;
+                                                    $("#deedType").val("") ;
+                                                    $("#_nationality").val("") ;//alert(100-getShareTotal());
+                                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
+                                                    $("#customerSearch").val("") ;
+//                             }
+//                            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
+                       });
+                       $(".addnewDeed" ).click(function() {
+                             $("#_share").val("");
+                             var shareTotal = getShareTotal();
+                             var deedid = $(this).attr("id")
+                            var deedType = "previousDeed"
+//                           debugger
+//                             if(shareTotal<100) 
+                                                   if(deedid=="" || typeof(deedid)=="undefined"){
+                                                        $("#addDeed").show();
+                                                   }else{
+                                                        $("#addDeed").hide();
+                                                        }
                                                     $( "#addOwner-form" ).dialog( "open" );
                                                     $("#_customerID").val("") ;
                                                     $("#_nationality").val("") ;//alert(100-getShareTotal());
                                                     if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
                                                     $("#customerSearch").val("") ;
+                                                    $("#deedType").val(deedType) ;
+                                                    if(typeof(deedid!="undefined" || deedid!=""))$("#previous_DeedID").val(deedid) ;
+                                                   
 //                             }
 //                            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
                        });
@@ -258,6 +284,11 @@ return false;
                          $("#_DateCreated").datepicker({ 
                             dateFormat: "dd-mm-yy",
                             altField: "#DateCreated",
+                            altFormat: "yy-mm-dd"
+                          });
+                            $("#_DeedDate").datepicker({ 
+                            dateFormat: "dd-mm-yy",
+                            altField: "#DeedDate",
                             altFormat: "yy-mm-dd"
                           });
 //                         $(".currentOwners tr" ).on("click", "#removeWithID", function(){alert("i")
@@ -280,61 +311,68 @@ return false;
   <p class="validateTips">All form fields are required.</p>
  
   <form id="ownerForm" name="ownerForm">
-  <fieldset>
-      
-      
-    <label for="name">Name</label>
-    <?php
-				$url = $this->createUrl("DocumentMaster/CustomerSearch");
-                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                    'name'=>'customerSearch',
-                    'source'=>$url,
-                    //'source'=>$customerNames, //came from the controller.. the array we constructed of all names, arabic and english
-                    // additional javascript options for the autocomplete plugin
-                    'options'=>array(
-                'minLength'=>'3', // min chars to start search
-                'showAnim'=>'fold',
-                //focus option will tell what is displayed in field during the selection
-                'focus'=> 'js:function( event, ui ) {
-                    $( "#customerSearch" ).val( ui.item.CustomerNameArabic );
-                    return false;
-                }',
-                //select function will tell where go each field
-                'select'=>'js:function( event, ui ) {
-                     
-                   $("#newCustomer").attr("checked", false)
-                    $( "#_nationality" ).val(ui.item.Nationality);
-                    $( "#_customerID" ).val(ui.item.CustomerID);
-                    return false;
-                }'
-        ),
-                    'htmlOptions'=>array(
-                        'style'=>'height:20px;'
-                    ),
-                ));
-            ?>
-    
-    <label for="email">Nationality</label>
-    <?php
-                $url = $this->createUrl("DocumentMaster/NationalitySearch");
-                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                    'name'=>'_nationality',
-                    'source'=>$url,
-                    // additional javascript options for the autocomplete plugin
-                    'options'=>array(
-                    'minLength'=>'3', // min chars to start search
-                    'showAnim'=>'fold',
-                    //select function will tell where go each field
-                    ),
-                    'htmlOptions'=>array(
-                        'style'=>'height:20px;'
-                    ),
-                ));
-            ?>
-    
-    <label for="_share">Share</label>
-    <input type="text" name="_share" id="_share" value="" class="sharetxt" size="5"  />
-    <input type="hidden" name="_customerID" id="_customerID" value="new" class="text ui-widget-content ui-corner-all" />
+   <div id="addDeed"  name="addDeed"  style="display: none">                 <fieldset>
+<!--                     <label for="_share">Deed Type</label>
+                  <input type="text" name="_DeedType" id="_DeedType" value="" class="sharetxt" size="5"  />-->
+<label for="email">Date Created</label>
+                  <input type="text" name="_DeedDate" id="_DeedDate" value=""  class="text ui-widget-content ui-corner-all" />
+                  <input type="hidden" name="DeedDate" id="DeedDate" value="" class="text ui-widget-content ui-corner-all" />
+                    <input type="button" id="addDeedButton" name="addDeedButton" value="Add Deed"></div>
+                  <label for="name">Name</label>
+                  <?php
+                                              $url = $this->createUrl("DocumentMaster/CustomerSearch");
+                              $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                  'name'=>'customerSearch',
+                                  'source'=>$url,
+                                  //'source'=>$customerNames, //came from the controller.. the array we constructed of all names, arabic and english
+                                  // additional javascript options for the autocomplete plugin
+                                  'options'=>array(
+                              'minLength'=>'3', // min chars to start search
+                              'showAnim'=>'fold',
+                              //focus option will tell what is displayed in field during the selection
+                              'focus'=> 'js:function( event, ui ) {
+                                  $( "#customerSearch" ).val( ui.item.CustomerNameArabic );
+                                  return false;
+                              }',
+                              //select function will tell where go each field
+                              'select'=>'js:function( event, ui ) {
+
+                                 $("#newCustomer").attr("checked", false)
+                                  $( "#_nationality" ).val(ui.item.Nationality);
+                                  $( "#_customerID" ).val(ui.item.CustomerID);
+                                  return false;
+                              }'
+                      ),
+                                  'htmlOptions'=>array(
+                                      'style'=>'height:20px;'
+                                  ),
+                              ));
+                          ?>
+
+                  <label for="email">Nationality</label>
+                  <?php
+                              $url = $this->createUrl("DocumentMaster/NationalitySearch");
+                              $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                                  'name'=>'_nationality',
+                                  'source'=>$url,
+                                  // additional javascript options for the autocomplete plugin
+                                  'options'=>array(
+                                  'minLength'=>'3', // min chars to start search
+                                  'showAnim'=>'fold',
+                                  //select function will tell where go each field
+                                  ),
+                                  'htmlOptions'=>array(
+                                      'style'=>'height:20px;'
+                                  ),
+                              ));
+                          ?>
+
+                  <label for="_share">Share</label>
+                  <input type="text" name="_share" id="_share" value="" class="sharetxt" size="5"  />
+                  <input type="hidden" name="_LandID" id="_LandID" class="text ui-widget-content ui-corner-all" />
+                  <input type="text" name="previous_DeedID" id="previous_DeedID" class="text ui-widget-content ui-corner-all" />
+                  <input type="hidden" name="deedType" id="deedType" class="text ui-widget-content ui-corner-all" />
+                  <input type="hidden" name="_customerID" id="_customerID" value="new" class="text ui-widget-content ui-corner-all" />
   </fieldset>
   </form>
 </div>
@@ -351,33 +389,33 @@ return false;
   <p class="validateTips">All form fields are required.</p>
  
   <form id="fineForm" name="fineForm">
-  <fieldset>
-    <label for="name"><span id="_landIDspan">land id</span>&nbsp; :LandID &nbsp; 
-<!--        <br> DeedID:&nbsp; <span id="_deedIDspan">deed id</span> --></label>
-     <input type="hidden" name="test" id="test" class="text ui-widget-content ui-corner-all" />
-        <input type="hidden" name="_LandID" id="_LandID" class="text ui-widget-content ui-corner-all" />
-        <input type="hidden" name="_DeedID" id="_DeedID" class="text ui-widget-content ui-corner-all" />
-    <label for="email">Mortgaged Amount</label>
-    <input type="text" name="AmountMortgaged" id="AmountMortgaged" value="" class="text ui-widget-content ui-corner-all" />
-    <label for="email">Type</label>
-    
-    <input type="radio" name="Type" id="_isActive_active" checked="checked"   value="رهن" >&nbsp;رهن &nbsp;
-        <input type="radio" name="Type" id="_isActive_deactive" value= "حجز" >  &nbsp;  حجز  &nbsp; 
-   
-    <label for="email">Type Details</label>
-    <input type="text" name="TypeDetail" id="TypeDetail" value="" class="text ui-widget-content ui-corner-all" />
-    <label for="email">Remarks</label>
-    <input type="text" name="Remarks" id="Remarks" value="" class="text ui-widget-content ui-corner-all" />
-    <label for="email">Date Created</label>
-    <input type="text" name="_DateCreated" id="_DateCreated" value=""  class="text ui-widget-content ui-corner-all" />
-    <input type="hidden" name="DateCreated" id="DateCreated" value="" class="text ui-widget-content ui-corner-all" />
-    <label for="email">Status</label>
-    <input type="radio" name="IsActive" id="_isActive_active" value="1" checked="checked">Active &nbsp;
-    <input type="radio" name="IsActive" id="_isActive_deactive" value="0" >Not Active
-      
-         <input type="hidden" name="_test" id="_test" class="text ui-widget-content ui-corner-all" />
+                <fieldset>
+                  <label for="name"><span id="_landIDspan">land id</span>&nbsp; :LandID &nbsp; 
+              <!--        <br> DeedID:&nbsp; <span id="_deedIDspan">deed id</span> --></label>
+                   <input type="hidden" name="test" id="test" class="text ui-widget-content ui-corner-all" />
+                      <input type="hidden" name="_LandID" id="_LandID" class="text ui-widget-content ui-corner-all" />
+                      <input type="hidden" name="_DeedID" id="_DeedID" class="text ui-widget-content ui-corner-all" />
+                  <label for="email">Mortgaged Amount</label>
+                  <input type="text" name="AmountMortgaged" id="AmountMortgaged" value="" class="text ui-widget-content ui-corner-all" />
+                  <label for="email">Type</label>
 
-  </fieldset>
+                  <input type="radio" name="Type" id="_isActive_active" checked="checked"   value="رهن" >&nbsp;رهن &nbsp;
+                      <input type="radio" name="Type" id="_isActive_deactive" value= "حجز" >  &nbsp;  حجز  &nbsp; 
+
+                  <label for="email">Type Details</label>
+                  <input type="text" name="TypeDetail" id="TypeDetail" value="" class="text ui-widget-content ui-corner-all" />
+                  <label for="email">Remarks</label>
+                  <input type="text" name="Remarks" id="Remarks" value="" class="text ui-widget-content ui-corner-all" />
+                  <label for="email">Date Created</label>
+                  <input type="text" name="_DateCreated" id="_DateCreated" value=""  class="text ui-widget-content ui-corner-all" />
+                  <input type="hidden" name="DateCreated" id="DateCreated" value="" class="text ui-widget-content ui-corner-all" />
+                  <label for="email">Status</label>
+                  <input type="radio" name="IsActive" id="_isActive_active" value="1" checked="checked">Active &nbsp;
+                  <input type="radio" name="IsActive" id="_isActive_deactive" value="0" >Not Active
+
+                       <input type="hidden" name="_test" id="_test" class="text ui-widget-content ui-corner-all" />
+
+                </fieldset>
   </form>
   
   

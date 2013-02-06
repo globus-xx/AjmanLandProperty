@@ -1,4 +1,11 @@
-  $(document).ready(function() {
+var currentOwnerArray = new Array();
+var previousOwnerArray = new Array();
+var name = $( "#name" ),
+email = $( "#email" ),
+password = $( "#password" ),
+allFields = $( [] ).add( name ).add( email ).add( password ),
+tips = $( ".validateTips" );
+$(document).ready(function() {
                              
                 var name = $( "#name" ),
       email = $( "#email" ),
@@ -88,14 +95,43 @@
           }
         });
 
-        $( "#addOwner-form" )
-          .button()
-          .click(function() {$( "#addOwner-form" ).dialog( "open" );
-//            if(getShareTotal()<100) 
-//            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
-          });
+//        $( "#addOwner-form" )
+//          .button()
+//          .click(function() {$( "#addOwner-form" ).dialog( "open" );
+//              alert("i am");
+//              $("#addDeed").show();
+////            if(getShareTotal()<100) 
+////            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
+//          });
 
-         
+         $("#addDeedButton").click(function(){
+             var deedType = $("#deedType").val();
+             var deedDate = $("#DeedDate").val();
+             var LandID = $("#LandID").val();
+             
+                         $.ajax({ 
+                                   type: "POST",
+                                   url:'DocumentMaster/AddDeed', 
+                                   data:"&formData="+JSON.stringify({LandID:LandID,DateCreated:deedDate,Type: "cancelled"}),
+                                   success: function(data) 
+                                   {     var Results = JSON.parse(data); 
+                                         DeedID = Results.DeedID
+                                         $("#previous_DeedID").val(DeedID)
+                                         $("#addDeed").hide();
+                                        var previousOwnersContent ="<tr class='deed' ><td onclick='showDeedCustomersTR("+DeedID+")' align='right' colspan='2'><strong>رقم العقد:"+DeedID+"</strong></td>";
+                                         previousOwnersContent+="<td ><img onclick=updateDeed('"+DeedID+"') src=../images/save.png id='"+DeedID+"' />&nbsp;<input type=image alt='add owner' title='add owner' src='../images/add.png' onclick=addPOwner('"+DeedID+"') class='addnewDeed' id='"+DeedID+"'></td></tr>";
+                                         previousOwnersContent+="<tr><td colspan=3><table id='previous_"+DeedID+"' ><tr class='"+DeedID+" previousOwnerhead'><td></td><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr></table>";
+                                         $(previousOwnersContent).appendTo('.previousOwners');
+                        
+                                         eval("var DeedID = new array()")
+                                         previousOwnerArray.push(DeedID);
+                                         showMessage("Deed Added","sucess");
+
+   //                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
+   //                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
+                                   }
+                        })
+         })
   
         $( "#addFine-form" ).dialog({
            autoOpen: false,
@@ -152,7 +188,25 @@
            }
          });
   // Handler for .ready() called.
-});function landTab(listType, customerID){
+});
+function addPOwner(id){
+//    $(".addnewDeed" ).trigger("click")
+     var deedid = id;
+     var deedType = "previousDeed"
+//                           debugger
+//                             if(shareTotal<100) 
+
+                                                    $("#addDeed").hide();
+                                                    $( "#addOwner-form" ).dialog( "open" );
+                                                    $("#_customerID").val("") ;
+                                                    $("#_nationality").val("") ;//alert(100-getShareTotal());
+                                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
+                                                    $("#customerSearch").val("") ;
+                                                    $("#deedType").val(deedType) ;
+                                                    if(typeof(deedid!="undefined" || deedid!=""))$("#previous_DeedID").val(deedid) ;
+
+}
+function landTab(listType, customerID){
         var userTab="<table class=tab><tr>"
                 userTab+="<td><a onclick=switchToView('landresult')><strong>تفاصيل الارض</strong></a></td>" ;
 //                userTab+="<td><a onclick=switchToView('fines')><strong>الغرامات و الملاحظات</strong></a></td>" ;
@@ -160,6 +214,7 @@
                 userTab+="</tr>" ;
         return userTab+="</table>";
 } 
+
 function switchToView(viewName){
     hideAll()
    $("#"+viewName).show(); 
@@ -167,6 +222,7 @@ function switchToView(viewName){
    
  
 }
+
 function hideAll(){// hide all the divs before loading the related one
         $('#letterTable').hide();
         $('#previouslandresult').hide();
@@ -182,6 +238,7 @@ function hideAll(){// hide all the divs before loading the related one
         $("#uploadButton").hide();
         $("#verifiedDeed").hide();
 }
+
 function showDeedCustomersTR(deedid){
 
     if($('.'+deedid).is(":visible")) 
@@ -195,7 +252,7 @@ function doSearchSubmit(searchString){// will call on the click of customer name
     $("#SearchForm").trigger('submit')
 
 }
-var currentOwnerArray = new Array();
+
 function displayLandInfo(Results)// lsit previous and currnt lands from result of land search
 {   
     // get the current owners and list them with links to the profile on the Arabic name
@@ -248,6 +305,47 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
      }    
      
              //****************************Fines Table*****************************************
+             
+             
+ // get the previous owners and list them with links to the profile on the Arabic name
+        var previousOwnersContent = "<table dir=rtl class=previousOwners>";
+        previousOwnersContent+="<tr ><td colspan= 6>  " ;
+//        previousOwnersContent+= landTab();
+        previousOwnersContent+="</td></tr>" ;
+            if(typeof(Results["previous"])!="undefined"){
+                  var arrayNodeB= Results["previous"]["deed"]
+                  previousOwnersContent+="<tr><td colspan='2'>المالك السابق</td><td><input type=image class=addnewDeed src='../images/add.png' title='add owner' alt='add owner'>  &nbsp; </td></tr>";
+                 
+                     for(var j= 0; j<arrayNodeB.length; j++){
+
+                           var arrayNode= Results["previous"]["deed"][j]["customers"]
+                           var arrayNodeShare= Results["previous"]["deed"][j]["share"]
+                           
+                           
+                           previousOwnersContent+="<tr class='deed' ><td onclick='showDeedCustomersTR("+arrayNodeB[j]["deed"]+")' align='right' colspan='2'><strong>رقم العقد:"+arrayNodeB[j]["deed"]+"</strong></td>";
+                           previousOwnersContent+="<td ><img onclick=updateDeed('"+arrayNodeB[j]["deed"]+"') src=../images/save.png id='"+arrayNodeB[j]["deed"]+"' />&nbsp;<input type=image alt='add owner' title='add owner' src='../images/add.png' class='addnewDeed' id='"+arrayNodeB[j]["deed"]+"'></td></tr>";
+                           previousOwnersContent+="<tr><td colspan=3><table id='previous_"+arrayNodeB[j]["deed"]+"' ><tr class='"+arrayNodeB[j]["deed"]+" previousOwnerhead'><td></td><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
+                             if(typeof(arrayNode)!="undefined"){   for(var i = 0; i<arrayNode.length ; i++ ){
+                                                              previousOwnerArray.push(arrayNode[i]["CustomerID"]);
+                                  var Shareid = arrayNodeShare[arrayNode[i]["CustomerID"]]["shareDeedDetaisID"];
+                                  var sharePercentage =arrayNodeShare[arrayNode[i]["CustomerID"]]["sharePercentage"];
+
+                                    previousOwnersContent+="<tr  class='"+arrayNodeB[j]["deed"]+" previousOwnerEven'><td><img src='../images/remove.png' id=removeWithID_previous"+arrayNode[i]["CustomerID"]+" onclick=removeIT('"+arrayNode[i]["CustomerID"]+"','previous') title=remove alt=remove value="+arrayNode[i]["CustomerID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+"></td>";
+                                    previousOwnersContent+="<td> <a href=customerMaster/update/"+ arrayNode[i]["CustomerID"]+" id="+ arrayNode[i]["CustomerID"]+" >"+ arrayNode[i]["CustomerNameArabic"]+"</a></td><td>"+ arrayNode[i]["Nationality"]+"</td><td><input id=share_"+Shareid+" name=share_"+Shareid+" class=peviousShare_"+arrayNodeB[j]["deed"]+" type=text value="+ sharePercentage+"></td></tr>";
+                               }
+                           }
+                         previousOwnersContent+= "</table>" 
+                     }
+            }else{
+                                  previousOwnersContent+="<tr><td colspan='2'>المالك السابق</td><td><input type=image class=addnewDeed src='../images/add.png' title='add owner' alt='add owner'>  &nbsp; </td></tr>";
+
+//                 previousOwnersContent+="<tr><td>عفوا لا توجد نتائج في هذا الصنف</td></tr>"
+            }       
+//        $("#previousowner").html(previousOwnersContent);
+//        var _previousOwner =  $("#previousowner").html();
+        previousOwnersContent+= "</table></td></tr>";
+        //****************************Previous Owners Table*****************************************
+             
              if(Results["current"]["ArchiveUpdate"] == "True") {$("#verifiedDeed").css("display","");}//alert("I am"+Results["current"]["ArchiveUpdate"])
  var filesContent = "<table dir=rtl class=landFiles>";
 //        finesContent+="<tr ><td colspan= 6>  " ;
@@ -305,42 +403,21 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                 landdetailsContent+="<tr><td>غربا</td><td><input id=West name=West type=text value='"+ Results["landInfo"]["West"]+"'><input id=LandID name=LandID type=hidden value='"+ Results["landInfo"]["LandID"]+"'></td></tr>";
                 landdetailsContent+="<tr><td>Remarks</td><td><input id=Remarks name=Remarks type=text value='"+ Results["landInfo"]["Remarks"]+"'></td></tr>";
                 landdetailsContent+= "</td></tr></table><input type=hidden id=_testField name=_testField></form></td>"
-        landdetailsContent+="<td>"+currentOwnersContent+finesContent+"</td></tr>";  
+        landdetailsContent+="<td>"+currentOwnersContent+finesContent+previousOwnersContent+"</td></tr>";  
         landdetailsContent+="<tr ><td colspan= 6>  " ;
     landdetailsContent+=' '
     landdetailsContent+="</td></tr>" ;
-//        landdetailsContent+="<td>"+finesContent+"</td></tr>";  
-    landdetailsContent+= "</table>";
 
-     $("#landresult").html(landdetailsContent);
+
+    
 
         //**************************** Land Info Table*****************************************
         
-        // get the current owners and list them with links to the profile on the Arabic name
-        var previousOwnersContent = "<table dir=rtl>";
-        previousOwnersContent+="<tr ><td colspan= 6>  " ;
-        previousOwnersContent+= landTab();
-        previousOwnersContent+="</td></tr>" ;
-            if(typeof(Results["previous"])!="undefined"){
-                  var arrayNodeB= Results["previous"]["deed"]
-                  previousOwnersContent+="<tr><td colspan='2'>المالك السابق</td></tr>";
-                 
-                     for(var j= 0; j<arrayNodeB.length; j++){ 
-                           var arrayNode= Results["previous"]["deed"][j]["customers"]
-                           
-                           previousOwnersContent+="<tr class='deed' onclick='showDeedCustomersTR("+arrayNodeB[j]["deed"]+")'><td colspan='2'><strong>رقم العقد:"+arrayNodeB[j]["deed"]+"</strong></td></tr>";
-                           previousOwnersContent+="<tr class='"+arrayNodeB[j]["deed"]+" previousOwnerhead'><td>اسم الزبون </td><td> جنسية الزبون</td></tr>";
-                          for(var i = 0; i<arrayNode.length ; i++ )
-                              previousOwnersContent+="<tr  class='"+arrayNodeB[j]["deed"]+" previousOwnerEven'><td> "+ arrayNode[i]["CustomerNameArabic"]+"</td><td>"+ arrayNode[i]["Nationality"]+"</td></tr>";
-                    }
-            }else{
-                 previousOwnersContent+="<tr><td>عفوا لا توجد نتائج في هذا الصنف</td></tr>"
-            }       
-        $("#previousowner").html(previousOwnersContent);
-        previousOwnersContent+= "</table>";
-        //****************************Previous Owners Table*****************************************
        
-        //****************************Fines  Table*****************************************
+//    landdetailsContent+="<tr><td>"+_previousOwner+"</td></tr>" ;
+//        landdetailsContent+="<td>"+finesContent+"</td></tr>";  
+    landdetailsContent+= "</table>";
+         $("#landresult").html(landdetailsContent);
 }
 
 function dubaiDate(datestring){
@@ -351,37 +428,33 @@ function dubaiDate(datestring){
     return newDate;
 }
 
-
 function setlistType(listType){
      listType = listType;
 }
+
 function getlistType(listType){
     return listType;
 }
+
 function hideList(){
      if($('#customerList').is(':visible'))
     $("#customerList").hide();
     else
         $("#customerList").show();
 }
-
-var name = $( "#name" ),
-      email = $( "#email" ),
-      password = $( "#password" ),
-      allFields = $( [] ).add( name ).add( email ).add( password ),
-      tips = $( ".validateTips" );
- 
   
-  
-  function removeIT(id, type){
+function removeIT(id, type){
       if(type=="fines") if(deleteFines(id)) $("#removeWithID_"+id).closest('tr').remove();
           
       if(type=="files") if(deleteFiles(id)) $("#removeWithID_"+id).closest('tr').remove();
 //          else{ debugger;if(deleteOwner(id))
       if(type=="owner")  { $("#removeWithID_"+id).closest('tr').remove(); currentOwnerArray.splice(currentOwnerArray.indexOf(id),1)}
+      
+      if(type=="previous")  { $("#removeWithID_previous"+id).closest('tr').remove(); previousOwnerArray.splice(previousOwnerArray.indexOf(id),1)}
 //         }      
   }
-  function deleteOwner(id){
+  
+function deleteOwner(id){
       
             var customerID = id ;
             var deedID = $("#_deedID").val()
@@ -402,7 +475,8 @@ var name = $( "#name" ),
            }else {showMessage("Please set the share to zero '0' and Totak of share to 100 and try again.", "error"); return false}
       return true
   }
-  function deleteFines(id){
+  
+function deleteFines(id){
         
         $.ajax({ 
             type: "POST",
@@ -415,7 +489,8 @@ var name = $( "#name" ),
         })
      return true
   }
-    function deleteFiles(id){
+  
+function deleteFiles(id){
         
         $.ajax({ 
             type: "POST",
@@ -428,7 +503,8 @@ var name = $( "#name" ),
         })
       return true
   }
-  function UpdateLandData(id){
+  
+function UpdateLandData(id){
       
             var landID = id ;
             var $inputs = $('#landInfoForm :input');
@@ -452,6 +528,7 @@ var name = $( "#name" ),
                })
       
   }
+  
 function updateCaption(id){
 //    alert(id)
     var caption= $("#caption_"+id).val();
@@ -471,15 +548,15 @@ function updateCaption(id){
                })
     }
 }
+
 function updateShare(doAjax){ 
     
 /* This method will create the array of shares and send it to server to perform DB update*/
-//    alert(id)
-//    var share= $("#share_"+id).val();
-//    var shareOld= $("#_share_"+id).val();
-//    if( share != shareOld && share!=""){
 if(doAjax == "" || doAjax == null)doAjax =false;
- var deedID = $("#_deedID").val()
+var deedType = $("#deedType").val()
+ if(deedType!="previousDeed") var deedID = $("#_deedID").val()
+ else var deedID = $("#previous_DeedID").val();
+ 
         if($(".shareTxt").length<1){
             var total = 0;
              
@@ -498,29 +575,79 @@ if(doAjax == "" || doAjax == null)doAjax =false;
             })
             shareJson = shareJson.replace(/(^,)|(,$)/g, "");
             shareJson += "]"
-            
+          
             if((total< 100 || total > 100) ) showMessage("Total of shares percentage must be 100", "error",5000);
                 else {
                     showMessage("Total of Sahre is 100%");
                      if(doAjax=="true"){ 
-                         $.ajax({ 
-                                type: "POST",
-                                url:'DocumentMaster/UpdateLandOwnerShare', 
-                                data:"&formData="+JSON.stringify({deedID:deedID,shareData: shareJson}),
-                                success: function(data) 
-                                {
-                                     showMessage("Land Owners And Share Data Suseccfully Updated","sucess");
-                                     
-//                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
-//                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
-                        }
-                    })
+                            $.ajax({ 
+                                   type: "POST",
+                                   url:'DocumentMaster/UpdateLandOwnerShare', 
+                                   data:"&formData="+JSON.stringify({deedID:deedID,shareData: shareJson}),
+                                   success: function(data) 
+                                   {
+                                        showMessage("Land Owners And Share Data Suseccfully Updated","sucess");
+
+   //                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
+   //                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
+                                   }
+                        })
                    } 
-                }
+            }
         }
 
 //    }
 }
+
+function updateDeed(deedID){ 
+//    var id =$(this).attr("id");
+    
+/* This method will create the array of shares of previous deed and send it to server to perform DB update*/
+//if(doAjax == "" || doAjax == null)doAjax =false;
+//var deedType = $("#deedType").val()
+// if(deedType!="previousDeed") var deedID = $("#_deedID").val()
+// else
+     var deedID = deedID;//$("#previous_DeedID").val();
+ 
+        if($(".peviousShare_"+deedID).length>0){//  xdebugger
+            var total = 0;
+            var shareJson = "["; 
+            $.each($(".peviousShare_"+deedID),function(i,j){
+                var shareValue = $(this).val();
+//                alert($(this).val())
+                if(shareValue > 0 && $(this).val()!="NaN"){    
+                    total+=eval($(this).val());
+
+                    var CustomerID = $(this).closest('tr').find('a').attr('id');//previousOwnerArray[deedID][i];
+//                    debugger;
+                    shareJson += "{CustomerID:'"+CustomerID+"', sharePercentage:'"+shareValue+"'}," 
+                }
+            })
+            shareJson = shareJson.replace(/(^,)|(,$)/g, "");
+            shareJson += "]"
+          
+            if((total< 100 || total > 100) ) showMessage("Total of shares percentage must be 100", "error",5000);
+                else {
+                    showMessage("Total of Sahre is 100%");
+//                     if(doAjax=="true"){ 
+                            $.ajax({ 
+                                   type: "POST",
+                                   url:'DocumentMaster/UpdateLandOwnerShare', 
+                                   data:"&formData="+JSON.stringify({deedID:deedID,shareData: shareJson}),
+                                   success: function(data) 
+                                   {
+                                        showMessage("Land Owners And Share Data Suseccfully Updated","sucess");
+
+   //                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
+   //                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
+                                   }
+                        })
+//                   } 
+            }
+        }
+
+}
+
 function showMessage(messageContent, alertType, delay){
     if(delay == null || delay =="") delay = 3000;
     if(alertType == null || alertType =="") alertType =  "normal";
@@ -532,6 +659,7 @@ function showMessage(messageContent, alertType, delay){
                         $("#messagDiv").html(messageContent);
                         setTimeout(function(){ $("#messagDiv").css("display","none");},delay);
 }
+
 function getShareTotal(){
     var total = 0;
                 $( this ).dialog( "close" );
@@ -544,13 +672,20 @@ function getShareTotal(){
                 })
    return total;
 }
+
 function addOwnerToDB(){
     
      var customerID = $("#_customerID").val() ;
                 var deedID = $("#_deedID").val()
-                 var share = $("#_share").val()
+                var deedType = $("#deedType").val()
+                var previous_DeedID = $("#previous_DeedID").val()
+                var share = $("#_share").val()
                 var ArabicName = $("#customerSearch").val();
-                 var Nationality = $("#_nationality").val();
+                var Nationality = $("#_nationality").val();
+               
+                if(deedType!="previousDeed") var deedID = $("#_deedID").val()
+                else var deedID = $("#previous_DeedID").val();
+                
       var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
 //                }
 //                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
@@ -570,27 +705,42 @@ function addOwnerToDB(){
                                 var customerID = Results.customerID;
                                 var shareID = Results.shareID;
                                 if(res==1){
-//                               $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+')> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+$("#_share").val()+'" class=sharetxt id="share_'+shareID+'"  onblur=updateShare() size=5> </td></tr>').appendTo('.currentOwners');
-                                   if(customerID!="undefined" && customerID!=""){
-                           if(jQuery.inArray(customerID, currentOwnerArray)=="-1") 
-                               {
-                                   $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+',"owner")> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+share+'" class=sharetxt  size=5> </td></tr>').appendTo('.currentOwners');
-                                    currentOwnerArray.push(customerID);
-//                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
-                                      $("#_share").val("0")
-                               
-                           }else showMessage("Customer is already in land list", "error");
+
+                   if(customerID!="undefined" && customerID!=""){
+                       
+                           if(deedType !="previousDeed"){ 
+                                if(jQuery.inArray(customerID, currentOwnerArray)=="-1") 
+                                    {debugger
+                                        $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+',"owner")> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+share+'" class=sharetxt  size=5> </td></tr>').appendTo('.currentOwners');
+                                         currentOwnerArray.push(customerID);
+     //                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
+                                           $("#_share").val("0")
+
+                                }else showMessage("Customer is already in land list", "error");
+                           }
+                           else if(deedType =="previousDeed"){ //alert('#previous_'+previous_DeedID);
+//                                if(jQuery.inArray(customerID, previousOwnerArray)=="-1") 
+//                                    {
+                                        $('<tr class="'+previous_DeedID+' previousOwnerhead"><td><img src="../images/remove.png" title=remove id=removeWithID_previous'+customerID+' onclick=removeIT('+customerID+',"previous")> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a id='+customerID+' ref="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input id=share_'+shareID+' type=text value="'+share+'" class=peviousShare_'+deedID+' class=sharetxt  size=5> </td></tr>').appendTo('#previous_'+previous_DeedID);
+//                                         previousOwnerArray[deedID].push(customerID);
+     //                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
+                                           $("#_share").val("0")
+
+//                                }else showMessage("Customer is already in land list", "error");
+                           }
+                           
                  }
                                 showMessage("Owner Added");
                                
                                  
-                                 updateShare(true);
+//                                 updateShare(true);
                                 }
                                 else {alert("Sorry This record could not be processed"); showMessage("Sorry This record could not be processed", "error");}
 
                            }
                        })
 }
+
 function addOwnerRow(){
    
                showMessage("Data of owner received");
@@ -617,6 +767,7 @@ function addOwnerRow(){
                  }
              
 }
+
 function getFileTilteDD(DDID, selected){
     var DDoptionArray = ['1','b','c'];
     var DD = "<select id=caption_"+DDID+" onchange=updateCaption('"+DDID+"')>"

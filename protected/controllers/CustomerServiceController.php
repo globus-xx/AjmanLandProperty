@@ -241,22 +241,31 @@ class CustomerServiceController extends Controller
                                        $searchCriteria->addInCondition("customerID", $_cids);
                                        $landDetails["current"]["customers"] = CustomerMaster::model()->findAll($searchCriteria);
                                        $landDetails["current"]["share"] = $_share;
+                                       
 
                                          }
                                        //previous owners
                                        $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring, "Remarks"=>"cancelled"),array('order'=>'DeedID DESC'));
+                                        $_sharePreviousCustomer = null;
+                                        $_cidsPrevious = null;
+                                        $deedDetails = null;
 
-                                        foreach ($deeds as $key=>$did) {
+                                        foreach ($deeds as $key=>$did) { 
                                          $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$did->DeedID));
                                          $landDetails["previous"]["deed"][$key]["deed"]= $did->DeedID;
                                             if(count($deedDetails)>0){
-                                                $_cids= null;
+                                                $_cidsPrevious = null;
+                                                $_sharePreviousCustomer = null;
                                                     foreach ($deedDetails as $cid) {
-                                                         $_cids[] = $cid->CustomerID;
+                                                         $_cidsPrevious[] = $cid->CustomerID;
+                                                          $_sharePreviousCustomer[$cid->CustomerID]["sharePercentage"] = $cid->Share;
+                                                          $_sharePreviousCustomer[$cid->CustomerID]["shareDeedDetaisID"] = $cid->DeedDetailsID;
                                                     }
                                             $searchCriteria=new CDbCriteria;
-                                            $searchCriteria->addInCondition("customerID", $_cids);
+                                            $searchCriteria->addInCondition("customerID", $_cidsPrevious);
                                             $landDetails["previous"]["deed"][$key]["customers"] = CustomerMaster::model()->findAll($searchCriteria);
+                                            $landDetails["previous"]["deed"][$key]["share"] = $_sharePreviousCustomer;
+                                            
                                             }
                                    }
                                    // fines related to land
