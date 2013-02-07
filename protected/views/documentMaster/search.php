@@ -370,7 +370,7 @@ return false;
                   <label for="_share">Share</label>
                   <input type="text" name="_share" id="_share" value="" class="sharetxt" size="5"  />
                   <input type="hidden" name="_LandID" id="_LandID" class="text ui-widget-content ui-corner-all" />
-                  <input type="text" name="previous_DeedID" id="previous_DeedID" class="text ui-widget-content ui-corner-all" />
+                  <input type="hidden" name="previous_DeedID" id="previous_DeedID" class="text ui-widget-content ui-corner-all" />
                   <input type="hidden" name="deedType" id="deedType" class="text ui-widget-content ui-corner-all" />
                   <input type="hidden" name="_customerID" id="_customerID" value="new" class="text ui-widget-content ui-corner-all" />
   </fieldset>
