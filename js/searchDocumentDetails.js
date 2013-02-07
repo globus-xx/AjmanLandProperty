@@ -719,14 +719,14 @@ function addOwnerToDB(){
                                 }else showMessage("Customer is already in land list", "error");
                            }
                            else if(deedType =="previousDeed"){ //alert('#previous_'+previous_DeedID);
-//                                if(jQuery.inArray(customerID, previousOwnerArray)=="-1") 
-//                                    {
-                                        $('<tr class="'+previous_DeedID+' previousOwnerhead"><td><img src="../images/remove.png" title=remove id=removeWithID_previous'+customerID+' onclick=removeIT('+customerID+',"previous")> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a id='+customerID+' ref="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input id=share_'+shareID+' type=text value="'+share+'" class=peviousShare_'+deedID+' class=sharetxt  size=5> </td></tr>').appendTo('#previous_'+previous_DeedID);
+                                if(jQuery.inArray(customerID, previousOwnerArray)=="-1") 
+                                    {
+                                        $('<tr class="'+previous_DeedID+' previousOwnerhead"><td><img src="../images/remove.png" title=remove id=removeWithID_previous'+customerID+' onclick=removeIT('+customerID+',"previous")> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a id='+customerID+' href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input id=share_'+shareID+' type=text value="'+share+'" class=peviousShare_'+deedID+' class=sharetxt  size=5> </td></tr>').appendTo('#previous_'+previous_DeedID);
 //                                         previousOwnerArray[deedID].push(customerID);
      //                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
                                            $("#_share").val("0")
 
-//                                }else showMessage("Customer is already in land list", "error");
+                                }else showMessage("Customer is already in land list", "error");
                            }
                            
                  }
@@ -735,7 +735,7 @@ function addOwnerToDB(){
                                  
 //                                 updateShare(true);
                                 }
-                                else {alert("Sorry This record could not be processed"); showMessage("Sorry This record could not be processed", "error");}
+                                else {alert("Sorry This record could not be processed OR Try with another customer."); showMessage("Sorry This record could not be processed", "error");}
 
                            }
                        })

@@ -64,29 +64,30 @@ class DocumentMasterController extends  Controller
         
         public function actionAddOwner() {
                 extract($_POST);
-            $res=0;
+            $res=0; $shareID=0;$customerID=0;
             
-           $res = CustomerMaster::model()->findByAttributes(array('CustomerNameArabic'=>$ArabicName));
+           $result = CustomerMaster::model()->findByAttributes(array('CustomerNameArabic'=>$ArabicName));
 
             
-             if( count($res)<1){
+             if( count($result)<1){
                  $customerMaster = new CustomerMaster;
                 $customerMaster->CustomerNameArabic = $ArabicName;
                 $customerMaster->Nationality = $Nationality;
                 $customerMaster->save();
                 $customerID = $customerMaster->CustomerID;
-             }else{ $customerID = $res->CustomerID;}
+             }else{ $customerID = $result->CustomerID;}
 
-              $res = DeedDetails::model()->findByAttributes(array('CustomerID'=>$customerID, 'DeedID'=>$deedID));
-                    if( count($res)<1){
+              $resultDeed = DeedDetails::model()->findByAttributes(array('CustomerID'=>$customerID, 'DeedID'=>$deedID));
+                    if( count($resultDeed)<1){
                     $deedDtails = new DeedDetails;
                     $deedDtails->CustomerID=$customerID;
                     $deedDtails->DeedID=$deedID;
                     $deedDtails->Share = $Share;
                     if($deedDtails->save()) $res=1;
+//                    print "share".
                     $shareID = $deedDtails->DeedDetailsID;
                 }
-             
+
             print CJSON::encode(array("result"=>$res, "customerID"=>$customerID , "shareID"=>$shareID ));
         }
         public function actionAddFile(){
