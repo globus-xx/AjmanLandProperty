@@ -3,7 +3,7 @@ var previousOwnerArray = new Array();
 var name = $( "#name" ),
 email = $( "#email" ),
 password = $( "#password" ),
-allFields = $( [] ).add( name ).add( email ).add( password ),
+//allFields = $( [] ).add( name ).add( email ).add( password ),
 tips = $( ".validateTips" );
 $(document).ready(function() {
                              
