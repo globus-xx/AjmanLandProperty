@@ -556,27 +556,28 @@ if(doAjax == "" || doAjax == null)doAjax =false;
 var deedType = $("#deedType").val()
  if(deedType!="previousDeed") var deedID = $("#_deedID").val()
  else var deedID = $("#previous_DeedID").val();
- 
+  var nonNumbershare = 0;
         if($(".shareTxt").length<1){
             var total = 0;
              
              
              var shareJson = "["; 
             $.each($(".sharetxt"),function(i,j){
-                var shareValue = $(this).val();
-//                alert($(this).id)
-                if(shareValue > 0 && $(this).val()!="NaN"){    
-                    total+=eval($(this).val());
+                    if(i<$(".sharetxt").length-1){
+                     var shareValue = $(this).val();
+                     if(shareValue > 0 && $(this).val()!="NaN"){    
+                         total+=eval($(this).val());
 
-                    var CustomerID = currentOwnerArray[i];
-//                    debugger
-                    shareJson += "{CustomerID:'"+CustomerID+"', sharePercentage:'"+shareValue+"'}," 
-                }
+                         var CustomerID = currentOwnerArray[i];
+
+                         shareJson += "{CustomerID:'"+CustomerID+"', sharePercentage:'"+shareValue+"'}," 
+                     }else  {nonNumbershare = 1;alert("i am")}
+                 }
             })
             shareJson = shareJson.replace(/(^,)|(,$)/g, "");
             shareJson += "]"
           
-            if((total< 100 || total > 100) ) showMessage("Total of shares percentage must be 100", "error",5000);
+            if((total< 100 || total > 100) || nonNumbershare==1) showMessage("Total of shares percentage must be 100 and integer", "error",5000);
                 else {
                     showMessage("Total of Sahre is 100%");
                      if(doAjax=="true"){ 
@@ -665,7 +666,7 @@ function getShareTotal(){
                 $( this ).dialog( "close" );
                     $.each($(".sharetxt"),function(i,j){
 //                  alert($(this).id)
-                    shareValue = $(this).val();
+                    var shareValue = $(this).val();
                     if(shareValue > 0 && $(this).val()!="NaN")
                     total+=eval($(this).val());
                 
@@ -694,7 +695,9 @@ function addOwnerToDB(){
 
                  var shaertotal=getShareTotal();
                
-                     if(shaertotal > 100) showMessage("Total of shares percentage must be less than or 100 to add new Owner.", "error",5000);
+                     if(shaertotal > 100) showMessage("Total of shares percentage must be less than or 100 to add new Owner.", "error",5000)
+                     {
+                     
               $.ajax({ 
                            type: "POST",
                            url:'DocumentMaster/AddOwner', 
@@ -710,7 +713,7 @@ function addOwnerToDB(){
                        
                            if(deedType !="previousDeed"){ 
                                 if(jQuery.inArray(customerID, currentOwnerArray)=="-1") 
-                                    {debugger
+                                    {
                                         $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+',"owner")> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+share+'" class=sharetxt  size=5> </td></tr>').appendTo('.currentOwners');
                                          currentOwnerArray.push(customerID);
      //                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
@@ -739,6 +742,7 @@ function addOwnerToDB(){
 
                            }
                        })
+                }   
 }
 
 function addOwnerRow(){
