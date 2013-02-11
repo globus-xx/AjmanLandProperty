@@ -382,7 +382,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
         finesContent+= "</table>";
     var landdetailsContent = "<table dir=rtl  >";
     landdetailsContent+="<tr ><td colspan= 6>  " ;
-    landdetailsContent+= landTab();
+//    landdetailsContent+= landTab();
     landdetailsContent+="</td></tr>" ;
     landdetailsContent+="<tr ><td colspan= 6>  " ;
     landdetailsContent+= "Deed Type:&nbsp; <input type=text id=deedRemarks name=deedRemarks value='"+Results["current"]["Remarks"]+"' />, created on "+Results["current"]["DateCreated"];
