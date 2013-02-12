@@ -66,9 +66,11 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
     if(typeof(Results["current"]["customers"])!="undefined"){
         var arrayNode= Results["current"]["customers"]
         for(var i = 0; i<arrayNode.length ; i++ ){
+             var Shareid = Results["current"]["share"][arrayNode[i]["CustomerID"]]["shareDeedDetaisID"];
+             var sharePercentage = Results["current"]["share"][arrayNode[i]["CustomerID"]]["sharePercentage"];
             currentOwnersContent+="<tr><td> <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+"><a class='searchLink' >"+ arrayNode[i]["CustomerNameArabic"]+"</a></td>";
             currentOwnersContent+="<td>"+ arrayNode[i]["Nationality"]+"</td>";
-            currentOwnersContent+="<td> "+ Results["current"]["share"][arrayNode[i]["CustomerID"]]+"</td>";
+            currentOwnersContent+="<td> "+ sharePercentage+"</td>";
             currentOwnersContent+=" </tr>"
     }
     } else{
