@@ -10,24 +10,33 @@ class LPDWebServiceController extends Controller
              $ky = '!GIS_LaPD@2013!&&!GIS_LaPD@2013!'; // 32 * 8 = 256 bit key
              $iv = '!LaPD_GIS@2013!&&!LaPD_GIS@2013!'; // 32 * 8 = 256 bit iv
         
-             $codetodecrypt=$_GET['token'];
-                                          
-             $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);
-             $resultstring = explode("|",$resultstring);
+           
+                                       
+            $codetodecrypt=$_GET['token'];
+            $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);  
+            
+            
+            $resultstring = explode("|",$resultstring);                                                
+            $landid=$resultstring[2];
+             
+                                                    
+             // 1- retured data is land details + CURRENT OWNERS
+             // 2- retured data is land details + FINES                     
+             // 3- shares data is  land details + SHARES
+             
+             $retureddata=1;
+             
+             
+             // for fast test uncomment the following two lines 
+             // $landid="your working land id";
+             // $retureddata=1;
             
              
-             $landid=$resultstring[2];
-                                      
-             $data['landid']=$landid;                        
-             
              $this->renderPartial('getdata', array(
-				'landid'=>$landid
-				));             
+				'landid'=>$landid,'returneddata'=>$retureddata
+				));                              
 }
 
-	
-        
-       
 
        public  function decryptRJ256($key,$iv,$string_to_decrypt)
         {
