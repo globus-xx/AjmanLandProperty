@@ -217,6 +217,8 @@ class CustomerServiceController extends Controller
                                {// search for lands and its current and previous owners plus all fines 
                                        //land details
                                        $lands = LandMaster::model()->findAllByAttributes(array("LandID"=>$searchstring));
+//                                       print count($lands)."aa";
+                                       if(count($lands)<=0) { print CJSON::encode("no result found");return;}
                                        $landDetails["landInfo"] = $lands[0];
                                        $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring), 'Remarks <> "cancelled"');
                                        $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
@@ -253,6 +255,12 @@ class CustomerServiceController extends Controller
                                         foreach ($deeds as $key=>$did) { 
                                          $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$did->DeedID));
                                          $landDetails["previous"]["deed"][$key]["deed"]= $did->DeedID;
+                                         
+                                         /* Deed Details*/ 
+                                       $landDetails["previous"]["deed"][$key]["id"] = $did->DeedID;
+                                       $landDetails["previous"]["deed"][$key]["Remarks"] = $did->Remarks;
+                                       $landDetails["previous"]["deed"][$key]["DateCreated"] = $did->DateCreated;
+                                       /* Deed Details end*/
                                             if(count($deedDetails)>0){
                                                 $_cidsPrevious = null;
                                                 $_sharePreviousCustomer = null;
@@ -364,6 +372,7 @@ class CustomerServiceController extends Controller
                                 }
                          }
 
+                                
                                 print CJSON::encode($lands);
                        }
                 }	
