@@ -320,11 +320,19 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 
                            var arrayNode= Results["previous"]["deed"][j]["customers"]
                            var arrayNodeShare= Results["previous"]["deed"][j]["share"]
-                           
+                           var DateCreated = arrayNodeB[j]["DateCreated"];//alert(DateCreated+"ds")
                            
                            previousOwnersContent+="<tr class='deed' ><td onclick='showDeedCustomersTR("+arrayNodeB[j]["deed"]+")' align='right' colspan='2'><strong>رقم العقد:"+arrayNodeB[j]["deed"]+"</strong></td>";
                            previousOwnersContent+="<td ><img onclick=updateDeed('"+arrayNodeB[j]["deed"]+"') src=../images/save.png id='"+arrayNodeB[j]["deed"]+"' />&nbsp;<input type=image alt='add owner' title='add owner' src='../images/add.png' class='addnewDeed' id='"+arrayNodeB[j]["deed"]+"'></td></tr>";
+                           previousOwnersContent+="<tr><td colspan=2><input type=text id=deedDateCreated_"+arrayNodeB[j]["deed"]+" name=deedDateCreated_"+arrayNodeB[j]["deed"]+" value="+DateCreated+" ></td>"
+                           previousOwnersContent+="<td> <input  type=text id=deedRemarks_"+arrayNodeB[j]["deed"]+" id=deedRemarks_"+arrayNodeB[j]["deed"]+"id=deedRemarks_"+arrayNodeB[j]["deed"]+" value="+arrayNodeB[j]["Remarks"]+"></td></tr>";
                            previousOwnersContent+="<tr><td colspan=3><table id='previous_"+arrayNodeB[j]["deed"]+"' ><tr class='"+arrayNodeB[j]["deed"]+" previousOwnerhead'><td></td><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
+                           
+                           $("#_DeedDate").datepicker({ 
+                            dateFormat: "dd-mm-yy",
+                            altField: "#DeedDate",
+                            altFormat: "yy-mm-dd"
+                          }); 
                              if(typeof(arrayNode)!="undefined"){   for(var i = 0; i<arrayNode.length ; i++ ){
                                                               previousOwnerArray.push(arrayNode[i]["CustomerID"]);
                                   var Shareid = arrayNodeShare[arrayNode[i]["CustomerID"]]["shareDeedDetaisID"];
@@ -385,7 +393,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 //    landdetailsContent+= landTab();
     landdetailsContent+="</td></tr>" ;
     landdetailsContent+="<tr ><td colspan= 6>  " ;
-    landdetailsContent+= "نوع العقد:&nbsp; <input type=text id=deedRemarks name=deedRemarks value='"+Results["current"]["Remarks"]+"' />, تم انشاؤها في "+Results["current"]["DateCreated"];
+    landdetailsContent+= "نوع العقد:&nbsp; <input type=text id=deedRemarks_"+Results["current"]["deed"]+" name=deedRemarks value='"+Results["current"]["Remarks"]+"' />, تم انشاؤها في <input id=deedDateCreated_"+Results["current"]["deed"]+" name=deedDateCreated_"+Results["current"]["deed"]+" type=text value="+Results["current"]["DateCreated"]+" />";
     landdetailsContent+="</td></tr>" ;
     landdetailsContent+="<tr>";
         landdetailsContent+="<td> <form id=landInfoForm name=landInfoForm ><input type=hidden id=testField name=testField><table width='50%' class=landDetails><tr> <td> <strong>تفاصيل الارض</strong><td><img src='../images/save.png' onclick=UpdateLandData('"+ Results["landInfo"]["LandID"]+"')></td></tr>";
@@ -408,7 +416,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
     landdetailsContent+=' '
     landdetailsContent+="</td></tr>" ;
 
-
+ 
     
 
         //**************************** Land Info Table*****************************************
@@ -556,6 +564,8 @@ if(doAjax == "" || doAjax == null)doAjax =false;
 var deedType = $("#deedType").val()
  if(deedType!="previousDeed") var deedID = $("#_deedID").val()
  else var deedID = $("#previous_DeedID").val();
+ var deedRemarks = $("#deedRemarks_"+deedID).val();
+ var deedDateCreated = $("#deedDateCreated_"+deedID).val();
   var nonNumbershare = 0;
         if($(".shareTxt").length<1){
             var total = 0;
@@ -584,7 +594,7 @@ var deedType = $("#deedType").val()
                             $.ajax({ 
                                    type: "POST",
                                    url:'DocumentMaster/UpdateLandOwnerShare', 
-                                   data:"&formData="+JSON.stringify({deedID:deedID,shareData: shareJson}),
+                                   data:"&formData="+JSON.stringify({deedID:deedID,DateCreated:deedDateCreated,Remarks:deedRemarks,shareData: shareJson}),
                                    success: function(data) 
                                    {
                                         showMessage("تم تعديل ملاك الارض و نسب المشاركة","sucess");
@@ -601,14 +611,10 @@ var deedType = $("#deedType").val()
 }
 
 function updateDeed(deedID){ 
-//    var id =$(this).attr("id");
-    
 /* This method will create the array of shares of previous deed and send it to server to perform DB update*/
-//if(doAjax == "" || doAjax == null)doAjax =false;
-//var deedType = $("#deedType").val()
-// if(deedType!="previousDeed") var deedID = $("#_deedID").val()
-// else
-     var deedID = deedID;//$("#previous_DeedID").val();
+var deedID = deedID;//$("#previous_DeedID").val();
+var deedRemarks = $("#deedRemarks_"+deedID).val();
+var deedDateCreated = $("#deedDateCreated_"+deedID).val();
  
         if($(".peviousShare_"+deedID).length>0){//  xdebugger
             var total = 0;
@@ -634,7 +640,7 @@ function updateDeed(deedID){
                             $.ajax({ 
                                    type: "POST",
                                    url:'DocumentMaster/UpdateLandOwnerShare', 
-                                   data:"&formData="+JSON.stringify({deedID:deedID,shareData: shareJson}),
+                                   data:"&formData="+JSON.stringify({deedID:deedID,DateCreated:deedDateCreated,Remarks:deedRemarks,shareData: shareJson}),
                                    success: function(data) 
                                    {
                                         showMessage("تم تعديل ملاك الارض و نسب المشاركة بنجاح","sucess");

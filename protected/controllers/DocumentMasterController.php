@@ -205,6 +205,16 @@ class DocumentMasterController extends  Controller
              $shareData = CJSON::decode($formData['shareData']);
 //             print_r($shareData);
              $_DeedID = $formData['deedID'];
+             $_DateCreated = $formData['DateCreated'];
+             $_Remarks = $formData['Remarks'];
+             
+//             $DeedMaster = new DeedMaster;
+                        $DeedMaster=DeedMaster::model()->findByPk($_DeedID);
+                        $DeedMaster->DateCreated = $_DateCreated ; 
+                        $DeedMaster->Remarks = $_Remarks ; 
+                         if($DeedMaster->save()) $res=1;
+                                       else  print_r( $DeedMaster->getErrors() );
+             
             DeedDetails::model()->deleteAllByAttributes(array("DeedID"=>$formData['deedID']));
             $res=0;
 
