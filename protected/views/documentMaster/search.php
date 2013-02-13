@@ -307,18 +307,18 @@ return false;
         </script>
         <div style="display: none">
         
-<div id="addOwner-form" title="Add new owner">
-  <p class="validateTips">All form fields are required.</p>
+<div id="addOwner-form" title="اضافة مالك جديد">
+  <p class="validateTips">جميع الحقول مطلوبة.</p>
  
   <form id="ownerForm" name="ownerForm">
    <div id="addDeed"  name="addDeed"  style="display: none">                 <fieldset>
 <!--                     <label for="_share">Deed Type</label>
                   <input type="text" name="_DeedType" id="_DeedType" value="" class="sharetxt" size="5"  />-->
-<label for="email">Date Created</label>
+<label for="email">تاريخ الانشاء</label>
                   <input type="text" name="_DeedDate" id="_DeedDate" value=""  class="text ui-widget-content ui-corner-all" />
                   <input type="hidden" name="DeedDate" id="DeedDate" value="" class="text ui-widget-content ui-corner-all" />
-                    <input type="button" id="addDeedButton" name="addDeedButton" value="Add Deed"></div>
-                  <label for="name">Name</label>
+                    <input type="button" id="addDeedButton" name="addDeedButton" value="اضافة عقد"></div>
+                  <label for="name">الاسم</label>
                   <?php
                                               $url = $this->createUrl("DocumentMaster/CustomerSearch");
                               $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
@@ -349,7 +349,7 @@ return false;
                               ));
                           ?>
 
-                  <label for="email">Nationality</label>
+                  <label for="email">الجنسية</label>
                   <?php
                               $url = $this->createUrl("DocumentMaster/NationalitySearch");
                               $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
@@ -367,7 +367,7 @@ return false;
                               ));
                           ?>
 
-                  <label for="_share">Share</label>
+                  <label for="_share">المشاركة</label>
                   <input type="text" name="_share" id="_share" value="" class="sharetxt" size="5"  />
                   <input type="hidden" name="_LandID" id="_LandID" class="text ui-widget-content ui-corner-all" />
                   <input type="hidden" name="previous_DeedID" id="previous_DeedID" class="text ui-widget-content ui-corner-all" />
@@ -385,33 +385,33 @@ return false;
     };');?>
         
         
- <div id="addFine-form" title="Add new Fine">
-  <p class="validateTips">All form fields are required.</p>
+ <div id="addFine-form" title="اضافة غرامة جديدة">
+  <p class="validateTips">جميع الحقول مطلوبة.</p>
  
   <form id="fineForm" name="fineForm">
                 <fieldset>
-                  <label for="name"><span id="_landIDspan">land id</span>&nbsp; :LandID &nbsp; 
+                  <label for="name"></span>&nbsp; رقم الارض:  &nbsp; <span id="_landIDspan">رقم الارض
               <!--        <br> DeedID:&nbsp; <span id="_deedIDspan">deed id</span> --></label>
                    <input type="hidden" name="test" id="test" class="text ui-widget-content ui-corner-all" />
                       <input type="hidden" name="_LandID" id="_LandID" class="text ui-widget-content ui-corner-all" />
                       <input type="hidden" name="_DeedID" id="_DeedID" class="text ui-widget-content ui-corner-all" />
-                  <label for="email">Mortgaged Amount</label>
+                  <label for="email">مبلغ الرهن</label>
                   <input type="text" name="AmountMortgaged" id="AmountMortgaged" value="" class="text ui-widget-content ui-corner-all" />
-                  <label for="email">Type</label>
+                  <label for="email">النوع</label>
 
                   <input type="radio" name="Type" id="_isActive_active" checked="checked"   value="رهن" >&nbsp;رهن &nbsp;
                       <input type="radio" name="Type" id="_isActive_deactive" value= "حجز" >  &nbsp;  حجز  &nbsp; 
 
-                  <label for="email">Type Details</label>
+                  <label for="email">معلومات النوع</label>
                   <input type="text" name="TypeDetail" id="TypeDetail" value="" class="text ui-widget-content ui-corner-all" />
-                  <label for="email">Remarks</label>
+                  <label for="email">ملاحظات</label>
                   <input type="text" name="Remarks" id="Remarks" value="" class="text ui-widget-content ui-corner-all" />
-                  <label for="email">Date Created</label>
+                  <label for="email">تاريخ الانشاء</label>
                   <input type="text" name="_DateCreated" id="_DateCreated" value=""  class="text ui-widget-content ui-corner-all" />
                   <input type="hidden" name="DateCreated" id="DateCreated" value="" class="text ui-widget-content ui-corner-all" />
-                  <label for="email">Status</label>
-                  <input type="radio" name="IsActive" id="_isActive_active" value="1" checked="checked">Active &nbsp;
-                  <input type="radio" name="IsActive" id="_isActive_deactive" value="0" >Not Active
+                  <label for="email">الحالة</label>
+                  <input type="radio" name="IsActive" id="_isActive_active" value="1" checked="checked">مفعل &nbsp;
+                  <input type="radio" name="IsActive" id="_isActive_deactive" value="0" >غير مفعل
 
                        <input type="hidden" name="_test" id="_test" class="text ui-widget-content ui-corner-all" />
 
@@ -423,10 +423,10 @@ return false;
         </div>
         <div id="uploadButton" style="display: none">
             
-            <div id="fileList"><strong>Land/Deed Files</strong></div>
+            <div id="fileList"><strong> ملفات الارض \العقود</strong></div>
             <form>
 		<div id="queue"></div>
-		Uploaded Files(Only Image files are allowed)<br><div id ="fileUploadList"></div><br>
+		 الملفات المحملة (ملفات الصور مسموحة فقط)<br><div id ="fileUploadList"></div><br>
                 <input id="file_upload" name="file_upload" type="file" multiple="true">
 	</form>
 
@@ -470,7 +470,7 @@ return false;
         },
                                 'onQueueComplete' : function(queueData) {
                                         
-                                         var deedID = $("#_deedID").val();
+                                        var deedID = $("#_deedID").val();
                                         var landID = $("#LandID").val();
 //                                        debugger;
                                         var fileData = getFileArray()
@@ -493,13 +493,13 @@ return false;
                                     },
 				'swf'      : '<?php print Yii::app()->baseUrl . '/js/'?>uploadify.swf',
 				'uploader' : '<?php print Yii::app()->baseUrl?>/js/uploadify.php'
-//                                'uploader' : 'http://localhost<?php print Yii::app()->baseUrl?>/index.php/documentMaster/uploadify'       
+//                              'uploader' : 'http://localhost<?php print Yii::app()->baseUrl?>/index.php/documentMaster/uploadify'       
 			});
 		});
 	</script>
         <div id="divMarkUpdate" > 
             
-            <input type="button" id="markUpdate" name="markUpdate" value="Mark Updated by Archive" width="5" height="5" />
+            <input type="button" id="markUpdate" name="markUpdate" value="تم التحديث بواسطة وضع علامة الأرشيف" width="5" height="5" />
         </div>
         </div>
         

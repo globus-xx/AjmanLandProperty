@@ -125,7 +125,7 @@ $(document).ready(function() {
                         
                                          eval("var DeedID = new array()")
                                          previousOwnerArray.push(DeedID);
-                                         showMessage("Deed Added","sucess");
+                                         showMessage("تم اضافة العقد","sucess");
 
    //                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
    //                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
@@ -353,11 +353,11 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 //        finesContent+="</td></tr>" ;
        if(typeof(Results["current"]["files"])!="undefined"){
                 var arrayNode= Results["current"]["files"]
-               filesContent+="<tr><td colspan='4'><strong> Files</strong></td><td></td></tr>";
-               filesContent+="<tr><td>Actions </td><td> ملاحظات</td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
+               filesContent+="<tr><td colspan='4'><strong> الملفات</strong></td><td></td></tr>";
+               filesContent+="<tr><td>التعديل </td><td> ملاحظات</td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
                for(var i = 0; i<arrayNode.length ; i++ ){
                    
-                   if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
+                   if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="مفعل"; else arrayNode[i]["IsActive"]="غير مفعل"
                        if(typeof(arrayNode[i]["DateCreated"]!="undefined") && arrayNode[i]["DateCreated"]!=null) arrayNode[i]["DateCreated"] = dubaiDate(arrayNode[i]["DateCreated"]); 
                              else arrayNode[i]["DateCreated"] = ""
                              
@@ -385,7 +385,7 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 //    landdetailsContent+= landTab();
     landdetailsContent+="</td></tr>" ;
     landdetailsContent+="<tr ><td colspan= 6>  " ;
-    landdetailsContent+= "Deed Type:&nbsp; <input type=text id=deedRemarks name=deedRemarks value='"+Results["current"]["Remarks"]+"' />, created on "+Results["current"]["DateCreated"];
+    landdetailsContent+= "نوع العقد:&nbsp; <input type=text id=deedRemarks name=deedRemarks value='"+Results["current"]["Remarks"]+"' />, تم انشاؤها في "+Results["current"]["DateCreated"];
     landdetailsContent+="</td></tr>" ;
     landdetailsContent+="<tr>";
         landdetailsContent+="<td> <form id=landInfoForm name=landInfoForm ><input type=hidden id=testField name=testField><table width='50%' class=landDetails><tr> <td> <strong>تفاصيل الارض</strong><td><img src='../images/save.png' onclick=UpdateLandData('"+ Results["landInfo"]["LandID"]+"')></td></tr>";
@@ -395,13 +395,13 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                 landdetailsContent+="<tr><td>المنطقة</td><td><input id=location name=location type=text value='"+ Results["landInfo"]["location"]+"'></td></tr>";
                 landdetailsContent+="<tr><td>النوع</td><td><input id=Land_Type name=Land_Type type=text value='"+ Results["landInfo"]["Land_Type"]+"'></td></tr>";
                 landdetailsContent+="<tr><td>المساحة</td><td><input id=TotalArea name=TotalArea type=text value='"+ Results["landInfo"]["TotalArea"]+"'></td></tr>";
-                landdetailsContent+="<tr><td>length</td><td><input id=length name=length type=text value='"+ Results["landInfo"]["length"]+"'></td></tr>";
-                landdetailsContent+="<tr><td>witdh</td><td><input id=width name=width type=text value='"+ Results["landInfo"]["width"]+"'></td></tr>";
+                landdetailsContent+="<tr><td>الطول</td><td><input id=length name=length type=text value='"+ Results["landInfo"]["length"]+"'></td></tr>";
+                landdetailsContent+="<tr><td>العرض</td><td><input id=width name=width type=text value='"+ Results["landInfo"]["width"]+"'></td></tr>";
                 landdetailsContent+="<tr><td>شمالا</td><td><input id=North name=North type=text value='"+ Results["landInfo"]["North"]+"'></td></tr>";
                 landdetailsContent+="<tr><td>جنوبا</td><td><input id=South name=South type=text value='"+ Results["landInfo"]["South"]+"'></td></tr>";
                 landdetailsContent+="<tr><td>شرقا</td><td><input id=East name=East type=text value='"+ Results["landInfo"]["East"]+"'></td></tr>";
                 landdetailsContent+="<tr><td>غربا</td><td><input id=West name=West type=text value='"+ Results["landInfo"]["West"]+"'><input id=LandID name=LandID type=hidden value='"+ Results["landInfo"]["LandID"]+"'></td></tr>";
-                landdetailsContent+="<tr><td>Remarks</td><td><input id=Remarks name=Remarks type=text value='"+ Results["landInfo"]["Remarks"]+"'></td></tr>";
+                landdetailsContent+="<tr><td>ملاحظات</td><td><input id=Remarks name=Remarks type=text value='"+ Results["landInfo"]["Remarks"]+"'></td></tr>";
                 landdetailsContent+= "</td></tr></table><input type=hidden id=_testField name=_testField></form></td>"
         landdetailsContent+="<td>"+currentOwnersContent+finesContent+previousOwnersContent+"</td></tr>";  
         landdetailsContent+="<tr ><td colspan= 6>  " ;
@@ -469,10 +469,10 @@ function deleteOwner(id){
                    data: "customerID="+customerID+"&deedID="+deedID,
                    success: function(data) 
                    { 
-                       showMessage("Owner Removed");
+                       showMessage("تم حذف المالك");
                    }
                })
-           }else {showMessage("Please set the share to zero '0' and Totak of share to 100 and try again.", "error"); return false}
+           }else {showMessage("مين فضلك عدل قيمة المشاركة الى الصفر و مجموع االمشاركة يجب ان يكون 100 ثم حاول مرة اخرى .", "error"); return false}
       return true
   }
   
@@ -484,7 +484,7 @@ function deleteFines(id){
             data: "HajzID="+id,
             success: function(data) 
             {
-                showMessage("Fine Removed");
+                showMessage("تم حذف الغرامة");
             }
         })
      return true
@@ -498,7 +498,7 @@ function deleteFiles(id){
             data: "FileID="+id,
             success: function(data) 
             {
-                showMessage("File removed sucessfully", "sucess");
+                showMessage("تم حذف الملف", "sucess");
             }
         })
       return true
@@ -522,7 +522,7 @@ function UpdateLandData(id){
                    success: function(data) 
                    {
 //                      alert("suseccfully updated")
-                       showMessage("Land Data suseccfully updated");
+                       showMessage("تم تعديل معلومات الارض");
                         
                    }
                })
@@ -541,7 +541,7 @@ function updateCaption(id){
                    data: "id="+id+"&caption="+caption,
                    success: function(data) 
                    {
-                       showMessage("File title suseccfully updated");
+                       showMessage("تم تعديل اسم الملف بنجاح");
                     $("#caption_"+id).closest('tr').css("background-color", "#CCFFCC");
                     setTimeout(function(){ $("#caption_"+id).closest('tr').css("background-color", "white");},3000);
                    }
@@ -577,9 +577,9 @@ var deedType = $("#deedType").val()
             shareJson = shareJson.replace(/(^,)|(,$)/g, "");
             shareJson += "]"
           
-            if((total< 100 || total > 100) || nonNumbershare==1) showMessage("Total of shares percentage must be 100 and integer", "error",5000);
+            if((total< 100 || total > 100) || nonNumbershare==1) showMessage("مجموع نسبة المشاركة يجب ان يكون 100 و يكون الادخال نوعه رقم ", "error",5000);
                 else {
-                    showMessage("Total of Sahre is 100%");
+                    showMessage("مجموع المشاركة هي 100%");
                      if(doAjax=="true"){ 
                             $.ajax({ 
                                    type: "POST",
@@ -587,7 +587,7 @@ var deedType = $("#deedType").val()
                                    data:"&formData="+JSON.stringify({deedID:deedID,shareData: shareJson}),
                                    success: function(data) 
                                    {
-                                        showMessage("Land Owners And Share Data Suseccfully Updated","sucess");
+                                        showMessage("تم تعديل ملاك الارض و نسب المشاركة","sucess");
 
    //                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
    //                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
@@ -627,9 +627,9 @@ function updateDeed(deedID){
             shareJson = shareJson.replace(/(^,)|(,$)/g, "");
             shareJson += "]"
           
-            if((total< 100 || total > 100) ) showMessage("Total of shares percentage must be 100", "error",5000);
+            if((total< 100 || total > 100) ) showMessage("مجموع نسبة المشاركة يجب ان يكون 100", "error",5000);
                 else {
-                    showMessage("Total of Sahre is 100%");
+                    showMessage("مجموع نسبة المشاركة هي 100%");
 //                     if(doAjax=="true"){ 
                             $.ajax({ 
                                    type: "POST",
@@ -637,7 +637,7 @@ function updateDeed(deedID){
                                    data:"&formData="+JSON.stringify({deedID:deedID,shareData: shareJson}),
                                    success: function(data) 
                                    {
-                                        showMessage("Land Owners And Share Data Suseccfully Updated","sucess");
+                                        showMessage("تم تعديل ملاك الارض و نسب المشاركة بنجاح","sucess");
 
    //                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
    //                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
@@ -695,7 +695,7 @@ function addOwnerToDB(){
 
                  var shaertotal=getShareTotal();
                
-                     if(shaertotal > 100) showMessage("Total of shares percentage must be less than or 100 to add new Owner.", "error",5000)
+                     if(shaertotal > 100) showMessage("مجموع نسبة المشاركة يجب ان تكون اقل من او تساوي 100 حتى يتم بالامكان اضافة مالك", "error",5000)
                      {
                      
               $.ajax({ 
@@ -719,7 +719,7 @@ function addOwnerToDB(){
      //                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
                                            $("#_share").val("0")
 
-                                }else showMessage("Customer is already in land list", "error");
+                                }else showMessage("الزبون موجود بشكل مسبق في قائمة الارض ", "error");
                            }
                            else if(deedType =="previousDeed"){ //alert('#previous_'+previous_DeedID);
                                 if(jQuery.inArray(customerID, previousOwnerArray)=="-1") 
@@ -729,16 +729,16 @@ function addOwnerToDB(){
      //                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
                                            $("#_share").val("0")
 
-                                }else showMessage("Customer is already in land list", "error");
+                                }else showMessage("الزبون موجود بشكل مسبق في قائمة الارض ", "error");
                            }
                            
                  }
-                                showMessage("Owner Added");
+                                showMessage("تم اضافة المالك بنجاح");
                                
                                  
 //                                 updateShare(true);
                                 }
-                                else {alert("Sorry This record could not be processed OR Try with another customer."); showMessage("Sorry This record could not be processed", "error");}
+                                else {alert("عفوا  هذا السجل لم يتم معالجته او حاول مع زبون آخر"); showMessage("عفوا هذا السجل لم يتم معالجته", "error");}
 
                            }
                        })
@@ -747,7 +747,7 @@ function addOwnerToDB(){
 
 function addOwnerRow(){
    
-               showMessage("Data of owner received");
+               showMessage("تم استقبال معلومات المالك");
                 customerID ="old"
                 var customerID = $("#_customerID").val() ;
                 var deedID = $("#_deedID").val()
@@ -767,7 +767,7 @@ function addOwnerRow(){
                                     currentOwnerArray.push(customerID);
                                     if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
                                
-                           }else showMessage("Customer is already in land list", "error");
+                           }else showMessage("الزبون موجود بشكل مسبق في قائمة الارض ", "error");
                  }
              
 }
