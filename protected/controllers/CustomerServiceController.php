@@ -174,6 +174,32 @@ class CustomerServiceController extends Controller
 	{   
 		if(isset($_POST["action"]) and $_POST["action"]=="search") //check that this action is only called using POST.. not get, not regular.
                 {
+                    
+                    
+                    
+                       // emad code update
+                                // receive the webservice post variables
+                                if (!isset($_POST['returnType']))
+                                {
+                                    $postreturn="";
+                                }
+                                else
+                                    $postreturn=$_POST['returnType'];
+                                
+                                
+                                 if (!isset($_POST['retured']))
+                                {
+                                    $returntype="";
+                                }
+                                else
+                                    $returntype=$_POST['retured'];
+                                
+                                
+                               
+                     //  =====================================================    
+                                
+                                
+                                
 
                                 if($stringToexplode = explode("<-->",$_POST["string"]))
                                 $searchstring = $stringToexplode[0];
@@ -211,15 +237,28 @@ class CustomerServiceController extends Controller
                                if (CustomerMaster::model()->count($searchCriteria)>0)
                                 {
                                        $customerResult = CustomerMaster::model()->findAll($searchCriteria);
-                                       print CJSON::encode($customerResult);			
+                                       
+                                       
+                                       
+                                        // return nothing when you search for a customer name in web service call only
+                                       if($postreturn=='ws')
+                                       {
+                                             print CJSON::encode("no result found");                                          
+                                       }else                                           
+                                       print CJSON::encode($customerResult);	
+                                       
+                                       
                                 }
                                else
                                {// search for lands and its current and previous owners plus all fines 
                                        //land details
                                        $lands = LandMaster::model()->findAllByAttributes(array("LandID"=>$searchstring));
+                                                                                                                                                                                                                                                                                                                            
 //                                       print count($lands)."aa";
                                        if(count($lands)<=0) { print CJSON::encode("no result found");return;}
                                        $landDetails["landInfo"] = $lands[0];
+                                       $landDetails["landws"]= $lands;
+                                                                              
                                        $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring), 'Remarks <> "cancelled"');
                                        $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
                                        $deedFiles = FileMaster::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
@@ -279,7 +318,32 @@ class CustomerServiceController extends Controller
                                    // fines related to land
                                       $fines = HajzMaster::model()->findAllByAttributes(array("LandID"=>$searchstring, "IsActive"=>"1"));
                                       $landDetails["fines"] = $fines;
+                                      
+                                      
+                                      
+                                      
+                                       // emad code update
+                                      
+                                      // return the results as the type required
+                                      
+                                      if($postreturn=='ws'&&$returntype=='1')
+                                       {                                                                                                                                      
+                                           print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["current"]["customers"])    );                                            
+                                       }                                                                           
+                                       else if($postreturn=='ws'&&$returntype=='2')
+                                       {                                        
+                                          print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["fines"])    ); 
+                                       }
+                                       else if($postreturn=='ws'&&$returntype=='3')
+                                       {                                         
+                                           print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["current"]["share"])    );
+                                       }                                          
+                                       else
+                                           //  =====================================================  
                                        print CJSON::encode($landDetails);
+                                       
+                                       
+                                       
                                }
 		
 		}else{// this will find land of cutomerID provided in $_POST["string"]

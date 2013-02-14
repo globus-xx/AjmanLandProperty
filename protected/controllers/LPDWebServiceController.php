@@ -27,7 +27,7 @@ class LPDWebServiceController extends Controller
              $retureddata=1;
              
              
-             // for fast test uncomment the following two lines 
+             // for fast test uncomment the following two lines  and uncommit all the previous files
              // $landid="your working land id";
              // $retureddata=1;
             
