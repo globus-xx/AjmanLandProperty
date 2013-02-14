@@ -294,6 +294,12 @@ class CustomerServiceController extends Controller
                                            
                                          $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$did->DeedID));
                                          $landDetails["previous"]["deed"][$key]["deed"]= $did->DeedID;
+                                         
+                                         /* Deed Details*/ 
+                                       $landDetails["previous"]["deed"][$key]["id"] = $did->DeedID;
+                                       $landDetails["previous"]["deed"][$key]["Remarks"] = $did->Remarks;
+                                       $landDetails["previous"]["deed"][$key]["DateCreated"] = $did->DateCreated;
+                                       /* Deed Details end*/
                                             if(count($deedDetails)>0){
                                                 $_cidsPrevious = null;
                                                 $_sharePreviousCustomer = null;
@@ -427,6 +433,7 @@ class CustomerServiceController extends Controller
                                 }
                          }
 
+                                
                                 print CJSON::encode($lands);
                        }
                 }	
