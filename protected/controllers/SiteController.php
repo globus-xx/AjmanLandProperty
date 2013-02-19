@@ -167,7 +167,24 @@ class SiteController extends Controller
                 $fname=$_POST['fname'];
                 $lname=$_POST['lname'];
                 
+                
+                $userdata = Users::model()->findAllByAttributes(array("id"=>$id)); 
+                
+                
+                foreach($userdata as $row)                
+                    {
+                    $dbpassword=$row->password;                    
+                }
+                
+                
+                if($_POST['userpassword']!=$dbpassword)
+                {
                 $userpass=md5($_POST['userpassword']);
+                }
+                else
+                    $userpass=$_POST['userpassword'];
+                
+                
                 $useremail=$_POST['useremail'];
                 
             
