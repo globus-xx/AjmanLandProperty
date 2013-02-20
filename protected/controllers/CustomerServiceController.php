@@ -28,8 +28,8 @@ class CustomerServiceController extends Controller
         public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('ws'),
-                'ips' => array('::1'),// here we should put the ip of the other miniplicity
+                'actions' => array('ws','search'),
+                'ips' => array('127.0.0.1'),// here we should put the ip of the other miniplicity
             ),
             array('deny',
                 'actions' => array('ws'),
@@ -490,14 +490,14 @@ class CustomerServiceController extends Controller
              $this->sAction = "search";            
              $this->returnType="ws";
              $this->retured="1";                                                   
-             if(isset($_POST['string'])) {
-                 
-                 $codetodecrypt=$_POST['string'];
-                 $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);  
-                   // print_r($codetodecrypt);DIE;
-                    $resultstring = explode("|",$resultstring);                                                
-                    $this->sString=$resultstring[2];
-                   
+             if(isset($_REQUEST['string'])) {
+               
+//                 $codetodecrypt=$_REQUEST['string'];
+//                 $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);  
+//                   // print_r($codetodecrypt);DIE;
+//                    $resultstring = explode("|",$resultstring);                                                
+//                    $this->sString=$resultstring[2];
+                   $this->sString=$_REQUEST['string'];
                    // die();
                     $wsarray=$this->actionSearch();
 
@@ -509,7 +509,9 @@ class CustomerServiceController extends Controller
                   $this->renderPartial('landResults', array(
                                        'customerws'=>"Pl Provide Land id in string parameter"
                                        ));   
-         }    
+         } 
+         
+         
          public function decryptRJ256($key,$iv,$string_to_decrypt)
         {
             $string_to_decrypt = base64_decode($string_to_decrypt);
