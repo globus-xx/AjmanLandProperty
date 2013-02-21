@@ -27,14 +27,14 @@ class CustomerServiceController extends Controller
     
         public function accessRules() {
         return array(
-            array('allow',
-                'actions' => array('ws','search'),
-                'ips' => array('127.0.0.1'),// here we should put the ip of the other miniplicity
-            ),
-            array('deny',
-                'actions' => array('ws'),
-                'ips' => array('*'),
-            ),
+                        array('allow',
+                            'actions' => array('ws','search'),
+                            'ips' => array('127.0.0.1'),// here we should put the ip of the other miniplicity
+                        ),
+                        array('deny',
+                            'actions' => array('ws'),
+                            'ips' => array('*'),
+                        ),
                         
             
                         array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -188,12 +188,12 @@ class CustomerServiceController extends Controller
             
       
             
-       if(!isset($_POST["action"])){
-        $_REQUEST["action"] =  $this->sAction;
-        $_REQUEST["string"] =  $this->sString;
-        $_REQUEST["returnType"] =  $this->returnType;
-        $_REQUEST["retured"] =     $this->retured;        
-        }
+                    if(!isset($_POST["action"])){
+                     $_REQUEST["action"] =  $this->sAction;
+                     $_REQUEST["string"] =  $this->sString;
+                     $_REQUEST["returnType"] =  $this->returnType;
+                     $_REQUEST["retured"] =     $this->retured;        
+                     }
         
          
         
@@ -212,12 +212,12 @@ class CustomerServiceController extends Controller
                                     $postreturn=$_REQUEST['returnType'];
                                 
                                 
-                                 if (!isset($_REQUEST['retured']))
-                                {
-                                    $returntype="";
-                                }
-                                else
-                                    $returntype=$_REQUEST['retured'];
+//                                 if (!isset($_REQUEST['retured']))
+//                                {
+//                                    $returntype="";
+//                                }
+//                                else
+//                                    $returntype=$_REQUEST['retured'];
                                 
                                 
                                
@@ -268,7 +268,9 @@ class CustomerServiceController extends Controller
                                         // return nothing when you search for a customer name in web service call only
                                        if($postreturn=='ws')
                                        {
-                                             print CJSON::encode("no result found");                                          
+                                           $wronginput["wronginput"]="no result found";
+                                           $wronginput["status"]="false";
+                                           return $wronginput;                                          
                                        }else                                           
                                        print CJSON::encode($customerResult);	
                                        
@@ -280,10 +282,29 @@ class CustomerServiceController extends Controller
                                        $lands = LandMaster::model()->findAllByAttributes(array("LandID"=>$searchstring));
                                                                                                                                                                                                                                                                                                                             
 //                                       print count($lands)."aa";
-                                       if(count($lands)<=0) { print CJSON::encode("no result found");return;}
+                                       if(count($lands)<=0) 
+                                           {                                           
+                                             $wronginput["wronginput"]="no result found";
+                                             $wronginput["status"]="false";
+                                             return $wronginput;  
+                                           }
+                                       
+                                      
+                                       
+                                       foreach ($lands as $did) 
+                                       {                                                                                                    
+                                                if($did->Piece!=""){$landws["landfeatures"]["Piece"]  = $did->Piece; }else  $landws["landfeatures"]["Piece"]  =" ";  
+                                                if($did->location!=""){$landws["landfeatures"]["location"]  = $did->location; }else  $landws["landfeatures"]["location"]  =" ";                                                                                                                                            
+                                                if($did->Land_Type!=""){$landws["landfeatures"]["Land_Type"]  = $did->Land_Type; }else  $landws["landfeatures"]["Land_Type"]  =" ";  
+                                                if($did->TotalArea!=""){$landws["landfeatures"]["TotalArea"]  = $did->TotalArea; }else  $landws["landfeatures"]["TotalArea"]  =" ";                                                  
+                                                if($did->width!=""){$landws["landfeatures"]["width"]  = $did->width; }else  $landws["landfeatures"]["width"]  =" ";                                                                                                 
+                                       }
+                                   
+                                      
+                                       
                                        $landDetails["landInfo"] = $lands[0];
-                                       $landDetails["landws"]= $lands;
-                                                                              
+                                       
+                                                                                                                    
                                        $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring), 'Remarks <> "cancelled"');
                                        $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
                                        $deedFiles = FileMaster::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
@@ -300,8 +321,7 @@ class CustomerServiceController extends Controller
                                     foreach ($deedDetails as $key=>$cid) {
                                          $_cids[] = $cid->CustomerID;
                                          $_share[$cid->CustomerID]["sharePercentage"] = $cid->Share;
-                                         $_share[$cid->CustomerID]["shareDeedDetaisID"] = $cid->DeedDetailsID;
-                                         
+                                         $_share[$cid->CustomerID]["shareDeedDetaisID"] = $cid->DeedDetailsID;                                         
                                          }
                                        
                                        if($postreturn!="ws")
@@ -316,8 +336,18 @@ class CustomerServiceController extends Controller
                                        $searchCriteria=new CDbCriteria;
                                        $searchCriteria->select="CustomerNameArabic,CustomerType";
                                        $searchCriteria->addInCondition("customerID", $_cids);
-                                       $landDetails["current"]["wscustomers"] = CustomerMaster::model()->findAll($searchCriteria); 
-                                       $landDetails["current"]["share"] = $_share;
+                                       $customersdata = CustomerMaster::model()->findAll($searchCriteria); 
+                                                                              
+                                       $i=1;
+                                        foreach($customersdata as $row)
+                                       {                                                                                     
+                                           if($row->CustomerNameArabic!="")
+                                               {$customersws["customers"]["customer".$i]=$row->CustomerNameArabic; }
+                                           else  $customersws["customers"]["customer".$i]  =" ";
+                                           $i++;
+                                       }
+                                       
+                                       
                                        }
                                        
                                          }
@@ -362,19 +392,19 @@ class CustomerServiceController extends Controller
                                       
                                       // return the results as the type required
                                       
-                                      if($postreturn=='ws'&&$returntype=='1')
-                                       {                                                                                                                                      
-                                           return CJSON::encode(   array_merge($landDetails["landws"],$landDetails["current"]["wscustomers"])    );                                            
-                                          //print_r( array_merge($landDetails["landws"],$landDetails["current"]["wscustomers"]));
+                                      if($postreturn=='ws')
+                                       {                   
+                                           $rightinput["status"]="true";
+                                           return array_merge($landws,$customersws,$rightinput) ;                                                                                    
                                        }                                                                           
-                                       else if($postreturn=='ws'&&$returntype=='2')
-                                       {                                        
-                                          print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["fines"])    ); 
-                                       }
-                                       else if($postreturn=='ws'&&$returntype=='3')
-                                       {                                         
-                                           print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["current"]["share"])    );
-                                       }                                          
+//                                       else if($postreturn=='ws'&&$returntype=='2')
+//                                       {                                        
+//                                          print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["fines"])    ); 
+//                                       }
+//                                       else if($postreturn=='ws'&&$returntype=='3')
+//                                       {                                         
+//                                           print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["current"]["share"])    );
+//                                       }                                          
                                        else
                                            //  =====================================================  
                                        print CJSON::encode($landDetails);
@@ -489,26 +519,23 @@ class CustomerServiceController extends Controller
              $iv = '!LaPD_GIS@2013!&&!LaPD_GIS@2013!'; // 32 * 8 = 256 bit iv             
              $this->sAction = "search";            
              $this->returnType="ws";
-             $this->retured="1";                                                   
-             if(isset($_REQUEST['string'])) {
+             //$this->retured="1";                                                   
+             if(isset($_POST['string'])) {
                
-//                 $codetodecrypt=$_REQUEST['string'];
-//                 $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);  
-//                   // print_r($codetodecrypt);DIE;
-//                    $resultstring = explode("|",$resultstring);                                                
-//                    $this->sString=$resultstring[2];
-                   $this->sString=$_REQUEST['string'];
-                   // die();
-                    $wsarray=$this->actionSearch();
-
-                    $this->renderPartial('landResults', array(
+                 $codetodecrypt=$_POST['string'];
+                 $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);                  
+                 $resultstring = explode("|",$resultstring);                                                
+                 $this->sString=$resultstring[2];
+                  
+                   //$this->sString=$_POST['string'];                  
+                 
+                   $wsarray=$this->actionSearch();
+                   $this->renderPartial('landResults', array(
                                        'customerws'=>$wsarray
                                        ));     
-
              }else    
-                  $this->renderPartial('landResults', array(
-                                       'customerws'=>"Pl Provide Land id in string parameter"
-                                       ));   
+                 return "Pl Provide Land id in string parameter";     
+             
          } 
          
          
