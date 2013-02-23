@@ -167,11 +167,42 @@ class DocumentMasterController extends  Controller
                 extract($_POST);
             $res=0;
             $searchCriteria=new CDbCriteria;
-            print $query = "Delete From `HajzMaster` where `HajzID`='$HajzID'";//AND  LandID = '$LandID'
+            $query = "Delete From `HajzMaster` where `HajzID`='$HajzID'";//AND  LandID = '$LandID'
             $command =Yii::app()->db->createCommand($query);
             
             if($command->execute()) $res=1;
             print CJSON::encode($res);
+        }
+        public function actionDeleteDeed() {
+            $formData = CJSON::decode(stripslashes($_POST['formData']));
+//            print_r($formData);die;
+            extract($formData);
+            $res=0;
+            
+             $query = "Delete From `DeedDetails` where `DeedID`='$deedID'";//AND  LandID = '$LandID'
+            $command =Yii::app()->db->createCommand($query);
+            
+            if($command->execute()) {
+                $searchCriteria=new CDbCriteria;
+                 $query = "Delete From `DeedMaster` where `DeedID`='$deedID'";//AND  LandID = '$LandID'
+                $command =Yii::app()->db->createCommand($query);
+
+                if($command->execute()) $res=1;
+            
+            }
+            print CJSON::encode($res);
+        }
+        public function actionChangeActive() {
+            $formData = CJSON::decode(stripslashes($_POST['formData']));
+//            print_r($formData);die;
+            extract($formData);
+            $res=0;
+             $HajazMaster=  HajazMaster::model()->findByPk($FineID);
+             $HajazMaster->IsActive = $FineStatus;
+              if($HajazMaster->save()) $res=1;
+                else print_r( $HajazMaster->getErrors() );
+            print CJSON::encode($res);
+           
         }
         public function actionDeleteFile() {
                 extract($_POST);
