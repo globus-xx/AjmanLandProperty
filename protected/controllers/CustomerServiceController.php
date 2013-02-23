@@ -1,41 +1,50 @@
+
+
 <?php
 
 class CustomerServiceController extends Controller
 {
-	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/column1';
-
-	/**
-	 * @return array action filters
-	 */
-	public function filters()
-	{
-		return array(
-			//'accessControl', // perform access control for CRUD operations
-			'rights',
-//			'accessControl', // perform access control for CRUD operations
-//			'postOnly + delete', // we only allow deletion via POST request
-		);
-	}
-
+    
+    
+    public $sAction;
+    public $sString;
+    public $returnType;
+    public $retured;
+    
+                              
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	public function accessRules()
-	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+        
+    
+    public function filters()
+    {
+        return array( 'accessControl' ); // perform access control for CRUD operations
+    }
+    
+    
+        public function accessRules() {
+        return array(
+                        array('allow',
+                            'actions' => array('ws','search'),
+                            'ips' => array('127.0.0.1'),// here we should put the ip of the other miniplicity
+                        ),
+                        array('deny',
+                            'actions' => array('ws'),
+                            'ips' => array('*'),
+                        ),
+                        
+            
+                        array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','Search','CustomerSearch'),
 				'users'=>array('@'),
+			),
+                        
+                       array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('Search'),
+				'ips'=>array('127.0.0.1'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('index'),
@@ -44,8 +53,9 @@ class CustomerServiceController extends Controller
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
-		);
-	}
+        );
+    }
+        
 
 	/**
 	 * Displays a particular model.
@@ -61,6 +71,9 @@ class CustomerServiceController extends Controller
 				'docs'=>$items,));
 		
 	}
+        
+        
+        
          public function actionNationalitySearch(){
         if (isset($_GET['term'])) { // first search that 
                 // if user arabic name 
@@ -170,29 +183,41 @@ class CustomerServiceController extends Controller
 
     
     
-	public function actionSearch()
+	public function actionSearch() 
 	{   
-		if(isset($_POST["action"]) and $_POST["action"]=="search") //check that this action is only called using POST.. not get, not regular.
+            
+      
+            
+                    if(!isset($_POST["action"])){
+                     $_REQUEST["action"] =  $this->sAction;
+                     $_REQUEST["string"] =  $this->sString;
+                     $_REQUEST["returnType"] =  $this->returnType;
+                     $_REQUEST["retured"] =     $this->retured;        
+                     }
+        
+         
+        
+		if(isset($_REQUEST["action"]) and $_REQUEST["action"]=="search") //check that this action is only called using POST.. not get, not regular.
                 {
                     
                     
                     
                        // emad code update
                                 // receive the webservice post variables
-                                if (!isset($_POST['returnType']))
+                                if (!isset($_REQUEST['returnType']))
                                 {
                                     $postreturn="";
                                 }
                                 else
-                                    $postreturn=$_POST['returnType'];
+                                    $postreturn=$_REQUEST['returnType'];
                                 
                                 
-                                 if (!isset($_POST['retured']))
-                                {
-                                    $returntype="";
-                                }
-                                else
-                                    $returntype=$_POST['retured'];
+//                                 if (!isset($_REQUEST['retured']))
+//                                {
+//                                    $returntype="";
+//                                }
+//                                else
+//                                    $returntype=$_REQUEST['retured'];
                                 
                                 
                                
@@ -201,14 +226,14 @@ class CustomerServiceController extends Controller
                                 
                                 
 
-                                if($stringToexplode = explode("<-->",$_POST["string"]))
+                                if($stringToexplode = explode("<-->",$_REQUEST["string"]))
                                 $searchstring = $stringToexplode[0];
                                 else
-                                    $searchstring=$_POST["string"];
+                                    $searchstring=$_REQUEST["string"];
 //                               //$stringvarify=explode("<-->",$searchstring);
 //                               //print $stringvarify[0];
 ////                               if($stringvarify)
-                               $keyword = $_POST["string"];
+                               $keyword = $_REQUEST["string"];
 
                                $searchCriteria=new CDbCriteria;
 //                             $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
@@ -216,9 +241,9 @@ class CustomerServiceController extends Controller
                                
 
                                // the new library                                                                                                                    
-                               if (isset($_POST['string'])) 
+                               if (isset($_REQUEST['string'])) 
                                if ($keyword != '') {
-                                    $keyword = @$_POST['string'];
+                                    $keyword = @$_REQUEST['string'];
                                     $keyword = str_replace('\"', '"', $keyword);
 
                                     $obj = new ArQuery();
@@ -243,22 +268,43 @@ class CustomerServiceController extends Controller
                                         // return nothing when you search for a customer name in web service call only
                                        if($postreturn=='ws')
                                        {
-                                             print CJSON::encode("no result found");                                          
+                                           $wronginput["wronginput"]="no result found";
+                                           $wronginput["status"]="false";
+                                           return $wronginput;                                          
                                        }else                                           
                                        print CJSON::encode($customerResult);	
                                        
                                        
                                 }
                                else
-                               {// search for lands and its current and previous owners plus all fines 
+                               {       // search for lands and its current and previous owners plus all fines 
                                        //land details
                                        $lands = LandMaster::model()->findAllByAttributes(array("LandID"=>$searchstring));
                                                                                                                                                                                                                                                                                                                             
 //                                       print count($lands)."aa";
-                                       if(count($lands)<=0) { print CJSON::encode("no result found");return;}
+                                       if(count($lands)<=0) 
+                                           {                                           
+                                             $wronginput["wronginput"]="no result found";
+                                             $wronginput["status"]="false";
+                                             return $wronginput;  
+                                           }
+                                       
+                                      
+                                       
+                                       foreach ($lands as $did) 
+                                       {                                                                                                    
+                                                if($did->Piece!=""){$landws["landfeatures"]["Piece"]  = $did->Piece; }else  $landws["landfeatures"]["Piece"]  =" ";  
+                                                if($did->location!=""){$landws["landfeatures"]["location"]  = $did->location; }else  $landws["landfeatures"]["location"]  =" ";                                                                                                                                            
+                                                if($did->Land_Type!=""){$landws["landfeatures"]["Land_Type"]  = $did->Land_Type; }else  $landws["landfeatures"]["Land_Type"]  =" ";  
+                                                if($did->TotalArea!=""){$landws["landfeatures"]["TotalArea"]  = $did->TotalArea; }else  $landws["landfeatures"]["TotalArea"]  =" ";                                                  
+                                                if($did->width!=""){$landws["landfeatures"]["width"]  = $did->width; }else  $landws["landfeatures"]["width"]  =" ";                                                                                                 
+                                       }
+                                   
+                                      
+                                       
                                        $landDetails["landInfo"] = $lands[0];
-                                       $landDetails["landws"]= $lands;
-                                                                              
+                                       
+                                                                                                                    
                                        $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring), 'Remarks <> "cancelled"');
                                        $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
                                        $deedFiles = FileMaster::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
@@ -275,15 +321,35 @@ class CustomerServiceController extends Controller
                                     foreach ($deedDetails as $key=>$cid) {
                                          $_cids[] = $cid->CustomerID;
                                          $_share[$cid->CustomerID]["sharePercentage"] = $cid->Share;
-                                         $_share[$cid->CustomerID]["shareDeedDetaisID"] = $cid->DeedDetailsID;
-                                         
+                                         $_share[$cid->CustomerID]["shareDeedDetaisID"] = $cid->DeedDetailsID;                                         
                                          }
+                                       
+                                       if($postreturn!="ws")
+                                       {
                                        $searchCriteria=new CDbCriteria;
                                        $searchCriteria->addInCondition("customerID", $_cids);
                                        $landDetails["current"]["customers"] = CustomerMaster::model()->findAll($searchCriteria);
                                        $landDetails["current"]["share"] = $_share;
+                                       }
+                                       else
+                                       {
+                                       $searchCriteria=new CDbCriteria;
+                                       $searchCriteria->select="CustomerNameArabic,CustomerType";
+                                       $searchCriteria->addInCondition("customerID", $_cids);
+                                       $customersdata = CustomerMaster::model()->findAll($searchCriteria); 
+                                                                              
+                                       $i=1;
+                                        foreach($customersdata as $row)
+                                       {                                                                                     
+                                           if($row->CustomerNameArabic!="")
+                                               {$customersws["customers"]["customer".$i]=$row->CustomerNameArabic; }
+                                           else  $customersws["customers"]["customer".$i]  =" ";
+                                           $i++;
+                                       }
                                        
-
+                                       
+                                       }
+                                       
                                          }
                                        //previous owners
                                        $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring, "Remarks"=>"cancelled"),array('order'=>'DeedID DESC'));
@@ -316,7 +382,7 @@ class CustomerServiceController extends Controller
                                             }
                                    }
                                    // fines related to land
-                                      $fines = HajzMaster::model()->findAllByAttributes(array("LandID"=>$searchstring, "IsActive"=>"1"));
+                                      $fines = HajzMaster::model()->findAllByAttributes(array("LandID"=>$searchstring));
                                       $landDetails["fines"] = $fines;
                                       
                                       
@@ -326,18 +392,19 @@ class CustomerServiceController extends Controller
                                       
                                       // return the results as the type required
                                       
-                                      if($postreturn=='ws'&&$returntype=='1')
-                                       {                                                                                                                                      
-                                           print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["current"]["customers"])    );                                            
+                                      if($postreturn=='ws')
+                                       {                   
+                                           $rightinput["status"]="true";
+                                           return array_merge($landws,$customersws,$rightinput) ;                                                                                    
                                        }                                                                           
-                                       else if($postreturn=='ws'&&$returntype=='2')
-                                       {                                        
-                                          print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["fines"])    ); 
-                                       }
-                                       else if($postreturn=='ws'&&$returntype=='3')
-                                       {                                         
-                                           print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["current"]["share"])    );
-                                       }                                          
+//                                       else if($postreturn=='ws'&&$returntype=='2')
+//                                       {                                        
+//                                          print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["fines"])    ); 
+//                                       }
+//                                       else if($postreturn=='ws'&&$returntype=='3')
+//                                       {                                         
+//                                           print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["current"]["share"])    );
+//                                       }                                          
                                        else
                                            //  =====================================================  
                                        print CJSON::encode($landDetails);
@@ -347,10 +414,10 @@ class CustomerServiceController extends Controller
                                }
 		
 		}else{// this will find land of cutomerID provided in $_POST["string"]
-                    	if(isset($_POST["action"]) and $_POST["action"]=="propertySearch") //check that this action is only called using POST.. not get, not regular.
+                    	if(isset($_REQUEST["action"]) and $_REQUEST["action"]=="propertySearch") //check that this action is only called using POST.. not get, not regular.
                          {  $lands["landDetails"]["current"] ="";
                             $lands["landDetails"]["previous"] ="";
-			 $searchstring = json_decode($_POST["string"]); 
+			 $searchstring = json_decode($_REQUEST["string"]); 
 //                        will get deed data feom customer ID
 				$deedDetails = DeedDetails::model()->findAllByAttributes(array("CustomerID"=>$searchstring));
                                 $_dids= null;
@@ -442,6 +509,52 @@ class CustomerServiceController extends Controller
                 }	
 	}
 
+        
+        
+         public function actionWS()
+	 {     
+             // This action will receive the encrypted code and after that decrypt this code and get the land id from it 
+             // now we use this land id for searching in the other Search action  and print the result in the landResults view                           
+             $ky = '!GIS_LaPD@2013!&&!GIS_LaPD@2013!'; // 32 * 8 = 256 bit key
+             $iv = '!LaPD_GIS@2013!&&!LaPD_GIS@2013!'; // 32 * 8 = 256 bit iv             
+             $this->sAction = "search";            
+             $this->returnType="ws";
+             //$this->retured="1";                                                   
+             if(isset($_POST['string'])) {
+               
+                 $codetodecrypt=$_POST['string'];
+                 $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);                  
+                 $resultstring = explode("|",$resultstring);                                                
+                 $this->sString=$resultstring[2];
+                  
+                   //$this->sString=$_POST['string'];                  
+                 
+                   $wsarray=$this->actionSearch();
+                   $this->renderPartial('landResults', array(
+                                       'customerws'=>$wsarray
+                                       ));     
+             }else    
+                 return "Pl Provide Land id in string parameter";     
+             
+         } 
+         
+         
+         public function decryptRJ256($key,$iv,$string_to_decrypt)
+        {
+            $string_to_decrypt = base64_decode($string_to_decrypt);
+            $rtn = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $string_to_decrypt, MCRYPT_MODE_CBC, $iv);
+            $rtn = rtrim($rtn, "\0\4");
+            return($rtn);
+        }
+
+
+        protected  function encryptRJ256($key,$iv,$string_to_encrypt)
+        {
+            $rtn = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $string_to_encrypt, MCRYPT_MODE_CBC, $iv);
+            $rtn = base64_encode($rtn);
+            return($rtn);
+        }
+        
         public function actionpSearchProperty()
 	{// method not in use 
             // this is a test commit// j comiited
