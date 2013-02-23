@@ -508,8 +508,7 @@ function deleteFines(id){
   }
   
 function deleteFiles(id){
-        var r=confirm("Are you sure to delete fine??");
-        if (r==true){}
+        
         $.ajax({ 
             type: "POST",
             url:'DocumentMaster/DeleteFile', 
@@ -520,7 +519,6 @@ function deleteFiles(id){
             }
         })
       return true
-    }   
   }
   
 function UpdateLandData(id){
@@ -670,7 +668,7 @@ function deletePreviousDeed(deedID){
 
 var deedID = deedID
  
- var r=confirm("mark this as updated??");
+ var r=confirm("Are you sure todelete the previous Deed??");
                 if (r==true)
                   {
                    
@@ -680,7 +678,7 @@ var deedID = deedID
                                    data:"&formData="+JSON.stringify({deedID:deedID}),
                                    success: function(data) 
                                    {
-                                        removeIT(deedID)
+                                        removeIT(deedID, "previousDeed")
                                         showMessage("تم تعديل ملاك الارض و نسب المشاركة بنجاح","sucess");
 
    //                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");

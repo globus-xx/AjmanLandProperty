@@ -175,7 +175,6 @@ class DocumentMasterController extends  Controller
         }
         public function actionDeleteDeed() {
             $formData = CJSON::decode(stripslashes($_POST['formData']));
-//            print_r($formData);die;
             extract($formData);
             $res=0;
             
@@ -197,7 +196,7 @@ class DocumentMasterController extends  Controller
 //            print_r($formData);die;
             extract($formData);
             $res=0;
-             $HajazMaster=  HajazMaster::model()->findByPk($FineID);
+             $HajazMaster=  HajzMaster::model()->findByPk($FineID);
              $HajazMaster->IsActive = $FineStatus;
               if($HajazMaster->save()) $res=1;
                 else print_r( $HajazMaster->getErrors() );
