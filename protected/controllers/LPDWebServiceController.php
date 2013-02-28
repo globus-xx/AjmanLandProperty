@@ -33,56 +33,73 @@ class LPDWebServiceController extends CController
 	{                        
              $ky = '!GIS_LaPD@2013!&&!GIS_LaPD@2013!'; // 32 * 8 = 256 bit key
              $iv = '!LaPD_GIS@2013!&&!LaPD_GIS@2013!'; // 32 * 8 = 256 bit iv
-//        
-//           
-//                                       
-////            $codetodecrypt=$_GET['token'];
-////            $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);  
-////            
-////            
-////            $resultstring = explode("|",$resultstring);                                                
-////            $landid=$resultstring[2];
-//             
-//                                                    
-//             // 1- retured data is land details + CURRENT OWNERS
-//             // 2- retured data is land details + FINES                     
-//             // 3- shares data is  land details + SHARES
-//             
-//             $retureddata=1;
-//             
-//             
-//             // for fast test uncomment the following two lines  and uncommit all the previous files
-//             // $landid="your working land id";
-//             // $retureddata=1;
-            $landid="1128465";
-//            
-//           // change the last part with a valid land id
-//           $codetodecrypt="omar|".date("Y")."|112233";
-//           $encryptcode=$this->encryptRJ256($ky,$iv,$codetodecrypt);  
-//             
-//           print $encryptcode;
-////            $this->renderPartial('getdata', array(
-////				'landid'=>$encryptcode,'returneddata'=>$retureddata
-////				));      
-//             
-//             $this->renderPartial('demoform');  
-//           //  echo "hello";
-//            $result=file_get_contents("http://localhost/hghg")or die("hello");
-//            
-//       if($result==FALSE) 
-//       {print "m";}
-//       
-//       else 
-//           {print "not found";}
-//      
-//           
-//       
-//       echo $result;
+
+             
+                //        
+                //           
+                //                                       
+                ////            $codetodecrypt=$_GET['token'];
+                ////            $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);  
+                ////            
+                ////            
+                ////            $resultstring = explode("|",$resultstring);                                                
+                ////            $landid=$resultstring[2];
+                //             
+                //                                                    
+                //             // 1- retured data is land details + CURRENT OWNERS
+                //             // 2- retured data is land details + FINES                     
+                //             // 3- shares data is  land details + SHARES
+                //             
+
+            
+
+          // change the last part with a valid land id
+           $codetodecrypt="omar|".date("Y")."|112233";
+           $encryptcode=$this->encryptRJ256($ky,$iv,$codetodecrypt);  
+             
+         //  print $encryptcode;
+            $this->renderPartial('demoform', array(
+				'landid'=>$encryptcode,'returneddata'=>$retureddata
+				));      
+
            }
 
 
 
+public function actionTest()
+	{                        
+             $ky = '!GIS_LaPD@2013!&&!GIS_LaPD@2013!'; // 32 * 8 = 256 bit key
+             $iv = '!LaPD_GIS@2013!&&!LaPD_GIS@2013!'; // 32 * 8 = 256 bit iv
 
+             
+                //        
+                //           
+                //                                       
+                ////            $codetodecrypt=$_GET['token'];
+                ////            $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);  
+                ////            
+                ////            
+                ////            $resultstring = explode("|",$resultstring);                                                
+                ////            $landid=$resultstring[2];
+                //             
+                //                                                    
+                //             // 1- retured data is land details + CURRENT OWNERS
+                //             // 2- retured data is land details + FINES                     
+                //             // 3- shares data is  land details + SHARES
+                //             
+
+            
+
+          // change the last part with a valid land id
+           $codetodecrypt="omar|".date("Y")."|ف/269/11";
+           $encryptcode=$this->encryptRJ256($ky,$iv,$codetodecrypt);  
+             
+         //  print $encryptcode;
+            $this->renderPartial('demoform', array(
+				'landid'=>$encryptcode,'returneddata'=>$retureddata
+				));      
+
+           }
 
         
         

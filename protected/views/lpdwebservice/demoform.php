@@ -8,7 +8,7 @@
 
 <form action="http://localhost/AjmanLandProperty/index.php/CustomerService/ws/" method="post">
     
-    <input type="text" name="string">
+    <input type="text" name="string" value="<?php echo $landid?>">
     <input type="hidden" name="wstype" value="demo">
     <input type="submit">
     </form

@@ -1,4 +1,5 @@
 <?php 
+unlink("webservice.xml");
 // initializing or creating array
 $posteddata = $customerws;
 
