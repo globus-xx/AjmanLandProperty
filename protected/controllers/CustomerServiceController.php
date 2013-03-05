@@ -287,16 +287,16 @@ class CustomerServiceController extends Controller
                                            }
                                        
                                       
-                                       
+                                      
                                        foreach ($lands as $did) 
                                        {                                                                                                    
                                                 if($did->Piece!=""){$landws["landfeatures"]["Piece"]  = $did->Piece; }else  $landws["landfeatures"]["Piece"]  =" ";  
-                                                if($did->location!=""){$landws["landfeatures"]["location"]  = $did->location; }else  $landws["landfeatures"]["location"]  =" ";                                                                                                                                            
+                                                if($did->location!=""){$landws["landfeatures"]["location"]  = $did->location;Piece; }else  $landws["landfeatures"]["location"]  =" ";                                                                                                                                            
                                                 if($did->Land_Type!=""){$landws["landfeatures"]["Land_Type"]  = $did->Land_Type; }else  $landws["landfeatures"]["Land_Type"]  =" ";  
                                                 if($did->TotalArea!=""){$landws["landfeatures"]["TotalArea"]  = $did->TotalArea; }else  $landws["landfeatures"]["TotalArea"]  =" ";                                                  
                                                 if($did->width!=""){$landws["landfeatures"]["width"]  = $did->width; }else  $landws["landfeatures"]["width"]  =" ";                                                                                                 
                                        }
-                                   
+                                     
                                       
                                        
                                        $landDetails["landInfo"] = $lands[0];
@@ -331,7 +331,7 @@ class CustomerServiceController extends Controller
                                        else
                                        {
                                        $searchCriteria=new CDbCriteria;
-                                       $searchCriteria->select="CustomerNameArabic,CustomerType";
+                                       $searchCriteria->select="CustomerNameArabic,CustomerType,HomePhone,MobilePhone";
                                        $searchCriteria->addInCondition("customerID", $_cids);
                                        $customersdata = CustomerMaster::model()->findAll($searchCriteria); 
                                                                               
@@ -339,7 +339,13 @@ class CustomerServiceController extends Controller
                                         foreach($customersdata as $row)
                                        {                                                                                     
                                            if($row->CustomerNameArabic!="")
-                                               {$customersws["customers"]["customer".$i]=$row->CustomerNameArabic; }
+                                               {
+                                               $customersws["customers"]["customer".$i]=$row->CustomerNameArabic;
+                                               if($row->HomePhone!="")
+                                               $customersws["customers"]["phonenumber"]=$row->HomePhone;   
+                                               else
+                                               $customersws["customers"]["phonenumber"]=" ";    
+                                               }
                                            else  $customersws["customers"]["customer".$i]  =" ";
                                            $i++;
                                        }
@@ -392,7 +398,7 @@ class CustomerServiceController extends Controller
                                       if($postreturn=='ws')
                                        {                   
                                            $rightinput["status"]="true";
-                                           return array_merge($landws,$customersws,$rightinput) ;                                                                                    
+                                           return array_merge($landws,$customersws,$rightinput) ;                                                                                                                           
                                        }                                                                           
 //                                       else if($postreturn=='ws'&&$returntype=='2')
 //                                       {                                        
@@ -526,9 +532,22 @@ class CustomerServiceController extends Controller
                   
                    //$this->sString=$_POST['string'];                  
                  
+                 
+                 
+                 
                    $wsarray=$this->actionSearch();
+                   
+                   $printtype=$_POST['print'];
+                   
+                   if($printtype==0)
+                  // print_r($wsarray); 
                    $this->renderPartial('landResults', array(
-                                       'customerws'=>$wsarray
+                                       'customerws'=>$wsarray,'landid'=>$resultstring[2]
+                                       ));     
+                   
+                   else
+                       $this->renderPartial('landResults', array(
+                                       'customerws'=>$wsarray,'landid'=>$resultstring[2],'print'=>$printtype
                                        ));     
              }else    
                  return "Pl Provide Land id in string parameter";     

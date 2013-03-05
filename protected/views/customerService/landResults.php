@@ -1,5 +1,10 @@
 <?php 
-unlink("webservice.xml");
+
+$webservicefilename="webservice_".$landid."_".time().".xml";
+$filepath="/webservice/".$webservicefilename;
+$filerelatedurl="webservice/".$webservicefilename;
+
+
 // initializing or creating array
 $posteddata = $customerws;
 
@@ -9,16 +14,32 @@ $xml_student_info = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8
 // function call to convert array to xml
 array_to_xml($posteddata,$xml_student_info);
 
+
+if($print==1)
+    print $xml_student_info->asXML();
+
+else
+{
 //saving generated xml file
-$xml_student_info->asXML("webservice.xml");
+$xml_student_info->asXML($filerelatedurl);
 
 
 
-if (file_exists("webservice.xml")) {      
-    header("Location:".Yii::app()->request->baseUrl."/webservice.xml");   
+if (file_exists($filerelatedurl)) { 
+    
+    
+                $dbFilename=$webservicefilename;
+                
+                $post=new WebserviceLogs;
+                $post->File_Name=$dbFilename;                  
+                $post->save(); 
+                
+               
+                
+    header("Location:".Yii::app()->request->baseUrl.$filepath);   
 }
 
-
+}
 
 // function defination to convert array to xml
 function array_to_xml($student_info, &$xml_student_info) {
