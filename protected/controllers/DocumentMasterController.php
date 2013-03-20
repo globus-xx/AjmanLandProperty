@@ -46,13 +46,14 @@ class DocumentMasterController extends  Controller
 			),
 		);
 	}
-        public function allowedActions() { return 'index, uploadify'; }
+        public function allowedActions()
+        { return 'index, uploadify'; }
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionIndex()
-	{
+        {
 
                  $criteria = new CDbCriteria;            		
                 $items = Letters::model()->findAll($criteria);
@@ -61,8 +62,14 @@ class DocumentMasterController extends  Controller
 				'docs'=>$items,));
 		
 	}
-        
-        public function actionAddOwner() {
+ /**
+ * Add the record of Owner to the Deeddetails and data row provided in request
+ * if the Owner not exist in the customer table will add new customer first before creaing assosiation
+ * @param JSON string $formdata Array of files records
+ * @return Json formated string , contains status zero 
+ */       
+        public function actionAddOwner() 
+        {
                 extract($_POST);
             $res=0; $shareID=0;$customerID=0;
             
@@ -84,20 +91,23 @@ class DocumentMasterController extends  Controller
                     $deedDtails->DeedID=$deedID;
                     $deedDtails->Share = $Share;
                     if($deedDtails->save()) $res=1;
-//                    print "share".
                     $shareID = $deedDtails->DeedDetailsID;
                 }
 
             print CJSON::encode(array("result"=>$res, "customerID"=>$customerID , "shareID"=>$shareID ));
         }
-        public function actionAddFile(){
+/**
+ * Add the record of File and data row provided in request
+ * @param JSON string $formdata Array of files records
+ * @return Json formated string , contains status zero 
+ */
+        public function actionAddFile()
+        {
             
            $formData = CJSON::decode(stripslashes($_POST['formData']));
            $fileData = CJSON::decode($formData["fileData"]);
             $res=0;
-//            print "count".count(CJSON::decode($formData["fileData"])); 
-//            print_r($fileData);
-//            print "ddd".$formData["fileData"][0]["fileName"];
+
             if(count($fileData)>0 and is_array($fileData)){
                     foreach ($fileData as $imageFile) {
 
@@ -115,7 +125,9 @@ class DocumentMasterController extends  Controller
             }else print "Files not found";
            print CJSON::encode($res);
         }
-        public function actionAddHajaz() {
+
+        public function actionAddHajaz() 
+        {
                 extract($_POST);
             $res=0;
             $HajzMaster = new HajzMaster;
@@ -132,8 +144,13 @@ class DocumentMasterController extends  Controller
              
             print CJSON::encode(array("HajzID"=>$HajzMaster->HajzID,"result"=>$res ));
         }
-         public function actionAddDeed() {
-//                extract($_POST);
+/**
+ * Add the record of Deed and all and data provided in request
+ * @return Json formated string , contains status zero on failuar or 1 on sucess and deed ID
+ */
+        public function actionAddDeed() 
+        {
+
               $formData = CJSON::decode(stripslashes($_POST['formData']));
               extract($formData);
             $res=0;
@@ -141,12 +158,16 @@ class DocumentMasterController extends  Controller
             $DeedMaster->LandID = $LandID ; 
             $DeedMaster->Remarks = $Type ; 
             $DeedMaster->DateCreated = $DateCreated ; 
-//            $DeedMaster->IsActive = $IsActive;
               if($DeedMaster->save()) $res=1;
              
             print CJSON::encode(array("DeedID"=>$DeedMaster->DeedID,"result"=>$res ));
         }
-        public function actionDeleteOwner() {
+/**
+ * Delete the record of Deed details and all the assosiations in the Deed detils with ID of deed row provided in request
+ * @return Json formated string , contains status zero on failuar or 1 on sucess
+ */
+        public function actionDeleteOwner() 
+        {
                 extract($_POST);
             $res=0;
             $searchCriteria=new CDbCriteria;
@@ -154,36 +175,41 @@ class DocumentMasterController extends  Controller
             $command =Yii::app()->db->createCommand($query);
             
             if($command->execute()) $res=1;
-            
-            
-            // delete the rows matching the specified condition
-//            DeedDetails::model()->deleteAll($condition,$params);
-//            // delete the rows matching the specified condition and primary key(s)
-//            DeedDetails::model()->deleteByPk($pk,$condition,$params);
+
             
             print CJSON::encode($res);
         }
-        public function actionDeleteFine() {
+/**
+ * Delete the record of Fine and all the assosiations in the Deed detils with ID of fine row provided in request
+ * @return Json formated string , contains status zero on failuar or 1 on sucess
+ */
+        public function actionDeleteFine() 
+        {
                 extract($_POST);
             $res=0;
             $searchCriteria=new CDbCriteria;
-            $query = "Delete From `HajzMaster` where `HajzID`='$HajzID'";//AND  LandID = '$LandID'
+            $query = "Delete From `HajzMaster` where `HajzID`='$HajzID'";
             $command =Yii::app()->db->createCommand($query);
             
             if($command->execute()) $res=1;
             print CJSON::encode($res);
         }
-        public function actionDeleteDeed() {
+/**
+ * Delete the record of Deed and all the assosiations in the Deed detils with ID of deed row provided in request
+ * @return Json formated string , contains status zero on failuar or 1 on sucess
+ */
+        public function actionDeleteDeed() 
+        {
             $formData = CJSON::decode(stripslashes($_POST['formData']));
             extract($formData);
             $res=0;
             
-             $query = "Delete From `DeedDetails` where `DeedID`='$deedID'";//AND  LandID = '$LandID'
+             $query = "Delete From `DeedDetails` where `DeedID`='$deedID'";
             $command =Yii::app()->db->createCommand($query);
             
             if($command->execute()) {
                 $searchCriteria=new CDbCriteria;
-                 $query = "Delete From `DeedMaster` where `DeedID`='$deedID'";//AND  LandID = '$LandID'
+                 $query = "Delete From `DeedMaster` where `DeedID`='$deedID'";
                 $command =Yii::app()->db->createCommand($query);
 
                 if($command->execute()) $res=1;
@@ -191,9 +217,14 @@ class DocumentMasterController extends  Controller
             }
             print CJSON::encode($res);
         }
-        public function actionChangeActive() {
+/**
+ * Update the Fine status with ID of image row provided in request
+ * @return Json formated string , contains status zero on failuar or 1 on sucess
+ */
+        public function actionChangeActive() 
+        {
             $formData = CJSON::decode(stripslashes($_POST['formData']));
-//            print_r($formData);die;
+
             extract($formData);
             $res=0;
              $HajazMaster=  HajzMaster::model()->findByPk($FineID);
@@ -203,10 +234,15 @@ class DocumentMasterController extends  Controller
             print CJSON::encode($res);
            
         }
-        public function actionDeleteFile() {
+/**
+ * Delete the record of file with ID of image row provided in request
+ * @return Json formated string , contains status zero on failuar or 1 on sucess
+ */
+        public function actionDeleteFile() 
+        {
                 extract($_POST);
             $res=0;
-//            $searchCriteria=new CDbCriteria;
+
             $res = FileMaster::model()->findByAttributes(array('FileID'=>$FileID));
             $pathToFile = Yii::app()->basePath."/../images/uploads/";
             $fileToDelete = $res->Image;
@@ -214,31 +250,43 @@ class DocumentMasterController extends  Controller
             unlink($pathToFile.$fileToDelete) or die("File not deleted");
             print $query = "Delete From `filemaster` where `FileID`='$FileID'";//AND  LandID = '$LandID'
             $command =Yii::app()->db->createCommand($query);
-//            
+            
             if($command->execute()) $res=1;
             print CJSON::encode($res);
         }
-        public function actionUpdateImageCaption() {
+/**
+ * Update the caption/title of the image againts the ID of image row provided in request
+ * @return Json formated string , contains status zero on failuar or 1 on sucess
+ */
+        public function actionUpdateImageCaption() 
+        {
                 extract($_POST);
             $res=0;
             
-//            $searchCriteria=new CDbCriteria;
+
              $fileMaster=  FileMaster::model()->findByPk($id);
              $fileMaster->Title = $caption;
               if($fileMaster->save()) $res=1;
                 else print_r( $fileMaster->getErrors() );
             print CJSON::encode($res);
         }
-        public function actionUpdateLandOwnerShare() {
+/**
+ * Update he deed date and rmakrs in DeedMaster 
+ * delete all the entries assosiation between deeds and owners in deedDetails 
+ * Add the new records of owner assosiated to the deed
+ * @return Json formated string , contains status zero on failuar or 1 on sucess
+ */
+        public function actionUpdateLandOwnerShare() 
+        {
             
             $formData = CJSON::decode(stripslashes($_POST['formData']));
              $shareData = CJSON::decode($formData['shareData']);
-//             print_r($shareData);
+
              $_DeedID = $formData['deedID'];
              $_DateCreated = $formData['DateCreated'];
              $_Remarks = $formData['Remarks'];
              
-//             $DeedMaster = new DeedMaster;
+
                         $DeedMaster=DeedMaster::model()->findByPk($_DeedID);
                         $DeedMaster->DateCreated = $_DateCreated ; 
                         $DeedMaster->Remarks = $_Remarks ; 
@@ -262,7 +310,11 @@ class DocumentMasterController extends  Controller
            print CJSON::encode($res);
 
         }
-         public function actionMarkUpdated() {
+/**
+ * mark the deedmaster tables ArchieveUpdate fieled updated to the ID provided in request
+ */
+        public function actionMarkUpdated() 
+        {
                 extract($_POST);
             $res=0;
             $searchCriteria=new CDbCriteria;
@@ -272,7 +324,12 @@ class DocumentMasterController extends  Controller
             
             print CJSON::encode($res);
         }
-        public function actionUpdateLandData() {
+/**
+ * Update the LAND data to the LandMaster table with the ID provided in the request.
+ * @return JSON zero on failuar or 1 on sucess 
+ */
+        public function actionUpdateLandData() 
+        {
             $res = "0";
            extract($_POST);
 
@@ -293,8 +350,13 @@ class DocumentMasterController extends  Controller
                  if($landDetails->save()) $res=1;
             print CJSON::encode($res);
         }
-        public function actionCustomerSearch()
-	{// for autocomplete will do DB search for Customers and Lands
+/**
+ *  Find the land from land table having the search string provided in request
+ * @return json formated string, contains land IDs
+ * 
+ */
+        public function actionCustomerSearch()	
+        {// for autocomplete will do DB search for Customers and Lands
 		
 		if (isset($_GET['term'])) { // first search that 
                 // if user arabic name 
@@ -305,10 +367,6 @@ class DocumentMasterController extends  Controller
                                 $keyword = $_GET["term"];
 
                                $searchCriteria=new CDbCriteria;
-//                             $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
-                             
-                               
-
                                // the new library                                                                                                                    
                                if (isset($_GET['term'])) 
                                if ($keyword != '') {
@@ -321,64 +379,16 @@ class DocumentMasterController extends  Controller
 
                                     $strCondition = $obj->getWhereCondition($keyword);
                                 } 
-                               //die($strCondition);
 
-			$qtxt = 'SELECT CustomerID, Nationality, CustomerNameArabic from CustomerMaster WHERE ('.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name) limit 25';
-			$command = Yii::app()->db->createCommand($qtxt);
-			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
-			$res = $command->queryAll();
-                           if( count($res)<1){//run if no customer found 
-                           //search DB if Land ID matches
 
-                                    $qtxt = 'SELECT LandID lnd from LandMaster WHERE LandID Like :name';
-                                    $command = Yii::app()->db->createCommand($qtxt);
-                                    $command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
-                                    $res = $command->queryColumn();
-
-                            }
-		}
-		print CJSON::encode($res);
-                
-            // die ($strCondition);
-	}
-         public function actionNationalitySearch()
-	{// for autocomplete will do DB search for Customers and Lands
-		
-		if (isset($_GET['term'])) { // first search that 
-                // if user arabic name 
-                // or english name 
-                // or miobile number match
-                    
-                               
-                                $keyword = $_GET["term"];
-
-                               $searchCriteria=new CDbCriteria;
-//                             $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
-                             
-                               
-
-                               // the new library                                                                                                                    
-                               if (isset($_GET['term'])) 
-                               if ($keyword != '') {
-                                    $keyword = @$keyword;
-                                    $keyword = str_replace('\"', '"', $keyword);
-
-                                    $obj = new ArQuery();
-                                    $obj->setStrFields('CustomerNameArabic');
-                                    $obj->setMode(1);
-
-                                    $strCondition = $obj->getWhereCondition($keyword);
-                                } 
-                               //die($strCondition);
-
-//			$qtxt = 'SELECT CustomerID, Nationality, CustomerNameArabic from CustomerMaster WHERE '.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name limit 25';
+//			$qtxt = 'SELECT CustomerID, Nationality, CustomerNameArabic from CustomerMaster WHERE ('.$strCondition.' OR CustomerNameEnglish LIKE :name OR MobilePhone Like :name) limit 25';
 //			$command = Yii::app()->db->createCommand($qtxt);
 //			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
 //			$res = $command->queryAll();
 //                           if( count($res)<1){//run if no customer found 
                            //search DB if Land ID matches
 
-                                    $qtxt = 'SELECT distinct Nationality nat from CustomerMaster WHERE Nationality Like :name';
+                                    $qtxt = 'SELECT LandID lnd from LandMaster WHERE LandID Like :name';
                                     $command = Yii::app()->db->createCommand($qtxt);
                                     $command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
                                     $res = $command->queryColumn();
@@ -389,198 +399,12 @@ class DocumentMasterController extends  Controller
                 
             // die ($strCondition);
 	}
-	
+   
 
-    
-    
-	public function actionSearch()
-	{   
-		if(isset($_POST["action"]) and $_POST["action"]=="search") //check that this action is only called using POST.. not get, not regular.
-                {
-                     
-                               $searchstring=$_POST["string"];
-                               $keyword = $_POST["string"];
-
-                               $searchCriteria=new CDbCriteria;
-//                             $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
-                             
-                               
-
-                               // the new library                                                                                                                    
-                               if (isset($_POST['string'])) 
-                               if ($keyword != '') {
-                                    $keyword = @$_POST['string'];
-                                    $keyword = str_replace('\"', '"', $keyword);
-
-                                    $obj = new ArQuery();
-                                    $obj->setStrFields('CustomerNameArabic');
-                                    $obj->setMode(1);
-
-                                    $strCondition = $obj->getWhereCondition($keyword);
-                                } 
-                              
-                                
-                               $searchCriteria->condition = $strCondition.' OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL';
-                               
-                               $searchCriteria->params = array(':searchstring'=> $searchstring);
-                               $searchCriteria->order = 'CustomerNameArabic';
-                               $searchCriteria->limit = '25';
-                               if (CustomerMaster::model()->count($searchCriteria)>0)
-                                {
-                                       $customerResult = CustomerMaster::model()->findAll($searchCriteria);
-                                       print CJSON::encode($customerResult);			
-                                }
-                               else
-                               {// search for lands and its current and previous owners plus all fines 
-                                       //land details
-                                       $lands = LandMaster::model()->findAllByAttributes(array("LandID"=>$searchstring));
-                                       $landDetails["landInfo"] = $lands[0];
-                                       $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring), 'Remarks <> "cancelled"');
-                                       $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
-                                       $deedFiles = FileMaster::model()->findAllByAttributes(array("DeedID"=>$deeds[0]->DeedID));
-                                       print "deedfiles".print_r($deedFiles);
-                                       // current owners
-                                       foreach ($deeds as $did){ 
-                                         $landDetails["current"]["deed"] = $did->DeedID;
-                                         $landDetails["current"]["Remarks"] = $did->Remarks;
-                                         $landDetails["current"]["files"] = $deedFiles;
-                                        }
-                                         if(count($deedDetails)>0){
-
-                                        foreach ($deedDetails as $key=>$cid) {
-                                         $_cids[] = $cid->CustomerID;
-                                         $_share[$cid->CustomerID] = $cid->Share;
-                                         
-                                         }
-                                       $searchCriteria=new CDbCriteria;
-                                       $searchCriteria->addInCondition("customerID", $_cids);
-                                       $landDetails["current"]["customers"] = CustomerMaster::model()->findAll($searchCriteria);
-                                       $landDetails["current"]["share"] = $_share;
-
-                                         }
-                                       //previous owners
-                                       $deeds = DeedMaster::model()->findAllByAttributes(array("LandID"=>$searchstring, "Remarks"=>"cancelled"),array('order'=>'DeedID DESC'));
-
-                                        foreach ($deeds as $key=>$did) {
-                                         $deedDetails = DeedDetails::model()->findAllByAttributes(array("DeedID"=>$did->DeedID));
-                                         $landDetails["previous"]["deed"][$key]["deed"]= $did->DeedID;
-                                            if(count($deedDetails)>0){
-                                                $_cids= null;
-                                                    foreach ($deedDetails as $cid) {
-                                                         $_cids[] = $cid->CustomerID;
-                                                    }
-                                            $searchCriteria=new CDbCriteria;
-                                            $searchCriteria->addInCondition("customerID", $_cids);
-                                            $landDetails["previous"]["deed"][$key]["customers"] = CustomerMaster::model()->findAll($searchCriteria);
-                                            }
-                                   }
-                                   // fines related to land
-                                      $fines = HajzMaster::model()->findAllByAttributes(array("LandID"=>$searchstring, "IsActive"=>"1"));
-                                      $landDetails["fines"] = $fines;
-                                       print CJSON::encode($landDetails);
-                               }
-		
-		}else{// this will find land of cutomerID provided in $_POST["string"]
-                    	if(isset($_POST["action"]) and $_POST["action"]=="propertySearch") //check that this action is only called using POST.. not get, not regular.
-                         {  $lands["landDetails"]["current"] ="";
-                            $lands["landDetails"]["previous"] ="";
-			 $searchstring = json_decode($_POST["string"]); 
-//                        will get deed data feom customer ID
-				$deedDetails = DeedDetails::model()->findAllByAttributes(array("CustomerID"=>$searchstring));
-                                $_dids= null;
-
-                                  foreach ($deedDetails as $key=>$did) {
-                                         $_dids[] = $did->DeedID;
-                                         
-                                   }
-//                                   print_r($_dids);
-                                   // get lands related to cutomer from the DeedMaster using deed IDs where deed remarks are  cancelled
-                                   
-                                   //previous lands of customer
-                                       $searchCriteria=new CDbCriteria;
-                                       $searchCriteria->condition = '`Remarks` = "cancelled"';
-                                       $searchCriteria->addInCondition("DeedID", $_dids);
-                                       $LandIDs = DeedMaster::model()->findAll($searchCriteria);
-
-                                       IF(COUNT($LandIDs)>0){
-                                            foreach ($LandIDs as $key=>$landId) {
-                                              $_landids[] = $landId->LandID;
-
-                                              }
-//                                              print_r($_landids);
-                                            $searchCriteria=new CDbCriteria;
-                                            $searchCriteria->addInCondition("LandID", $_landids);
-                                               $lands["landDetails"]["previous"]=$LandInfo = LandMaster::model()->findAll($searchCriteria);
-//                                               print  $lands["landDetails"]["previous"][0]->LandID;
-                                        }
-                                     // get lands related to cutomer from the DeedMaster using deed IDs where deed remarks are not cancelled  
-
-                                       $searchCriteria = null;
-                                       $searchCriteria=new CDbCriteria;
-                                       $searchCriteria->condition = "Remarks <> 'cancelled'";
-//                                       $searchCriteria->compare('Remarks', '<>cancelled', true);
-                                       
-                                       $searchCriteria->addInCondition("DeedID", $_dids);
-                                       $LandIDs = DeedMaster::model()->findAll($searchCriteria);
-//                                       print "cont ".COUNT($LandIDs);
-                         IF(COUNT($LandIDs)>0){$_landids= null;
-                                                foreach ($LandIDs as $key=>$landId) {
-//                                                    if($landId->Remarks !="cancelled")
-                                                  $_landids[] = $landId->LandID;
-                                                  }
-//                                                  print "lanids";
-//                                                  print_r($_landids);
-
-                                                 $searchCriteria=new CDbCriteria;
-                                                 $searchCriteria->addInCondition("LandID", $_landids);
-                                                 $lands["landDetails"]["current"]=$LandInfo = LandMaster::model()->findAll($searchCriteria);  
-                                                 foreach ($_landids as $lKey=>$lId) {
-//                                                     print $lId;
-                                                       $searchCriteria=new CDbCriteria;
-                                                        $searchCriteria->condition = '`LandID`= "'.$lId.'" AND Remarks <> "cancelled"';
-                                                        $LandDeedInfo = DeedMaster::model()->findAll($searchCriteria);   
-//                                                        print "deedid";
-                                                        $LandDeedInfo[0]->DeedID;
-//                                                        print_r($LandDeedInfo);  
-
-                                                        $searchCriteria=new CDbCriteria;
-                                                        $searchCriteria->condition = '`DeedID`= '.$LandDeedInfo[0]["DeedID"];
-                                                        $DeedCustomerInfo = DeedDetails::model()->findAll($searchCriteria); 
-                                                        $_cids = null;
-                                                        foreach ($DeedCustomerInfo as $key=>$cId) {
-                                                             $_cids[] = $cId->CustomerID;
-                                                         }
-//                                                         print_r($_cids);
-
-                                                       $searchCriteria=new CDbCriteria;
-                                                       $searchCriteria->addInCondition("CustomerID", $_cids);
-                                                       $lands["currentOwners"][$lKey]=$CustomerInfo = CustomerMaster::model()->findAll($searchCriteria);   
-                                                  }
-                         }else{
-                              $searchstring = $_POST["string"];
-
-                               $searchCriteria=new CDbCriteria;
-                               $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
-                               $searchCriteria->params = array(':searchstring'=> $searchstring);
-                               $searchCriteria->order = 'CustomerNameArabic';
-                               $searchCriteria->limit = '25';
-                               if (CustomerMaster::model()->count($searchCriteria)>0)
-                                {
-                                       $lands["currentOwners"]=$customerResult = CustomerMaster::model()->findAll($searchCriteria);
-                                }
-                         }
-
-                                print CJSON::encode($lands);
-                       }
-                }	
-	}
-        public function actionuploadify(){
-                return array(
-            'upload'=>'application.controllers.upload.UploadFileAction',
-        );
-        }
-        public function actionpSearchProperty()
-	{// method not in use 
+/**
+ * not in use, may be used in future 
+ */
+        public function actionpSearchProperty()	{// method not in use 
             // this is a test commit// j comiited
 		if(isset($_POST["data"])) //check that this action is only called using POST.. not get, not regular.
         {
