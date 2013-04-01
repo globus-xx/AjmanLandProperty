@@ -15,7 +15,7 @@ class LPDWebServiceController extends CController
         return array(
             array('allow',
                 'actions' => array('Index'),
-                'ips' => array('127.0.0.1'),// here we should put the ip of the other miniplicity
+          //      'ips' => array('127.0.0.1'),// here we should put the ip of the other miniplicity
             ),
             array('deny',
                 'actions' => array('Index'),
@@ -35,31 +35,15 @@ class LPDWebServiceController extends CController
              $iv = '!LaPD_GIS@2013!&&!LaPD_GIS@2013!'; // 32 * 8 = 256 bit iv
 
              
-                //        
-                //           
-                //                                       
-                ////            $codetodecrypt=$_GET['token'];
-                ////            $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);  
-                ////            
-                ////            
-                ////            $resultstring = explode("|",$resultstring);                                                
-                ////            $landid=$resultstring[2];
-                //             
-                //                                                    
-                //             // 1- retured data is land details + CURRENT OWNERS
-                //             // 2- retured data is land details + FINES                     
-                //             // 3- shares data is  land details + SHARES
-                //             
-
             
 
           // change the last part with a valid land id
-           $codetodecrypt="omar|".date("Y")."|112233";
+           $codetodecrypt="omar|".date("Y")."|1090|مصفوت/1786/8";
            $encryptcode=$this->encryptRJ256($ky,$iv,$codetodecrypt);  
              
          //  print $encryptcode;
             $this->renderPartial('demoform', array(
-				'landid'=>$encryptcode,'returneddata'=>$retureddata
+				'landid'=>$encryptcode
 				));      
 
            }

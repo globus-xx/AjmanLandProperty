@@ -160,7 +160,9 @@ class SiteController extends Controller
                         echo $this->email->print_debugger();    
         }
         
-        
+        /**
+         * action to update user profile
+         */
         public function actionupdateUser()
         {                          
                 $id=$_POST['id'];

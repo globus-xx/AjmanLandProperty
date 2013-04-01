@@ -17,8 +17,30 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'LandID'); ?>
+		
 		<?php
-			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+				$url = $this->createUrl("DeedMaster/landsfind");
+                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                    'name'=>'LandIDs',
+                    'model'=>$model,
+                    'attribute'=>'LandID',
+                    'source'=>$url,
+                    //'source'=>$customerNames, //came from the controller.. the array we constructed of all names, arabic and english
+                    // additional javascript options for the autocomplete plugin
+                    'options'=>array(
+                        'minLength'=>'3',
+                    ),
+                    'htmlOptions'=>array(
+                        'style'=>'height:20px',
+                        
+                    ),
+                ));
+            ?>
+		
+		
+		
+		<?php
+		/*	$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                     'name'=>'LandIDs',
                     'model'=>$model,
                     'attribute'=>'LandID',
@@ -30,7 +52,7 @@
                     'htmlOptions'=>array(
                         'style'=>'height:20px;'
                     ),
-                ));
+                ));*/
 		?>
 			
 		<?php echo $form->error($model,'LandID'); ?>

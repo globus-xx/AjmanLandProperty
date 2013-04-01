@@ -73,12 +73,12 @@ class HajzMasterController extends Controller
 		$model = new HajzMaster;
 		$sc = new CDbCriteria;
 		$sc->limit = 25000;
-		$Lands = LandMaster::model()->findAll();
+		/*$Lands = LandMaster::model()->findAll();
 		$LandIDs = array();
 		foreach($Lands as $lands)
 		{
 			$LandIDs[] = $lands->LandID;
-		}
+		}*/
 			
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -87,16 +87,23 @@ class HajzMasterController extends Controller
 		{
 
 			$model->attributes=$_POST['HajzMaster'];
-					
-			$deed = DeedMaster::model()->findByAttributes(array('LandID'=>$_POST['HajzMaster']['LandID']));
-			$model->DeedID = $deed->DeedID;
+			
+			$sc = new CDbCriteria; 
+			$sc->condition = 'LandID = :id AND Remarks!=:cancelled';
+			$sc->params = array(':id'=>$_POST['HajzMaster']['LandID'], ':cancelled'=>'cancelled');
+			//$sc->limit = 2000;
+				
+			$deed = DeedMaster::model()->findAll($sc);
+			
+			//$deed = DeedMaster::model()->findByAttributes(array('LandID'=>$_POST['HajzMaster']['LandID'],'Remarks'));
+			$model->DeedID = $deed[0]->DeedID;
 			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->HajzID));
 		}
 
 		$this->render('create',array(
-				'model'=>$model,'LandIDs'=>$LandIDs,
+				'model'=>$model,//'LandIDs'=>$LandIDs,
 			));
 	}
 	

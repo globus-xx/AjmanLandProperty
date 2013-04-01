@@ -164,6 +164,7 @@ $this->menu=array(
 
      <div style='clear:both;'></div>
      <span>الملاحظات&nbsp;</span><input type="text" id="Remarks" />
+ <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;رقم الإيصال :</span><input type='text' id='InvoiceNo' />
      <div style="padding-top:30px;text-align:center;">
             <input type="button" value="حفظ و طباعة" id="createcontract"/>
     </div >
@@ -241,7 +242,8 @@ $this->menu=array(
         var contractamount = $("#contractamount").val();
         var feeamount = $("#feeamount").val();
         var correctedamount = $("#correctedamount").val();
-        var Remarks = $("#Remarks").val()
+        var Remarks = $("#Remarks").val();
+        var InvoiceNo = $('#InvoiceNo').val();
         var owners = new Array();
         var buyers  = new Array();
         var realstate = new Array();
@@ -357,6 +359,11 @@ $this->menu=array(
 			}
 			
 		}
+               if (InvoiceNo=='')
+		{
+			alert("من فضلك ادخل رقم الإيصال");
+			return;
+		}
 		var oldlandid = '<?php echo $deedMaster->LandID; ?>';
 		
 		
@@ -372,7 +379,13 @@ $this->menu=array(
 					return;
 				}
 		}
-				
+		
+		finalcheck = confirm("يرجى التأكد من جميع البيانات التي تم إدخالها قبل الطباعة");
+		
+		if (finalcheck!=true)
+		{
+			return;
+		}				
         var params = {
                 deedId: deedId,
                 owners: owners,
@@ -387,6 +400,7 @@ $this->menu=array(
                 correctedamount:correctedamount,
                 feeamount:feeamount,
                 Remarks:Remarks,
+                InvoiceNo:InvoiceNo,               
                 equals:equals,
                 };
         
@@ -582,7 +596,7 @@ $this->menu=array(
 				html += " <div class='onerealstate' id='onerealstate"+result.waseet['CardID']+"'> ";
 				html += "       <div> ";
 				html += "           <div style='float:right;width:50%;'><a target='_blank' href='/AjmanLandProperty/index.php/RealEstatePeople/"+result.waseet['CardID']+"'>"+result.waseet['Name']+"</a></div> ";
-				if (result.waseet['CardID']==107)
+				if (result.waseet['CardID']==1111)
 					html += "           <div style='float:right; width:10%;'><input type='checkbox'  id='sellerstate"+result.waseet['CardID']+"' checked disabled='disabled'/></div> ";
 				else
 					html += "           <div style='float:right; width:10%;'><input type='checkbox'  id='sellerstate"+result.waseet['CardID']+"'/></div> ";

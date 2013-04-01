@@ -16,6 +16,8 @@
             ?>
 
 <input type='button' value='اطبـــع' id='print' style='margin-top:10px;'>
+<input type='button' value='اطـبع No GIS' id='printnogis' style='margin-top:10px;'>
+
 <br><br>
 <b>تحويل معاملة قديمة الى جديدة:<br><br></b>
 رقم السند القديم:  <?php
@@ -59,6 +61,28 @@ $('#print').click(function() {
 				}
 			)});
 			
+$('#printnogis').click(function() { 
+	
+	var searchstring = $("#landid").val();
+	
+	var paramJSON = JSON.stringify(searchstring);
+	
+	$.post(
+	'<?php echo $this->createUrl("deedMaster/getdeed")?>', //who will receive the ajax data and process it.. landresult action in contractsMaster controller
+				{ data: paramJSON },
+				function(data) //The function that will be called when data is sent back.
+				{					
+					var deedResult = JSON.parse(data); 
+					console.log(deedResult);
+					var url = '<?php echo $this->createUrl("contractsMaster/printmukhattatnogis/"); ?>';
+					url+="/"+deedResult;
+					var contractPrint = window.open(url);
+					
+					$('#landid').val("");
+					
+				}
+			)});
+			
 $('#convert').click(function() {
 	
 	var oldlandid = $('#oldlandid').val();
@@ -84,7 +108,7 @@ $('#convert').click(function() {
 			alert("تم التحويل");
 	}
 	)});
-	
+
 	
 </script>
 

@@ -20,7 +20,7 @@
 
 
 <h2> Print The Xml Output </h2>
-<form action="http://localhost/AjmanLandProperty/index.php/CustomerService/ws/" method="post">
+<form action="http://localhost/AjmanLandProperty/index.php/CustomerService/ws/" method="get">
     
     <input type="text" name="string" value="<?php echo $landid?>">
     <input type="hidden" name="wstype" value="demo">

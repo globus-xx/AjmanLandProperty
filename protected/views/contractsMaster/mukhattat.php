@@ -57,18 +57,30 @@ $how = array(
 		{
 			font-size:95%;
 		}
+		div.side
+		{
+			font-size:150%;
+			font-weight:bold;
+		}
 	
 	</style>
 </head>
 
 <body style='-webkit-print-color-adjust:exact;'>
-<img src='/AjmanLandProperty/images/banner.jpg' style='width:130mm; margin-top:7mm; margin-bottom:0mm; margin-right:8mm;'>
 
-<div style='position:absolute; top:3.2cm; right:11.5cm;'>
-<span style='font-family:GE SS Two Light; font-size:40%'>نموذج رقم 2 ت 12/2012</span>
+<img src='<?php echo $sector; ?>' style='position:absolute;top:3.5cm;left:0.4cm; width:58mm;height:50mm;' border='2px'>
+<img src='<?php echo $district; ?>' style='position:absolute;top:3.5cm;left:6.4cm; width:58mm;height:50mm;' border='2px'>
+<img id='parcel' src='<?php echo $parcel; ?>' style='position:absolute;top:8.7cm;left:0.4cm; width:45%;height:45%;' border='2px'>
+
+
+
+<!--<img src='/AjmanLandProperty/images/banner.jpg' style='width:130mm; margin-top:7mm; margin-bottom:0mm; margin-right:8mm;'>-->
+<div style='margin-top:40mm;'> </div>
+<div style='position:absolute; top:3.5cm; right:11.5cm;'>
+<span style='font-family:GE SS Two Light; font-size:40%'>نموذج رقم 3 ت 02/2013</span>
 </div>
 
-<h4 style='font-family:GE SS Two Light; width:130mm; text-align:center; margin-top:3mm; margin-bottom:1mm; margin-right:8mm;'>مخطط موقع هندسي</h1>
+<h4 style='font-family:GE SS Two Medium; width:130mm; text-align:center; margin-top:3mm; margin-bottom:1mm; margin-right:8mm;'>مخطط موقع هندسي</h1>
 
 <table style="width:130mm; margin-top:0mm; margin-bottom:0mm; margin-left:0mm; margin-right:8mm;">
 
@@ -181,13 +193,13 @@ else
 </div>
 
 <div style='margin-top:5mm;'>
-<span class='signatures' style='font-family:GE SS Two Light; font-size:70%; margin-right:8mm; margin-top:5mm; width:130mm;'>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='signatures' style='font-family:GE SS Two Light; font-size:70%; margin-right:8mm; margin-top:5mm; width:130mm;'>
 قسم الشؤون الهندسية
 </span>
 
-<span class='signatures' style='font-family:GE SS Two Light; font-size:70%; margin-right:80mm; margin-top:5mm; width:130mm;'>
+<!--<span class='signatures' style='font-family:GE SS Two Light; font-size:70%; margin-right:80mm; margin-top:5mm; width:130mm;'>
 مدير عام الدائرة
-</span>
+</span>-->
 </div>
 
 </div>
@@ -196,6 +208,9 @@ else
 <script type="text/javascript" src="/AjmanLandProperty/js/jquery-1.8.1.min.js"></script> 
 
 <script type='text/javascript'>
+var deg=0;
+var link="<?php echo $link; ?>";
+console.log(link);
 
 $("#tochange").bind('dblclick',function() {
 	var Remarks = prompt("دخل الملاحظة");
@@ -207,4 +222,52 @@ $("#tochange").bind('dblclick',function() {
 		$("#tochange").html(Remarks);
 		
 });
+
+$("#parcel").bind('dblclick',function(e) {
+	
+	
+	var inp = prompt("enter side");
+	var d = new Date();
+	var id = d.getTime();
+	
+        var message = $('<div class="side" id="side'+id+'" onmouseover=rotatec("side'+id+'") ondblclick=rotate("side'+id+'") oncontextmenu=rem("side'+id+'")>'+inp+'</div>').css({
+            'position' : 'absolute',
+            'left' : e.pageX ,
+            'top'  : e.pageY
+        });
+        
+        $('body').append(message);
+        return false;
+	//$('body').append("<div style='position:absolute;left:"+left+";top:"+top+";>"+inp+"</div>")	;*/
+	
+
+});
+
+function rotate(id)
+{
+	deg = deg+45;
+	var txt = 'rotate('+deg+'deg)';
+	
+	$('#'+id).css('-webkit-transform',txt);
+	
+	
+}
+
+function rotatec(id)
+{
+	deg = deg+4;
+	var txt = 'rotate('+deg+'deg)';
+	
+	$('#'+id).css('-webkit-transform',txt);
+	
+	
+}
+
+function rem(id)
+{
+	//var divID = $(this).attr("id");
+	//alert("abc"+divID);
+	$("#"+id).remove();
+}
+
 </script>

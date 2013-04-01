@@ -161,6 +161,67 @@ class CustomerMasterController extends Controller
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
+	
+	public function actionimportinfo()
+	{
+		
+		if(isset($_GET["id"]))
+		{
+			$xml = @file_get_contents('http://192.168.5.61/'.$_GET["id"].'.xml');
+
+
+			function out($xm,$tag)
+ 		    {
+			   $tag1 = '<'.$tag.'>';
+			   $tag2 = '</'.$tag.'>';
+			   $s = strpos($xm,$tag1);
+			   $j = strpos($xm,$tag2);
+			   $out = substr($xm,$s+strlen($tag1),$j-$s-strlen($tag2)+1);
+			   return $out;
+			}
+			
+			$ar_name = out($xml,'ar_name'); $ar_name = str_replace(","," ",$ar_name);			
+			$en_name = out($xml,'en_name'); $en_name = str_replace(","," ",$en_name);
+			$id = out($xml,'IDN');
+			$nationality = out($xml,'arNat');
+			$issueDate = out($xml,'issueDate');
+			$expiryDate = out($xml,'DoB');
+			$mobile = out($xml, 'MobNo'); $mobile = str_replace("+","",$mobile);
+			$dob = out($xml,'sex');
+			
+			if($_GET['existing']==0) //New Customer
+			{
+				$newcustomer = new CustomerMaster;
+				$newcustomer->CustomerNameArabic = $ar_name;
+				$newcustomer->CustomerNameEnglish = $en_name;
+				$newcustomer->DocumentNumber = $id; 
+				$newcustomer->DocumentType = 'الهوية الوطنية';
+				$newcustomer->Nationality = $nationality;
+				$newcustomer->IssuedOn = $issueDate;
+				$newcustomer->ExpiresOn = $expiryDate;
+				$newcustomer->MobilePhone = $mobile;
+				$newcustomer->DateofBirth = $dob;
+				$newcustomer->save();
+			}
+			else
+			{
+				$newcustomer = CustomerMaster::model()->findByPk($_GET['existing']);
+				$newcustomer->CustomerNameArabic = $ar_name;
+				$newcustomer->CustomerNameEnglish = $en_name;
+				$newcustomer->DocumentNumber = $id; 
+				$newcustomer->DocumentType = 'الهوية الوطنية';
+				$newcustomer->Nationality = $nationality;
+				$newcustomer->IssuedOn = $issueDate;
+				$newcustomer->ExpiresOn = $expiryDate;
+				$newcustomer->MobilePhone = $mobile;
+				$newcustomer->DateofBirth = $dob;
+				$newcustomer->save();
+			}
+			print CJSON::encode($newcustomer->CustomerID);		
+		}
+		
+		
+	}
 
 	/**
 	 * Performs the AJAX validation.

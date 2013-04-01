@@ -15,16 +15,16 @@ $xml_student_info = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8
 array_to_xml($posteddata,$xml_student_info);
 
 
-if($print==1)
-    print $xml_student_info->asXML();
+//if($print==1)
+print $xml_student_info->asXML();
 
-else
-{
+//else
+//{
 //saving generated xml file
-$xml_student_info->asXML($filerelatedurl);
+//$xml_student_info->asXML($filerelatedurl);
 
 
-
+/*
 if (file_exists($filerelatedurl)) { 
     
     
@@ -40,7 +40,7 @@ if (file_exists($filerelatedurl)) {
 }
 
 }
-
+*/
 // function defination to convert array to xml
 function array_to_xml($student_info, &$xml_student_info) {
     foreach($student_info as $key => $value) {

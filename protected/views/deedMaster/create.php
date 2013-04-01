@@ -61,7 +61,7 @@ foreach($locationsT as $key=>$value)
 <input type="button" value="حدث" id="makenew" style='float:right;'>
 <div id='deedRemarksdiv' style='float:right; margin-right:10px;'>نوع المعاملة: 
 <select id='deedRemarks'>
-	<option value='ألشراء'>الشراء</option>
+	<option value='الشراء'>الشراء</option>
 	<option value='العطاء والتمليك'>العطاء والتمليك</option>
 	<option value='التعويض عن اراضي مستقطعه'>التعويض عن اراضي مستقطعه</option>
 	<option value='الافراز'>الافراز</option>
@@ -118,11 +118,18 @@ foreach($locationsT as $key=>$value)
 			for (i in results.activedeeds)
 			{
 
-				var deedtable = "<table align='right'><tr><td>رقم ألملكية: <a href='/AjmanLandProperty/index.php/deedMaster/" +results.activedeeds[i].DeedID+"'</a>"+results.activedeeds[i].DeedID+"</td><td>:ملاحظات "+results.activedeeds[i].Remarks+"</td><td>تاريخ الإنشاء: "+results.activedeeds[i].DateCreated+"</td></tr>";
+				var deedtable = "<table align='right'><tr><td>رقم ألملكية: <a target='_blank' href='/AjmanLandProperty/index.php/deedMaster/" +results.activedeeds[i].DeedID+"'</a>"+results.activedeeds[i].DeedID+"</td><td>:ملاحظات "+results.activedeeds[i].Remarks+"</td><td>تاريخ الإنشاء: "+results.activedeeds[i].DateCreated+"</td></tr>";
 								
 				for (j in results.deedDetails)
 				{
-					deedtable += "<tr><td>"+results.deedDetails[j]+"</td></tr>";
+					var str = results.deedDetails[j];
+					var n =str.search("ID");
+					var m = str.search("eID");
+					var x = str.substring(n+2,m);
+					console.log(n);
+					console.log(m);
+					console.log(x);
+					deedtable += "<tr><td><a target='_blank' href='/AjmanLandProperty/index.php/CustomerMaster/update/"+x+"'>"+results.deedDetails[j]+"</a></td></tr>";
 				}
 				deedtable +="</table>";
 				$('#DeedInfo').html(deedtable);
@@ -237,7 +244,7 @@ foreach($locationsT as $key=>$value)
 	Deeds here? 
 </div>
 
-<div id="LandInfo">
+<div id="LandInfo" style='visibility:hidden; height:10px;'>
 	<table>
 		
 		<tr style='background-color:#EFEDAC;'>
@@ -418,6 +425,8 @@ foreach($locationsT as $key=>$value)
     $("#save").click(function() {
 		
 		var equals="no";
+		var newalready = false;
+		var newlandid;
 		var total=0;
 		var buyers  = new Array();
 		var landid = $("#LandID").val();
@@ -440,8 +449,8 @@ foreach($locationsT as $key=>$value)
 		
 		if ($("#deedRemarks").val()=='التعويض عن اراضي مستقطعه' || $("#deedRemarks").val()=='الافراز' || $("#deedRemarks").val()=='الدمج')
 		{
-			var deedRemarks = "ألشراء";
-			deedRemarks+= " "+$('#deedRemarks').val()+" السند"+$('#enteredlandid').val();
+			var deedRemarks = "الشراء";
+			deedRemarks+= " "+$('#deedRemarks').val()+" السند "+$('#enteredlandid').val();
 		}
 		else
 			var deedRemarks = $('#deedRemarks').val();
@@ -492,9 +501,26 @@ foreach($locationsT as $key=>$value)
 			
 		}
 		
+		if (landid.search("/")==-1)
+		{
+			newalready=true;
+			newlandid = landid;
+		}
+		else
+			newlandid = prompt("دخل رقم السند الجديد بناء على التقسيمات الإدارية الجديدة. يرجى التواصل مع قسم الهندسي");
+		
+		if (newalready != true)
+		{	
+			if (newlandid==null || newlandid=="" || newlandid.length < 8)
+				{
+					return;
+				}
+		}
+		
+		
         var params = {
 			buyers: buyers,
-			landid: landid,
+			landid: newlandid,
 			LocationID: LocationID,
 			location: location,
 			Plot_No: Plot_No,

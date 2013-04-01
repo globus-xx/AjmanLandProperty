@@ -87,19 +87,19 @@ div.beforetable
 <div style="float:right; width:33%"><span style="font-weight:900;">القطعة&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;</span><span style="font-weight:bold;"><? echo $deed->land->Piece; ?></span></div>
 <div style="float: right; width:33%"><span style="font-weight:900;">الطول&nbsp;:&nbsp;&nbsp;</span><span style="font-weight:bold;">
 <? if ($deed->land->length>0) 
-	echo $deed->land->length." متر";
+	echo $deed->land->length." م";
  else
 	echo "//";
  ?></span></div>
 <div style="float: right; width:33%"><span style="font-weight:900;">العرض&nbsp;:&nbsp;&nbsp;</span><span style="font-weight:bold;">
 <?
 if ($deed->land->width>0)
- echo $deed->land->width." متر";
+ echo $deed->land->width." م";
 else
  echo "//";
  ?></span></div>
 
-<div style="float: right; width:100%"><span style="font-weight:900;">المساحة: </span><span style="font-weight:bold;"><? echo $deed->land->TotalArea;?> متر مربع</span></div>
+<div style="float: right; width:100%"><span style="font-weight:900;">المساحة: </span><span style="font-weight:bold;"><? echo $deed->land->TotalArea;?> م<sup>2</sup></span></div>
 
 </div>
 <br><br><div style="height:25px"></div>
@@ -110,11 +110,11 @@ else
 
 <tr>
 <td id="directions" colspan="2">
-	<div style="float:right; width:50%">&nbsp;<b>شمالاً: </b><span class="dots"><? echo $deed->land->North." متر"; ?></span></div>
-	<div style="float:right; width:50%"><b>جنوباً: </b><span class="dots"><? echo $deed->land->South." متر"; ?></span></div><br>
+	<div style="float:right; width:50%">&nbsp;<b>شمالاً: </b><span class="dots"><? echo $deed->land->North." م"; ?></span></div>
+	<div style="float:right; width:50%"><b>جنوباً: </b><span class="dots"><? echo $deed->land->South." م"; ?></span></div><br>
 	
-	<div style="float:right; width:50%">&nbsp;<b>شرقاً : </b><span class="dots"><? echo $deed->land->East." متر"; ?></span></div>
-	<div style="float:right; width:50%"><b>غرباً : </b><span class="dots"><? echo $deed->land->West." متر"; ?></span></div>
+	<div style="float:right; width:50%">&nbsp;<b>شرقاً : </b><span class="dots"><? echo $deed->land->East." م"; ?></span></div>
+	<div style="float:right; width:50%"><b>غرباً : </b><span class="dots"><? echo $deed->land->West." م"; ?></span></div>
 </td>
 </tr>
 
@@ -243,12 +243,12 @@ else
 
 ?></span>
 	وقد أعطي هذا السند إثباتاً بذلك.<br><span style='font-weight:bold; font-size:75%;'>ملاحظة: رقم السند القديم: <?php echo $deed->land->Remarks; ?></span><br>
-<div style="padding-top:90px;">تاريخ : <span id="deeddate"><?php echo date('d-m-Y'); ?></span> م</div>
+<div style="padding-top:79px;">تاريخ : <span id="deeddate"><?php echo date('d-m-Y'); ?></span> م</div>
 </div>
 
-</div>
-<div style="padding-top:20px; position:absolute; top:23.5cm;right:2.3cm;">
-<h3>رقـم&nbsp;&nbsp;<?php echo $deed->DeedID+13070; ?></h3>
+ <!-- absolute; top:23.5cm;right:2.3cm; -->
+<div style="margin:0px; position:static">
+<h3 style="margin:0px;">رقـم&nbsp;&nbsp;<?php echo $deed->DeedID+13070; ?></h3>
 </div>
 
 </body>

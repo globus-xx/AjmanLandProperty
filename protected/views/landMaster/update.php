@@ -68,7 +68,7 @@ $('#update').click(function() {
                                 $('#South').val(deedResult['South']);
                                 $('#East').val(deedResult['East']);
                                 $('#West').val(deedResult['West']);
-//                                $('#Remarks').val(deedResult['Remarks']);
+								$('#Remarks').val(deedResult['Remarks']);
                         }
 
 
@@ -111,6 +111,10 @@ $('#update').click(function() {
 		<td>جنوبا: <input type='text' id='South' class='directions'></td>
 		<td>شرقا: <input type='text' id='East' class='directions'></td>
 		<td>غربا: <input type='text' id='West' class='directions'></td></tr>
+		
+		<tr>
+		<td>ملاحظة: <input type='text' id='Remarks'></td>
+		</tr>
 		
 		</table>
 	
@@ -158,6 +162,7 @@ $('#update').click(function() {
 		var South =	$('#South').val();
 		var East = $('#East').val();
 		var West = $('#West').val();        
+		var Remarks = $('#Remarks').val();
 		
 		var params = {
 			landid: landid,
@@ -174,6 +179,7 @@ $('#update').click(function() {
 			South: South,
 			East: East,
 			West: West,
+			Remarks: Remarks,
 		}
 
 		console.log(params['Piece']);

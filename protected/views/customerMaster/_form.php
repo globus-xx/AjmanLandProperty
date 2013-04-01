@@ -17,10 +17,41 @@ foreach($countriesT as $key=>$value)
 	$countries[] = $value[0];
 
 }
+$fname = date('U');
+;
 
 ?>
+<!--<input type='text' id='copyall'>
+<input type='button' id='import' value='import'>-->
 
 <div align="right" class="form">
+<input type='button' onclick="nationalid();" value='EmiratesID'>
+<input type='button' onclick="importinfo();" value="Import" disabled='true' id='import'>
+<script>
+function nationalid()
+{
+	window.open('http://192.168.5.61/ParsePublicData.aspx?token='+<?php echo $fname; ?>);
+	$('#import').removeAttr("disabled");
+}
+function importinfo()
+{
+	var data = JSON.stringify('eidimport');
+	$.post(
+		'<?php echo $this->createUrl("customerMaster/importinfo/existing/".$existing."/id/".$fname)?>',
+		{ data: data },
+		function(data)
+		{
+			data = data.replace('"','');
+			data = data.replace('"','');
+			location.href='http://192.168.5.134/AjmanLandProperty/index.php/CustomerMaster/view/'+data;
+		
+		});
+	
+	
+	
+	//window.open('http://192.168.5.134/AjmanLandProperty/index.php/CustomerMaster/importinfo/existing/'+'<?php echo $existing; ?>'+'/id/'+'<?php echo $fname; ?>');
+}
+</script>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'customer-master-form',
@@ -193,9 +224,46 @@ foreach($countriesT as $key=>$value)
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'اضف' : 'حفض'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'حفظ' : 'حفظ'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 
-</div><!-- form -->
+</div>
+
+
+
+
+
+
+<!-- form -->
+<!--<script>
+	
+function taggy(tag1,tag2, str)
+{
+	var n = str.search(tag1);
+	var n1 = str.search(tag2);
+	return str.substr(n+tag1.length-1,n1-n-tag1.length);
+}
+function taggy1(tag1,tag2, str)
+{
+	var n = str.search(tag1);
+	var n1 = str.search(tag2);
+	return str.substr(n+tag1.length,n1-n-tag1.length);
+}
+$("#import").click(function() {
+	
+	var str = $('#copyall').val();
+	
+	$("#CustomerMaster_CustomerNameEnglish").val(taggy1("Name","IDN",str).replace(/^\s+|\s+$/g, ''));
+	$("#CustomerMaster_CustomerNameArabic").val(taggy("(Ar)","Card Number",str).replace(/^\s+|\s+$/g, ''));
+	$('#CustomerMaster_DocumentNumber').val(taggy("IDN: ","Mother Name",str).replace(/^\s+|\s+$/g, ''));
+	$('#CustomerMaster_IssuedOn').val(taggy("Issue Date: ","Sex",str).replace(/^\s+|\s+$/g, ''));
+	$('#CustomerMaster_ExpiresOn').val(taggy("Expiry Date: ","Date of Birth",str).replace(/^\s+|\s+$/g, ''));
+	$('#CustomerMaster_DateofBirth').val(taggy("Date of Birth: ","Sponsor Name:",str).replace(/^\s+|\s+$/g, ''));
+	
+	
+	
+	
+});
+</script>-->

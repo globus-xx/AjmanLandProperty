@@ -10,4 +10,4 @@ $this->menu=array(
 
 <h1>اضافة حجز او رهن جديد</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model,'LandIDs'=>$LandIDs)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,)); ?>

@@ -283,19 +283,23 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
         
         
  var finesContent = "<table dir=rtl class=landFines>";
-//        finesContent+="<tr ><td colspan= 6>  " ;
-//        finesContent+= landTab();
-//        finesContent+="</td></tr>" ;
+
        if(typeof(Results["fines"])!="undefined"){
                 var arrayNode= Results["fines"]
                finesContent+="<tr ><td colspan='4'><strong>غرامات الارض</strong></td><td><input type=image id=addnewFine src='../images/add.png' title='add hajaz' alt='add hajaz'> &nbsp; <img src='../images/remove.png' title=remove alt=remove >&nbsp;  </td></tr>";
                finesContent+="<tr bgcolor=#C9E0ED><td>ID </td><td> ملاحظات</td><td>الكمية المرهونة </td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
+               
                for(var i = 0; i<arrayNode.length ; i++ ){
-                   
-                   if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
+                   var active; 
+                active="<img src='../images/activate.png' id=changeActive_"+arrayNode[i]["HajzID"]+" height=32 width=32 onclick=changeActive("+arrayNode[i]["HajzID"]+",'1') title='غير مفعل' alt='غير مفعل' value="+arrayNode[i]["HajzID"]+">"; 
+                   if(arrayNode[i]["IsActive"] == '1') {arrayNode[i]["IsActive"] ="Active";
+                        active="<img src='../images/dactive.png' id=changeActive_"+arrayNode[i]["HajzID"]+" height=32 width=32 onclick=changeActive("+arrayNode[i]["HajzID"]+",'0') title=مفعل alt=مفعل  value="+arrayNode[i]["HajzID"]+">";
+                    } else arrayNode[i]["IsActive"]="Not Active"
                        if(typeof(arrayNode[i]["DateCreated"]!="undefined") && arrayNode[i]["DateCreated"]!=null) arrayNode[i]["DateCreated"] = dubaiDate(arrayNode[i]["DateCreated"]); 
                              else arrayNode[i]["DateCreated"] =""
-                        finesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["HajzID"]+" onclick=removeIT("+arrayNode[i]["HajzID"]+",'fines') title=remove alt=remove value="+arrayNode[i]["HajzID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+">"+ arrayNode[i]["HajzID"]+"</td><td>"+ arrayNode[i]["Remarks"]+"</td>";
+                        finesContent+="<tr><td>"+active+"<img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["HajzID"]+" onclick=removeIT("+arrayNode[i]["HajzID"]+",'fines') title=remove alt=remove value="+arrayNode[i]["HajzID"]+">"
+                        finesContent+=" &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+">"+ arrayNode[i]["HajzID"]+"</td><td>"+ arrayNode[i]["Remarks"]+"</td>";
+                        
                         finesContent+="<td>"+ arrayNode[i]["AmountMortgaged"]+"</td>"
                         finesContent+="<td>"+ arrayNode[i]["Type"]+"("+arrayNode[i]["TypeDetail"]+")</td><td>"+arrayNode[i]["DateCreated"]+ arrayNode[i]["IsActive"]+"</td>";
                         finesContent+="</tr>";
@@ -322,11 +326,11 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                            var arrayNodeShare= Results["previous"]["deed"][j]["share"]
                            var DateCreated = arrayNodeB[j]["DateCreated"];//alert(DateCreated+"ds")
                            
-                           previousOwnersContent+="<tr class='deed' ><td onclick='showDeedCustomersTR("+arrayNodeB[j]["deed"]+")' align='right' colspan='2'><strong>رقم العقد:"+arrayNodeB[j]["deed"]+"</strong></td>";
-                           previousOwnersContent+="<td ><img onclick=updateDeed('"+arrayNodeB[j]["deed"]+"') src=../images/save.png id='"+arrayNodeB[j]["deed"]+"' />&nbsp;<input type=image alt='add owner' title='add owner' src='../images/add.png' class='addnewDeed' id='"+arrayNodeB[j]["deed"]+"'></td></tr>";
-                           previousOwnersContent+="<tr><td colspan=2><input type=text id=deedDateCreated_"+arrayNodeB[j]["deed"]+" name=deedDateCreated_"+arrayNodeB[j]["deed"]+" value="+DateCreated+" ></td>"
+                           previousOwnersContent+="<tr class='deed  previousDeed_"+arrayNodeB[j]["deed"]+"'  ><td onclick='showDeedCustomersTR("+arrayNodeB[j]["deed"]+")' align='right' colspan='2'><strong>رقم العقد:"+arrayNodeB[j]["deed"]+"</strong></td>";
+                           previousOwnersContent+="<td ><img onclick=updateDeed('"+arrayNodeB[j]["deed"]+"') src=../images/save.png id='"+arrayNodeB[j]["deed"]+"' />&nbsp;<input type=image alt='add owner' title='add owner' src='../images/add.png' class='addnewDeed' id='"+arrayNodeB[j]["deed"]+"'><img src='../images/remove.png' onclick=deletePreviousDeed('"+arrayNodeB[j]["deed"]+"','previousDeed')> </td></tr>";
+                           previousOwnersContent+="<tr class=previousDeed_"+arrayNodeB[j]["deed"]+"><td colspan=2><input type=text id=deedDateCreated_"+arrayNodeB[j]["deed"]+" name=deedDateCreated_"+arrayNodeB[j]["deed"]+" value="+DateCreated+" ></td>"
                            previousOwnersContent+="<td> <input  type=text id=deedRemarks_"+arrayNodeB[j]["deed"]+" id=deedRemarks_"+arrayNodeB[j]["deed"]+"id=deedRemarks_"+arrayNodeB[j]["deed"]+" value="+arrayNodeB[j]["Remarks"]+"></td></tr>";
-                           previousOwnersContent+="<tr><td colspan=3><table id='previous_"+arrayNodeB[j]["deed"]+"' ><tr class='"+arrayNodeB[j]["deed"]+" previousOwnerhead'><td></td><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
+                           previousOwnersContent+="<tr class=previousDeed_"+arrayNodeB[j]["deed"]+"><td colspan=3><table id='previous_"+arrayNodeB[j]["deed"]+"' ><tr class='"+arrayNodeB[j]["deed"]+" previousOwnerhead'><td></td><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
                            
                            $("#_DeedDate").datepicker({ 
                             dateFormat: "dd-mm-yy",
@@ -458,6 +462,8 @@ function removeIT(id, type){
 //          else{ debugger;if(deleteOwner(id))
       if(type=="owner")  { $("#removeWithID_"+id).closest('tr').remove(); currentOwnerArray.splice(currentOwnerArray.indexOf(id),1)}
       
+      if(type=="previousDeed")  { $(".previousDeed_"+id).remove(); }
+      
       if(type=="previous")  { $("#removeWithID_previous"+id).closest('tr').remove(); previousOwnerArray.splice(previousOwnerArray.indexOf(id),1)}
 //         }      
   }
@@ -469,7 +475,7 @@ function deleteOwner(id){
 //            var share =  $("#_share").val()
             var shareTotal = getShareTotal();
             var thisShareToDel = $("#removeWithID_"+customerID).closest('input [type=text]' ).val()
-            debugger;
+            
             if(shareTotal == 100 && thisShareToDel==0){ 
                  $.ajax({ 
                    type: "POST",
@@ -486,16 +492,19 @@ function deleteOwner(id){
   
 function deleteFines(id){
         
-        $.ajax({ 
-            type: "POST",
-            url:'DocumentMaster/DeleteFine', 
-            data: "HajzID="+id,
-            success: function(data) 
-            {
-                showMessage("تم حذف الغرامة");
-            }
-        })
-     return true
+       var r=confirm("Are you sure to delete fine??");
+        if (r==true)
+          {  $.ajax({ 
+                    type: "POST",
+                    url:'DocumentMaster/DeleteFine', 
+                    data: "HajzID="+id,
+                    success: function(data) 
+                    {
+                        showMessage("تم حذف الغرامة");
+                    }
+                })
+             return true
+     }
   }
   
 function deleteFiles(id){
@@ -654,7 +663,70 @@ var deedDateCreated = $("#deedDateCreated_"+deedID).val();
         }
 
 }
+function deletePreviousDeed(deedID){ 
+/* This method will create the array of shares of previous deed and send it to server to perform DB update*/
 
+var deedID = deedID
+ 
+ var r=confirm("Are you sure todelete the previous Deed??");
+                if (r==true)
+                  {
+                   
+                            $.ajax({ 
+                                   type: "POST",
+                                   url:'DocumentMaster/DeleteDeed', 
+                                   data:"&formData="+JSON.stringify({deedID:deedID}),
+                                   success: function(data) 
+                                   {
+                                        removeIT(deedID, "previousDeed")
+                                        showMessage("تم تعديل ملاك الارض و نسب المشاركة بنجاح","sucess");
+
+   //                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
+   //                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
+                                   }
+                        })
+                   } 
+
+
+}
+
+function changeActive(FineID,FineStatus){ 
+/* This method will change the status of fine with ID and status provided in arguments*/
+
+        $.ajax({ 
+                                   type: "POST",
+                                   url:'DocumentMaster/ChangeActive', 
+                                   data:"&formData="+JSON.stringify({FineID:FineID, FineStatus:FineStatus}),
+                                   success: function(data) 
+                                   {
+                                        
+                                        $("#changeActive_"+FineID).unbind('click');
+                                                $("#changeActive_"+FineID).removeAttr('onclick');
+                                                        if(FineStatus==0) {$("#changeActive_"+FineID).attr('src','../images/activate.png ');
+                                                            $("#changeActive_"+FineID).click(function(){
+                                                               changeActive(FineID,' 1')
+                                                            })
+                                                        }
+                                                        else {$("#changeActive_"+FineID).attr('src','../images/dactive.png');
+                                                             $("#changeActive_"+FineID).click(function(){
+                                                                 changeActive(FineID, '0')
+                                                            })
+                                                        }$("#changeActive_"+FineID).unbind('click');
+                                                $("#changeActive_"+FineID).removeAttr('onclick');
+                                                        if(FineStatus==0) {$("#changeActive_"+FineID).attr('src','../images/activate.png ');
+                                                            $("#changeActive_"+FineID).click(function(){
+                                                               changeActive(FineID,' 1')
+                                                            })
+                                                        }
+                                                        else {$("#changeActive_"+FineID).attr('src','../images/dactive.png');
+                                                             $("#changeActive_"+FineID).click(function(){
+                                                                 changeActive(FineID, '0')
+                                                            })
+                                                }
+                                        showMessage("تم تعديل ملاك الارض و نسب المشاركة بنجاح","sucess");
+                                   }
+                        })
+}
 function showMessage(messageContent, alertType, delay){
     if(delay == null || delay =="") delay = 3000;
     if(alertType == null || alertType =="") alertType =  "normal";

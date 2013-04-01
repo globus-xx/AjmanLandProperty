@@ -81,6 +81,7 @@ class LandMasterController extends Controller
 			$land->South = $landinfo->South;
 			$land->East = $landinfo->East;
 			$land->West = $landinfo->West;
+			$land->Remarks = $landinfo->Remarks;
 			$land->save();
 		
 			print CJSON::encode("saved");
@@ -140,7 +141,11 @@ class LandMasterController extends Controller
 		//	'model'=>$model,
 		));
 	}
-
+	
+	public function actionOldID()
+	{
+		$this->render('update1');
+	}
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.

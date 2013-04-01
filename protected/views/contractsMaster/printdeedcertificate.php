@@ -112,7 +112,8 @@ $how = array(
 </table>
 
 <div style="padding-top: 10px; width:18cm; margin:auto; font-family:GE SS Two Light;">
-آلت إليه&nbsp;<?php $cm = ContractsMaster::model()->findByPk($deed->ContractID); echo $how[$cm->ContractType]; ?>&nbsp;من&nbsp;&nbsp;<span id="previousowner">&nbsp;&nbsp;&nbsp;&nbsp;<?
+آلت إليه&nbsp;<?php if($cm = ContractsMaster::model()->findByPk($deed->ContractID))
+echo $how[$cm->ContractType]; ?>&nbsp;من&nbsp;&nbsp;<span id="previousowner">&nbsp;&nbsp;&nbsp;&nbsp;<?
 
 if(!$deed->PreviousOwners)
 {

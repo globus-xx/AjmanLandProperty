@@ -59,9 +59,11 @@
                 array('label'=>'الملكيات','url'=>array('/DeedMaster'),
 					'items'=>array(
 						array('label'=>'ملكية جديدة','url'=>array('/DeedMaster/create')),
+						array('label'=>'ادارة الملكيات','url'=>array('/DeedMaster/admin')),
 						array('label'=>'طباعة ملكية','url'=>array('/DeedMaster/printfrom')),
 						array('label'=>'تاريخ الطباعات','url'=>array('/DeedTracker/admin')),
 						array('label'=>'تفصيل الملكية','url'=>array('/DeedDetails/admin')),
+						array('label'=>'تدقيق السجل','url'=>array('/DocumentMaster')),
                 )),
             
                 array('label'=>'مكاتب عقارية','url'=>array('/RealEstateOffices'),
@@ -86,7 +88,7 @@
             
                 array('label'=>'أراضي','url'=>array('/LandMaster/update'),
 					'items'=>array(
-								array('label'=>'طباعة مجطط','url'=>array('/ContractsMaster/mukhattat')),
+								array('label'=>'طباعة مخطط','url'=>array('/ContractsMaster/mukhattat')),
 		)),
                 
                 array('label'=>'خدمة العملاء','url'=>array('/CustomerService'),                    
@@ -96,6 +98,8 @@
                                                                 array('label'=>'Exported Letters Management','url'=>array('/exportedletters/')),
 								
                 )),
+
+		array('label'=>'رقم سند قديم','url'=>array('/LandMaster/OldID')),
             
             	array('label'=>'دخول', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 
@@ -104,6 +108,7 @@
 		array('label'=>'خروج '.'('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
               
 			),
+		
 		)); ?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>

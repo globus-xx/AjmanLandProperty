@@ -135,12 +135,35 @@ LandResult will receive ajax-request from the view land-search and return Deed I
                			$searchCriteria = new CDbCriteria;
                			$searchCriteria->condition = 'LandID LIKE :searchstring';
                			$searchCriteria->params = array(':searchstring'=>$searchstring);
-               			$deeds = DeedMaster::model()->findAll($searchCriteria);
                			
-               			foreach($deeds as $deed)
+               			if(DeedMaster::model()->count($searchCriteria)>0)
                			{
-               				$deedIds[] = $deed->DeedID;
-           				}
+							$deeds = DeedMaster::model()->findAll($searchCriteria);
+               			
+							foreach($deeds as $deed)
+							{
+								$deedIds[] = $deed->DeedID;
+							}
+						}
+						else
+						{
+							$searchCriteria = new CDbCriteria;
+							$searchCriteria->condition = 'Remarks LIKE :searchstring';
+							$searchCriteria->params = array(':searchstring'=>$searchstring);
+							$LandID = LandMaster::model()->findAll($searchCriteria);
+							
+							$searchCriteria = new CDbCriteria;
+							$searchCriteria->condition = 'LandID LIKE :searchstring';
+							$searchCriteria->params = array(':searchstring'=>$LandID[0]->LandID);
+							
+							$deeds = DeedMaster::model()->findAll($searchCriteria);
+               			
+							foreach($deeds as $deed)
+							{
+								$deedIds[] = $deed->DeedID;
+							}
+						}
+						
            			}
                     
                     
@@ -210,7 +233,8 @@ LandResult will receive ajax-request from the view land-search and return Deed I
 		
 			$city = array('1'=>'عجمان','2'=>'المنامة','3'=>'مصفوت');	
 			$qita = array('01'=>'الزوراء ','02'=>'قطاع مركز المدينة ','03'=>'القطاع الشمالي ','04'=>'القطاع الاوسط ','05'=>'القطاع الجنوبي ','06'=>'القطاع الشرقي ','07'=>'قطاع المنامة ','08'=>'قطاع مصفوت ');
-			$hayi = array('01'=>'الزراء', '02'=>'الراشدية 1', '03'=>'الراشدية 2', '04'=>'الراشدية 3', '05'=>'الرميلة 1', '06'=>'الرميلة 2', '07'=>'الرميلة 3', '08'=>'الصفيا ', '09'=>'النخيل 1', '10'=>'النخيل 2', '11'=>'النعيمة 1', '12'=>'النعيمية 2', '13'=>'النعيمية 3', '14'=>'ليوارة 1', '15'=>'ليوارة 2', '16'=>'مشيرف ', '17'=>'الباهية ', '18'=>'الجرف الصناعية 1', '19'=>'الجرف الصناعية 2', '20'=>'الجرف الصناعية 3', '21'=>'الجرف 1', '22'=>'الجرف 2', '23'=>'الحميدية 1', '24'=>'الحميدية 2', '25'=>'الرقايب 1', '26'=>'الرقايب 2', '27'=>'العالية ', '28'=>'التلة 1', '29'=>'التلة 2', '30'=>'الروضة 1', '31'=>'الروضة 2', '32'=>'الروضة 3 ', '33'=>'المنتزي 1', '34'=>'المنتزي 2', '35'=>'المويهات 1', '36'=>'المويهات 2', '37'=>'المويهات 3', '38'=>'عجمان الصناعية 1', '39'=>'عجمان الصناعية 2', '40'=>'الحليو 1', '41'=>'الحليو 2', '42'=>'الزاهية ', '43'=>'العامرة ', '44'=>'الياسمين ', '45'=>'المنامة 1', '46'=>'المنامة 2', '47'=>'المنامة 3', '48'=>'المنامة 4', '49'=>'المنامة 5', '50'=>'المنامة 6', '51'=>'المنامة 7', '52'=>'المنامة 8', '53'=>'المنامة 9', '54'=>'المنامة 10', '55'=>'المنامة 11', '56'=>'المنامة 12', '57'=>'المنامة 13', '58'=>'المنامة 14', '59'=>'المنامة 15', '60'=>'المنامة 16', '61'=>'المنامة 17', '62'=>'مصفوت 15', '63'=>'مصفوت 14', '64'=>'مصفوت 13', '65'=>'مصفوت 12', '66'=>'مصفوت 11', '67'=>'مصفوت 10', '68'=>'مصفوت 9', '69'=>'مصفوت 8', '70'=>'مصفوت 7', '71'=>'مصفوت 6', '72'=>'مصفوت 5', '73'=>'مصفوت 4', '74'=>'مصفوت 3', '75'=>'مصفوت 2', '76'=>'مصفوت 1',);
+			$hayi = array('01'=>'الزراء', '02'=>'الراشدية 1', '03'=>'الراشدية 2', '04'=>'الراشدية 3', '05'=>'الرميلة 1', '06'=>'الرميلة 2', '07'=>'الرميلة 3', '08'=>'الصفيا ', '09'=>'النخيل 1', '10'=>'النخيل 2', '11'=>'النعيمية 1', '12'=>'النعيمية 2', '13'=>'النعيمية 3', '14'=>'ليوارة 1', '15'=>'ليوارة 2', '16'=>'مشيرف ', '17'=>'الباهية ', '18'=>'الجرف الصناعية 1', '19'=>'الجرف الصناعية 2', '20'=>'الجرف الصناعية 3', '21'=>'الجرف 1', '22'=>'الجرف 2', '23'=>'الحميدية 1', '24'=>'الحميدية 2', '25'=>'الرقايب 1', '26'=>'الرقايب 2', '27'=>'العالية ', '28'=>'التلة 1', '29'=>'التلة 2', '30'=>'الروضة 1', '31'=>'الروضة 2', '32'=>'الروضة 3 ', '33'=>'المنتزي 1', '34'=>'المنتزي 2', '35'=>'المويهات 1', '36'=>'المويهات 2', '37'=>'المويهات 3', '38'=>'عجمان الصناعية 1', '39'=>'عجمان الصناعية 2', '40'=>'الحليو 1', '41'=>'الحليو 2', '42'=>'الزاهية ', '43'=>'العامرة ', '44'=>'الياسمين ', '45'=>'المنامة 15', '46'=>'المنامة 14', '47'=>'المنامة 17', '48'=>'المنامة 12', '49'=>'المنامة 11', '50'=>'المنامة 13', '51'=>'المنامة 10', '52'=>'المنامة 7', '53'=>'المنامة 8', '54'=>'المنامة 9', '55'=>'المنامة 6', '56'=>'المنامة 16', '57'=>'المنامة 1', '58'=>'المنامة 5', '59'=>'المنامة 4', '60'=>'المنامة 2', '61'=>'المنامة 3', '62'=>'مصفوت 14', '63'=>'مصفوت 12', '64'=>'مصفوت 9', '65'=>'مصفوت 11', '66'=>'مصفوت 6', '67'=>'مصفوت 15', '68'=>'مصفوت 10', '69'=>'مصفوت 13', '70'=>'مصفوت 5', '71'=>'مصفوت 4', '72'=>'مصفوت 3', '73'=>'مصفوت 8', '74'=>'مصفوت 7', '75'=>'مصفوت 2', '76'=>'مصفوت 1',);				
+			//$hayi = array('01'=>'الزراء', '02'=>'الراشدية 1', '03'=>'الراشدية 2', '04'=>'الراشدية 3', '05'=>'الرميلة 1', '06'=>'الرميلة 2', '07'=>'الرميلة 3', '08'=>'الصفيا ', '09'=>'النخيل 1', '10'=>'النخيل 2', '11'=>'النعيمة 1', '12'=>'النعيمية 2', '13'=>'النعيمية 3', '14'=>'ليوارة 1', '15'=>'ليوارة 2', '16'=>'مشيرف ', '17'=>'الباهية ', '18'=>'الجرف الصناعية 1', '19'=>'الجرف الصناعية 2', '20'=>'الجرف الصناعية 3', '21'=>'الجرف 1', '22'=>'الجرف 2', '23'=>'الحميدية 1', '24'=>'الحميدية 2', '25'=>'الرقايب 1', '26'=>'الرقايب 2', '27'=>'العالية ', '28'=>'التلة 1', '29'=>'التلة 2', '30'=>'الروضة 1', '31'=>'الروضة 2', '32'=>'الروضة 3 ', '33'=>'المنتزي 1', '34'=>'المنتزي 2', '35'=>'المويهات 1', '36'=>'المويهات 2', '37'=>'المويهات 3', '38'=>'عجمان الصناعية 1', '39'=>'عجمان الصناعية 2', '40'=>'الحليو 1', '41'=>'الحليو 2', '42'=>'الزاهية ', '43'=>'العامرة ', '44'=>'الياسمين ', '45'=>'المنامة 1', '46'=>'المنامة 2', '47'=>'المنامة 3', '48'=>'المنامة 4', '49'=>'المنامة 5', '50'=>'المنامة 6', '51'=>'المنامة 7', '52'=>'المنامة 8', '53'=>'المنامة 9', '54'=>'المنامة 10', '55'=>'المنامة 11', '56'=>'المنامة 12', '57'=>'المنامة 13', '58'=>'المنامة 14', '59'=>'المنامة 15', '60'=>'المنامة 16', '61'=>'المنامة 17', '62'=>'مصفوت 15', '63'=>'مصفوت 14', '64'=>'مصفوت 13', '65'=>'مصفوت 12', '66'=>'مصفوت 11', '67'=>'مصفوت 10', '68'=>'مصفوت 9', '69'=>'مصفوت 8', '70'=>'مصفوت 7', '71'=>'مصفوت 6', '72'=>'مصفوت 5', '73'=>'مصفوت 4', '74'=>'مصفوت 3', '75'=>'مصفوت 2', '76'=>'مصفوت 1',);
 			
             $result = new StdClass;
             $result->error = 1;
@@ -266,7 +290,13 @@ LandResult will receive ajax-request from the view land-search and return Deed I
 								$contractMaster->LandID = $deedMaster->LandID;
 								
                             $contractMaster->DateCreated = date("d-m-Y");
-                            $contractMaster->UserID = Yii::app()->User->ID;
+
+			    $q = "SELECT firstname FROM profiles WHERE user_id=".Yii::app()->User->ID;
+							$command = Yii::app()->db->createCommand($q);
+							$r = $command->queryColumn();	
+							$contractMaster->UserID = $r[0];				
+
+//                            $contractMaster->UserID = Yii::app()->User->ID;
                             $contractMaster->ContractType = $data->contractype;
                             $contractMaster->DeedID = $deedMaster->DeedID;
                             $contractMaster->SchemeID = $deedMaster->SchemeID;
@@ -277,6 +307,7 @@ LandResult will receive ajax-request from the view land-search and return Deed I
 							else
 								$contractMaster->Fee = intval($data->feeamount) + 250;
                             $contractMaster->Remarks = $data->Remarks;
+                            $contractMaster->InvoiceNo = $data->InvoiceNo;
                             
                             if($contractMaster->save())
                             {
@@ -542,13 +573,38 @@ LandResult will receive ajax-request from the view land-search and return Deed I
 	{
 		$res3 = array();
 		
+		$keyword = $_GET["term"];
+		
 		if (isset($_GET['term'])) {
-			$qtxt = 'SELECT CustomerNameArabic from CustomerMaster WHERE CustomerNameArabic LIKE :name';
+			
+			if ($keyword != '') {
+				$keyword = @$keyword;
+				$keyword = str_replace('\"', '"', $keyword);
+
+				$obj = new ArQuery();
+				$obj->setStrFields('CustomerNameArabic');
+				$obj->setMode(1);
+
+				$strCondition = $obj->getWhereCondition($keyword);
+			}
+			
+			$qtxt = 'SELECT CustomerNameArabic from CustomerMaster WHERE '.$strCondition;
 			$command = Yii::app()->db->createCommand($qtxt);
 			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
 			$res1 = $command->queryColumn();
 			
-			$qtxt = 'SELECT Name from RealEstatePeople WHERE Name LIKE :name';
+			if ($keyword != '') {
+				$keyword = @$keyword;
+				$keyword = str_replace('\"', '"', $keyword);
+
+				$obj = new ArQuery();
+				$obj->setStrFields('Name');
+				$obj->setMode(1);
+
+				$strCondition = $obj->getWhereCondition($keyword);
+			}
+			
+			$qtxt = 'SELECT Name from RealEstatePeople WHERE '.$strCondition;
 			$command = Yii::app()->db->createCommand($qtxt);
 			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
 			$res2 = $command->queryColumn();
@@ -563,9 +619,22 @@ LandResult will receive ajax-request from the view land-search and return Deed I
 			
 	public function actionauto()
 	{
+		$keyword = $_GET["term"];
 		
 		if (isset($_GET['term'])) {
-			$qtxt = 'SELECT CustomerNameArabic from CustomerMaster WHERE CustomerNameArabic LIKE :name';
+			
+			if ($keyword != '') {
+				$keyword = @$keyword;
+				$keyword = str_replace('\"', '"', $keyword);
+
+				$obj = new ArQuery();
+				$obj->setStrFields('CustomerNameArabic');
+				$obj->setMode(1);
+
+				$strCondition = $obj->getWhereCondition($keyword);
+			}
+			
+			$qtxt = 'SELECT CustomerNameArabic from CustomerMaster WHERE '.$strCondition;
 			$command = Yii::app()->db->createCommand($qtxt);
 			$command->bindValue(':name','%'.$_GET['term'].'%',PDO::PARAM_STR);
 			
@@ -749,7 +818,149 @@ public function actionCreate()
 		$dm = DeedMaster::model()->findByPk($id);
 		$cnt = DeedDetails::model()->count('DeedID LIKE :id', array(':id'=>$id));
 		
-		$this->renderpartial('mukhattat',array('deed'=>$dm,'cnt'=>$cnt));
+		$ky = '!GIS_LaPD@2013!&&!GIS_LaPD@2013!'; // 32 * 8 = 256 bit key
+		$iv = '!LaPD_GIS@2013!&&!LaPD_GIS@2013!'; // 32 * 8 = 256 bit iv
+			
+		function decryptRJ256($key,$iv,$string_to_decrypt)
+		{
+
+			$string_to_decrypt = base64_decode($string_to_decrypt);
+			$rtn = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $string_to_decrypt, MCRYPT_MODE_CBC, $iv);
+			$rtn = rtrim($rtn, "\0\4");
+			return($rtn);
+		}
+
+
+		function encryptRJ256($key,$iv,$string_to_encrypt)
+		{
+
+			$rtn = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $string_to_encrypt, MCRYPT_MODE_CBC, $iv);
+			$rtn = base64_encode($rtn);
+			return($rtn);
+		}
+			
+		$date = date('Y-m-d G:i:s');
+		$enctext = 'omarosh|'.$date.'|'.$dm->LandID;
+		$enc = encryptRJ256($ky,$iv,$enctext);
+		$link = 'http://172.20.10.12/LPDWebService/?Token='.$enc;
+		
+		$xml = file_get_contents($link);
+		//$eida = file_get_contents('http://192.168.5.61/ParsePublicData.aspx');
+		
+		foreach ($http_response_header as $header)
+		{   
+			if (preg_match('#^Content-Type: text/xml; charset=(.*)#i', $header, $m))
+			{   
+				switch (strtolower($m[1]))
+				{   
+					case 'utf-8':
+						// do nothing
+						break;
+
+					case 'iso-8859-1':
+					{	$xml = utf8_encode($xml);
+						//$eida = utf8_encode($eida);
+						break;
+					}
+					default:
+					{	$xml = iconv($m[1], 'utf-8', $xml);
+						//$eida = iconv($m[1], 'utf-8', $eida);
+					}	
+						
+				}
+			break;
+			}	
+		}
+	
+	   function out($xm,$tag)
+	   {
+		   $tag1 = '<'.$tag.'>';
+		   $tag2 = '</'.$tag.'>';
+		   $s = strpos($xm,$tag1);
+		   $j = strpos($xm,$tag2);
+		   $out = substr($xm,$s+strlen($tag1),$j-$s-strlen($tag2)+1);
+		   return $out;
+		}
+		
+		$sector = out($xml,'Sector');
+		$district = out($xml,'District');
+		$parcel = out($xml, 'Parcel');
+		
+		$this->renderpartial('mukhattat',array('deed'=>$dm,'cnt'=>$cnt,'sector'=>$sector,'district'=>$district,'parcel'=>$parcel,'link'=>$link));
+	
+	}
+	
+	public function actionprintmukhattatnogis($id)
+	{
+		$dm = DeedMaster::model()->findByPk($id);
+		$cnt = DeedDetails::model()->count('DeedID LIKE :id', array(':id'=>$id));
+		
+		/*$ky = '!GIS_LaPD@2013!&&!GIS_LaPD@2013!'; // 32 * 8 = 256 bit key
+		$iv = '!LaPD_GIS@2013!&&!LaPD_GIS@2013!'; // 32 * 8 = 256 bit iv
+			
+		function decryptRJ256($key,$iv,$string_to_decrypt)
+		{
+
+			$string_to_decrypt = base64_decode($string_to_decrypt);
+			$rtn = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $string_to_decrypt, MCRYPT_MODE_CBC, $iv);
+			$rtn = rtrim($rtn, "\0\4");
+			return($rtn);
+		}
+
+
+		function encryptRJ256($key,$iv,$string_to_encrypt)
+		{
+
+			$rtn = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $string_to_encrypt, MCRYPT_MODE_CBC, $iv);
+			$rtn = base64_encode($rtn);
+			return($rtn);
+		}
+			
+		$date = date('Y-m-d G:i:s');
+		$enctext = 'omarosh|'.$date.'|'.$dm->LandID;
+		$enc = encryptRJ256($ky,$iv,$enctext);
+		$link = 'http://172.20.10.12/LPDWebService/?Token='.$enc;
+		
+		$xml = file_get_contents($link) || die("couldn't open file");
+	
+		foreach ($http_response_header as $header)
+		{   
+			if (preg_match('#^Content-Type: text/xml; charset=(.*)#i', $header, $m))
+			{   
+				switch (strtolower($m[1]))
+				{   
+					case 'utf-8':
+						// do nothing
+						break;
+
+					case 'iso-8859-1':
+						$xml = utf8_encode($xml);
+						break;
+
+					default:
+						$xml = iconv($m[1], 'utf-8', $xml);
+						
+				}
+			break;
+			}	
+		}
+	
+	   function out($xm,$tag)
+	   {
+		   $tag1 = '<'.$tag.'>';
+		   $tag2 = '</'.$tag.'>';
+		   $s = strpos($xm,$tag1);
+		   $j = strpos($xm,$tag2);
+		   $out = substr($xm,$s+strlen($tag1),$j-$s-strlen($tag2)+1);
+		   return $out;
+		}
+		
+		$sector = out($xml,'Sector');
+		$district = out($xml,'District');
+		$parcel = out($xml, 'Parcel');*/
+		
+		$this->renderpartial('mukhattatnogis',array('deed'=>$dm,'cnt'=>$cnt,));
+	
 	}
 	
 	public function actionsavedeedcertificate()
