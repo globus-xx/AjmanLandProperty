@@ -26,11 +26,11 @@ class CustomerServiceController extends Controller
         return array(
                         array('allow',
                             'actions' => array('ws','search'),
-                            'ips' => array('127.0.0.1'),// here we should put the ip of the other miniplicity
+                       //     'ips' => array('127.0.0.1'),// here we should put the ip of the other miniplicity
                         ),
                         array('deny',
                             'actions' => array('ws'),
-                            'ips' => array('*'),
+                         //   'ips' => array('*'),
                         ),
                         
             
@@ -41,7 +41,7 @@ class CustomerServiceController extends Controller
                         
                        array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('Search'),
-				'ips'=>array('127.0.0.1'),
+			//	'ips'=>array('127.0.0.1'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('index'),
@@ -114,9 +114,15 @@ class CustomerServiceController extends Controller
 //                            }
 		}
 		print CJSON::encode($res);
-        }       
+        }   
+        
+        
+        
+        /**
+         * action for autocomplete will do DB search for Customers and Lands
+         */
         public function actionCustomerSearch()
-	{// for autocomplete will do DB search for Customers and Lands
+	{
 		
 		if (isset($_GET['term'])) { // first search that 
                 // if user arabic name 
@@ -179,7 +185,10 @@ class CustomerServiceController extends Controller
 	
 
     
-    
+    /*
+     * action that implement the customer service search for specific customer , land id , customer number and also return data to WS action which is 
+     * responsible on webservice calls 
+     */
 	public function actionSearch() 
 	{   
             
@@ -199,7 +208,7 @@ class CustomerServiceController extends Controller
                     
                     
                     
-                       // emad code update
+                       
                                 // receive the webservice post variables
                                 if (!isset($_REQUEST['returnType']))
                                 {
@@ -208,13 +217,6 @@ class CustomerServiceController extends Controller
                                 else
                                     $postreturn=$_REQUEST['returnType'];
                                 
-                                
-//                                 if (!isset($_REQUEST['retured']))
-//                                {
-//                                    $returntype="";
-//                                }
-//                                else
-//                                    $returntype=$_REQUEST['retured'];
                                 
                                 
                                
@@ -227,17 +229,12 @@ class CustomerServiceController extends Controller
                                 $searchstring = $stringToexplode[0];
                                 else
                                     $searchstring=$_REQUEST["string"];
-//                               //$stringvarify=explode("<-->",$searchstring);
-//                               //print $stringvarify[0];
-////                               if($stringvarify)
-                               $keyword = $_REQUEST["string"];
+                                    $keyword = $_REQUEST["string"];
 
-                               $searchCriteria=new CDbCriteria;
-//                             $searchCriteria->condition = 'CustomerNameArabic LIKE :searchstring OR CustomerID LIKE :searchstring OR MobilePhone LIKE :searchstring OR Nationality LIKE :searchstring AND CustomerNameArabic <> "" AND CustomerNameArabic IS NOT NULL ';
-                             
+                               $searchCriteria=new CDbCriteria;    
                                
 
-                               // the new library                                                                                                                    
+                               //  new library  for searching  special character in arabic                                                                                                                 
                                if (isset($_REQUEST['string'])) 
                                if ($keyword != '') {
                                     $keyword = @$_REQUEST['string'];
@@ -287,16 +284,29 @@ class CustomerServiceController extends Controller
                                            }
                                        
                                       
-                                      
+                                      // ======   webservice code - adding data to array that will be returned to call from webservice
+                                           
+                                       if($postreturn=='ws')
+                                       {    
                                        foreach ($lands as $did) 
-                                       {                                                                                                    
+                                       {          
+										        if($did->LandID!=""){$landws["landfeatures"]["LandID"]  = $did->LandID; }else  $landws["landfeatures"]["LandID"]  =" ";  
+                                                if($did->LocationID!=""){$landws["landfeatures"]["LocationID"]  = $did->LocationID; }else  $landws["landfeatures"]["LocationID"]  =" ";                                                 
+                                                if($did->Plot_No!=""){$landws["landfeatures"]["Plot_No"]  = $did->Plot_No; }else  $landws["landfeatures"]["Plot_No"]  =" ";                                                 
                                                 if($did->Piece!=""){$landws["landfeatures"]["Piece"]  = $did->Piece; }else  $landws["landfeatures"]["Piece"]  =" ";  
-                                                if($did->location!=""){$landws["landfeatures"]["location"]  = $did->location;Piece; }else  $landws["landfeatures"]["location"]  =" ";                                                                                                                                            
+                                                if($did->location!=""){$landws["landfeatures"]["location"]  = $did->location; }else  $landws["landfeatures"]["location"]  =" ";                                                                                                                                            
                                                 if($did->Land_Type!=""){$landws["landfeatures"]["Land_Type"]  = $did->Land_Type; }else  $landws["landfeatures"]["Land_Type"]  =" ";  
                                                 if($did->TotalArea!=""){$landws["landfeatures"]["TotalArea"]  = $did->TotalArea; }else  $landws["landfeatures"]["TotalArea"]  =" ";                                                  
+                                                if($did->length!=""){$landws["landfeatures"]["length"]  = $did->length; }else  $landws["landfeatures"]["length"]  =" ";                                                                                                                                                 
                                                 if($did->width!=""){$landws["landfeatures"]["width"]  = $did->width; }else  $landws["landfeatures"]["width"]  =" ";                                                                                                 
+                                                if($did->AreaUnit!=""){$landws["landfeatures"]["AreaUnit"]  = $did->AreaUnit; }else  $landws["landfeatures"]["AreaUnit"]  =" ";                                                                                                 
+                                                if($did->Remarks!=""){$landws["landfeatures"]["Remarks"]  = $did->Remarks; }else  $landws["landfeatures"]["Remarks"]  =" ";                                                                                                 
+                                                if($did->North!=""){$landws["landfeatures"]["North"]  = $did->North; }else  $landws["landfeatures"]["North"]  =" ";                                                                                                 
+                                                if($did->South!=""){$landws["landfeatures"]["South"]  = $did->South; }else  $landws["landfeatures"]["South"]  =" ";                                                                                                 
+                                                if($did->East!=""){$landws["landfeatures"]["East"]  = $did->East; }else  $landws["landfeatures"]["East"]  =" ";                                                                                                 
+                                                if($did->West!=""){$landws["landfeatures"]["West"]  = $did->West; }else  $landws["landfeatures"]["West"]  =" ";                                                                                                                                                                                                 
                                        }
-                                     
+                                       }
                                       
                                        
                                        $landDetails["landInfo"] = $lands[0];
@@ -317,6 +327,7 @@ class CustomerServiceController extends Controller
 
                                     foreach ($deedDetails as $key=>$cid) {
                                          $_cids[] = $cid->CustomerID;
+                                         
                                          $_share[$cid->CustomerID]["sharePercentage"] = $cid->Share;
                                          $_share[$cid->CustomerID]["shareDeedDetaisID"] = $cid->DeedDetailsID;                                         
                                          }
@@ -331,22 +342,76 @@ class CustomerServiceController extends Controller
                                        else
                                        {
                                        $searchCriteria=new CDbCriteria;
-                                       $searchCriteria->select="CustomerNameArabic,CustomerType,HomePhone,MobilePhone";
+                                       $searchCriteria->select="CustomerID,CustomerNameArabic,CustomerNameEnglish,MobilePhone,DateofBirth,Nationality,DocumentType,DocumentNumber,CustomerType";
                                        $searchCriteria->addInCondition("customerID", $_cids);
                                        $customersdata = CustomerMaster::model()->findAll($searchCriteria); 
+                                       
                                                                               
                                        $i=1;
-                                        foreach($customersdata as $row)
+                                      
+                                      
+                                      
+                                     foreach($customersdata as $row)
                                        {                                                                                     
                                            if($row->CustomerNameArabic!="")
                                                {
-                                               $customersws["customers"]["customer".$i]=$row->CustomerNameArabic;
-                                               if($row->HomePhone!="")
-                                               $customersws["customers"]["phonenumber"]=$row->HomePhone;   
-                                               else
-                                               $customersws["customers"]["phonenumber"]=" ";    
+                                               $customersws["currentcustomers"]["customer".$i]["CustomerNameArabic"]=$row->CustomerNameArabic;                                                
                                                }
-                                           else  $customersws["customers"]["customer".$i]  =" ";
+                                           else  $customersws["currentcustomers"]["customer".$i]["CustomerNameArabic"] =" ";
+                                           
+                                           
+                                            if($row->CustomerNameEnglish!="")
+                                               {
+                                               $customersws["currentcustomers"]["customer".$i]["CustomerNameEnglish"]=$row->CustomerNameEnglish;                                                
+                                               }
+                                           else  $customersws["currentcustomers"]["customer".$i]["CustomerNameEnglish"]  =" ";
+                                           
+                                            if($row->MobilePhone!="")
+                                               {
+                                               $customersws["currentcustomers"]["customer".$i]["MobilePhone"]=$row->MobilePhone;                                                
+                                               }
+                                           else  $customersws["currentcustomers"]["customer".$i]["MobilePhone"]  =" ";
+                                             
+                                               
+                                            if($row->DateofBirth!="")
+                                               {
+                                               $customersws["currentcustomers"]["customer".$i]["DateofBirth"]=$row->DateofBirth;                                                
+                                               }
+                                           else  $customersws["currentcustomers"]["customer".$i]["DateofBirth"]  =" ";
+                                            
+                                            if($row->Nationality!="")
+                                               {
+                                               $customersws["currentcustomers"]["customer".$i]["Nationality"]=$row->Nationality;                                                
+                                               }
+                                           else  $customersws["currentcustomers"]["customer".$i]["Nationality"]  =" ";
+                                               
+                                           
+                                            if($row->DocumentType!="")
+                                               {
+                                               $customersws["currentcustomers"]["customer".$i]["DocumentType"]=$row->DocumentType;                                                
+                                               }
+                                           else  $customersws["currentcustomers"]["customer".$i]["DocumentType"]  =" ";
+                                           
+                                           
+                                           
+                                            if($row->DocumentNumber!="")
+                                               {
+                                               $customersws["currentcustomers"]["customer".$i]["DocumentNumber"]=$row->DocumentNumber;                                                
+                                               }
+                                           else  $customersws["currentcustomers"]["customer".$i]["DocumentNumber"]  =" ";
+                                           
+                                           
+                                          
+                                            
+                                            if($_share[$row->CustomerID]["sharePercentage"]!="")
+                                               {
+                                               $customersws["currentcustomers"]["customer".$i]["Share"]=$_share[$row->CustomerID]["sharePercentage"];                                                
+                                               }
+                                           else  $customersws["currentcustomers"]["customer".$i]["Share"]  =" ";
+                                           
+                                             
+                                           
+                                               
                                            $i++;
                                        }
                                        
@@ -381,6 +446,75 @@ class CustomerServiceController extends Controller
                                             $searchCriteria->addInCondition("customerID", $_cidsPrevious);
                                             $landDetails["previous"]["deed"][$key]["customers"] = CustomerMaster::model()->findAll($searchCriteria);
                                             $landDetails["previous"]["deed"][$key]["share"] = $_sharePreviousCustomer;
+                                        
+                                       
+                                          // ======   webservice code - adding data to array that will be returned to call from webservice
+                                           
+                                       if($postreturn=='ws')
+                                       {   
+                                      $i=1;    
+                                          foreach($landDetails["previous"]["deed"][$key]["customers"] as $row)
+                                       {                                                                                     
+                                           if($row->CustomerNameArabic!="")
+                                               {
+                                               $customersws["previouscustomers"]["customer".$i]["CustomerNameArabic"]=$row->CustomerNameArabic;                                                
+                                               }
+                                           else  $customersws["previouscustomers"]["customer".$i]["CustomerNameArabic"] =" ";
+                                           
+                                           
+                                            if($row->CustomerNameEnglish!="")
+                                               {
+                                               $customersws["previouscustomers"]["customer".$i]["CustomerNameEnglish"]=$row->CustomerNameEnglish;                                                
+                                               }
+                                           else  $customersws["previouscustomers"]["customer".$i]["CustomerNameEnglish"]  =" ";
+                                           
+                                            if($row->MobilePhone!="")
+                                               {
+                                               $customersws["previouscustomers"]["customer".$i]["MobilePhone"]=$row->MobilePhone;                                                
+                                               }
+                                           else  $customersws["previouscustomers"]["customer".$i]["MobilePhone"]  =" ";
+                                             
+                                               
+                                            if($row->DateofBirth!="")
+                                               {
+                                               $customersws["previouscustomers"]["customer".$i]["DateofBirth"]=$row->DateofBirth;                                                
+                                               }
+                                           else  $customersws["previouscustomers"]["customer".$i]["DateofBirth"]  =" ";
+                                            
+                                            if($row->Nationality!="")
+                                               {
+                                               $customersws["previouscustomers"]["customer".$i]["Nationality"]=$row->Nationality;                                                
+                                               }
+                                           else  $customersws["previouscustomers"]["customer".$i]["Nationality"]  =" ";
+                                               
+                                           
+                                            if($row->DocumentType!="")
+                                               {
+                                               $customersws["previouscustomers"]["customer".$i]["DocumentType"]=$row->DocumentType;                                                
+                                               }
+                                           else  $customersws["previouscustomers"]["customer".$i]["DocumentType"]  =" ";
+                                           
+                                           
+                                           
+                                            if($row->DocumentNumber!="")
+                                               {
+                                               $customersws["previouscustomers"]["customer".$i]["DocumentNumber"]=$row->DocumentNumber;                                                
+                                               }
+                                           else  $customersws["previouscustomers"]["customer".$i]["DocumentNumber"]  =" ";
+                                           
+                                           
+                                        
+                                            if($_sharePreviousCustomer[$row->CustomerID]["sharePercentage"]!="")
+                                               {
+                                               $customersws["previouscustomers"]["customer".$i]["Share"]=$_sharePreviousCustomer[$row->CustomerID]["sharePercentage"];                                                
+                                               }
+                                           else  $customersws["previouscustomers"]["customer".$i]["Share"]  =" ";
+                                    
+                                               
+                                           $i++;
+                                       }
+                                       }
+                                       
                                             
                                             }
                                    }
@@ -388,28 +522,96 @@ class CustomerServiceController extends Controller
                                       $fines = HajzMaster::model()->findAllByAttributes(array("LandID"=>$searchstring, "IsActive"=>"1"));
                                       $landDetails["fines"] = $fines;
                                       
+                                         
                                       
+                                      // ======   webservice code - adding data to array that will be returned to call from webservice
+                                           
+                                       if($postreturn=='ws')
+                                       {   
+                                       foreach($fines as $row)
+                                       {  										   
+										 
+                                         
+                                          if($row->LandID!="")                                                                                                                             
+                                          $landws["landfines"]["LandID"]=$row->LandID;
+                                          else
+                                          $landws["landfines"]["LandID"]="";
+                                          
+                                          if($row->SchemeID!="")                                                                                                                             
+                                          $landws["landfines"]["SchemeID"]=$row->SchemeID;
+                                          else
+                                          $landws["landfines"]["SchemeID"]="";
+                                          
+                                          if($row->DeedID!="")                                                                                                                             
+                                          $landws["landfines"]["DeedID"]=$row->DeedID;
+                                          else
+                                          $landws["landfines"]["DeedID"]="";
+                                          
+                                          if($row->Remarks!="")                                                                                                                             
+                                          $landws["landfines"]["Remarks"]=$row->Remarks;
+                                          else
+                                          $landws["landfines"]["Remarks"]="";
+                                          
+                                          if($row->Type!="")                                                                                                                             
+                                          $landws["landfines"]["Type"]=$row->Type;
+                                          else
+                                          $landws["landfines"]["Type"]="";
+                                          
+                                          if($row->TypeDetail!="")                                                                                                                             
+                                          $landws["landfines"]["TypeDetail"]=$row->TypeDetail;
+                                          else
+                                          $landws["landfines"]["TypeDetail"]="";
+                                          
+                                          if($row->DocsCreated!="")                                                                                                                             
+                                          $landws["landfines"]["DocsCreated"]=$row->DocsCreated;
+                                          else
+                                          $landws["landfines"]["DocsCreated"]="";
+                                          
+                                          if($row->UserIDcreated!="")                                                                                                                             
+                                          $landws["landfines"]["UserIDcreated"]=$row->UserIDcreated;
+                                          else
+                                          $landws["landfines"]["UserIDcreated"]="";
+                                          
+                                          if($row->DateCreated!="")                                                                                                                             
+                                          $landws["landfines"]["DateCreated"]=$row->DateCreated;
+                                          else
+                                          $landws["landfines"]["DateCreated"]="";
+                                          
+                                          if($row->AmountMortgaged!="")                                                                                                                             
+                                          $landws["landfines"]["AmountMortgaged"]=$row->AmountMortgaged;
+                                          else
+                                          $landws["landfines"]["AmountMortgaged"]="";
+                                          
+                                          if($row->PeriodofTime!="")                                                                                                                             
+                                          $landws["landfines"]["PeriodofTime"]=$row->PeriodofTime;
+                                          else
+                                          $landws["landfines"]["PeriodofTime"]="";
+                                          
+                                          if($row->UserIDended!="")                                                                                                                             
+                                          $landws["landfines"]["UserIDended"]=$row->UserIDended;
+                                          else
+                                          $landws["landfines"]["UserIDended"]="";
+                                          
+                                          if($row->DateEnded!="")                                                                                                                             
+                                          $landws["landfines"]["DateEnded"]=$row->DateEnded;
+                                          else
+                                          $landws["landfines"]["DateEnded"]="";
+                                          
+                                          if($row->DocsEnded!="")                                                                                                                             
+                                          $landws["landfines"]["DocsEnded"]=$row->DocsEnded;
+                                          else
+                                          $landws["landfines"]["DocsEnded"]="";
+                                       }
+                                       }
+                                       
                                       
-                                      
-                                       // emad code update
-                                      
-                                      // return the results as the type required
-                                      
+                                      // ======   webservice code - adding data to array that will be returned to call from webservice                              
                                       if($postreturn=='ws')
                                        {                   
                                            $rightinput["status"]="true";
                                            return array_merge($landws,$customersws,$rightinput) ;                                                                                                                           
-                                       }                                                                           
-//                                       else if($postreturn=='ws'&&$returntype=='2')
-//                                       {                                        
-//                                          print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["fines"])    ); 
-//                                       }
-//                                       else if($postreturn=='ws'&&$returntype=='3')
-//                                       {                                         
-//                                           print CJSON::encode(   array_merge($landDetails["landws"],$landDetails["current"]["share"])    );
-//                                       }                                          
-                                       else
-                                           //  =====================================================  
+                                       }                                                                                                                                                   
+                                       else                                            
                                        print CJSON::encode($landDetails);
                                        
                                        
@@ -513,48 +715,49 @@ class CustomerServiceController extends Controller
 	}
 
         
-        
+        /**
+         * This action will receive the encrypted code and after that decrypt this code and get the land id from it
+         * now we use this land id for searching in the other Search action  and print the result in the landResults view 
+         * @return string
+         */
          public function actionWS()
-	 {     
-             // This action will receive the encrypted code and after that decrypt this code and get the land id from it 
-             // now we use this land id for searching in the other Search action  and print the result in the landResults view                           
+	 {                                       
              $ky = '!GIS_LaPD@2013!&&!GIS_LaPD@2013!'; // 32 * 8 = 256 bit key
              $iv = '!LaPD_GIS@2013!&&!LaPD_GIS@2013!'; // 32 * 8 = 256 bit iv             
              $this->sAction = "search";            
              $this->returnType="ws";
-             //$this->retured="1";                                                   
-             if(isset($_POST['string'])) {
+                                                      
+             if(isset($_GET['string'])) {
                
-                 $codetodecrypt=$_POST['string'];
+                 $codetodecrypt=str_replace(" ","+",$_GET['string']);
                  $resultstring = $this->decryptRJ256($ky,$iv,$codetodecrypt);                  
                  $resultstring = explode("|",$resultstring);                                                
                  $this->sString=$resultstring[2];
                   
-                   //$this->sString=$_POST['string'];                  
-                 
-                 
-                 
-                 
+                                                   
                    $wsarray=$this->actionSearch();
+                   if (isset($wsarray['wronginput']))
+
+					{
+						if(isset($resultstring[3]))
+                                                {
+                                                    $this->sString=$resultstring[3];
+                                                    $wsarray=$this->actionSearch();
+                                                }						
+					}
+
+
                    
-                   $printtype=$_POST['print'];
-                   
-                   if($printtype==0)
-                  // print_r($wsarray); 
                    $this->renderPartial('landResults', array(
                                        'customerws'=>$wsarray,'landid'=>$resultstring[2]
-                                       ));     
+                                       ));                        
                    
-                   else
-                       $this->renderPartial('landResults', array(
-                                       'customerws'=>$wsarray,'landid'=>$resultstring[2],'print'=>$printtype
-                                       ));     
              }else    
                  return "Pl Provide Land id in string parameter";     
              
          } 
          
-         
+         // function for dycryption the code from other miniciplity
          public function decryptRJ256($key,$iv,$string_to_decrypt)
         {
             $string_to_decrypt = base64_decode($string_to_decrypt);
@@ -563,7 +766,7 @@ class CustomerServiceController extends Controller
             return($rtn);
         }
 
-
+        // function for encryption the code sended to other miniciplity
         protected  function encryptRJ256($key,$iv,$string_to_encrypt)
         {
             $rtn = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $string_to_encrypt, MCRYPT_MODE_CBC, $iv);
