@@ -94,16 +94,9 @@ $(document).ready(function() {
             $("#_share").val("0")
           }
         });
-
-//        $( "#addOwner-form" )
-//          .button()
-//          .click(function() {$( "#addOwner-form" ).dialog( "open" );
-//              alert("i am");
-//              $("#addDeed").show();
-////            if(getShareTotal()<100) 
-////            else showMessage("Add owner is not allowed, Share total must be less than 100", "error", 5000)
-//          });
-
+/**
+ * set the event and load the forms for add/edit the owner and fines.
+ */
          $("#addDeedButton").click(function(){
              var deedType = $("#deedType").val();
              var deedDate = $("#DeedDate").val();
@@ -127,8 +120,6 @@ $(document).ready(function() {
                                          previousOwnerArray.push(DeedID);
                                          showMessage("تم اضافة العقد","sucess");
 
-   //                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
-   //                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
                                    }
                         })
          })
@@ -189,6 +180,11 @@ $(document).ready(function() {
          });
   // Handler for .ready() called.
 });
+/**
+ * add owner in the previous deed only on the page, no change in the DB
+ * @param {integer} id, previous deedid in which the owner will be added 
+ * @returns {undefined}
+ */
 function addPOwner(id){
 //    $(".addnewDeed" ).trigger("click")
      var deedid = id;
@@ -206,23 +202,10 @@ function addPOwner(id){
                                                     if(typeof(deedid!="undefined" || deedid!=""))$("#previous_DeedID").val(deedid) ;
 
 }
-function landTab(listType, customerID){
-        var userTab="<table class=tab><tr>"
-                userTab+="<td><a onclick=switchToView('landresult')><strong>تفاصيل الارض</strong></a></td>" ;
-//                userTab+="<td><a onclick=switchToView('fines')><strong>الغرامات و الملاحظات</strong></a></td>" ;
-                userTab+="<td align='right'><a onclick=switchToView('previousowner')><strong>المالك السابق</strong></a></td>";
-                userTab+="</tr>" ;
-        return userTab+="</table>";
-} 
-
-function switchToView(viewName){
-    hideAll()
-   $("#"+viewName).show(); 
-   if(viewName =="landresult") $("#uploadButton").show();  
-   
- 
-}
-
+/**
+ * 
+ * hide all the widgets on the page
+ */
 function hideAll(){// hide all the divs before loading the related one
         $('#letterTable').hide();
         $('#previouslandresult').hide();
@@ -246,13 +229,28 @@ function showDeedCustomersTR(deedid){
     else
         $('.'+deedid).show()
 }
-
+/** 
+ * 
+ * @param {string} searchString
+ * trigger the search with the search string.
+ */
 function doSearchSubmit(searchString){// will call on the click of customer name or automatically on search
     $("#searchstring").val(searchString);
     $("#SearchForm").trigger('submit')
 
 }
-
+/**
+	 * display Land Info is the most important and main method.
+         * Parse and set the presentation of the searched land from the data information in paramenetr.
+	 * @param json resultset Results from the server ajax response
+         * this will set land info
+         * the Deed Information, with owners and shares
+         * the file records
+         * the fines details of the land
+         * the previous deeds with owners and their shares
+         * Set the options to add/updates, delete owners/shares of the current and previous deed.
+         *  
+	 */   
 function displayLandInfo(Results)// lsit previous and currnt lands from result of land search
 {   
     // get the current owners and list them with links to the profile on the Arabic name
@@ -283,19 +281,23 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
         
         
  var finesContent = "<table dir=rtl class=landFines>";
-//        finesContent+="<tr ><td colspan= 6>  " ;
-//        finesContent+= landTab();
-//        finesContent+="</td></tr>" ;
+
        if(typeof(Results["fines"])!="undefined"){
                 var arrayNode= Results["fines"]
                finesContent+="<tr ><td colspan='4'><strong>غرامات الارض</strong></td><td><input type=image id=addnewFine src='../images/add.png' title='add hajaz' alt='add hajaz'> &nbsp; <img src='../images/remove.png' title=remove alt=remove >&nbsp;  </td></tr>";
                finesContent+="<tr bgcolor=#C9E0ED><td>ID </td><td> ملاحظات</td><td>الكمية المرهونة </td><td>تفاصيل النوع </td><td> التاريخ</td></tr>";
+               
                for(var i = 0; i<arrayNode.length ; i++ ){
-                   
-                   if(arrayNode[i]["IsActive"] == '1') arrayNode[i]["IsActive"] ="Active"; else arrayNode[i]["IsActive"]="Not Active"
+                   var active; 
+                active="<img src='../images/activate.png' id=changeActive_"+arrayNode[i]["HajzID"]+" height=32 width=32 onclick=changeActive("+arrayNode[i]["HajzID"]+",'1') title='غير مفعل' alt='غير مفعل' value="+arrayNode[i]["HajzID"]+">"; 
+                   if(arrayNode[i]["IsActive"] == '1') {arrayNode[i]["IsActive"] ="Active";
+                        active="<img src='../images/dactive.png' id=changeActive_"+arrayNode[i]["HajzID"]+" height=32 width=32 onclick=changeActive("+arrayNode[i]["HajzID"]+",'0') title=مفعل alt=مفعل  value="+arrayNode[i]["HajzID"]+">";
+                    } else arrayNode[i]["IsActive"]="Not Active"
                        if(typeof(arrayNode[i]["DateCreated"]!="undefined") && arrayNode[i]["DateCreated"]!=null) arrayNode[i]["DateCreated"] = dubaiDate(arrayNode[i]["DateCreated"]); 
                              else arrayNode[i]["DateCreated"] =""
-                        finesContent+="<tr><td><img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["HajzID"]+" onclick=removeIT("+arrayNode[i]["HajzID"]+",'fines') title=remove alt=remove value="+arrayNode[i]["HajzID"]+"> &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+">"+ arrayNode[i]["HajzID"]+"</td><td>"+ arrayNode[i]["Remarks"]+"</td>";
+                        finesContent+="<tr><td>"+active+"<img src='../images/remove.png' id=removeWithID_"+arrayNode[i]["HajzID"]+" onclick=removeIT("+arrayNode[i]["HajzID"]+",'fines') title=remove alt=remove value="+arrayNode[i]["HajzID"]+">"
+                        finesContent+=" &nbsp; <input type='checkbox' name='cuowners[]' value="+arrayNode[i]["CustomerID"]+">"+ arrayNode[i]["HajzID"]+"</td><td>"+ arrayNode[i]["Remarks"]+"</td>";
+                        
                         finesContent+="<td>"+ arrayNode[i]["AmountMortgaged"]+"</td>"
                         finesContent+="<td>"+ arrayNode[i]["Type"]+"("+arrayNode[i]["TypeDetail"]+")</td><td>"+arrayNode[i]["DateCreated"]+ arrayNode[i]["IsActive"]+"</td>";
                         finesContent+="</tr>";
@@ -322,11 +324,11 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
                            var arrayNodeShare= Results["previous"]["deed"][j]["share"]
                            var DateCreated = arrayNodeB[j]["DateCreated"];//alert(DateCreated+"ds")
                            
-                           previousOwnersContent+="<tr class='deed' ><td onclick='showDeedCustomersTR("+arrayNodeB[j]["deed"]+")' align='right' colspan='2'><strong>رقم العقد:"+arrayNodeB[j]["deed"]+"</strong></td>";
-                           previousOwnersContent+="<td ><img onclick=updateDeed('"+arrayNodeB[j]["deed"]+"') src=../images/save.png id='"+arrayNodeB[j]["deed"]+"' />&nbsp;<input type=image alt='add owner' title='add owner' src='../images/add.png' class='addnewDeed' id='"+arrayNodeB[j]["deed"]+"'></td></tr>";
-                           previousOwnersContent+="<tr><td colspan=2><input type=text id=deedDateCreated_"+arrayNodeB[j]["deed"]+" name=deedDateCreated_"+arrayNodeB[j]["deed"]+" value="+DateCreated+" ></td>"
+                           previousOwnersContent+="<tr class='deed  previousDeed_"+arrayNodeB[j]["deed"]+"'  ><td onclick='showDeedCustomersTR("+arrayNodeB[j]["deed"]+")' align='right' colspan='2'><strong>رقم العقد:"+arrayNodeB[j]["deed"]+"</strong></td>";
+                           previousOwnersContent+="<td ><img onclick=updateDeed('"+arrayNodeB[j]["deed"]+"') src=../images/save.png id='"+arrayNodeB[j]["deed"]+"' />&nbsp;<input type=image alt='add owner' title='add owner' src='../images/add.png' class='addnewDeed' id='"+arrayNodeB[j]["deed"]+"'><img src='../images/remove.png' onclick=deletePreviousDeed('"+arrayNodeB[j]["deed"]+"','previousDeed')> </td></tr>";
+                           previousOwnersContent+="<tr class=previousDeed_"+arrayNodeB[j]["deed"]+"><td colspan=2><input type=text id=deedDateCreated_"+arrayNodeB[j]["deed"]+" name=deedDateCreated_"+arrayNodeB[j]["deed"]+" value="+DateCreated+" ></td>"
                            previousOwnersContent+="<td> <input  type=text id=deedRemarks_"+arrayNodeB[j]["deed"]+" id=deedRemarks_"+arrayNodeB[j]["deed"]+"id=deedRemarks_"+arrayNodeB[j]["deed"]+" value="+arrayNodeB[j]["Remarks"]+"></td></tr>";
-                           previousOwnersContent+="<tr><td colspan=3><table id='previous_"+arrayNodeB[j]["deed"]+"' ><tr class='"+arrayNodeB[j]["deed"]+" previousOwnerhead'><td></td><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
+                           previousOwnersContent+="<tr class=previousDeed_"+arrayNodeB[j]["deed"]+"><td colspan=3><table id='previous_"+arrayNodeB[j]["deed"]+"' ><tr class='"+arrayNodeB[j]["deed"]+" previousOwnerhead'><td></td><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
                            
                            $("#_DeedDate").datepicker({ 
                             dateFormat: "dd-mm-yy",
@@ -427,30 +429,33 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
     landdetailsContent+= "</table>";
          $("#landresult").html(landdetailsContent);
 }
-
+/**
+	 * Convert date to teh format dd-mm-yy from the mysql standard date.
+	 * If delete is successful, file will be deleted from record message box will be updated on the top of the page.
+	 * @param string datestring the date to be coverted
+         
+	 */  
 function dubaiDate(datestring){
     datestring= datestring.split(' ')
 
     var oldDate = datestring[0].split('-');
-    var newDate =  oldDate[2]+"-"+oldDate[1]+"-"+oldDate[0]
+    var newDate =  oldDate[2]+"-"+oldDate[1]+"-"+oldDate[0] //dd-mm-yy
     return newDate;
 }
 
-function setlistType(listType){
-     listType = listType;
-}
 
-function getlistType(listType){
-    return listType;
-}
-
-function hideList(){
-     if($('#customerList').is(':visible'))
-    $("#customerList").hide();
-    else
-        $("#customerList").show();
-}
-  
+ /**
+	 * Delete the Owner and deed assosiation record for the given customer ID .
+	 * If delete is successful, file will be deleted from record message box will be updated on the top of the page.
+	 * @param integer id the ID of the file record in files table
+         * @param type 
+         * type could be fine
+         * owner, the owner from the current deed to be deleted
+         * previous deed
+         * previous, owner of the previous deed will be deleted
+         * delete the html table row or div of the given id and type.
+         * 
+	 */   
 function removeIT(id, type){
       if(type=="fines") if(deleteFines(id)) $("#removeWithID_"+id).closest('tr').remove();
           
@@ -458,10 +463,17 @@ function removeIT(id, type){
 //          else{ debugger;if(deleteOwner(id))
       if(type=="owner")  { $("#removeWithID_"+id).closest('tr').remove(); currentOwnerArray.splice(currentOwnerArray.indexOf(id),1)}
       
+      if(type=="previousDeed")  { $(".previousDeed_"+id).remove(); }
+      
       if(type=="previous")  { $("#removeWithID_previous"+id).closest('tr').remove(); previousOwnerArray.splice(previousOwnerArray.indexOf(id),1)}
 //         }      
   }
-  
+/**
+	 * Delete the Owner and deed assosiation record for the given customer ID .
+	 * If delete is successful, file will be deleted from record message box will be updated on the top of the page.
+	 * @param integer id the ID of the file record in files table
+         
+	 */   
 function deleteOwner(id){
       
             var customerID = id ;
@@ -469,7 +481,7 @@ function deleteOwner(id){
 //            var share =  $("#_share").val()
             var shareTotal = getShareTotal();
             var thisShareToDel = $("#removeWithID_"+customerID).closest('input [type=text]' ).val()
-            debugger;
+            
             if(shareTotal == 100 && thisShareToDel==0){ 
                  $.ajax({ 
                    type: "POST",
@@ -483,21 +495,34 @@ function deleteOwner(id){
            }else {showMessage("مين فضلك عدل قيمة المشاركة الى الصفر و مجموع االمشاركة يجب ان يكون 100 ثم حاول مرة اخرى .", "error"); return false}
       return true
   }
-  
+/**
+	 * Delete the fine record for the given ID .
+	 * If delete is successful, file will be deleted from record message box will be updated on the top of the page.
+	 * @param integer id the ID of the fine record in fine table
+         * 
+	 */   
 function deleteFines(id){
         
-        $.ajax({ 
-            type: "POST",
-            url:'DocumentMaster/DeleteFine', 
-            data: "HajzID="+id,
-            success: function(data) 
-            {
-                showMessage("تم حذف الغرامة");
-            }
-        })
-     return true
+       var r=confirm("Are you sure to delete fine??");
+        if (r==true)
+          {  $.ajax({ 
+                    type: "POST",
+                    url:'DocumentMaster/DeleteFine', 
+                    data: "HajzID="+id,
+                    success: function(data) 
+                    {
+                        showMessage("تم حذف الغرامة");
+                    }
+                })
+             return true
+     }
   }
-  
+/**
+	 * Delete the file record for the given ID .
+	 * If delete is successful, file will be deleted from record message box will be updated on the top of the page.
+	 * @param integer id the ID of the file record in files table
+         * 
+	 */  
 function deleteFiles(id){
         
         $.ajax({ 
@@ -511,7 +536,12 @@ function deleteFiles(id){
         })
       return true
   }
-  
+/**
+	 * Update the database for the given ID and data of land.
+	 * If update is successful, message box will be updated on the top of the page.
+	 * @param integer id the ID of the record in land table
+         * 
+	 */ 
 function UpdateLandData(id){
       
             var landID = id ;
@@ -521,8 +551,7 @@ function UpdateLandData(id){
     // get an associative array of just the values.
     var values = $('#landInfoForm').serialize();
     values = JSON.stringify(values);
-//            var deedID = $("#_deedID").val()
-//            var share = $("#_share").val()
+
                 $.ajax({ 
                    type: "POST",
                    url:'DocumentMaster/UpdateLandData', 
@@ -537,12 +566,18 @@ function UpdateLandData(id){
       
   }
   
+/**
+	 * Update the database for the given ID and value of file title.
+	 * If update is successful, message box will be updated on the top of the page.
+	 * @param integer id the ID of the file record in files table
+         * 
+	 */
 function updateCaption(id){
-//    alert(id)
+
     var caption= $("#caption_"+id).val();
     var captionOld= $("#_caption_"+id).val();
     if( caption != captionOld && caption!=""){
-//        alert(id+caption);
+//        do ajax and send the request to updtes DB
      $.ajax({ 
                    type: "POST",
                    url:'DocumentMaster/UpdateImageCaption', 
@@ -556,17 +591,21 @@ function updateCaption(id){
                })
     }
 }
-
+/**
+	 * This method will create the array of shares of previous deed and send it to server to perform DB update
+         * First check that if the total of share is 100% or not
+	 * @param  the doAjax [boolean],  will do ajax and update DB if true else check and display the message. 
+	 */
 function updateShare(doAjax){ 
     
 /* This method will create the array of shares and send it to server to perform DB update*/
-if(doAjax == "" || doAjax == null)doAjax =false;
-var deedType = $("#deedType").val()
- if(deedType!="previousDeed") var deedID = $("#_deedID").val()
- else var deedID = $("#previous_DeedID").val();
- var deedRemarks = $("#deedRemarks_"+deedID).val();
- var deedDateCreated = $("#deedDateCreated_"+deedID).val();
-  var nonNumbershare = 0;
+        if(doAjax == "" || doAjax == null)doAjax =false;
+        var deedType = $("#deedType").val()
+         if(deedType!="previousDeed") var deedID = $("#_deedID").val()
+         else var deedID = $("#previous_DeedID").val();
+         var deedRemarks = $("#deedRemarks_"+deedID).val();
+         var deedDateCreated = $("#deedDateCreated_"+deedID).val();
+         var nonNumbershare = 0;
         if($(".shareTxt").length<1){
             var total = 0;
              
@@ -609,7 +648,11 @@ var deedType = $("#deedType").val()
 
 //    }
 }
-
+/**
+	 * This method will updat the deed data and the share with create the array of shares of previous deed and send it to server to perform DB update
+         * First check that if the total of share is 100% or not
+	 * @param  the deedID [int],  ID of teh fine table row
+	 */
 function updateDeed(deedID){ 
 /* This method will create the array of shares of previous deed and send it to server to perform DB update*/
 var deedID = deedID;//$("#previous_DeedID").val();
@@ -644,9 +687,6 @@ var deedDateCreated = $("#deedDateCreated_"+deedID).val();
                                    success: function(data) 
                                    {
                                         showMessage("تم تعديل ملاك الارض و نسب المشاركة بنجاح","sucess");
-
-   //                                 $("#share_"+id).closest('tr').css("background-color", "#CCFFCC");
-   //                                 setTimeout(function(){ $("#share_"+id).closest('tr').css("background-color", "white");},3000);
                                    }
                         })
 //                   } 
@@ -654,7 +694,86 @@ var deedDateCreated = $("#deedDateCreated_"+deedID).val();
         }
 
 }
+/**
+	 * This method will create the array of shares of previous deed and send it to server to perform DB update
+	 * @param  the deedID [int],  ID of teh fine table row
+	 */
+function deletePreviousDeed(deedID){ 
+/* This method will create the array of shares of previous deed and send it to server to perform DB update*/
 
+var deedID = deedID
+ 
+ var r=confirm("Are you sure to delete the previous Deed??");
+                if (r==true)
+                  {
+                   
+                            $.ajax({ 
+                                   type: "POST",
+                                   url:'DocumentMaster/DeleteDeed', 
+                                   data:"&formData="+JSON.stringify({deedID:deedID}),
+                                   success: function(data) 
+                                   {
+                                        removeIT(deedID, "previousDeed")
+                                        showMessage("تم تعديل ملاك الارض و نسب المشاركة بنجاح","sucess");
+
+                                   }
+                        })
+                   } 
+
+
+}
+/**
+	 * This method will change the status of fine with ID and status provided in arguments
+         * Will update the DB and the fine status in the fines
+	 * @param  the FineID [int],  ID of teh fine table row
+         * @param  the FineStatus[0 or 1 ] value to be updated in active, 
+         
+	 */
+function changeActive(FineID,FineStatus){ 
+/* This method will change the status of fine with ID and status provided in arguments*/
+
+        $.ajax({ 
+                                   type: "POST",
+                                   url:'DocumentMaster/ChangeActive', 
+                                   data:"&formData="+JSON.stringify({FineID:FineID, FineStatus:FineStatus}),
+                                   success: function(data) 
+                                   {
+                                        
+                                        $("#changeActive_"+FineID).unbind('click');
+                                                $("#changeActive_"+FineID).removeAttr('onclick');
+                                                        if(FineStatus==0) {$("#changeActive_"+FineID).attr('src','../images/activate.png ');
+                                                            $("#changeActive_"+FineID).click(function(){
+                                                               changeActive(FineID,' 1')
+                                                            })
+                                                        }
+                                                        else {$("#changeActive_"+FineID).attr('src','../images/dactive.png');
+                                                             $("#changeActive_"+FineID).click(function(){
+                                                                 changeActive(FineID, '0')
+                                                            })
+                                                        }$("#changeActive_"+FineID).unbind('click');
+                                                $("#changeActive_"+FineID).removeAttr('onclick');
+                                                        if(FineStatus==0) {$("#changeActive_"+FineID).attr('src','../images/activate.png ');
+                                                            $("#changeActive_"+FineID).click(function(){
+                                                               changeActive(FineID,' 1')
+                                                            })
+                                                        }
+                                                        else {$("#changeActive_"+FineID).attr('src','../images/dactive.png');
+                                                             $("#changeActive_"+FineID).click(function(){
+                                                                 changeActive(FineID, '0')
+                                                            })
+                                                }
+                                        showMessage("تم تعديل ملاك الارض و نسب المشاركة بنجاح","sucess");
+                                   }
+                        })
+}
+/**
+	 * Display the message on the window
+	 * @param  the messageContent [text],  the message to be displayed
+         * @param  the alertType[text], 
+         * the type of message could be error displayed in red color
+         * the type of message could be sucess displayed in green color
+         * @param  the delay[milisecond],  time interval after that message will be disappear automaticaly
+	 */
 function showMessage(messageContent, alertType, delay){
     if(delay == null || delay =="") delay = 3000;
     if(alertType == null || alertType =="") alertType =  "normal";
@@ -666,7 +785,10 @@ function showMessage(messageContent, alertType, delay){
                         $("#messagDiv").html(messageContent);
                         setTimeout(function(){ $("#messagDiv").css("display","none");},delay);
 }
-
+/**
+	 * calculate the total of the deed and return
+	 * Get the share text fileds from teh document and calulate the total
+	 */
 function getShareTotal(){
     var total = 0;
                 $( this ).dialog( "close" );
@@ -679,7 +801,12 @@ function getShareTotal(){
                 })
    return total;
 }
-
+/**
+	 * Single method to add customer of the current deed or Previous Deeds 
+         * Add Owner to DB and display the message accordingly.
+	 * @param  the DeedId,  deeid, share, arabic name nationality of the owner
+         * @param Deed type
+	 */
 function addOwnerToDB(){
     
      var customerID = $("#_customerID").val() ;
@@ -690,7 +817,7 @@ function addOwnerToDB(){
                 var ArabicName = $("#customerSearch").val();
                 var Nationality = $("#_nationality").val();
                
-                if(deedType!="previousDeed") var deedID = $("#_deedID").val()
+                if(deedType!="previousDeed") var deedID = $("#_deedID").val()// check if owner to be added in previous deed
                 else var deedID = $("#previous_DeedID").val();
                 
       var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
@@ -699,7 +826,7 @@ function addOwnerToDB(){
 //                    $( this ).dialog( "close" ); //commented so diloge remains opened as discussed with Omar           
                
 
-                 var shaertotal=getShareTotal();
+                 var shaertotal=getShareTotal(); // validate that the total of share is 100% or not
                
                      if(shaertotal > 100) showMessage("مجموع نسبة المشاركة يجب ان تكون اقل من او تساوي 100 حتى يتم بالامكان اضافة مالك", "error",5000)
                      {
@@ -713,7 +840,7 @@ function addOwnerToDB(){
                                 var res = Results.result
                                 var customerID = Results.customerID;
                                 var shareID = Results.shareID;
-                                if(res==1){
+                 if(res==1){
 
                    if(customerID!="undefined" && customerID!=""){
                        
@@ -722,7 +849,7 @@ function addOwnerToDB(){
                                     {
                                         $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+',"owner")> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+share+'" class=sharetxt  size=5> </td></tr>').appendTo('.currentOwners');
                                          currentOwnerArray.push(customerID);
-     //                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
+
                                            $("#_share").val("0")
 
                                 }else showMessage("الزبون موجود بشكل مسبق في قائمة الارض ", "error");
@@ -731,8 +858,7 @@ function addOwnerToDB(){
                                 if(jQuery.inArray(customerID, previousOwnerArray)=="-1") 
                                     {
                                         $('<tr class="'+previous_DeedID+' previousOwnerhead"><td><img src="../images/remove.png" title=remove id=removeWithID_previous'+customerID+' onclick=removeIT('+customerID+',"previous")> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a id='+customerID+' href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input id=share_'+shareID+' type=text value="'+share+'" class=peviousShare_'+deedID+' class=sharetxt  size=5> </td></tr>').appendTo('#previous_'+previous_DeedID);
-//                                         previousOwnerArray[deedID].push(customerID);
-     //                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
+
                                            $("#_share").val("0")
 
                                 }else showMessage("الزبون موجود بشكل مسبق في قائمة الارض ", "error");
@@ -740,47 +866,24 @@ function addOwnerToDB(){
                            
                  }
                                 showMessage("تم اضافة المالك بنجاح");
-                               
-                                 
-//                                 updateShare(true);
-                                }
-                                else {alert("عفوا  هذا السجل لم يتم معالجته او حاول مع زبون آخر"); showMessage("عفوا هذا السجل لم يتم معالجته", "error");}
+              }
+               else {alert("عفوا  هذا السجل لم يتم معالجته او حاول مع زبون آخر"); showMessage("عفوا هذا السجل لم يتم معالجته", "error");}
 
                            }
                        })
                 }   
 }
 
-function addOwnerRow(){
-   
-               showMessage("تم استقبال معلومات المالك");
-                customerID ="old"
-                var customerID = $("#_customerID").val() ;
-                var deedID = $("#_deedID").val()
-                 var share = $("#_share").val()
-                var ArabicName = $("#customerSearch").val();
-                 var Nationality = $("#_nationality").val();
-//                 if( $("#newCustomer").attr("checked")=="checked" ) { 
-//                    customerID ="new"
-                    var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
-//                }
-//                else var dataTosend = "customerID="+customerID+"&deedID="+deedID+"&Share="+share+"&ArabicName="+ArabicName+"&Nationality="+Nationality;
-                    //commented so diloge remains opened as discussed with Omar           
-               if(customerID!="undefined" && customerID!=""){
-                           if(jQuery.inArray(customerID, currentOwnerArray)=="-1") 
-                               {
-                                   $('<tr><td><img src="../images/remove.png" title=remove id=removeWithID_'+customerID+' onclick=removeIT('+customerID+',"owner")> &nbsp; <input type=checkbox name=cuowners[] value='+customerID+' > </td><td><a href="customerMaster/update/'+customerID+'" target=_blank>'+$("#customerSearch").val()+'</a></td> <td>'+$("#_nationality").val()+' </td> <td><input type=text value="'+$("#_share").val()+'" class=sharetxt  size=5> </td></tr>').appendTo('.currentOwners');
-                                    currentOwnerArray.push(customerID);
-                                    if(100-getShareTotal()<=100 && 100-getShareTotal()>=0)$("#_share").val(100-getShareTotal()) ;
-                               
-                           }else showMessage("الزبون موجود بشكل مسبق في قائمة الارض ", "error");
-                 }
-             
-}
-
+/**
+	 * Initilaize and return the file title dropdown.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param  DDID the ID of the file record in files table
+         *  @param selected Value of the file title stored in DB, to load with dropdown
+	 */
 function getFileTilteDD(DDID, selected){
+    //define the values in an array to create the dropdown, in future change/append the array to add updte the values
     var DDoptionArray = ['1','b','c'];
-    var DD = "<select id=caption_"+DDID+" onchange=updateCaption('"+DDID+"')>"
+    var DD = "<select id=caption_"+DDID+" onchange=updateCaption('"+DDID+"')>" // calls updates Caption  function ton change even to updates DB
         $.each(DDoptionArray, function(i,j){
             if(j==selected)DD+=       "<option value="+j+" selected=selected>"+j+"</option>"
                 else DD+=       "<option value="+j+">"+j+"</option>"

@@ -1,4 +1,8 @@
-function landTab(listType, customerID){
+/*
+ * 
+ * Will display the tabs in the land view
+ */
+function landTab(){
         var userTab="<table class=tab><tr>"
                 userTab+="<td><a onclick=switchToView('landresult')><strong>تفاصيل الارض</strong></a></td>" ;
                 userTab+="<td><a onclick=switchToView('fines')><strong>الغرامات و الملاحظات</strong></a></td>" ;
@@ -6,14 +10,18 @@ function landTab(listType, customerID){
                 userTab+="</tr>" ;
         return userTab+="</table>";
 } 
+/*
+ * 
+ * @param {int} listType
+ * @param {int} customerID
+ * This used in the result of owner's search Loads the tab according to the input of list type
+ */
 function userTab(listType, customerID){
 
            var userTab="<table class=tab><tr>"
                if(listType ==1){ 
-//                   userTab+="<a onclick=switchToView('countryresult')>Back to user listing</a></td>" ;
                    userTab+="<td><a onclick=_displayCustomerProfile("+customerID+");switchToView('customerprofile')><strong>تفاصيل العضو</strong></a></td>" ;
                 }else { 
-//                    userTab+="<a onclick=switchToView('customerresult')>Back to user listing</a></td>" ;
                     userTab+="<td><a onclick=switchToView('customerprofile')><strong>تفاصيل العضو</strong></a></td>" ;
                 }
                         userTab+="<td align='right'><a onclick=switchToView('landresult')><strong>قائمة الاراضي</strong></a></td>";
@@ -21,6 +29,11 @@ function userTab(listType, customerID){
                         userTab+="</tr>" ;
                return userTab+="</table>";
 } 
+/*
+ * 
+ * @param {string} viewName, ID of the html element
+ * Load the view on the click of any tab
+ */
 function switchToView(viewName){
     hideAll()
    $("#"+viewName).show(); 
@@ -31,6 +44,7 @@ function switchToView(viewName){
    if(viewName=='previousowner')
        $("#letterTable").show();    
 }
+
 function hideAll(){// hide all the divs before loading the related one
         $('#letterTable').hide();
         $('#previouslandresult').hide();
@@ -44,6 +58,7 @@ function hideAll(){// hide all the divs before loading the related one
         $('#loadingresult').hide(); 
         $("#customerprofile").hide(); 
 }
+
 function showDeedCustomersTR(deedid){
 
     if($('.'+deedid).is(":visible")) 
@@ -51,12 +66,25 @@ function showDeedCustomersTR(deedid){
     else
         $('.'+deedid).show()
 }
-
+/*
+ * 
+ * @param {string} searchString
+ * Trigger and reload the search results by retrive data from server
+ */
 function doSearchSubmit(searchString){// will call on the click of customer name or automatically on search
     $("#searchstring").val(searchString);
     $("#SearchForm").trigger('submit')
 
 }
+/*
+ * 
+ * @param {result set} Results, from search result of landID search
+ * Load the LAND DETAILS in following section respectivily.
+ * current owners
+ * land details
+ * listing of the previous owners contents
+ * isting of the fines related to the land
+ */
 function displayLandInfo(Results)// lsit previous and currnt lands from result of land search
 {   
     // get the current owners and list them with links to the profile on the Arabic name
@@ -148,7 +176,11 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
         finesContent+= "</table>";
         //****************************Fines  Table*****************************************
 }
-
+/*
+ * 
+ * @param {int} customerID
+ * @will load customre profile from customer ID provided, get the DB data from Ajax request
+ */
 function _displayCustomerProfile(customerID){ // will load customre profile from customer ID provided, get the DB data from Ajax request
     if( customerID != null ) {
          $.ajax({ 
@@ -181,7 +213,11 @@ function _displayCustomerProfile(customerID){ // will load customre profile from
         });// ajax
      }// if customer ID exist
 }
-
+/*
+ * 
+ * @param {rsultset} Results, result set from search.
+ * Will load the customer profile from results provided
+ */
 function displayCustomerProfile(Results){// Will load the customer profile from results provided
 
      var userdetailsContent = "<table dir=rtl>";
@@ -202,6 +238,11 @@ function displayCustomerProfile(Results){// Will load the customer profile from 
      $("#customerprofile").html(userdetailsContent);
 
 }
+/*
+ * 
+ * @param {rsultset} Results, result set from search.
+ * will load list off customers returned from country or any other result 
+ */
 function displayCustomerInfo(Results)// will load list off customers returned from country or any other result
 {   var type = "customer"
     setlistType(type);
@@ -221,15 +262,25 @@ function displayCustomerInfo(Results)// will load list off customers returned fr
 function setlistType(listType){
      listType = listType;
 }
+
 function getlistType(listType){
     return listType;
 }
+/*
+ * 
+ * hide the customers listing html.
+ */
 function hideList(){
      if($('#customerList').is(':visible'))
     $("#customerList").hide();
     else
         $("#customerList").show();
 }
+/*
+ * 
+ * @param {rsultset} Results, result set from search.
+ * Load ths previous lands list, called from search.js
+ */
 function displayPreviousLands(Results){ 
     var arrayNode =Results["landDetails"]["previous"];
             var previousLands="";
@@ -249,6 +300,13 @@ function displayPreviousLands(Results){
         previousLands+="</table></td></tr><table>";
         $("#previouslandresult").html(previousLands);
 }
+/*
+ * 
+ * @param {int} customerID
+ * @param {int} type Type of listng/ view to load
+ * @param {Result set} CustomerResult from the response of search.
+ * @ will load the details of user like profile and the related data of land if any
+ */
 function diplayUserDetails(customerID, type , CustomerResult){ // list the land info of any customerID provided
         $('#loadingresult').show();
         var searchstring = []
@@ -282,11 +340,6 @@ function diplayUserDetails(customerID, type , CustomerResult){ // list the land 
                             
                             CustomerResult[0] = CustomerResult;
                             displayCustomerProfile(CustomerResult)}
-//               if(typeof(Results["currentOwners"][0][0])!="undefined" )  displayCustomerProfile(Results["currentOwners"][0]);
-//                else 
-//                    displayCustomerProfile(Results["currentOwners"])
-
-
    
                 if(typeof(Results["landDetails"]["current"])!="undefined"){ 
                             if(Results["landDetails"]["current"].length>0 && Results["landDetails"]["current"]!= null ){
@@ -332,6 +385,11 @@ function diplayUserDetails(customerID, type , CustomerResult){ // list the land 
             }//sucess
         });// ajax
 }
+/**
+ * 
+ * @param {type} Results
+ * @returns {undefined}
+ */
 function displayCountryInfo(Results)
 { 
     setlistType("country")
