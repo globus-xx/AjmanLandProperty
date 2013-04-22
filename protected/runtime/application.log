@@ -2852,3 +2852,15 @@ Stack trace:
 REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedTracker/admin
 HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/DeedMaster/create
 ---
+2013/04/22 22:56:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "create".' in /home/ali/Projects/www/ajman/yii/framework/web/CController.php:484
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(271): CController->missingAction('create')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('create')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('DocumentMaster/...')
+#3 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#4 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DocumentMaster/create
+---
+2013/04/22 23:10:15 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.documents' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `documents`.
+2013/04/22 23:49:14 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.tbl_migration' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `tbl_migration`.
