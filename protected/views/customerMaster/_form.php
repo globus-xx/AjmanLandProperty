@@ -5,7 +5,8 @@
 
 $countriesT = array();
 $countries = array();
-$lines = file('/var/www/AjmanLandProperty/protected/data/countries.csv', FILE_IGNORE_NEW_LINES);
+$file = Yii::app()->basePath.'/data/countries.csv';
+$lines = file($file, FILE_IGNORE_NEW_LINES);
 
 foreach ($lines as $key => $value)
 {

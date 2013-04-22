@@ -2636,3 +2636,219 @@ Stack trace:
 REQUEST_URI=/AjmanLandProperty/index.php/contractsMaster/Print/63
 HTTP_REFERER=http://192.168.5.134/AjmanLandProperty/index.php/contractsMaster/Print/62
 ---
+2013/04/19 19:36:03 [error] [php] file(/var/www/AjmanLandProperty/protected/data/locations.csv): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/deedMaster/create.php:8)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DeedMasterController->renderInternal()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DeedMasterController->renderFile()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DeedMasterController->renderPartial()
+#3 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(119): DeedMasterController->render()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedMasterController->actionCreate()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DeedMasterController->runAction()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): RightsFilter->filter()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DeedMasterController->filterRights()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DeedMasterController->runActionWithFilters()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DeedMasterController->run()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedMaster/create
+2013/04/19 19:59:11 [error] [php] file(/var/www/AjmanLandProperty/protected/data/locations.csv): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/deedMaster/create.php:8)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DeedMasterController->renderInternal()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DeedMasterController->renderFile()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DeedMasterController->renderPartial()
+#3 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(119): DeedMasterController->render()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedMasterController->actionCreate()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DeedMasterController->runAction()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): RightsFilter->filter()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DeedMasterController->filterRights()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DeedMasterController->runActionWithFilters()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DeedMasterController->run()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedMaster/create
+2013/04/19 20:01:14 [error] [php] file(/var/www/AjmanLandProperty/protected/data/locations.csv): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/deedMaster/create.php:8)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DeedMasterController->renderInternal()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DeedMasterController->renderFile()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DeedMasterController->renderPartial()
+#3 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(119): DeedMasterController->render()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedMasterController->actionCreate()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DeedMasterController->runAction()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): RightsFilter->filter()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DeedMasterController->filterRights()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DeedMasterController->runActionWithFilters()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DeedMasterController->run()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedMaster/create
+2013/04/19 20:01:16 [error] [php] file(/var/www/AjmanLandProperty/protected/data/locations.csv): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/deedMaster/create.php:8)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DeedMasterController->renderInternal()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DeedMasterController->renderFile()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DeedMasterController->renderPartial()
+#3 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(119): DeedMasterController->render()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedMasterController->actionCreate()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DeedMasterController->runAction()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): RightsFilter->filter()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DeedMasterController->filterRights()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DeedMasterController->runActionWithFilters()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DeedMasterController->run()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedMaster/create
+2013/04/19 20:01:26 [error] [php] file(/var/www/AjmanLandProperty/protected/data/locations.csv): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/deedMaster/create.php:9)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DeedMasterController->renderInternal()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DeedMasterController->renderFile()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DeedMasterController->renderPartial()
+#3 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(119): DeedMasterController->render()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedMasterController->actionCreate()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DeedMasterController->runAction()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): RightsFilter->filter()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DeedMasterController->filterRights()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DeedMasterController->runActionWithFilters()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DeedMasterController->run()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedMaster/create
+2013/04/19 20:07:32 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.LandMaster' doesn't exist. The SQL statement executed was: SELECT LandID from LandMaster WHERE LandID LIKE :name.
+2013/04/19 20:07:32 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.LandMaster' doesn't exist' in /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php:528
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php(446): CDbCommand->queryInternal('fetchAll', 7, Array)
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(369): CDbCommand->queryColumn()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedMasterController->actionlandsfind()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('landsfind')
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('DeedMaster/land...')
+#13 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#14 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#15 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedMaster/landsfind?term=asd
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/DeedMaster/create
+---
+2013/04/19 20:07:33 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.LandMaster' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `LandMaster`.
+2013/04/19 20:07:33 [error] [exception.CDbException] exception 'CDbException' with message 'The table "LandMaster" for active record class "LandMaster" cannot be found in the database.' in /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php:2264
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(379): CActiveRecordMetaData->__construct(Object(LandMaster))
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/models/LandMaster.php(32): CActiveRecord::model('LandMaster')
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(147): LandMaster::model()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedMasterController->actionLandInfo()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('LandInfo')
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('DeedMaster/Land...')
+#14 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#16 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedMaster/LandInfo
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/DeedMaster/create
+---
+2013/04/19 20:07:34 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.LandMaster' doesn't exist. The SQL statement executed was: SELECT LandID from LandMaster WHERE LandID LIKE :name.
+2013/04/19 20:07:34 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.LandMaster' doesn't exist' in /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php:528
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php(446): CDbCommand->queryInternal('fetchAll', 7, Array)
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(369): CDbCommand->queryColumn()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedMasterController->actionlandsfind()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('landsfind')
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('DeedMaster/land...')
+#13 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#14 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#15 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedMaster/landsfind?term=123123132
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/DeedMaster/create
+---
+2013/04/19 20:21:22 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.LandMaster' doesn't exist. The SQL statement executed was: SELECT LandID from LandMaster WHERE LandID LIKE :name.
+2013/04/19 20:21:22 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.LandMaster' doesn't exist' in /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php:528
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php(446): CDbCommand->queryInternal('fetchAll', 7, Array)
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(369): CDbCommand->queryColumn()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedMasterController->actionlandsfind()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('landsfind')
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('DeedMaster/land...')
+#13 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#14 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#15 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedMaster/landsfind?term=123132
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/DeedMaster/create
+---
+2013/04/19 21:41:00 [error] [exception.CException] exception 'CException' with message 'Property "DeedTracker.LandID" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('LandID')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/models/DeedTracker.php(97): CActiveRecord->__get('LandID')
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/deedTracker/admin.php(26): DeedTracker->search()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('admin', Array, true)
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedTrackerController.php(145): CController->render('admin', Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedTrackerController->actionAdmin()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('admin')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('DeedTracker/adm...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedTracker/admin
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/DeedMaster/create
+---

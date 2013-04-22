@@ -71,10 +71,10 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=AjmanLandProperty',
+			'connectionString' => 'mysql:host=localhost;dbname=ajman',
 			'emulatePrepare' => true,
-			'username' => '',
-			'password' => '',
+			'username' => 'root',
+			'password' => 'admin123',
 			'charset' => 'utf8',
 		),
         'authManager'=>array(

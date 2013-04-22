@@ -2,10 +2,10 @@
 </body>
 
 <?php
-
 $locationsT = array();
 $locations = array();
-$lines = file('/var/www/AjmanLandProperty/protected/data/locations.csv', FILE_IGNORE_NEW_LINES);
+$file = Yii::app()->basePath.'/data/locations.csv';
+$lines = file($file, FILE_IGNORE_NEW_LINES);
 
 foreach ($lines as $key => $value)
 {
