@@ -8,7 +8,7 @@ defined('YII_DEBUG') or define('YII_DEBUG',false);
 // specify how many levels of call stack should be shown in each log message
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
-include('I18N/Arabic.php');
+//include('I18N/Arabic.php');
 
 require_once($yii);
 Yii::createWebApplication($config)->run();

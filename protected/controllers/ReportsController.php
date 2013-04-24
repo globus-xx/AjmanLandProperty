@@ -13,11 +13,8 @@ class ReportsController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
-			//'accessControl', // perform access control for CRUD operations
+		return array(			
 			'rights',
-//			'accessControl', // perform access control for CRUD operations
-//			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -59,59 +56,52 @@ class ReportsController extends Controller
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionCalulate()
-	{	
-
-              
+	{	             
               $rows=$_POST["rows"];     
               $tables=$_POST["tables"];                            
                           
               $columns=$_POST["columns"];                                       
               $data=$_POST["data"];
-              
-              
-              
+                                        
             $connection=Yii::app()->db; 
-            
-            
+                        
             if($columns!="")
             $sql='SELECT DISTINCT  '.$rows.','.$columns.' FROM '.$tables.' GROUP BY '.$rows;
             
             if($columns=="")
-            $sql='SELECT DISTINCT '.$rows.' FROM '.$tables. ' GROUP BY '.$rows;
-            
-            
-           
-            
+            $sql='SELECT DISTINCT '.$rows.' FROM '.$tables. ' GROUP BY '.$rows;            
             $result=$connection->createCommand($sql)->queryAll();
-
-             
+                        
             
             $rows   =  explode(",", $rows);
+            $check=$columns;
+            
+            
+            if($columns!="")
+            $columns=  explode(",", $columns);
+            
             
             $substring="<tr style='background:yellow'>";
+            
             
             foreach($rows as $ro)
                 {                    
                     $substring.="<td>".$ro."</td>";
                 }
                 
+            foreach($columns as $ro2)
+                {                    
+                    $substring.="<td>".$ro2."</td>";
+                }
+                                                
             $substring.="</tr>";
             
             $result_table=$substring;
-            
-            $check=$columns;
-            
-            
-             
-            if($columns!="")
-            $columns=  explode(",", $columns);
-            
             $substring="";
             
             
             foreach($result as $row)
-            {
-                
+            {                
                 foreach($rows as $ro)
                 {                    
                     $substring.="<td>".$row[$ro]."</td>";
