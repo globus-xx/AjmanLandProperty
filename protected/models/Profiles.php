@@ -41,10 +41,10 @@ class Profiles extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('lastname, firstname', 'length', 'max'=>50),
-			//array('employeeid', 'length', 'max'=>15),
+			array('employeeid', 'length', 'max'=>15),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			//array('user_id, lastname, firstname, employeeid', 'safe', 'on'=>'search'),
+			array('user_id, lastname, firstname, employeeid', 'safe', 'on'=>'search'),
 		);
 	}
 
