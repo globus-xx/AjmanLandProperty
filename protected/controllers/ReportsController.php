@@ -65,30 +65,45 @@ class ReportsController extends Controller
                                         
             $connection=Yii::app()->db; 
                         
-            if($columns!="")
-            $sql='SELECT DISTINCT  '.$rows.','.$columns.' FROM '.$tables.' GROUP BY '.$rows;
+            if($columns!=""&&$rows!="")
+            $sql='SELECT DISTINCT  '.$rows.','.$columns.' FROM '.$tables.' GROUP BY '.$rows;            
+            elseif($columns==""&&$rows!="")
+            $sql='SELECT DISTINCT '.$rows.' FROM '.$tables. ' GROUP BY '.$rows;   
+            elseif($columns!=""&&$row=="")
+            $sql='SELECT DISTINCT  '.$columns.' FROM '.$tables.' GROUP BY '.$columns;       
+            else
+            return "";
             
-            if($columns=="")
-            $sql='SELECT DISTINCT '.$rows.' FROM '.$tables. ' GROUP BY '.$rows;            
+            
             $result=$connection->createCommand($sql)->queryAll();
-                        
-            
-            $rows   =  explode(",", $rows);
+            $r=0;
+            $c=0;
             $check=$columns;
+            $check2=$rows;
             
             
+            if($rows!="")
+            {
+            $r=1;
+            $rows   =  explode(",", $rows);            
+            }
+            
+                        
             if($columns!="")
+            {
+            $c=1;    
             $columns=  explode(",", $columns);
-            
+            }
             
             $substring="<tr style='background:yellow'>";
             
-            
+            if($r==1)
             foreach($rows as $ro)
                 {                    
                     $substring.="<td>".$ro."</td>";
                 }
-                
+               
+            if($c==1)
             foreach($columns as $ro2)
                 {                    
                     $substring.="<td>".$ro2."</td>";
@@ -101,7 +116,8 @@ class ReportsController extends Controller
             
             
             foreach($result as $row)
-            {                
+            {        
+                if($check2!="")
                 foreach($rows as $ro)
                 {                    
                     $substring.="<td>".$row[$ro]."</td>";
