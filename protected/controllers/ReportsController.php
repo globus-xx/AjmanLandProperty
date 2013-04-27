@@ -84,7 +84,7 @@ class ReportsController extends Controller
                 
             
             if($columns!=""&&$rows!=""&&$data!="")
-            $sql='SELECT DISTINCT  '.$rows.','.$columns.','.$datasql.' FROM '.$tables.' GROUP BY '.$rows;            
+            $sql='SELECT DISTINCT  '.$rows.','.$columns.','.$datasql.' FROM '.$tables.' GROUP BY '.$rows. ' WITH ROLLUP';            
             elseif($columns==""&&$rows!="")
             $sql='SELECT DISTINCT '.$rows.' FROM '.$tables. ' GROUP BY '.$rows;   
             elseif($columns!=""&&$rows=="")
