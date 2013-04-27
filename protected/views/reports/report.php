@@ -46,8 +46,10 @@
           
         $( "<li></li>" ).text(n[0]).appendTo( this );   
         
-            if(!in_array(columns,n[0]))
-            columns.push(n[0]);
+        
+            var rowres=n[1]+"."+n[0];  
+            if(!in_array(columns,rowres))
+            columns.push(rowres);
             
             if(!in_array(tables,n[1]))
             tables.push(n[1]);
@@ -76,9 +78,10 @@
           var n=str.split("_");                   
         $( "<li></li>" ).text(n[0]).appendTo( this );   
         
-                       
-            if(!in_array(rows, n[0]))
-            rows.push(n[0]);
+            var rowres=n[1]+"."+n[0];      
+              
+            if(!in_array(rows, rowres))
+            rows.push(rowres);
             
             if(!in_array(tables, n[1]))
             tables.push(n[1]);
@@ -111,11 +114,14 @@
           var n=str.split("_");                   
         $( "<li></li>" ).text(n[0]).appendTo( this );   
                 
-            if(!in_array(data,n[0]))
-            data.push(n[0]);
+                
+            var rowres=n[1]+"."+n[0];      
+              
+            if(!in_array(data, rowres))
+            data.push(rowres);
             
-            if(!in_array(tables,n[1]))
-            tables.push(n[1]);
+            if(!in_array(tables, n[1]))
+            tables.push(n[1]);                                    
         
             drawtable();
                                                      
@@ -214,7 +220,7 @@ if(($row["Tables_in_".$db]=="customermaster")||($row["Tables_in_".$db]=="custome
 <div>
     </div>
 
-<table style="direction:ltr;background: #eeeeee;" id="report_generation" >
+<table style="direction:ltr;background: #eeeeee;" id="report_generation"  border="1">
 
 </table>
 
