@@ -62,6 +62,7 @@ class ReportsController extends Controller
             $tables=$_POST["tables"];                                                      
             $columns=$_POST["columns"];                                       
             $data=$_POST["data"];
+            $conditions=$_POST["conditions"];
             
             
             $connection=Yii::app()->db; 
@@ -83,8 +84,34 @@ class ReportsController extends Controller
             }
                 
             
-            if($columns!=""&&$rows!=""&&$data!="")
-            $sql='SELECT DISTINCT  '.$rows.','.$columns.','.$datasql.' FROM '.$tables.' GROUP BY '.$rows. ' WITH ROLLUP';            
+            if($conditions!="")
+            {
+            $con=1;                        
+            $conditions   =  explode(",", $conditions);                        
+            $result="";
+            
+            $single=0;
+            $length=0;
+            foreach($conditions as $ro)
+            { 
+                $length++;
+                if($single==0)
+                {
+                    $result.=$ro."=";               
+                    $single=1;
+                }
+                elseif($length<count($conditions))
+                { $result.=$ro." AND";$single=0;}
+                elseif($length==count($conditions))
+                { $result.=$ro; $single=0;}
+            }
+            
+            }
+            else
+                $conditions="1=1";
+            
+            if($columns!=""&&$rows!=""&&$data!=""&&$con=1)
+                $sql='SELECT DISTINCT  '.$rows.','.$columns.','.$datasql.' FROM '.$tables.' WHERE  '.$result.'  GROUP BY '.$rows. ' WITH ROLLUP';            
             elseif($columns==""&&$rows!="")
             $sql='SELECT DISTINCT '.$rows.' FROM '.$tables. ' GROUP BY '.$rows;   
             elseif($columns!=""&&$rows=="")
@@ -94,7 +121,9 @@ class ReportsController extends Controller
                 $sql='SELECT DISTINCT  '.$rows.','.$columns.' FROM '.$tables.' GROUP BY '.$rows;  
             }
             else
-            {}
+            {
+
+            }
             
             
             $result=$connection->createCommand($sql)->queryAll();

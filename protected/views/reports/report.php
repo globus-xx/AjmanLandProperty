@@ -17,6 +17,9 @@
   /* style the list to maximize the droppable hitarea */
   #cart3 ol { margin: 0; padding: 1em 0 1em 3em; }
   
+   #cart4 { width: 200px; float: left; margin-top: 1em; }
+  /* style the list to maximize the droppable hitarea */
+  #cart4 ol { margin: 0; padding: 1em 0 1em 3em; }
   
   #cart_con{position: fixed;bottom:79px;right:413px;}
 </style>
@@ -26,7 +29,7 @@
     var rows = [];
     var tables = [];
     var data = [];
-    
+    var conditions=[];
     
   $(function() {
     $( "#catalog" ).accordion();
@@ -136,6 +139,42 @@
     });
     
     
+
+
+ $( "#cart4 ol" ).droppable({
+      activeClass: "ui-state-default",
+      hoverClass: "ui-state-hover",
+      accept: ":not(.ui-sortable-helper)",
+      drop: function( event, ui ) {
+        $( this ).find( ".placeholder" ).remove();    
+        
+          var str=ui.draggable.text();
+          var n=str.split("_");                   
+        $( "<li></li>" ).text(n[0]).appendTo( this );   
+                
+                
+            var rowres=n[1]+"."+n[0];      
+              
+            if(!in_array(conditions, rowres))
+            conditions.push(rowres);
+            
+            if(!in_array(tables, n[1]))
+            tables.push(n[1]);                                    
+        
+            drawtable();
+                                                     
+      }
+    }).sortable({
+      items: "li:not(.placeholder)",
+      sort: function() {
+        // gets added unintentionally by droppable interacting with sortable
+        // using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
+        $( this ).removeClass( "ui-state-default" );
+      }
+    });
+    
+    
+    
     
     
     function drawtable()
@@ -144,7 +183,7 @@
        $.ajax({ 
                                 type: "POST",
 				url:'Reports/Calulate', 
-				data: "rows="+rows+"&tables="+tables+"&columns="+columns+"&data="+data,
+				data: "rows="+rows+"&tables="+tables+"&columns="+columns+"&data="+data+"&conditions="+conditions,
                                 async:false,
 				success: function(data) { 
                                     
@@ -294,6 +333,17 @@ foreach($tables as $row)
   <div class="ui-widget-content">
     <ol>
       <li class="placeholder">Add your items here</li>
+    </ol>
+  </div>
+</div>
+
+<div style="clear: both"></div>
+
+<div id="cart4" style="direction: ltr;">
+  <h1 class="ui-widget-header">Conditions</h1>
+  <div class="ui-widget-content">
+    <ol>
+      <li class="placeholder">Add your condition here</li>
     </ol>
   </div>
 </div>
