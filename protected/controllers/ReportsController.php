@@ -7,7 +7,8 @@ class ReportsController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column1';
-        public $database_name='ajmanlandproperty';
+        public $database_name='ajmanlandproperty';        
+       
 	/**
 	 * @return array action filters
 	 */
@@ -56,14 +57,17 @@ class ReportsController extends Controller
 	 * 
 	 */
 	public function actionCalulate()
-	{	
-            
+	{	                        
             $rows=$_POST["rows"];     
             $tables=$_POST["tables"];                                                      
             $columns=$_POST["columns"];                                       
             $data=$_POST["data"];
             $conditions=$_POST["conditions"];
+            $page=$_POST["page"];
             
+            
+            $per_page = 9;
+            $start = ($page-1)*$per_page;
             
             $connection=Yii::app()->db; 
             
@@ -88,7 +92,7 @@ class ReportsController extends Controller
             {
             $con=1;                        
             $conditions   =  explode(",", $conditions);                        
-            $result="";
+            $subresult="";
             
             $single=0;
             $length=0;
@@ -97,13 +101,13 @@ class ReportsController extends Controller
                 $length++;
                 if($single==0)
                 {
-                    $result.=$ro."=";               
+                    $subresult.=$ro."=";               
                     $single=1;
                 }
                 elseif($length<count($conditions))
-                { $result.=$ro." AND";$single=0;}
+                { $subresult.=$ro." AND";$single=0;}
                 elseif($length==count($conditions))
-                { $result.=$ro; $single=0;}
+                { $subresult.=$ro; $single=0;}
             }
             
             }
@@ -111,22 +115,41 @@ class ReportsController extends Controller
                 $conditions="1=1";
             
             if($columns!=""&&$rows!=""&&$data!=""&&$con=1)
-                $sql='SELECT DISTINCT  '.$rows.','.$columns.','.$datasql.' FROM '.$tables.' WHERE  '.$result.'  GROUP BY '.$rows. ' WITH ROLLUP';            
+            {
+                $sql='SELECT DISTINCT  '.$rows.','.$columns.','.$datasql.' FROM '.$tables.' WHERE  '.$subresult.'  GROUP BY '.$rows. ' WITH ROLLUP LIMIT '.$start.','.$per_page;            
+                $sql2='SELECT DISTINCT  '.$rows.','.$columns.','.$datasql.' FROM '.$tables.' WHERE  '.$subresult.'  GROUP BY '.$rows. ' WITH ROLLUP '; 
+            }
             elseif($columns==""&&$rows!="")
-            $sql='SELECT DISTINCT '.$rows.' FROM '.$tables. ' GROUP BY '.$rows;   
+            {
+                $sql='SELECT DISTINCT '.$rows.' FROM '.$tables. ' GROUP BY '.$rows.' LIMIT '.$start.','.$per_page;  
+                $sql2='SELECT DISTINCT '.$rows.' FROM '.$tables. ' GROUP BY '.$rows;   
+            }
             elseif($columns!=""&&$rows=="")
-            $sql='SELECT DISTINCT  '.$columns.' FROM '.$tables.' GROUP BY '.$columns;       
+            {
+                $sql='SELECT DISTINCT  '.$columns.' FROM '.$tables.' GROUP BY '.$columns.' LIMIT '.$start.','.$per_page;       
+                $sql2='SELECT DISTINCT  '.$columns.' FROM '.$tables.' GROUP BY '.$columns; 
+            }
             elseif($columns!=""&&$rows!=""&&$data=="")
             {
-                $sql='SELECT DISTINCT  '.$rows.','.$columns.' FROM '.$tables.' GROUP BY '.$rows;  
+                $sql='SELECT DISTINCT  '.$rows.','.$columns.' FROM '.$tables.' GROUP BY '.$rows.' LIMIT '.$start.','.$per_page;
+                $sql2='SELECT DISTINCT  '.$rows.','.$columns.' FROM '.$tables.' GROUP BY '.$rows;
             }
+//            elseif($columns!=""&&$rows!=""&&$data!="")
+//            {
+//                 print CJSON::encode("hello");die(); 
+//                $sql='SELECT DISTINCT  '.$rows.','.$columns.','.$datasql.' FROM '.$tables.' GROUP BY '.$rows. ' WITH ROLLUP LIMIT '.$start.','.$per_page;            
+//                $sql2='SELECT DISTINCT  '.$rows.','.$columns.','.$datasql.' FROM '.$tables.' GROUP BY '.$rows. ' WITH ROLLUP '; 
+//            }
             else
             {
-
+                
             }
             
-            
+            $csv_output="";
+           
             $result=$connection->createCommand($sql)->queryAll();
+            $result2=$connection->createCommand($sql2)->queryAll();
+            
             $r=0;
             $c=0;
             $check=$columns;
@@ -152,22 +175,23 @@ class ReportsController extends Controller
             foreach($rows as $ro)
                 {                    
                     $substring.="<td>".$ro."</td>";
+                    $csv_output.=$ro.", ";
                 }
                
             if($c==1)
             foreach($columns as $ro2)
                 {                    
                     $substring.="<td>".$ro2."</td>";
+                    $csv_output.=$ro2.", ";
                 }
                  
                 
             if($d==1)
             foreach($data as $ro3)
             {               
-               $substring.="<td>SUM(".$ro3.")</td>";               
+               $substring.="<td>SUM(".$ro3.")</td>";  
+               $csv_output.="SUM(".$ro3.") ,";
             }
-                
-            
                 
                 
             $substring.="</tr>";
@@ -175,44 +199,114 @@ class ReportsController extends Controller
             $result_table=$substring;
             $substring="";
             
-            
             foreach($result as $row)
-            {        
+            {                                                 
                 if($check2!="")
                 {
-//                $resultrowlabel="<td><ul>";
                 foreach($rows as $ro)
                 {                    
                     $rores=  explode(".", $ro);                    
-                    $substring.="<td>".$row[$rores[1]]."</td>";
-//                    $resultrowlabel.="<li>".$row[$rores[1]]."</li>";
+                    $substring.="<td>".$row[$rores[1]]."</td>";                    
                 }
-//                $resultrowlabel.="</ul></td>";
                 }
-//                $substring.=$resultrowlabel;
                 
                 if($check!="")
                 foreach($columns as $ro2)
                 {                        
                     $rores=  explode(".", $ro2);
-                    $substring.="<td>".$row[$rores[1]]."</td>";
+                    $substring.="<td>".$row[$rores[1]]."</td>";                   
                 }
                 
                 if($d==1)
                 {
                     foreach($data as $ro)
                         {                        
-//                          $rores=  explode(".", $ro);
-                            $substring.="<td>".$row["SUM(".$ro.")"]."</td>";
+                            $substring.="<td>".$row["SUM(".$ro.")"]."</td>";                           
                         }
-                }
+                }                                               
                 
                 $result_table.="<tr>".$substring."</tr>";
                 $substring="";
             }
             
+            
+            
+          // add data for csv file                    
+          $count=0;
+          $csv_output.="\n";
+                  
+            foreach($result2 as $row)
+            { 
+                if($check2!="")                
+                {
+                $rowcount=0;
+                foreach($rows as $ro)
+                {                        
+                    $csv_output.=$row[$rores[1]].", ";                    
+                }
+                }              
+                
+                
+                if($check!="")
+                {                
+                        foreach($columns as $ro2)
+                        {                               
+                            $csv_output.=$row[$rores[1]].", ";                    
+                        }
+                }
+                
+                if($d==1)        
+                {                                 
+                        foreach($data as $ro)
+                        {                                                                                        
+                                $csv_output.=$row["SUM(".$ro.")"].", ";                                                                                            
+                        }                
+                }
+                
+                
+                $csv_output.="\n";                
+                $count++;
+            }
+            
+             Yii::app()->session['csv'] = $csv_output;
+            // ===================================================
+            
+            
+            // pagination code 
+            $pages = ceil($count/$per_page);
+            
+            $result_table.="<tr><td>";                                    
+            $result_table.="<ul id='pagination'>";
+
+                //Pagination Numbers
+                for($i=1; $i<=$pages; $i++)
+                {
+                    $result_table.= '<li id="'.$i.'">'.$i.'</li>';
+                }
+            
+            $result_table.="</ul>";                       
+            $result_table.="</td></tr>";
+            // ===================================================
+            
+            
+            
             print CJSON::encode($result_table);                     
 	}
+        
+        
+        
+        
+        public function actionExporttocsv()
+	{
+            $csvcontent= Yii::app()->session['csv']; 
+            $file = 'export';
+            $filename = $file."_".date("Y-m-d_H-i",time());
+            header("Content-type: application/vnd.ms-excel");
+            header("Content-disposition: csv" . date("Y-m-d") . ".csv");
+            header("Content-disposition: filename=".$filename.".csv");
+            print $csvcontent;            
+            exit();            
+        }
         
         
         public function actionIndex()

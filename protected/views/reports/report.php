@@ -21,7 +21,26 @@
   /* style the list to maximize the droppable hitarea */
   #cart4 ol { margin: 0; padding: 1em 0 1em 3em; }
   
-  #cart_con{position: fixed;bottom:79px;right:413px;}
+  #cart_con{position: fixed;bottom:10px;right:413px;}
+  
+  
+  
+#pagination li
+{ 
+list-style: none; 
+float: left; 
+margin-right: 16px; 
+padding:5px; 
+border:solid 1px #dddddd;
+color:#0063DC; 
+}
+#pagination li:hover
+{ 
+color:#FF0084; 
+cursor: pointer; 
+}
+
+
 </style>
 
 <script>
@@ -30,6 +49,8 @@
     var tables = [];
     var data = [];
     var conditions=[];
+    
+    
     
   $(function() {
     $( "#catalog" ).accordion();
@@ -178,23 +199,23 @@
     
     
     function drawtable()
-  {
-      
-       $.ajax({ 
+  {      
+                        $.ajax({ 
                                 type: "POST",
 				url:'Reports/Calulate', 
-				data: "rows="+rows+"&tables="+tables+"&columns="+columns+"&data="+data+"&conditions="+conditions,
+				data: "rows="+rows+"&tables="+tables+"&columns="+columns+"&data="+data+"&conditions="+conditions+"&page=1",
                                 async:false,
 				success: function(data) { 
-                                    
-                                
+                                                                    
 					var Results = JSON.parse(data); 	
 					console.log(Results);     
                                        
                                         $("#report_generation").html(Results);	
+                                        $("#export").text("Export To Csv");
 				}
                         });
-          
+                                  
+                        
   }
   
   
@@ -207,23 +228,18 @@
     }
     return false;
 }
+       
 
-
-  
-  
   });
-  
-  
-
-
-  
 
   </script>
   
   
   
-
-
+  
+  
+  
+  
 <!--
 <?php
 /* @var $this ReportsController */
@@ -256,12 +272,48 @@ if(($row["Tables_in_".$db]=="customermaster")||($row["Tables_in_".$db]=="custome
 
 
 
-<div>
-    </div>
 
-<table style="direction:ltr;background: #eeeeee;" id="report_generation"  border="1">
 
-</table>
+<table style="direction:ltr;background: #eeeeee;" id="report_generation"  border="1"></table>
+<br>
+<a href="<?=Yii::app()->getBaseUrl()?>/index.php/reports/Exporttocsv" id="export" style="float:left;"></a>
+<br><br><br>
+
+<script type="text/javascript">      
+    $("#pagination li").live('click', function() { 
+                         
+                                $("#pagination li")
+                                .css({'border' : 'solid #dddddd 1px'})
+                                .css({'color' : '#0063DC'});
+
+                                $(this)
+                                .css({'color' : '#FF0084'})
+                                .css({'border' : 'none'});
+
+
+                                //Loading Data
+                                var pageNum = this.id;
+                                   
+                                
+                                
+                                $.ajax({ 
+                                type: "POST",
+				url:'Reports/Calulate', 
+				data: "rows="+rows+"&tables="+tables+"&columns="+columns+"&data="+data+"&conditions="+conditions+"&page="+pageNum,
+                                async:false,
+				success: function(data) { 
+                                                                    
+					var Results = JSON.parse(data); 	
+					console.log(Results);     
+                                       
+                                        $("#report_generation").html(Results);	
+                                       
+				}
+                                });        
+            
+    });
+             
+</script>
 
 
 
