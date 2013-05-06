@@ -1,6 +1,6 @@
 <?php
 
-class DocumentController extends Controller
+class DocumentTypesController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -52,6 +52,7 @@ class DocumentController extends Controller
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+	    '_model_document_type_metas'=>DocumentTypeMeta::model()->findAllByAttributes(array('documentTypeId'=>$id))
 		));
 	}
 
@@ -61,22 +62,35 @@ class DocumentController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model = new Document();
+		$model=new DocumentTypes;
+        $_model_document_type_meta = new DocumentTypeMeta();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Document']))
+		if(isset($_POST['DocumentTypes']))
 		{
-			$model->attributes = $_POST['Document'];
+			$model->attributes = $_POST['DocumentTypes'];
+            
 
 			if($model->save()){
-				$this->redirect(array('view','id'=>$model->id));
+			    // create the document metas
+			    foreach($_POST['DocumentTypeMeta'] as $one_meta){
+			        $model_document_type_meta = new DocumentTypeMeta;
+                    $one_meta['documentTypeId'] = $model->id;
+
+                    $model_document_type_meta->attributes = $one_meta;
+                    if($model_document_type_meta->save(false)){
+                        
+                    }
+			    }
+                $this->redirect(array('view','id'=>$model->id));
 			}
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'_model_document_type_meta' => $_model_document_type_meta
 		));
 	}
 
@@ -88,19 +102,26 @@ class DocumentController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+    $_model_document_type_meta = new DocumentTypeMeta();
+        
+    $_model_document_type_metas = DocumentTypeMeta::model()->findAllByAttributes(array('documentTypeId'=>$id));
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Document']))
+		if(isset($_POST['DocumentTypes']))
 		{
-			$model->attributes = $_POST['Document'];
+			$model->attributes=$_POST['DocumentTypes'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+            '_model_document_type_meta' => $_model_document_type_meta,
+			
+	         '_model_document_type_metas' => $_model_document_type_metas
+            
 		));
 	}
 
@@ -113,6 +134,8 @@ class DocumentController extends Controller
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
+      DocumentTypeMeta::model()->deleteAllByAttributes(array('documentTypeId'=>$id));
+  
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
@@ -129,7 +152,7 @@ class DocumentController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Document');
+		$dataProvider=new CActiveDataProvider('DocumentTypes');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -140,10 +163,10 @@ class DocumentController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Document('search');
+		$model=new DocumentTypes('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Document']))
-			$model->attributes=$_GET['Document'];
+		if(isset($_GET['DocumentTypes']))
+			$model->attributes=$_GET['DocumentTypes'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -157,7 +180,7 @@ class DocumentController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Document::model()->findByPk($id);
+		$model=DocumentTypes::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -169,7 +192,7 @@ class DocumentController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='document-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='document-types-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

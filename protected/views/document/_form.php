@@ -15,27 +15,13 @@
 		<?php echo $form->error($model,'title'); ?>
 	</div>
 	<div class="row">
-	    <?php echo $form->labelEx($model, 'file'); ?>
-        <?php echo $form->fileField($model, 'file'); ?>
-        <?php echo $form->error($model, 'file'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'fileName'); ?>
-		<?php echo $form->textField($model,'fileName',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'fileName'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'mimeType'); ?>
-		<?php echo $form->textField($model,'mimeType',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'mimeType'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'fileSize'); ?>
-		<?php echo $form->textField($model,'fileSize'); ?>
-		<?php echo $form->error($model,'fileSize'); ?>
+    <?php echo $form->labelEx($model,'documentTypeId'); ?>
+	  <?php
+    $allTypes = DocumentTypes::model()->findAll();
+    $list = CHtml::listData($allTypes, 'id', 'title');
+    echo CHtml::dropDownList('Document[documentTypeId]', null, $list, array('empty' => '(What Type of Document Is it?)'));
+    ?>
+	  
 	</div>
 
 	<div class="row buttons">

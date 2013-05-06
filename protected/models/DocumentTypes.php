@@ -1,23 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "documents".
+ * This is the model class for table "documentTypes".
  *
- * The followings are the available columns in table 'documents':
+ * The followings are the available columns in table 'documentTypes':
  * @property integer $id
  * @property string $title
- * @property string $fileName
- * @property string $mimeType
- * @property integer $fileSize
+ * @property string $createdAt
+ * @property string $updatedAt
  */
-class Document extends CActiveRecord
+class DocumentTypes extends CActiveRecord
 {
-    public $file;
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Document the static model class
+	 * @return DocumentTypes the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,7 +26,7 @@ class Document extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'documents';
+		return 'documentTypes';
 	}
 
 	/**
@@ -41,11 +38,11 @@ class Document extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title', 'required'),
-			array('fileSize', 'numerical', 'integerOnly'=>true),
-			array('title, fileName, mimeType', 'length', 'max'=>255),
+			array('title', 'length', 'max'=>255),
+			array('createdAt, updatedAt', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, fileName, mimeType, fileSize', 'safe', 'on'=>'search'),
+			array('id, title, createdAt, updatedAt', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,9 +65,8 @@ class Document extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'title' => 'Title',
-			'fileName' => 'File Name',
-			'mimeType' => 'Mime Type',
-			'fileSize' => 'File Size',
+			'createdAt' => 'Created At',
+			'updatedAt' => 'Updated At',
 		);
 	}
 
@@ -87,19 +83,11 @@ class Document extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
-		$criteria->compare('fileName',$this->fileName,true);
-		$criteria->compare('mimeType',$this->mimeType,true);
-		$criteria->compare('fileSize',$this->fileSize);
+		$criteria->compare('createdAt',$this->createdAt,true);
+		$criteria->compare('updatedAt',$this->updatedAt,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-    
-    //public function beforeSave()
-    //{
-        //var_dump($this->file);
-        //exit;
-    //}
-
 }

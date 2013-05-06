@@ -1,23 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "documents".
+ * This is the model class for table "documentMetas".
  *
- * The followings are the available columns in table 'documents':
+ * The followings are the available columns in table 'documentMetas':
  * @property integer $id
- * @property string $title
- * @property string $fileName
- * @property string $mimeType
- * @property integer $fileSize
+ * @property integer $documentId
+ * @property integer $documentTypeMetaId
+ * @property string $meta_value
+ * @property string $createdAt
+ * @property string $updatedAt
  */
-class Document extends CActiveRecord
+class DocumentMeta extends CActiveRecord
 {
-    public $file;
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Document the static model class
+	 * @return DocumentMeta the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,7 +28,7 @@ class Document extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'documents';
+		return 'documentMetas';
 	}
 
 	/**
@@ -40,12 +39,12 @@ class Document extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title', 'required'),
-			array('fileSize', 'numerical', 'integerOnly'=>true),
-			array('title, fileName, mimeType', 'length', 'max'=>255),
+			array('documentId, documentTypeMetaId', 'numerical', 'integerOnly'=>true),
+			array('meta_value', 'length', 'max'=>255),
+			array('createdAt, updatedAt', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, fileName, mimeType, fileSize', 'safe', 'on'=>'search'),
+			array('id, documentId, documentTypeMetaId, meta_value, createdAt, updatedAt', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,10 +66,11 @@ class Document extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
-			'fileName' => 'File Name',
-			'mimeType' => 'Mime Type',
-			'fileSize' => 'File Size',
+			'documentId' => 'Document',
+			'documentTypeMetaId' => 'Document Type Meta',
+			'meta_value' => 'Meta Value',
+			'createdAt' => 'Created At',
+			'updatedAt' => 'Updated At',
 		);
 	}
 
@@ -86,20 +86,14 @@ class Document extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('fileName',$this->fileName,true);
-		$criteria->compare('mimeType',$this->mimeType,true);
-		$criteria->compare('fileSize',$this->fileSize);
+		$criteria->compare('documentId',$this->documentId);
+		$criteria->compare('documentTypeMetaId',$this->documentTypeMetaId);
+		$criteria->compare('meta_value',$this->meta_value,true);
+		$criteria->compare('createdAt',$this->createdAt,true);
+		$criteria->compare('updatedAt',$this->updatedAt,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-    
-    //public function beforeSave()
-    //{
-        //var_dump($this->file);
-        //exit;
-    //}
-
 }
