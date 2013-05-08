@@ -84,7 +84,7 @@ class DocumentTypesController extends Controller
                         
                     }
 			    }
-                $this->redirect(array('view','id'=>$model->id));
+          $this->redirect(array('view','id'=>$model->id));
 			}
 		}
 

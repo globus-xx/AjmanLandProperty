@@ -96,6 +96,11 @@
                                                                 array('label'=>'Exported Letters Management','url'=>array('/exportedletters/')),
 								
                 )),
+              array('label'=>'DMS', 'url'=>array('/document/'), 'items'=>array(
+                  array('label'=>'Documents', 'url'=>array('/document/')),
+                  array('label'=>'Document Types', 'url'=>array('/documentTypes/')),
+              )),
+
             
             	array('label'=>'دخول', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 

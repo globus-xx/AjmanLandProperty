@@ -46,6 +46,7 @@ class Document extends CActiveRecord
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, fileName, mimeType, fileSize', 'safe', 'on'=>'search'),
+      array('file', 'file'),
 		);
 	}
 

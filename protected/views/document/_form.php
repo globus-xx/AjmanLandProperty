@@ -3,6 +3,7 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'document-form',
 	'enableAjaxValidation'=>false,
+  'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
@@ -14,6 +15,11 @@
 		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
+  <div class="row">
+    <?php echo $form->labelEx($model,'file'); ?>
+    <?php echo $form->fileField($model, 'file');?>
+    <?php echo $form->error($model,'file'); ?>
+  </div>
 	<div class="row">
     <?php echo $form->labelEx($model,'documentTypeId'); ?>
 	  <?php
@@ -23,6 +29,7 @@
     ?>
 	  
 	</div>
+	<div id="document-subform-container"></div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
@@ -31,3 +38,16 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+<script language="JavaScript">
+  $(function(){
+    $('#Document_documentTypeId').change(function(){
+      $.ajax({
+        url:'<?php echo Yii::app()->request->baseUrl;?>/index.php/Document/FormDocumentType',
+        data:{documentTypeId:$(this).val()}
+      }).done(function(response){
+        $('#document-subform-container').html(response);
+      });
+    });
+  });
+  
+</script>

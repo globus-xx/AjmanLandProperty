@@ -31,7 +31,7 @@ class DocumentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','formDocumentType'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -68,10 +68,28 @@ class DocumentController extends Controller
 
 		if(isset($_POST['Document']))
 		{
-			$model->attributes = $_POST['Document'];
+			$attributes = $_POST['Document'];
+      $model->file = CUploadedFile::getInstance($model,'file');
+      
+      $attributes['filename']= $model->file->name;
+      $attributes['mimeType']= $model->file->type;
+      $attributes['fileSize']= $model->file->size;
+      $model->attributes = $attributes;
+      var_dump($model->attributes);
+      exit;
 
 			if($model->save()){
-				$this->redirect(array('view','id'=>$model->id));
+        $model->file->saveAs('assets/file/'.$model->id);        
+			  // save all the meta details as well
+			  // create the document metas
+        foreach($_POST['Document']['documentMetas'] as $one_meta){
+          $_document_meta = new DocumentMeta;
+          $one_meta['documentId'] = $model->id;
+          $_document_meta->attributes = $one_meta;
+          if($_document_meta->save(false)){
+          }
+        }
+  			$this->redirect(array('view','id'=>$model->id));
 			}
 		}
 
@@ -149,6 +167,19 @@ class DocumentController extends Controller
 			'model'=>$model,
 		));
 	}
+  
+  /*
+   * Returns the subform based upon the documentType chosen
+   * */
+  public function actionFormDocumentType(){
+    $documentTypeId = $_GET['documentTypeId'];
+    $_documentType = DocumentTypes::model()->findByPk($documentTypeId);
+    
+    
+    $this->layout = false;
+    $this->render('form-document-type', array('documentType'=>$_documentType));
+  }
+ 
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

@@ -3239,3 +3239,417 @@ Stack trace:
 #21 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
 #22 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
 REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/create
+2013/05/08 19:55:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Documents".' in /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php:280
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Documents')
+#1 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#3 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Documents
+---
+2013/05/08 20:13:54 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php:157
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php(120): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#11 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=8
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/document/create
+---
+2013/05/08 20:14:08 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php:157
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php(120): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#11 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=8
+---
+2013/05/08 20:14:27 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php:157
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php(120): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#11 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=8
+---
+2013/05/08 20:15:49 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php:157
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php(120): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#11 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=8
+---
+2013/05/08 20:15:51 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php:157
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php(120): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#11 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=8
+---
+2013/05/08 20:16:59 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php:157
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php(120): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#11 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=8
+---
+2013/05/08 20:17:07 [error] [exception.CException] exception 'CException' with message 'Please specify the "data" property.' in /home/ali/Projects/www/ajman/yii/framework/zii/widgets/CDetailView.php:137
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(148): CDetailView->init()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(173): CBaseController->createWidget('zii.widgets.CDe...', Array)
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/document/view.php(27): CBaseController->widget('zii.widgets.CDe...', Array)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('view', Array, true)
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(157): CController->render('view', Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionFormDocumentType()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=8
+---
+2013/05/08 21:12:40 [error] [exception.CException] exception 'CException' with message 'Please specify the "data" property.' in /home/ali/Projects/www/ajman/yii/framework/zii/widgets/CDetailView.php:137
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(148): CDetailView->init()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(173): CBaseController->createWidget('zii.widgets.CDe...', Array)
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/document/view.php(27): CBaseController->widget('zii.widgets.CDe...', Array)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', NULL, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', NULL, true)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('view', NULL, true)
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(157): CController->render('view')
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionFormDocumentType()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=8
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/document/create
+---
+2013/05/08 21:13:07 [error] [exception.CException] exception 'CException' with message 'Please specify the "data" property.' in /home/ali/Projects/www/ajman/yii/framework/zii/widgets/CDetailView.php:137
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(148): CDetailView->init()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(173): CBaseController->createWidget('zii.widgets.CDe...', Array)
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/document/view.php(27): CBaseController->widget('zii.widgets.CDe...', Array)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('view', Array, true)
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(157): CController->render('view', Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionFormDocumentType()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=9
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/document/create
+---
+2013/05/08 21:20:59 [error] [php] include(DocumentType.php): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/yii/framework/YiiBase.php:418)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(158): spl_autoload_call()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionFormDocumentType()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DocumentController->runAction()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CAccessControlFilter->filter()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DocumentController->filterAccessControl()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentController->runActionWithFilters()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentController->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#12 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#13 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=9
+2013/05/08 21:21:15 [error] [exception.CException] exception 'CException' with message 'Property "DocumentController.documentType" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/document/form-document-type.php(1): CComponent->__get('documentType')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('form-document-t...', Array, true)
+#5 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(162): CController->render('form-document-t...', Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionFormDocumentType()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#12 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#17 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#18 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#19 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=8
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/document/create
+---
+2013/05/08 21:22:38 [error] [exception.CException] exception 'CException' with message 'Property "DocumentTypes.documentTypeMetas" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('documentTypeMet...')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/document/form-document-type.php(1): CActiveRecord->__get('documentTypeMet...')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('form-document-t...', Array, true)
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(162): CController->render('form-document-t...', Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionFormDocumentType()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#12 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#18 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#19 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#20 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=8
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/document/create
+---
+2013/05/08 21:22:47 [error] [exception.CException] exception 'CException' with message 'Property "DocumentTypes.documentTypeMeta" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('documentTypeMet...')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/document/form-document-type.php(1): CActiveRecord->__get('documentTypeMet...')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('form-document-t...', Array, true)
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(162): CController->render('form-document-t...', Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionFormDocumentType()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#12 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#18 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#19 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#20 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=9
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/document/create
+---
+2013/05/08 21:26:05 [error] [php] include(DocumentTypeMetas.php): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/yii/framework/YiiBase.php:418)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(378): spl_autoload_call()
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(219): model()
+#2 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(49): CActiveFinder->buildJoinTree()
+#3 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(268): CActiveFinder->__construct()
+#4 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(142): DocumentTypes->getRelated()
+#5 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/document/form-document-type.php(1): DocumentTypes->__get()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DocumentController->renderInternal()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DocumentController->renderFile()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DocumentController->renderPartial()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(162): DocumentController->render()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionFormDocumentType()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DocumentController->runAction()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CAccessControlFilter->filter()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DocumentController->filterAccessControl()
+#17 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#19 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentController->runActionWithFilters()
+#20 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentController->run()
+#21 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#22 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#23 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=8
+2013/05/08 21:27:07 [error] [exception.CException] exception 'CException' with message 'Property "DocumentTypes.documentTypeMetas" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('documentTypeMet...')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/document/form-document-type.php(1): CActiveRecord->__get('documentTypeMet...')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('form-document-t...', Array, true)
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(162): CController->render('form-document-t...', Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionFormDocumentType()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#12 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('FormDocumentTyp...')
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/FormDo...')
+#18 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#19 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#20 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=9
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/document/create
+---
+2013/05/08 21:38:08 [error] [php] Missing argument 2 for CHtml::label(), called in /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/document/form-document-type.php on line 6 and defined (/home/ali/Projects/www/ajman/yii/framework/web/helpers/CHtml.php:533)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DocumentController->renderInternal()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DocumentController->renderFile()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DocumentController->renderPartial()
+#3 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(162): DocumentController->render()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionFormDocumentType()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DocumentController->runAction()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CAccessControlFilter->filter()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DocumentController->filterAccessControl()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentController->runActionWithFilters()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentController->run()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/FormDocumentType?documentTypeId=9
+2013/05/08 22:25:00 [error] [php] Invalid argument supplied for foreach() (/home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php:76)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DocumentController->runAction()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CAccessControlFilter->filter()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DocumentController->filterAccessControl()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentController->runActionWithFilters()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentController->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/create
+2013/05/08 22:25:14 [error] [php] Invalid argument supplied for foreach() (/home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php:76)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DocumentController->runAction()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CAccessControlFilter->filter()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DocumentController->filterAccessControl()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentController->runActionWithFilters()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentController->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/create
+2013/05/08 22:25:34 [error] [php] Invalid argument supplied for foreach() (/home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php:77)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DocumentController->runAction()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CAccessControlFilter->filter()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DocumentController->filterAccessControl()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentController->runActionWithFilters()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentController->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/create
+2013/05/08 22:49:28 [error] [exception.CException] exception 'CException' with message 'Property "CUploadedFile._name" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(74): CComponent->__get('_name')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionCreate()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('create')
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/create')
+#12 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#13 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#14 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/create
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/document/create
+---
