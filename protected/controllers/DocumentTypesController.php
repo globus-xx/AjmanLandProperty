@@ -118,9 +118,8 @@ class DocumentTypesController extends Controller
 
 		$this->render('update',array(
 			'model'=>$model,
-            '_model_document_type_meta' => $_model_document_type_meta,
-			
-	         '_model_document_type_metas' => $_model_document_type_metas
+        '_model_document_type_meta' => $_model_document_type_meta,
+	      '_model_document_type_metas' => $_model_document_type_metas
             
 		));
 	}

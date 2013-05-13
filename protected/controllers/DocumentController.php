@@ -7,6 +7,7 @@ class DocumentController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+  
 
 	/**
 	 * @return array action filters
@@ -69,17 +70,19 @@ class DocumentController extends Controller
 		if(isset($_POST['Document']))
 		{
 			$attributes = $_POST['Document'];
-      $model->file = CUploadedFile::getInstance($model,'file');
-      
-      $attributes['filename']= $model->file->name;
-      $attributes['mimeType']= $model->file->type;
-      $attributes['fileSize']= $model->file->size;
+      $attributes['documentTypeId'] = $_POST['Document']['documentTypeId'];
+
+      $file = CUploadedFile::getInstance($model,'file');
+      $attributes['fileName']= $file->name;
+      $attributes['mimeType']= $file->type;
+      $attributes['fileSize']= $file->size;
       $model->attributes = $attributes;
-      var_dump($model->attributes);
-      exit;
+      $model->file = CUploadedFile::getInstance($model,'file');
+
+      
 
 			if($model->save()){
-        $model->file->saveAs('assets/file/'.$model->id);        
+        $model->file->saveAs(Yii::app()->basePath.'/../assets/files/'.$model->id);        
 			  // save all the meta details as well
 			  // create the document metas
         foreach($_POST['Document']['documentMetas'] as $one_meta){
@@ -105,7 +108,9 @@ class DocumentController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model = $this->loadModel($id);
+    $_model_document_metas = DocumentMeta::model()->findAllByAttributes(array('documentId'=>$id));
+
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -119,6 +124,9 @@ class DocumentController extends Controller
 
 		$this->render('update',array(
 			'model'=>$model,
+      '_model_document_metas' => $_model_document_metas,
+       '_documentType' => DocumentTypes::model()->findByPk($model->documentTypeId),
+      
 		));
 	}
 

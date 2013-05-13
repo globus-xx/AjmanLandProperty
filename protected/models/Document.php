@@ -43,9 +43,11 @@ class Document extends CActiveRecord
 			array('title', 'required'),
 			array('fileSize', 'numerical', 'integerOnly'=>true),
 			array('title, fileName, mimeType', 'length', 'max'=>255),
+      array('documentTypeId', 'numerical', 'integerOnly'=>true),
+			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, fileName, mimeType, fileSize', 'safe', 'on'=>'search'),
+			array('id, title, fileName, mimeType, documentTypeId, fileSize', 'safe', 'on'=>'search'),
       array('file', 'file'),
 		);
 	}
@@ -72,6 +74,7 @@ class Document extends CActiveRecord
 			'fileName' => 'File Name',
 			'mimeType' => 'Mime Type',
 			'fileSize' => 'File Size',
+			'documentTypeId'=>'document Type Id',
 		);
 	}
 
@@ -96,6 +99,16 @@ class Document extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+  function beforeDelete(){
+    $documentMetas = DocumentMeta::model()->findAllByAttributes(array('documentId'=>$this->id));
+    foreach($documentMetas as $ii=>$vv){
+      $vv->delete();
+    }
+    return parent::beforeDelete();
+  }
+  
+  
     
     //public function beforeSave()
     //{

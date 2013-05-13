@@ -27,9 +27,13 @@
     $list = CHtml::listData($allTypes, 'id', 'title');
     echo CHtml::dropDownList('Document[documentTypeId]', null, $list, array('empty' => '(What Type of Document Is it?)'));
     ?>
-	  
+
 	</div>
-	<div id="document-subform-container"></div>
+	<div id="document-subform-container"><?php 
+	if(is_array($_model_document_metas)):
+  	echo $this->renderPartial('form-document-type', array('documentType'=>$_documentType,'_model_document_metas'=>$_model_document_metas));
+  endif;
+  ?></div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

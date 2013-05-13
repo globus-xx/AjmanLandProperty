@@ -14,5 +14,4 @@ $this->menu=array(
 ?>
 
 <h1>Update Document <?php echo $model->id; ?></h1>
-
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, '_documentType'=>$_documentType, '_model_document_metas'=>$_model_document_metas)); ?>
