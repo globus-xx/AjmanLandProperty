@@ -11,6 +11,7 @@ $this->menu=array(
 	array('label'=>'View Document', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage Document', 'url'=>array('admin')),
 );
+
 ?>
 
 <h1>Update Document <?php echo $model->id; ?></h1>

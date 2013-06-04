@@ -1,23 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "documents".
+ * This is the model class for table "documentable".
  *
- * The followings are the available columns in table 'documents':
+ * The followings are the available columns in table 'documentable':
  * @property integer $id
- * @property string $title
- * @property string $fileName
- * @property string $mimeType
- * @property integer $fileSize
+ * @property integer $documentId
+ * @property string $documentable_type
+ * @property integer $documentable_id
+ * @property string $createdAt
+ * @property string $updatedAt
+ *
+ * The followings are the available model relations:
+ * @property Documents $document
  */
-class Document extends CActiveRecord
+class Documentable extends CActiveRecord
 {
-    public $file;
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Document the static model class
+	 * @return Documentable the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,11 +31,7 @@ class Document extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'documents';
-	}
-
-	public function downloadPath(){
-		return Yii::app()->params['filesPath'].$this->attributes['id'];
+		return 'documentable';
 	}
 
 	/**
@@ -44,15 +42,12 @@ class Document extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title', 'required'),
-			array('fileSize', 'numerical', 'integerOnly'=>true),
-			array('title, fileName, mimeType', 'length', 'max'=>255),
-      array('documentTypeId', 'numerical', 'integerOnly'=>true),
-			
+			array('documentId, documentable_id', 'numerical', 'integerOnly'=>true),
+			array('documentable_type', 'length', 'max'=>255),
+			array('createdAt, updatedAt', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, fileName, mimeType, documentTypeId, fileSize', 'safe', 'on'=>'search'),
-      array('file', 'file'),
+			array('id, documentId, documentable_type, documentable_id, createdAt, updatedAt', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,6 +59,7 @@ class Document extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'document' => array(self::BELONGS_TO, 'Documents', 'documentId'),
 		);
 	}
 
@@ -74,11 +70,11 @@ class Document extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
-			'fileName' => 'File Name',
-			'mimeType' => 'Mime Type',
-			'fileSize' => 'File Size',
-			'documentTypeId'=>'document Type Id',
+			'documentId' => 'Document',
+			'documentable_type' => 'Documentable Type',
+			'documentable_id' => 'Documentable',
+			'createdAt' => 'Created At',
+			'updatedAt' => 'Updated At',
 		);
 	}
 
@@ -94,30 +90,14 @@ class Document extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('fileName',$this->fileName,true);
-		$criteria->compare('mimeType',$this->mimeType,true);
-		$criteria->compare('fileSize',$this->fileSize);
+		$criteria->compare('documentId',$this->documentId);
+		$criteria->compare('documentable_type',$this->documentable_type,true);
+		$criteria->compare('documentable_id',$this->documentable_id);
+		$criteria->compare('createdAt',$this->createdAt,true);
+		$criteria->compare('updatedAt',$this->updatedAt,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
-  function beforeDelete(){
-    $documentMetas = DocumentMeta::model()->findAllByAttributes(array('documentId'=>$this->id));
-    foreach($documentMetas as $ii=>$vv){
-      $vv->delete();
-    }
-    return parent::beforeDelete();
-  }
-  
-  
-    
-    //public function beforeSave()
-    //{
-        //var_dump($this->file);
-        //exit;
-    //}
-
 }

@@ -32,7 +32,7 @@ class DocumentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','formDocumentType'),
+				'actions'=>array('create','update','download', 'formDocumentType'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -54,6 +54,25 @@ class DocumentController extends Controller
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
+	}
+
+	public function actionDownload($id){
+		$model = $this->loadModel($id);
+    $path =  $model->downloadPath();//Yii::app()->basePath.'/../assets/files/'.$model->id;
+    $file =  urldecode($path);
+
+    if (file_exists($file)) {
+      header('Content-Description: File Transfer');
+      header('Content-Type: application/octet-stream');
+      header('Content-Disposition: attachment; filename=' . $model->attributes['fileName']);
+      header('Content-Length: ' . filesize($file));
+    	echo file_get_contents($path);
+      exit;
+
+    }else{
+      echo "file not exist: ".$model->attributes['title'];            
+    }
+    exit;
 	}
 
 	/**
@@ -121,12 +140,55 @@ class DocumentController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
+    
+    if(isset($_POST['Document']))
+    {
+      $attributes = $_POST['Document'];
+      $attributes['documentTypeId'] = $_POST['Document']['documentTypeId'];
+
+      $file = CUploadedFile::getInstance($model,'file');
+      if($file):
+        $attributes['fileName']= $file->name;
+        $attributes['mimeType']= $file->type;
+        $attributes['fileSize']= $file->size;
+        $model->attributes = $attributes;
+        $model->file = CUploadedFile::getInstance($model,'file');
+      else:
+          $model->attributes = $attributes;
+      endif;
+      
+
+      if($model->save()){
+        if($file):
+          $model->file->saveAs(Yii::app()->basePath.'/../assets/files/'.$model->id);        
+        endif;
+        // save all the meta details as well
+        // create the document metas
+        foreach($_POST['Document']['documentMetas'] as $one_meta){
+          if(isset($one_meta['id'])):
+            $_document_meta = DocumentMeta::model()->find($one_meta['id']);
+            if(isset($one_meta['delete'])):
+              $_document_meta->delete();
+              continue;
+            endif;
+          else:
+            $_document_meta = new DocumentMeta;
+          endif;
+          $one_meta['documentId'] = $model->id;
+          $_document_meta->attributes = $one_meta;
+          if($_document_meta->save(false)){
+          }
+        }
+        $this->redirect(array('view','id'=>$model->id));
+      }
+    }
+
+
 
 		$this->render('update',array(
 			'model'=>$model,
       '_model_document_metas' => $_model_document_metas,
        '_documentType' => DocumentTypes::model()->findByPk($model->documentTypeId),
-      
 		));
 	}
 
@@ -159,6 +221,11 @@ class DocumentController extends Controller
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
+	}
+
+	public function actionSearch(){
+		$term = $_GET['ternm']
+		$models = Document::model()->findBySql('select * from documents where title like "'+'%"')
 	}
 
 	/**

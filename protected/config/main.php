@@ -112,5 +112,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'omarosh@ajmanland.gov.ae',
+		'filesPath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'../../assets/files/'
+
 	),
 );

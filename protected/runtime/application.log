@@ -3999,3 +3999,373 @@ Stack trace:
 REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/update/16
 HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/document/16
 ---
+2013/06/04 19:59:12 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php:157
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php(120): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#11 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/7
+---
+2013/06/04 20:00:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested page does not exist.' in /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php:263
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(60): DocumentController->loadModel('11')
+#1 [internal function]: DocumentController->actionDownload('11')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#14 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#16 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/11
+---
+2013/06/04 20:00:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested page does not exist.' in /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php:263
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(60): DocumentController->loadModel('12')
+#1 [internal function]: DocumentController->actionDownload('12')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#14 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#16 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/12
+---
+2013/06/04 20:01:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested page does not exist.' in /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php:265
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(60): DocumentController->loadModel('12')
+#1 [internal function]: DocumentController->actionDownload('12')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#14 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#16 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/12
+---
+2013/06/04 20:01:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested page does not exist.' in /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php:265
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(60): DocumentController->loadModel('12')
+#1 [internal function]: DocumentController->actionDownload('12')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#14 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#16 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/12
+---
+2013/06/04 20:02:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested page does not exist.' in /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php:265
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(60): DocumentController->loadModel('11')
+#1 [internal function]: DocumentController->actionDownload('11')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#14 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#16 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/11
+---
+2013/06/04 20:02:33 [error] [exception.CException] exception 'CException' with message 'Property "Document.filename" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('filename')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(67): CActiveRecord->__get('filename')
+#2 [internal function]: DocumentController->actionDownload('14')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#17 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/14
+---
+2013/06/04 20:02:41 [error] [exception.CException] exception 'CException' with message 'Property "Document.filename" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('filename')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(67): CActiveRecord->__get('filename')
+#2 [internal function]: DocumentController->actionDownload('14')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#17 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/14
+---
+2013/06/04 20:02:59 [error] [exception.CException] exception 'CException' with message 'Property "Document.filename" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('filename')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(67): CActiveRecord->__get('filename')
+#2 [internal function]: DocumentController->actionDownload('14')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#17 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/14
+---
+2013/06/04 20:04:16 [error] [exception.CException] exception 'CException' with message 'Property "Document.filename" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('filename')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(67): CActiveRecord->__get('filename')
+#2 [internal function]: DocumentController->actionDownload('14')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#17 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/14
+---
+2013/06/04 20:04:32 [error] [exception.CException] exception 'CException' with message 'Property "Document.filename" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('filename')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(66): CActiveRecord->__get('filename')
+#2 [internal function]: DocumentController->actionDownload('14')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#17 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/14
+---
+2013/06/04 20:04:47 [error] [exception.CException] exception 'CException' with message 'Property "Document.filename" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('filename')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(67): CActiveRecord->__get('filename')
+#2 [internal function]: DocumentController->actionDownload('14')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#17 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/14
+---
+2013/06/04 20:04:53 [error] [exception.CException] exception 'CException' with message 'Property "Document.filename" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('filename')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(67): CActiveRecord->__get('filename')
+#2 [internal function]: DocumentController->actionDownload('14')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#17 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/14
+---
+2013/06/04 20:05:50 [error] [exception.CException] exception 'CException' with message 'Property "Document.filename" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('filename')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(66): CActiveRecord->__get('filename')
+#2 [internal function]: DocumentController->actionDownload('14')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#17 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/14
+---
+2013/06/04 20:06:06 [error] [exception.CException] exception 'CException' with message 'Property "Document.filename" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('filename')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(66): CActiveRecord->__get('filename')
+#2 [internal function]: DocumentController->actionDownload('14')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#17 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/14
+---
+2013/06/04 20:06:14 [error] [exception.CException] exception 'CException' with message 'Property "Document.filename" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('filename')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(64): CActiveRecord->__get('filename')
+#2 [internal function]: DocumentController->actionDownload('14')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DocumentController), Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DocumentController), Object(ReflectionMethod), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('download')
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/downlo...')
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#17 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/download/14
+---
+2013/06/04 20:28:50 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.documentable' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `documentable`.
+2013/06/04 21:58:02 [error] [exception.CException] exception 'CException' with message 'Property "CustomerMaster.id" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('id')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/customerMaster/view.php(48): CActiveRecord->__get('id')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('view', Array, true)
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/CustomerMasterController.php(59): CController->render('view', Array)
+#7 [internal function]: CustomerMasterController->actionView('1')
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(CustomerMasterController), Array)
+#9 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(CustomerMasterController), Object(ReflectionMethod), Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#12 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#13 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('view')
+#19 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('customerMaster/...')
+#20 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#21 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#22 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/customerMaster/1
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/CustomerMaster/admin
+---
