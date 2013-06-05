@@ -32,7 +32,7 @@ class DocumentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','download', 'formDocumentType'),
+				'actions'=>array('create','update','search', 'download', 'formDocumentType'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -224,8 +224,17 @@ class DocumentController extends Controller
 	}
 
 	public function actionSearch(){
-		$term = $_GET['ternm']
-		$models = Document::model()->findBySql('select * from documents where title like "'+'%"')
+		$term = $_GET['term'];
+
+		$sql = 'select documents.* from documents where documents.title like "'.$term.'%"';
+
+	$connection=Yii::app()->db;
+	$command=$connection->createCommand($sql);
+	$models=$command->queryAll(); 
+
+    $this->layout = false;
+    echo CJSON::encode($models);
+
 	}
 
 	/**

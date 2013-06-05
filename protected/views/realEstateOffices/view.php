@@ -26,3 +26,8 @@ $this->menu=array(
 		'Email',
 	),
 )); ?>
+<?php 
+// code for attach a document thingamabob
+echo $this->renderPartial('/documentable/_attachinary', array('documentableType'=>'real_estate_office', 
+							'documentableId'=>$model->RealEstateID));
+?>

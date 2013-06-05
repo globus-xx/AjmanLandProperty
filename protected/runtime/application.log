@@ -4369,3 +4369,375 @@ Stack trace:
 REQUEST_URI=/ajman/AjmanLandProperty/index.php/customerMaster/1
 HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/CustomerMaster/admin
 ---
+2013/06/05 18:59:02 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php:157
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/auth/CAccessControlFilter.php(120): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('Search')
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/Search')
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#11 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/Search?term=In
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/customerMaster/1
+---
+2013/06/05 18:59:50 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0' at line 1. The SQL statement executed was: 0.
+2013/06/05 18:59:50 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0' at line 1' in /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php:528
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php(408): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(1494): CDbCommand->queryRow()
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(228): CActiveRecord->findBySql(0)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionSearch()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('Search')
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/Search')
+#14 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#16 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/Search?term=In
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/customerMaster/1
+---
+2013/06/05 19:00:46 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0' at line 1. The SQL statement executed was: 0.
+2013/06/05 19:00:46 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0' at line 1' in /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php:528
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php(408): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(1494): CDbCommand->queryRow()
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php(228): CActiveRecord->findBySql(0)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentController->actionSearch()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('Search')
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Document/Search')
+#14 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#16 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/Search?term=In
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/customerMaster/1
+---
+2013/06/05 19:02:12 [error] [php] Invalid argument supplied for foreach() (/home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentController.php:231)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DocumentController->runAction()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(1146): CAccessControlFilter->filter()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DocumentController->filterAccessControl()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentController->runActionWithFilters()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentController->run()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#9 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Document/Search?term=in
+2013/06/05 20:00:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "ajman".' in /home/ali/Projects/www/ajman/yii/framework/web/CController.php:484
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(271): CController->missingAction('ajman')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('ajman')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('customerMaster/...')
+#3 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#4 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/customerMaster/ajman/AjmanLandProperty/css/jquery-ui-1.8.16.custom.css
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/customerMaster/1
+---
+2013/06/05 20:35:07 [error] [php] Missing argument 2 for CHtml::ajaxSubmitButton(), called in /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/documentable/_view.php on line 19 and defined (/home/ali/Projects/www/ajman/yii/framework/web/helpers/CHtml.php:1004)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DocumentableController->renderInternal()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DocumentableController->renderFile()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DocumentableController->renderPartial()
+#3 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentableController.php(18): DocumentableController->render()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentableController->actionView()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(287): DocumentableController->runAction()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentableController->runActionWithFilters()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentableController->run()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#10 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#11 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Documentable/View?documentableType=customer&documentableId=1
+2013/06/05 20:36:24 [error] [php] Missing argument 2 for CHtml::ajaxSubmitButton(), called in /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/documentable/_view.php on line 19 and defined (/home/ali/Projects/www/ajman/yii/framework/web/helpers/CHtml.php:1004)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DocumentableController->renderInternal()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DocumentableController->renderFile()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DocumentableController->renderPartial()
+#3 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentableController.php(18): DocumentableController->render()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentableController->actionView()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(287): DocumentableController->runAction()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentableController->runActionWithFilters()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentableController->run()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#10 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#11 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Documentable/View?documentableType=customer&documentableId=1
+2013/06/05 21:45:14 [error] [exception.CException] exception 'CException' with message 'Property "Documentable.save" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('save')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentableController.php(10): CActiveRecord->__get('save')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentableController->actionCreate()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(287): CController->runAction(Object(CInlineAction))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('Create')
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Documentable/Cr...')
+#8 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#9 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#10 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Documentable/Create
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/customerMaster/1
+---
+2013/06/05 21:54:04 [error] [exception.CDbException] exception 'CDbException' with message 'Table "documentable" does not have a column named "documentableType".' in /home/ali/Projects/www/ajman/yii/framework/db/schema/CDbCommandBuilder.php:570
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(1471): CDbCommandBuilder->createColumnCriteria(Object(CMysqlTableSchema), Array, '', Array, '`t`.')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentableController.php(31): CActiveRecord->findAllByAttributes(Array)
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentableController->actionView()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(287): CController->runAction(Object(CInlineAction))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('View')
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('Documentable/Vi...')
+#8 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#9 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#10 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Documentable/View?documentableType=customer&documentableId=1
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/customerMaster/1
+---
+2013/06/05 21:54:44 [error] [php] include(Documents.php): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/yii/framework/YiiBase.php:418)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(378): spl_autoload_call()
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(219): model()
+#2 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(49): CActiveFinder->buildJoinTree()
+#3 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(268): CActiveFinder->__construct()
+#4 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(142): Documentable->getRelated()
+#5 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/documentable/_view.php(27): Documentable->__get()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DocumentableController->renderInternal()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DocumentableController->renderFile()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DocumentableController->renderPartial()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentableController.php(33): DocumentableController->render()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentableController->actionView()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(287): DocumentableController->runAction()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentableController->runActionWithFilters()
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentableController->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#17 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#18 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Documentable/View?documentableType=customer&documentableId=1
+2013/06/05 21:55:49 [error] [php] include(Documents.php): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/yii/framework/YiiBase.php:418)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(378): spl_autoload_call()
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(219): model()
+#2 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(49): CActiveFinder->buildJoinTree()
+#3 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(268): CActiveFinder->__construct()
+#4 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(142): Documentable->getRelated()
+#5 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/documentable/_view.php(27): Documentable->__get()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DocumentableController->renderInternal()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DocumentableController->renderFile()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DocumentableController->renderPartial()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentableController.php(33): DocumentableController->render()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentableController->actionView()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(287): DocumentableController->runAction()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentableController->runActionWithFilters()
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentableController->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#17 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#18 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Documentable/View?documentableType=customer&documentableId=1
+2013/06/05 21:56:11 [error] [php] include(Documents.php): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/yii/framework/YiiBase.php:418)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(378): spl_autoload_call()
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(219): model()
+#2 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(49): CActiveFinder->buildJoinTree()
+#3 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(268): CActiveFinder->__construct()
+#4 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(142): Documentable->getRelated()
+#5 /home/ali/Projects/www/ajman/yii/framework/base/CModel.php(593): Documentable->__get()
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/documentable/_view.php(27): Documentable->offsetGet()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DocumentableController->renderInternal()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DocumentableController->renderFile()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DocumentableController->renderPartial()
+#11 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentableController.php(33): DocumentableController->render()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentableController->actionView()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(287): DocumentableController->runAction()
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentableController->runActionWithFilters()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentableController->run()
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#18 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#19 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Documentable/View?documentableType=customer&documentableId=1
+2013/06/05 21:58:58 [error] [php] include(Documents.php): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/yii/framework/YiiBase.php:418)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(378): spl_autoload_call()
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(219): model()
+#2 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(310): CActiveFinder->buildJoinTree()
+#3 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(49): CActiveFinder->buildJoinTree()
+#4 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(1291): CActiveFinder->__construct()
+#5 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(1472): Documentable->query()
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentableController.php(30): Documentable->findAllByAttributes()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentableController->actionView()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(287): DocumentableController->runAction()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentableController->runActionWithFilters()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentableController->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#13 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#14 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Documentable/View?documentableType=customer&documentableId=1
+2013/06/05 21:59:35 [error] [php] include(Documents.php): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/yii/framework/YiiBase.php:418)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(378): spl_autoload_call()
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(219): model()
+#2 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(310): CActiveFinder->buildJoinTree()
+#3 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveFinder.php(49): CActiveFinder->buildJoinTree()
+#4 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(1291): CActiveFinder->__construct()
+#5 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(1472): Documentable->query()
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DocumentableController.php(30): Documentable->findAllByAttributes()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DocumentableController->actionView()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(287): DocumentableController->runAction()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DocumentableController->runActionWithFilters()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DocumentableController->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#13 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#14 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/Documentable/View?documentableType=customer&documentableId=1
+2013/06/05 22:09:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "16".' in /home/ali/Projects/www/ajman/yii/framework/web/CController.php:484
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(271): CController->missingAction('16')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('16')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('document/16/dow...')
+#3 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#4 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/document/16/download
+---
+2013/06/05 22:28:40 [error] [exception.CException] exception 'CException' with message 'CustomerMasterController cannot find the requested view "documentable/_attachinary".' in /home/ali/Projects/www/ajman/yii/framework/web/CController.php:879
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/customerMaster/view.php(40): CController->renderPartial('documentable/_a...', Array)
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('view', Array, true)
+#5 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/CustomerMasterController.php(59): CController->render('view', Array)
+#6 [internal function]: CustomerMasterController->actionView('1')
+#7 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(CustomerMasterController), Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(CustomerMasterController), Object(ReflectionMethod), Array)
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('view')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('customerMaster/...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/customerMaster/1
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/site/login
+---
+2013/06/05 22:28:55 [error] [exception.CException] exception 'CException' with message 'CustomerMasterController cannot find the requested view "documentable/_attachinary".' in /home/ali/Projects/www/ajman/yii/framework/web/CController.php:879
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('documentable/_a...', Array, true)
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/customerMaster/view.php(40): CController->render('documentable/_a...', Array)
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('view', Array, true)
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/CustomerMasterController.php(59): CController->render('view', Array)
+#7 [internal function]: CustomerMasterController->actionView('1')
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(CustomerMasterController), Array)
+#9 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(CustomerMasterController), Object(ReflectionMethod), Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#12 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#13 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('view')
+#19 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('customerMaster/...')
+#20 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#21 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#22 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/customerMaster/1
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/site/login
+---
+2013/06/05 22:30:19 [error] [exception.CException] exception 'CException' with message 'CustomerMasterController cannot find the requested view "/documentable/_attachinary.php".' in /home/ali/Projects/www/ajman/yii/framework/web/CController.php:879
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/customerMaster/view.php(40): CController->renderPartial('/documentable/_...', Array)
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('view', Array, true)
+#5 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/CustomerMasterController.php(59): CController->render('view', Array)
+#6 [internal function]: CustomerMasterController->actionView('1')
+#7 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(CustomerMasterController), Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(CustomerMasterController), Object(ReflectionMethod), Array)
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('view')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('customerMaster/...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/customerMaster/1
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/site/login
+---
+2013/06/05 22:35:16 [error] [exception.CException] exception 'CException' with message 'Property "DeedTracker.LandID" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(144): CComponent->__get('LandID')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/models/DeedTracker.php(97): CActiveRecord->__get('LandID')
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/deedTracker/admin.php(26): DeedTracker->search()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('admin', Array, true)
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedTrackerController.php(145): CController->render('admin', Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedTrackerController->actionAdmin()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('admin')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('DeedTracker/adm...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedTracker/admin
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/HajzMaster/2
+---

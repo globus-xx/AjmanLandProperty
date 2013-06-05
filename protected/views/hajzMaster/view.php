@@ -34,4 +34,9 @@ $this->menu=array(
 		'DocsEnded',
 		'IsActive',
 	),
-)); ?>
+)); ?><?php 
+// code for attach a document thingamabob
+echo $this->renderPartial('/documentable/_attachinary', array('documentableType'=>'hajz', 
+							'documentableId'=>$model->HajzID));
+?>
+

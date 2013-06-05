@@ -37,17 +37,8 @@ $this->menu=array(
 		'CustomerType',
 	),
 )); ?>
-
-<div id="placeholder-for-documentable-form">
-	</div>
-	<script type="text/javascript">
-$(function(){
-	$.ajax({
-        url:'<?php echo Yii::app()->request->baseUrl;?>/index.php/Documentable/View',
-        data:{documentableType:'customer', documentableId:<?php echo $model->CustomerID;?>}
-      }).done(function(response){
-        $('#placeholder-for-documentable-form').html(response);
-      });
-
-})
-</script>
+<?php 
+// code for attach a document thingamabob
+echo $this->renderPartial('/documentable/_attachinary', array('documentableType'=>'customer', 
+							'documentableId'=>$model->CustomerID));
+?>
