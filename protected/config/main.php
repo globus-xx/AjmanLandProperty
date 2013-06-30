@@ -2,7 +2,8 @@
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
-
+error_reporting(E_ALL);
+ini_set('display_errors', true);
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(

@@ -4741,3 +4741,339 @@ Stack trace:
 REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedTracker/admin
 HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/HajzMaster/2
 ---
+2013/06/06 22:49:28 [error] [php] Missing argument 2 for CHtml::label(), called in /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php on line 24 and defined (/home/ali/Projects/www/ajman/yii/framework/web/helpers/CHtml.php:533)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): ContractsMasterController->renderInternal()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): ContractsMasterController->renderFile()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): ContractsMasterController->renderPartial()
+#3 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(78): ContractsMasterController->render()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionReportable()
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): ContractsMasterController->runAction()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#8 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): RightsFilter->filter()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): ContractsMasterController->filterRights()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): ContractsMasterController->runActionWithFilters()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): ContractsMasterController->run()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#15 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#16 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/ContractsMaster/reportable
+2013/06/06 23:58:17 [error] [php] Missing argument 1 for Reportable::beforeSave(), called in /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php on line 1008 and defined (/home/ali/Projects/www/ajman/AjmanLandProperty/protected/models/Reportable.php:32)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(97): Reportable->save()
+#1 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionReportable()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): ContractsMasterController->runAction()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#5 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): RightsFilter->filter()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): ContractsMasterController->filterRights()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): ContractsMasterController->runActionWithFilters()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): ContractsMasterController->run()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#12 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#13 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/ContractsMaster/reportable
+2013/06/30 20:37:47 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/ali/Projects/www/ajman/yii/framework/web/CController.php:337
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(310): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#2 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#3 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('printmukhattat')
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#10 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#11 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#12 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/printmukhattat/
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/ContractsMaster/mukhattat
+---
+2013/06/30 20:58:06 [error] [exception.CException] exception 'CException' with message 'ContractsMasterController and its behaviors do not have a method or closure named "getMetaData".' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:266
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): CComponent->__call('getMetaData', Array)
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): ContractsMasterController->getMetaData()
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php(65): CActiveRecord->getTableSchema()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('reportable', Array, true)
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(90): CController->render('reportable', Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionReportable()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('reportable')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/reportable
+---
+2013/06/30 20:58:33 [error] [exception.CException] exception 'CException' with message 'ContractsMasterController and its behaviors do not have a method or closure named "getMetaData".' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:266
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): CComponent->__call('getMetaData', Array)
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): ContractsMasterController->getMetaData()
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php(65): CActiveRecord->getTableSchema()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('reportable', Array, true)
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(90): CController->render('reportable', Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionReportable()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('reportable')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/reportable
+---
+2013/06/30 20:59:04 [error] [exception.CException] exception 'CException' with message 'ContractsMasterController and its behaviors do not have a method or closure named "getMetaData".' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:266
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): CComponent->__call('getMetaData', Array)
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): ContractsMasterController->getMetaData()
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php(65): CActiveRecord->getTableSchema()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('reportable', Array, true)
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(90): CController->render('reportable', Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionReportable()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('reportable')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/reportable
+---
+2013/06/30 20:59:09 [error] [exception.CException] exception 'CException' with message 'ContractsMasterController and its behaviors do not have a method or closure named "getMetaData".' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:266
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): CComponent->__call('getMetaData', Array)
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): ContractsMasterController->getMetaData()
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php(65): CActiveRecord->getTableSchema()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('reportable', Array, true)
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(90): CController->render('reportable', Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionReportable()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('reportable')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/reportable
+---
+2013/06/30 20:59:53 [error] [exception.CException] exception 'CException' with message 'ContractsMasterController and its behaviors do not have a method or closure named "getMetaData".' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:266
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): CComponent->__call('getMetaData', Array)
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): ContractsMasterController->getMetaData()
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php(65): CActiveRecord->getTableSchema()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('reportable', Array, true)
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(90): CController->render('reportable', Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionReportable()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('reportable')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/reportable
+---
+2013/06/30 21:02:38 [error] [exception.CException] exception 'CException' with message 'Property "ContractsMasterController._md" is not defined.' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:131
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(391): CComponent->__get('_md')
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php(65): CActiveRecord->getMetaData()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('reportable', Array, true)
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(90): CController->render('reportable', Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionReportable()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#12 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('reportable')
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#18 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#19 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#20 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/reportable
+---
+2013/06/30 21:02:55 [error] [exception.CException] exception 'CException' with message 'ContractsMasterController and its behaviors do not have a method or closure named "getMetaData".' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:266
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): CComponent->__call('getMetaData', Array)
+#1 /home/ali/Projects/www/ajman/yii/framework/db/ar/CActiveRecord.php(639): ContractsMasterController->getMetaData()
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php(65): CActiveRecord->getTableSchema()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('reportable', Array, true)
+#7 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(90): CController->render('reportable', Array)
+#8 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionReportable()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#12 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('reportable')
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#19 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#20 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/reportable
+---
+2013/06/30 21:07:21 [error] [exception.CException] exception 'CException' with message 'CMysqlTableSchema and its behaviors do not have a method or closure named "columns".' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:266
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php(66): CComponent->__call('columns', Array)
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php(66): CMysqlTableSchema->columns()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('reportable', Array, true)
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(90): CController->render('reportable', Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionReportable()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#12 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('reportable')
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#18 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#19 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#20 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/reportable
+---
+2013/06/30 21:07:42 [error] [exception.CException] exception 'CException' with message 'CMysqlTableSchema and its behaviors do not have a method or closure named "columns".' in /home/ali/Projects/www/ajman/yii/framework/base/CComponent.php:266
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php(68): CComponent->__call('columns', Array)
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/contractsMaster/reportable.php(68): CMysqlTableSchema->columns()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require('/home/ali/Proje...')
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): CBaseController->renderInternal('/home/ali/Proje...', Array, true)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): CBaseController->renderFile('/home/ali/Proje...', Array, true)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('reportable', Array, true)
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(90): CController->render('reportable', Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionReportable()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#9 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#11 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#12 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('reportable')
+#17 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#18 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#19 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#20 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/reportable
+---
+2013/06/30 22:27:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "new-reportable".' in /home/ali/Projects/www/ajman/yii/framework/web/CController.php:484
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(271): CController->missingAction('new-reportable')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('new-reportable')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#3 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#4 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/new-reportable
+---
+2013/06/30 22:27:11 [error] [exception.CException] exception 'CException' with message 'ContractsMasterController cannot find the requested view "reportable".' in /home/ali/Projects/www/ajman/yii/framework/web/CController.php:879
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('reportable', Array, true)
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(90): CController->render('reportable', Array)
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionNewReportable()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('newReportable')
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#13 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#14 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#15 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/newReportable
+---
+2013/06/30 22:27:23 [error] [exception.CException] exception 'CException' with message 'ContractsMasterController cannot find the requested view "reportable".' in /home/ali/Projects/www/ajman/yii/framework/web/CController.php:879
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): CController->renderPartial('reportable', Array, true)
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/ContractsMasterController.php(90): CController->render('reportable', Array)
+#2 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): ContractsMasterController->actionNewReportable()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#4 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#5 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#6 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#10 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('newReportable')
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('contractsMaster...')
+#13 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#14 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#15 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/contractsMaster/newReportable
+---

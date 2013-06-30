@@ -14,7 +14,6 @@
 	
 
 	<?php echo $form->errorSummary($model); ?>
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'LandID'); ?>
 		<?php echo $form->textField($model,'LandID',array('size'=>10,'maxlength'=>10,'disabled'=>'disabled')); ?>
