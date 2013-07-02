@@ -30,8 +30,15 @@ class Reportable extends CActiveRecord
 	}
 
 	public function beforeSave(){
-		$this->conditions = serialize($this->conditions);
-		$this->display = serialize($this->display);
+		// remove unenabled fields
+		$conditions = $this->conditions;
+		foreach($this->conditions as $ii=>$vv){
+			if(!isset($vv['enabled'])){
+				unset($conditions[$ii]);
+			}
+		}
+		$this->conditions = json_encode($conditions);
+		$this->display = json_encode($this->display);
 		return true;
 	}
 
@@ -77,6 +84,27 @@ class Reportable extends CActiveRecord
 		);
 	}
 
+	public function objectToArray($d) {
+		if (is_object($d)) {
+			// Gets the properties of the given object
+			// with get_object_vars function
+			$d = get_object_vars($d);
+		}
+ 
+		if (is_array($d)) {
+			/*
+			* Return array converted to object
+			* Using __FUNCTION__ (Magic constant)
+			* for recursive call
+			*/
+			return array_map('Reportable::objectToArray', $d);
+		}
+		else {
+			// Return array
+			return $d;
+		}
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -97,4 +125,64 @@ class Reportable extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+
+
+
+
+	public function getReport($reportable_type){
+		$reportable = $this;
+		$criteria = new CDbCriteria();
+		$criteria->alias = 'ContractsMaster';
+		$criteria->select = '1';
+
+		$attributes = $reportable->attributes;
+ 
+		$attributes['display'] = Reportable::objectToArray(json_decode($attributes['display']));
+
+		foreach($attributes['display'] as $model=>$fields){
+			foreach($fields as $ii=>$afield):
+				$criteria->select.= ', '.$model.'.'.$ii;
+			endforeach;
+		}
+
+		$criteria->join=' LEFT JOIN LandMaster on LandMaster.LandID = ContractsMaster.LandID ';
+		$criteria->join.=' LEFT JOIN ContractsDetail on ContractsDetail.ContractID = ContractsMaster.ContractsID ';
+		$criteria->join.=' LEFT JOIN CustomerMaster on ContractsDetail.CustomerID = CustomerMaster.CustomerID ';
+
+		//$reportable->conditions = unserialize($reportable->conditions);
+		$criteria->condition = " ";
+	 	$attributes['conditions'] = Reportable::objectToArray(json_decode($attributes['conditions']));
+		foreach($attributes['conditions'] as $field_name=>$attribs){
+			$cnd = $attribs['attrib'];
+			if ($cnd =='gt'){
+				$cnd = '>';
+			}elseif($cnd =='lt'){
+				$cnd = '<';
+			}
+
+			if(is_array($attribs['value'])){
+				foreach($attribs['value'] as $ii=>$vv){
+					$attribs['value'][$ii] = "'".mysql_real_escape_string($vv)."'";
+				}
+				$attribs['value'] = $attribs['value'].join(',');
+			}else{
+				$attribs['value'] = "'".mysql_real_escape_string($attribs['value'])."'";
+			}
+
+			//$criteria->condition.= ( strstr( $criteria->condition, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";
+			
+		}
+
+		return $criteria;
+
+
+
+		return new CActiveDataProvider($reportable_type, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+
+
 }

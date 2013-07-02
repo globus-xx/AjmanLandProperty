@@ -73,9 +73,24 @@ class ContractsMasterController extends Controller
     return $defaults;
   }
 
+  public function actionReportables()
+  {
+
+    $dataProvider=new CActiveDataProvider('Reportable', array(
+      'criteria'=>array(
+          'condition'=>'reportable_type=\'ContractsMaster\'',
+      )
+    ));
+    $this->render('reportables',array(
+      'dataProvider'=>$dataProvider,
+          ));
+
+  }
+
   public function actionNewReportable()
   {
     $model = new Reportable;
+    $model->reportable_type = 'ContractsMaster';
 
     $defaults = $this->getReportableDefaults();
 
@@ -85,15 +100,37 @@ class ContractsMasterController extends Controller
       if($model->validate())
       {
         $model->save();
+        $this->redirect(array('viewReportable', 'id'=>$model->id));
       }
     }
     $this->render('newReportable',array('model'=>$model, 'defaults'=>$defaults));
   }
-
-  public function actionViewReportable()
+  
+  public function actionEditReportable($id)
   {
+    $model = Reportable::model()->findByPk($id);
+
+    $defaults = $this->getReportableDefaults();
+
+    if(isset($_POST['Reportable']))
+    {
+      $model->attributes = $_POST['Reportable'];
+      if($model->validate())
+      {
+        $model->save();
+        $this->redirect(array('viewReportable', 'id'=>$model->id));
+      }
+    }
+    $this->render('editReportable',array('model'=>$model, 'defaults'=>$defaults));
+  }
+  public function actionViewReportable($id)
+  {
+    $model = Reportable::model()->findByPk($id);
+
+
     $this->render('viewReportable',array(
-      'model'=>Reportable::findByPk($id),
+      'model'=>$model,
+      'results'=>ContractsMaster::getReportFromReportable($model)
           ));
   }
 

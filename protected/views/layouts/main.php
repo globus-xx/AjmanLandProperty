@@ -38,6 +38,7 @@
                 array('label'=>'العقود','url'=>array('/ContractsMaster'),
                 'items'=>array(
 					array('label'=>'ادارة العقود','url'=>array('/ContractsMaster/admin')),
+					array('label'=>'Custom Reports','url'=>array('/ContractsMaster/Reportables')),
 					array('label'=>'عقد جديد','url'=>array('/ContractsMaster/index'),
 						'items'=>array(
 							array('label'=>'بيــع','url'=>array('/ContractsMaster/landsearch/id/0')),

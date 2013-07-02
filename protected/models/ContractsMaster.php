@@ -113,6 +113,61 @@ class ContractsMaster extends CActiveRecord
 		);
 	}
 
+	public function getReportFromReportable($reportable){
+
+		$attributes = $reportable->attributes;
+ 
+		$attributes['display'] = Reportable::objectToArray(json_decode($attributes['display']));
+
+		$sql = 'SELECT  ';
+		$f = array();
+
+		foreach($attributes['display'] as $model=>$fields){
+			foreach($fields as $ii=>$afield):
+				$f[]= $model.'.'.$ii;
+			endforeach;
+		}
+
+		$sql.= join(', ', $f);
+
+		$sql.= ' FROM ContractsMaster ';
+
+		$sql.=' LEFT JOIN LandMaster on LandMaster.LandID = ContractsMaster.LandID ';
+		$sql.=' LEFT JOIN ContractsDetail on ContractsDetail.ContractID = ContractsMaster.ContractsID ';
+		$sql.=' LEFT JOIN CustomerMaster on ContractsDetail.CustomerID = CustomerMaster.CustomerID ';
+
+		//$reportable->conditions = unserialize($reportable->conditions);
+	 	$attributes['conditions'] = Reportable::objectToArray(json_decode($attributes['conditions']));
+		foreach($attributes['conditions'] as $field_name=>$attribs){
+			$cnd = $attribs['attrib'];
+			if ($cnd =='gt'){
+				$cnd = '>';
+			}elseif($cnd =='lt'){
+				$cnd = '<';
+			}
+
+			if(is_array($attribs['value'])){
+				foreach($attribs['value'] as $ii=>$vv){
+					$attribs['value'][$ii] = "'".mysql_real_escape_string($vv)."'";
+				}
+				$attribs['value'] = $attribs['value'].join(',');
+			}else{
+				$attribs['value'] = "'".mysql_real_escape_string($attribs['value'])."'";
+			}
+
+			//$sql.= ( strstr( $sql, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";
+			
+		}
+
+
+		$connection = Yii::app()->db;
+		$command = $connection->createCommand($sql);
+		$results = $command->queryAll();		
+		return $results;
+
+
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
