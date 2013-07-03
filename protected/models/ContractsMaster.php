@@ -155,7 +155,7 @@ class ContractsMaster extends CActiveRecord
 				$attribs['value'] = "'".mysql_real_escape_string($attribs['value'])."'";
 			}
 
-			//$sql.= ( strstr( $sql, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";
+		    $sql.= ( strstr( $sql, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";
 			
 		}
 

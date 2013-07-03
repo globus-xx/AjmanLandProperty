@@ -6646,3 +6646,91 @@ Stack trace:
 #5 {main}
 REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedMaster/newReportables/create
 ---
+2013/07/03 21:14:24 [error] [php] include(UserModule.php): failed to open stream: No such file or directory (/home/ali/Projects/www/ajman/yii/framework/YiiBase.php:418)
+Stack trace:
+#0 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/user/models/User.php(92): spl_autoload_call()
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/deedMaster/_formReportable.php(34): DeedMasterController->attributeLabels()
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require()
+#3 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DeedMasterController->renderInternal()
+#4 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DeedMasterController->renderFile()
+#5 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/views/deedMaster/newReportable.php(2): DeedMasterController->renderPartial()
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(127): require()
+#7 /home/ali/Projects/www/ajman/yii/framework/web/CBaseController.php(96): DeedMasterController->renderInternal()
+#8 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(870): DeedMasterController->renderFile()
+#9 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(783): DeedMasterController->renderPartial()
+#10 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(543): DeedMasterController->render()
+#11 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(50): DeedMasterController->actionNewReportable()
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): DeedMasterController->runAction()
+#14 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#15 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): RightsFilter->filter()
+#16 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): DeedMasterController->filterRights()
+#17 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter()
+#18 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#19 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): DeedMasterController->runActionWithFilters()
+#20 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): DeedMasterController->run()
+#21 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController()
+#22 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#23 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CWebApplication->run()
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/DeedMaster/newReportable
+2013/07/03 21:18:04 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'DeedMaster.DeedID' in 'field list'. The SQL statement executed was: SELECT  DeedMaster.DeedID, DeedMaster.LandID, ContractsMaster.ContractsID, ContractsMaster.LandID, ContractsMaster.DateCreated, ContractsMaster.ContractType, ContractsMaster.Fee, ContractsMaster.InvoiceNo, LandMaster.LocationID, LandMaster.Plot_No, DeedTracker.DeedID, DeedTracker.LandID, DeedTracker.UserID, HajzMaster.LandID, HajzMaster.DeedID, HajzMaster.SchemeID FROM ContractsMaster  LEFT JOIN LandMaster on LandMaster.LandID = ContractsMaster.LandID  LEFT JOIN ContractsDetail on ContractsDetail.ContractID = ContractsMaster.ContractsID  LEFT JOIN CustomerMaster on ContractsDetail.CustomerID = CustomerMaster.CustomerID .
+2013/07/03 21:18:04 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'DeedMaster.DeedID' in 'field list'' in /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php:528
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/models/ContractsMaster.php(165): CDbCommand->queryAll()
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(570): ContractsMaster->getReportFromReportable(Object(Reportable))
+#3 [internal function]: DeedMasterController->actionViewReportable('12')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DeedMasterController), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DeedMasterController), Object(ReflectionMethod), Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#9 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('viewReportable')
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('deedMaster/view...')
+#16 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#17 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#18 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/deedMaster/viewReportable/12
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/DeedMaster/newReportable
+---
+2013/07/03 21:23:12 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'DeedTracker.LandID' in 'field list'. The SQL statement executed was: SELECT  DeedMaster.DeedID, DeedMaster.LandID, ContractsMaster.ContractsID, ContractsMaster.LandID, ContractsMaster.DateCreated, ContractsMaster.ContractType, ContractsMaster.Fee, ContractsMaster.InvoiceNo, LandMaster.LocationID, LandMaster.Plot_No, DeedTracker.DeedID, DeedTracker.LandID, DeedTracker.UserID, HajzMaster.LandID, HajzMaster.DeedID, HajzMaster.SchemeID FROM DeedMaster  LEFT JOIN ContractsMaster on DeedMaster.DeedID = ContractsMaster.DeedID  LEFT JOIN LandMaster on LandMaster.LandID = DeedMaster.LandID  LEFT JOIN DeedTracker on DeedTracker.DeedID = DeedMaster.DeedID  LEFT JOIN HajzMaster on HajzMaster.DeedID = DeedMaster.DeedID  LEFT JOIN User on User.UserID = DeedMaster.UserID .
+2013/07/03 21:23:12 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'DeedTracker.LandID' in 'field list'' in /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php:528
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/db/CDbCommand.php(390): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/models/DeedMaster.php(158): CDbCommand->queryAll()
+#2 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/controllers/DeedMasterController.php(570): DeedMaster->getReportFromReportable(Object(Reportable))
+#3 [internal function]: DeedMasterController->actionViewReportable('12')
+#4 /home/ali/Projects/www/ajman/yii/framework/web/actions/CAction.php(107): ReflectionMethod->invokeArgs(Object(DeedMasterController), Array)
+#5 /home/ali/Projects/www/ajman/yii/framework/web/actions/CInlineAction.php(48): CAction->runWithParamsInternal(Object(DeedMasterController), Object(ReflectionMethod), Array)
+#6 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#7 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#8 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilter.php(41): CFilterChain->run()
+#9 /home/ali/Projects/www/ajman/AjmanLandProperty/protected/modules/rights/components/RController.php(36): CFilter->filter(Object(CFilterChain))
+#10 /home/ali/Projects/www/ajman/yii/framework/web/filters/CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#11 /home/ali/Projects/www/ajman/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#12 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(292): CFilterChain->run()
+#13 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('viewReportable')
+#15 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('deedMaster/view...')
+#16 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#17 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#18 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/deedMaster/viewReportable/12
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/DeedMaster/newReportable
+---
+2013/07/03 21:28:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "generateReportable".' in /home/ali/Projects/www/ajman/yii/framework/web/CController.php:484
+Stack trace:
+#0 /home/ali/Projects/www/ajman/yii/framework/web/CController.php(271): CController->missingAction('generateReporta...')
+#1 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(276): CController->run('generateReporta...')
+#2 /home/ali/Projects/www/ajman/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('deedMaster/gene...')
+#3 /home/ali/Projects/www/ajman/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#4 /home/ali/Projects/www/ajman/AjmanLandProperty/index.php(16): CApplication->run()
+#5 {main}
+REQUEST_URI=/ajman/AjmanLandProperty/index.php/deedMaster/generateReportable/12
+HTTP_REFERER=http://localhost/ajman/AjmanLandProperty/index.php/DeedMaster/Reportables
+---

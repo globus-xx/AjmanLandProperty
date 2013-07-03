@@ -38,7 +38,7 @@
                 array('label'=>'العقود','url'=>array('/ContractsMaster'),
                 'items'=>array(
 					array('label'=>'ادارة العقود','url'=>array('/ContractsMaster/admin')),
-					array('label'=>'Custom Reports','url'=>array('/ContractsMaster/Reportables')),
+					
 					array('label'=>'عقد جديد','url'=>array('/ContractsMaster/index'),
 						'items'=>array(
 							array('label'=>'بيــع','url'=>array('/ContractsMaster/landsearch/id/0')),
@@ -50,6 +50,8 @@
 						)),
 					array('label'=>'طباعة عقد','url'=>array('/ContractsMaster/printfrom')),
 					array('label'=>'تفصيل العقد','url'=>array('/ContractsDetail/admin')),
+					array('label'=>'Custom Reports','url'=>array('/ContractsMaster/Reportables')),
+					array('label'=>'New Custom Reports','url'=>array('/ContractsMaster/newReportable')),
                 )),			
             
                 array('label'=>'حجز/ رهن','url'=>array('/HajzMaster'),
@@ -65,6 +67,8 @@
 						array('label'=>'طباعة ملكية','url'=>array('/DeedMaster/printfrom')),
 						array('label'=>'تاريخ الطباعات','url'=>array('/DeedTracker/admin')),
 						array('label'=>'تفصيل الملكية','url'=>array('/DeedDetails/admin')),
+						array('label'=>'Custom Reports','url'=>array('/DeedMaster/Reportables')),
+						array('label'=>'New Custom Reports','url'=>array('/DeedMaster/newReportable')),
                 )),
             
                 array('label'=>'مكاتب عقارية','url'=>array('/RealEstateOffices'),

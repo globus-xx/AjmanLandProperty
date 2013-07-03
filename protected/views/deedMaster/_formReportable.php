@@ -27,7 +27,9 @@
 
 	<h2>Include Fields in Report</h2>
 	<p>Check all the fields that you want to include in this report</p>
-	<?php 	$models = array('ContractsMaster','LandMaster','ContractsDetail','CustomerMaster');?>
+	<?php 		
+	$models = array('DeedMaster', 'ContractsMaster','LandMaster',  'HajzMaster');
+?>
 	<?php foreach($models as $vv):?>
 		<b><?php echo $vv;?> fields</b>
 		<?php $attribs = $vv::attributeLabels();?>
@@ -45,7 +47,7 @@
 	<p>Check and set all the conditions for all the fields you want to include when generating this report</p>
 
 	<?php 
-	$models = array('DeedMaster', 'ContractsMaster','LandMaster', 'LandMaster','DeedTracker','HajzMaster', 'User');
+	$models = array('DeedMaster', 'ContractsMaster','LandMaster', 'HajzMaster', 'User');
 	 $condition = Reportable::objectToArray(json_decode($data['conditions'])); 
 
 	foreach($models as $vv):

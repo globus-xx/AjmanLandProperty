@@ -567,7 +567,7 @@ class DeedMasterController extends Controller
 
     $this->render('viewReportable',array(
       'model'=>$model,
-      'results'=>ContractsMaster::getReportFromReportable($model)
+      'results'=>DeedMaster::getReportFromReportable($model)
           ));
   }
 
