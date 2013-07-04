@@ -5,8 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 	
-	<link type="text/css" href="/AjmanLandProperty/css/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-	<script type="text/javascript" src="/AjmanLandProperty/js/jquery-1.8.1.min.js"></script> 
+	<link type="text/css" href="/ajman/AjmanLandProperty/css/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
@@ -19,6 +18,9 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+  <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.8.1.min.js"></script> 
+  <script type ="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-1.10.3.custom.min.js"></script>
+
 </head>
 
 <body>
@@ -36,6 +38,7 @@
                 array('label'=>'العقود','url'=>array('/ContractsMaster'),
                 'items'=>array(
 					array('label'=>'ادارة العقود','url'=>array('/ContractsMaster/admin')),
+					
 					array('label'=>'عقد جديد','url'=>array('/ContractsMaster/index'),
 						'items'=>array(
 							array('label'=>'بيــع','url'=>array('/ContractsMaster/landsearch/id/0')),
@@ -47,6 +50,8 @@
 						)),
 					array('label'=>'طباعة عقد','url'=>array('/ContractsMaster/printfrom')),
 					array('label'=>'تفصيل العقد','url'=>array('/ContractsDetail/admin')),
+					array('label'=>'Custom Reports','url'=>array('/ContractsMaster/Reportables')),
+					array('label'=>'New Custom Reports','url'=>array('/ContractsMaster/newReportable')),
                 )),			
             
                 array('label'=>'حجز/ رهن','url'=>array('/HajzMaster'),
@@ -62,6 +67,8 @@
 						array('label'=>'طباعة ملكية','url'=>array('/DeedMaster/printfrom')),
 						array('label'=>'تاريخ الطباعات','url'=>array('/DeedTracker/admin')),
 						array('label'=>'تفصيل الملكية','url'=>array('/DeedDetails/admin')),
+						array('label'=>'Custom Reports','url'=>array('/DeedMaster/Reportables')),
+						array('label'=>'New Custom Reports','url'=>array('/DeedMaster/newReportable')),
                 )),
             
                 array('label'=>'مكاتب عقارية','url'=>array('/RealEstateOffices'),
@@ -96,6 +103,11 @@
                                                                 array('label'=>'Exported Letters Management','url'=>array('/exportedletters/')),
 								
                 )),
+              array('label'=>'DMS', 'url'=>array('/document/'), 'items'=>array(
+                  array('label'=>'Documents', 'url'=>array('/document/')),
+                  array('label'=>'Document Types', 'url'=>array('/documentTypes/')),
+              )),
+
             
             	array('label'=>'دخول', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 
@@ -124,6 +136,13 @@
 	</div><!-- footer -->
 
 </div><!-- page -->
-
+<script language="text/javascript">
+  $(function(){
+    $(document).on('click', '.datebox', function(){
+      console.log(this);
+      $(this).datepicker().datepicker( "show" );;
+    })
+  });
+</script>
 </body>
 </html>

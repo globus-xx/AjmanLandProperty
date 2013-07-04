@@ -484,6 +484,104 @@ class DeedMasterController extends Controller
 		));
 	}
 
+
+
+
+
+
+
+  public function getReportableDefaults(){
+    $defaults = array();
+    $defaults['ContractTypes'] = array(
+           0=>  'بيــــع',
+           1=>  'وراثة',
+           2=>  'تنازل',
+           3=>  'وقف',
+           4=>  'هبة',);
+      // get the unique set of customers
+    $sql = 'SELECT DISTINCT Nationality FROM `customermaster`';
+    $connection = Yii::app()->db;   // assuming you have configured a "db" connection
+    $command = $connection->createCommand($sql);
+    $dataReader = $command->query();
+    $defaults['CustomerNationalities'] = array();
+    while(($row=$dataReader->read())!==false){
+      $defaults['CustomerNationalities'][$row['Nationality']] = $row['Nationality'];
+    }
+    return $defaults;
+  }
+
+  public function actionReportables()
+  {
+
+    $dataProvider=new CActiveDataProvider('Reportable', array(
+      'criteria'=>array(
+          'condition'=>'reportable_type=\'DeedMaster\'',
+      )
+    ));
+    $this->render('reportables',array(
+      'dataProvider'=>$dataProvider,
+          ));
+
+  }
+
+  public function actionNewReportable()
+  {
+    $model = new Reportable();
+    $model->reportable_type = 'DeedMaster';
+
+    $defaults = $this->getReportableDefaults();
+
+    if(isset($_POST['Reportable']))
+    {
+      $model->attributes = $_POST['Reportable'];
+      if($model->validate())
+      {
+        $model->save();
+        $this->redirect(array('viewReportable', 'id'=>$model->id));
+      }
+    }
+    $this->render('newReportable',array('model'=>$model, 'defaults'=>$defaults));
+  }
+  
+  public function actionEditReportable($id)
+  {
+    $model = Reportable::model()->findByPk($id);
+
+    $defaults = $this->getReportableDefaults();
+
+    if(isset($_POST['Reportable']))
+    {
+      $model->attributes = $_POST['Reportable'];
+      if($model->validate())
+      {
+        $model->save();
+        $this->redirect(array('viewReportable', 'id'=>$model->id));
+      }
+    }
+    $this->render('editReportable',array('model'=>$model, 'defaults'=>$defaults));
+  }
+  public function actionViewReportable($id)
+  {
+    $model = Reportable::model()->findByPk($id);
+
+
+    $this->render('viewReportable',array(
+      'model'=>$model,
+      'results'=>DeedMaster::getReportFromReportable($model)
+          ));
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 	/**
 	 * Manages all models.
 	 */

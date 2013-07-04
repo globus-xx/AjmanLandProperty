@@ -6,6 +6,7 @@
 
 $this->menu=array(
 	array('label'=>'Create ContractsMaster', 'url'=>array('create')),
+	array('label'=>'Custom Reports', 'url'=>array('reportables')),
 	array('label'=>'Manage ContractsMaster', 'url'=>array('admin')),
 );
 ?>
