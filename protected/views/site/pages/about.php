@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 ?>
 <h1>مقدمة</h1>
 <p id='here' style="visibility:hidden;"></p>
-<script type='text/javascript'>
+
 
 <link type="text/css" href="/AjmanLandProperty/css/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="/AjmanLandProperty/js/jquery-1.8.1.min.js"></script> 

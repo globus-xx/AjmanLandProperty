@@ -26,7 +26,7 @@ if(isset($mess))
     }
    ?>
     
-    <tr><td>Password :</td><td><input type="password" name="userpassword" value="<?php echo $row->password?>" style="width:200px;"></td> </tr>
+    <tr><td>Password :</td><td><input type="password" name="userpassword" onclick="this.value=''" value="<?php echo $row->password?>" style="width:200px;"></td> </tr>
     <tr><td>Email :</td><td><input type="text" name="useremail" value="<?php echo $row->email?>" style="width:200px;"></td></tr>            
         <?
     }

@@ -18,18 +18,18 @@
                var landid ='<?php echo $landid; ?>'
                var base='<?php echo Yii::app()->request->baseUrl;?>';
                var retureddata='<?php echo $returneddata; ?>'
-               
+               alert(landid)
             $.ajax({ 
                                 type: "POST",
-				url:base + "/index.php/CustomerService/Search", 
-				data: "action=search&string="+landid+"&returnType=ws"+"&retured="+retureddata,
+				url:base + "/index.php/CustomerService/ws", 
+				data: "string='"+landid+"'",
                                 async:false,
 				success: function(data) { 
-			           
+			           debugger
                                    var Results = JSON.parse(data); 	
 			           console.log(Results);  
-                                   var a = Array.prototype.slice.call(Results);
-                                   document.write( JSON.stringify(a));                                                                                
+//                                   var a = Array.prototype.slice.call(Results);
+                                   document.write( JSON.stringify(Results));                                                                                
                                    
                                    
 				}

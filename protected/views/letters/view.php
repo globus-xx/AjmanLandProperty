@@ -1,12 +1,6 @@
 <?php
 /* @var $this ContractsMasterController */
 /* @var $model ContractsMaster */
-
-
-
-
-
-
 ?>
 
 <h1>العقد</h1>
