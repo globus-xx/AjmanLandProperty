@@ -161,7 +161,7 @@ class SiteController extends Controller
         }
         
         
-        public function actionupdateUser()
+        public function actionupdateUser($_POST=null)
         {                          
                 $id=$_POST['id'];
                 $fname=$_POST['fname'];

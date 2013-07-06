@@ -56,14 +56,14 @@ class ReportsController extends Controller
 	 * Build Sql Command And Draw The Table
 	 * 
 	 */
-	public function actionCalulate()
+	public function actionCalulate($_POST=null)
 	{	                        
-            $rows=$_POST["rows"];     
-            $tables=$_POST["tables"];                                                      
-            $columns=$_POST["columns"];                                       
-            $data=$_POST["data"];
-            $conditions=$_POST["conditions"];
-            $page=$_POST["page"];
+            $rows       =$_POST["rows"];     
+            $tables     =$_POST["tables"];                                                      
+            $columns    =$_POST["columns"];                                       
+            $data       =$_POST["data"];
+            $conditions =$_POST["conditions"];
+            $page       =$_POST["page"];
             
             
             $per_page = 9;
@@ -336,7 +336,8 @@ class ReportsController extends Controller
             
 		$this->render('fields',array(
                     "fields"=>$fields,"table"=>$table
-                ));    			
+                ));    
+                
 	}
         
         

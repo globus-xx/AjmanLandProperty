@@ -189,10 +189,10 @@ class CustomerServiceController extends Controller
       
             
        if(!isset($_POST["action"])){
-        $_REQUEST["action"] =  $this->sAction;
-        $_REQUEST["string"] =  $this->sString;
+        $_REQUEST["action"]     =  $this->sAction;
+        $_REQUEST["string"]     =  $this->sString;
         $_REQUEST["returnType"] =  $this->returnType;
-        $_REQUEST["retured"] =     $this->retured;        
+        $_REQUEST["retured"]    =  $this->retured;        
         }
         
          
@@ -481,7 +481,7 @@ class CustomerServiceController extends Controller
 
         
         
-         public function actionWS()
+         public function actionWS($_REQUEST=null)
 	 {     
              // This action will receive the encrypted code and after that decrypt this code and get the land id from it 
              // now we use this land id for searching in the other Search action  and print the result in the landResults view                           

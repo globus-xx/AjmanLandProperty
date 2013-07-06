@@ -76,8 +76,7 @@ class Destination extends CActiveRecord
 	{
 		return array(
 			'DestinationID' => 'رقم الوجهة',
-			'DestinationName' => 'اسم الوجهة',
-			
+			'DestinationName' => 'اسم الوجهة',			
 		);
 	}
 

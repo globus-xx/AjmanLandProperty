@@ -131,44 +131,6 @@ class LettersController extends Controller
 	public function actionIndex()
 	{
 		
-//		$countriesT = array();
-//		$countries = array();
-//		$lines = file('C:\xampp\htdocs\AjmanLandProperty\protected\data\countries.csv', FILE_IGNORE_NEW_LINES);
-//
-//		foreach ($lines as $key => $value)
-//		{
-//			$countriesT[] = str_getcsv($value);
-//			
-//		}
-//		foreach($countriesT as $key=>$value)
-//		{
-//			$countries[] = $value[0];
-//
-//		}
-//		
-//		$customerList = CustomerMaster::model()->FindAll();
-//		$landList = LandMaster::model()->FindAll();
-//		
-//		$landArray = array();
-//		$customerArray = array();
-//
-//		foreach($customerList as $customer)
-//		{   
-//			$customerArray[] = $customer->CustomerNameArabic;
-////			$customerArray[] = $customer->MobilePhone;
-//		}
-//		
-//		foreach($landList as $land)
-//		{
-//			$landArray[] = $land->LandID;
-//		}
-//		$autocomplete = array_merge($countries, $landArray, $customerArray);
-//		
-//		$this->render('search', array(
-//				'autocomplete'=>$autocomplete,
-//				));
-            
-            
             $criteria = new CDbCriteria;            		
             $items = Letters::model()->findAll($criteria);
 
@@ -184,10 +146,10 @@ class LettersController extends Controller
 		
 	}
 	
-	public function actionSearch()
+	public function actionSearch($_POST=null)
 	{
 		if(isset($_POST["data"])) //check that this action is only called using POST.. not get, not regular.
-        {
+                {
 			$searchstring = json_decode($_POST["data"]); 
 			//$searchstring = "%".$searchstring . "%"; 
 			
@@ -216,18 +178,20 @@ class LettersController extends Controller
 				print CJSON::encode($lands);
 				
 			}
-		
-		}	
+		                       
+		}
+                else
+                     return false;
 		
 	}
         
         
         
         
-        public function actionSearchProperty()
+        public function actionSearchProperty($_POST=null)
 	{
 		if(isset($_POST["data"])) //check that this action is only called using POST.. not get, not regular.
-        {
+                {
 			$searchstring = json_decode($_POST["data"]); 
 			//$searchstring = "%".$searchstring . "%"; 
 			
@@ -237,14 +201,16 @@ class LettersController extends Controller
 			$searchCriteria->order = 'CustomerNameArabic';
 		
 			if (CustomerMaster::model()->count($searchCriteria)>0)
-	        {
+                        {
 				$customerResult = CustomerMaster::model()->findAll($searchCriteria);
                                 $customerPropertyResult = "123";LandMaster::model()->findAllByAttributes(array("LandID"=>$customerResult[0]["CustomerID"]));
-//                                LandDetails::model()->findByPk($customerResult[0]["CustomerID"]);
-//				if(count($customerResult)==1) 
-                                    $customerResult[0]["customerResultProperty"] = $customerPropertyResult;
-//print_r($customerResult);
-                                //print CJSON::encode($customerResult);			
+                                //LandDetails::model()->findByPk($customerResult[0]["CustomerID"]);
+                                //if(count($customerResult)==1) 
+                                
+                                $customerResult[0]["customerResultProperty"] = $customerPropertyResult;
+                                //  print_r($customerResult);
+                                //  print CJSON::encode($customerResult);		
+                                
 			}
 
 			else
@@ -256,8 +222,11 @@ class LettersController extends Controller
 				print CJSON::encode($lands);
 				
 			}
-		
-		}	
+                                                
+                        	
+		}else
+                    return false;	
+                
 		
 	}
         
@@ -340,9 +309,10 @@ class LettersController extends Controller
         
         
         
-            public function actionupdateletter()
+            public function actionupdateletter($_POST=null)
 	{
 		if(isset($_POST['ftext']))
+                {
                  $lettertext=$_POST['ftext'];  
                 
                 $title=$_POST['title'];  
@@ -350,13 +320,15 @@ class LettersController extends Controller
 		$this->render('updateletter',array(
 			'text'=>$lettertext,'title'=>$title
 		));
-                                                
+                }
+                else
+                    return false;
 	}
         
      
         
-        public function actionchoose()
-	{
+        public function actionchoose($_POST=null)
+	{            
             $type=$_POST['mtype'];
                                                             
             
@@ -366,7 +338,7 @@ class LettersController extends Controller
         }
         
         
-        public function actiongeneratefile()
+        public function actiongeneratefile($_POST=null)
 	{                                                                                              
                                                                        
            $destination="";
@@ -756,7 +728,7 @@ class LettersController extends Controller
         
         
         
-        public function actionautow()
+        public function actionautow($_GET=null)
 	{
 		$res3 = array();
 		
@@ -782,24 +754,15 @@ class LettersController extends Controller
         
         
         public function actionDelete($id)
-	{
-		
-
+	{		
                 $post=Letters::model()->findByPk($id); // assuming there is a post whose ID is 10
-                $post->delete(); // delete the row from the database table
-                
-                
-                 $this->redirect(array('temp'));
-                
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser                                
-//		if(!isset($_GET['ajax']))
-//			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $post->delete(); // delete the row from the database table                                
+                $this->redirect(array('temp'));                
 	}
         
         
         public function loadModel($id)
-	{
-            
+	{            
 		$model=Letters::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
@@ -810,19 +773,8 @@ class LettersController extends Controller
         public function actionconvert($id)
 	{
          
-/*
-        // Here we define query conditions.
-        $criteria = new CDbCriteria;
-        $criteria->condition = "`LetterID` = $id";
 		
-        $items = Letters::model()->findAll($criteria);
-
-        foreach ($items as $item)            
-           $text=$item->LetterText;
-        
-*/		
-		
-		// Include the PHPWord.php, all other classes were loaded by an autoloader
+// Include the PHPWord.php, all other classes were loaded by an autoloader
 require_once '/../../../PHPWord.php';
 
 // Create a new PHPWord Object
@@ -852,10 +804,7 @@ $myTextElement->setSize(22);
 $objWriter = PHPWord_IOFactory::createWriter($PHPWord, 'Word2007');
 $objWriter->save('helloWorld.docx');
 
-
 //		  $this->render('convert');
-
-
 	}
         
         public function actionopen($id)
@@ -951,11 +900,9 @@ echo $text;
             
         }
         
-    public function actiondownloadletter()
+    public function actiondownloadletter($_POST=null)
 	{
-        $text=$_POST['ftext'];
-        
-        
+        $text=$_POST['ftext'];                
         $title=$_POST['title'];
         
         $name=$title." ".date("j/ n/ Y")." ".Yii::app()->user->name;
@@ -973,7 +920,7 @@ echo $text;
         echo $text;  
         }
         
-        public function actiongosave()
+        public function actiongosave($_POST=null)
 	{
 		$post=new Letters;
                 $post->Title=$_POST['ftitle'];
@@ -985,7 +932,7 @@ echo $text;
 	}
         
         
-         public function actionlettersave()
+         public function actionlettersave($_POST=null)
 	{
                                           
                 $text=$_POST['lettertext'];
@@ -1001,7 +948,7 @@ echo $text;
                
          }
          
-         public function actionletterupdate()
+         public function actionletterupdate($_POST=null)
 	{
              if(isset($_POST['ftext']))
                  $lettertext=$_POST['ftext'];
@@ -1017,7 +964,7 @@ echo $text;
           
         
         
-         public function actiondoupdate($id)
+         public function actiondoupdate($id,$_POST=null)
 	{
 		                                                
                 $post=Letters::model()->findByPk($id);
