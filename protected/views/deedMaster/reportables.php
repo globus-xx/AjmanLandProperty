@@ -1,13 +1,13 @@
-<h1>Custom Reports - Deeds</h1><?php
+<h1>التقارير الخاصة - الوثائق</h1><?php
 /* @var $this ContractsMasterController */
 /* @var $dataProvider CActiveDataProvider */
 
 
 
 $this->menu = array(
-	array('label'=>'Create Custom Report', 'url'=>array('newReportable')),
-	array('label'=>'Custom Reports', 'url'=>array('reportables')),
-	array('label'=>'Manage ContractsMaster', 'url'=>array('admin')),
+	array('label'=>'انشاء تقرير خاص', 'url'=>array('newReportable')),
+	array('label'=>'تقارير خاصة', 'url'=>array('reportables')),
+	array('label'=>'ادارة العقود', 'url'=>array('admin')),
 );
 ?>
 

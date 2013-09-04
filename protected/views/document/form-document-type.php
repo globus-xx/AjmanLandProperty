@@ -1,22 +1,23 @@
 <?php 
 if(!$documentType):
-  return;
-endif;
-foreach($documentType->documentTypeMetas as $ii=>$one_meta){
+    return;
+    endif;
+    foreach($documentType->documentTypeMetas as $ii=>$one_meta){
 ?>
 <div class="row">
   <?php 
-
-        
+      
     $value = '';
-    if($_model_document_metas):
+    
+    
+    if(isset($_model_document_metas)){
       foreach($_model_document_metas as $ii=>$vv):
         
         if($one_meta->id==$vv['documentTypeMetaId']){
           $value = $vv['meta_value'];
         }
       endforeach;
-    endif;
+    }
 
     echo CHtml::label($one_meta['meta_option'], 'Document[documentMetas][][meta_value]');
     $time = time()+$ii;

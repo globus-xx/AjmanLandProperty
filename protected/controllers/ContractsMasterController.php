@@ -108,21 +108,28 @@ class ContractsMasterController extends Controller
   
   public function actionEditReportable($id)
   {
+      
     $model = Reportable::model()->findByPk($id);
-
     $defaults = $this->getReportableDefaults();
 
     if(isset($_POST['Reportable']))
     {
+            
       $model->attributes = $_POST['Reportable'];
+      
+     // die(print_r($_POST['Reportable']));
       if($model->validate())
-      {
+      {           
         $model->save();
         $this->redirect(array('viewReportable', 'id'=>$model->id));
       }
     }
-    $this->render('editReportable',array('model'=>$model, 'defaults'=>$defaults));
+    
+    
+    $this->render('editReportable',array('model'=>$model, 'defaults'=>$defaults, 'edit'=>'yes'));
   }
+  
+  
   public function actionViewReportable($id)
   {
     $model = Reportable::model()->findByPk($id);
@@ -130,7 +137,7 @@ class ContractsMasterController extends Controller
 
     $this->render('viewReportable',array(
       'model'=>$model,
-      'results'=>ContractsMaster::getReportFromReportable($model)
+      'results'=>ContractsMaster::model()->getReportFromReportable($model)
           ));
   }
 
@@ -183,9 +190,9 @@ class ContractsMasterController extends Controller
       $searchCriteria->params = array(':searchstring'=> $searchstring);
       $searchCriteria->order = 'CustomerID';
 
-      if (CustomerMaster::model()->count($searchCriteria)>0)
+      if (CustomerMaster::count($searchCriteria)>0)
       {
-        $customerResult = CustomerMaster::model()->findAll($searchCriteria);
+        $customerResult = CustomerMaster::findAll($searchCriteria);
 
         $customerIds = array();
         foreach($customerResult as $customer)
@@ -320,6 +327,7 @@ class ContractsMasterController extends Controller
         $landupdate->save();
 
         $contractMaster = new ContractsMaster();
+        
         if($data->newalready==false)
             $contractMaster->LandID = $data->newlandid;
         else
@@ -755,6 +763,22 @@ public function actionCreate()
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
+        
+        
+        /**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+        public function actionDeletereport($id)
+	{
+		$post=  Reportable::model()->findByPk($id); // assuming there is a post whose ID is 10
+                $post->delete(); // delete the row from the database table                
+                
+                $this->redirect(array('Reportables'));
+	}
+        
+        
 	/**
 	 * Lists all models.
 	 */
@@ -921,8 +945,8 @@ public function actionPrint($id)
 	 * @param CModel the model to be validated
 	 */
 	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='contracts-master-form')
+	{		
+            if(isset($_POST['ajax']) && $_POST['ajax']==='contracts-master-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

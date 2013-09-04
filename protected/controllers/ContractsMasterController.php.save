@@ -591,7 +591,8 @@ public function actionCreate()
 	 */
 	public function actionIndex()
 	{
-
+                
+                
 		$dataProvider=new CActiveDataProvider('ContractsMaster');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,

@@ -16,13 +16,17 @@
 	</div>
 
     <fieldset id="container-for-form-meta">
-        <legend>Custom Options</legend>
+        <legend>خيارات خاصة</legend>
         <?php 
-        if (is_array($_model_document_type_metas)):
-          foreach($_model_document_type_metas as $one_meta):
+        
+        if(isset($_model_document_type_meta))
+        if (is_array($_model_document_type_meta)):
+          foreach($_model_document_type_meta as $one_meta):
             $this->renderPartial('//documentTypes/_form_meta', array('model' => $one_meta, 'form' => $form));
           endforeach;
-        endif
+         
+        endif;
+         
         ?>
     </fieldset>
     <a href="javascript:void(0);" id="link-add-new-custom-option" >Add New Custom Option</a>
@@ -32,9 +36,17 @@
 	</div>
 
 <?php $this->endWidget(); ?>
+    
 <script type="text" id="template-document-meta">
-    <?php $this->renderPartial('//documentTypes/_form_meta', array('model' => $_model_document_type_meta, 'form' => $form));?>
+    <?php         
+    if(isset($_model_document_type_metas))
+    $this->renderPartial('//documentTypes/_form_meta', array('model' => $_model_document_type_metas, 'form' => $form));        
+else {
+        $this->renderPartial('//documentTypes/_form_meta', array('model' => $_model_document_type_meta, 'form' => $form));        
+}
+    ?>
 </script>
+
 </div><!-- form -->
 <script language="javascript">
     $(function(){

@@ -12,7 +12,7 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
 	<?php echo CHtml::encode($data->title); ?>
 	<br />
-	<?php echo CHtml::link(CHtml::encode('Generate Report'), array('viewReportable', 'id'=>$data->id)); ?>
-	<?php echo CHtml::link(CHtml::encode('Edit Report'), array('editReportable', 'id'=>$data->id)); ?>
-
+	<?php echo CHtml::link(CHtml::encode('توليد تقرير'), array('viewReportable', 'id'=>$data->id)); ?>
+	<?php echo CHtml::link(CHtml::encode('تعديل تقرير'), array('editReportable', 'id'=>$data->id)); ?>
+        <?php echo CHtml::link(CHtml::encode('حذف تقرير'), array('deleteReport', 'id'=>$data->id)); ?>
 </div>

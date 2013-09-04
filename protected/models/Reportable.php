@@ -30,16 +30,46 @@ class Reportable extends CActiveRecord
 	}
 
 	public function beforeSave(){
+                        
 		// remove unenabled fields
 		$conditions = $this->conditions;
-		foreach($this->conditions as $ii=>$vv){
-			if(!isset($vv['enabled'])){
-				unset($conditions[$ii]);
-			}
+                
+                //die($this->display);
+                if(!is_string($conditions)&&!is_string($this->display))
+                {                
+                            foreach($this->conditions as $ii=>$vv){
+                                    if(!isset($vv['enabled'])){
+                                            unset($conditions[$ii]);
+                                    }                         
+                            }
+                            $this->conditions = json_encode($conditions);
+                            $this->display = json_encode($this->display);                                
+                            return true;
 		}
-		$this->conditions = json_encode($conditions);
-		$this->display = json_encode($this->display);
-		return true;
+                elseif(is_string($conditions)&&is_string($this->display))
+                {
+                            $this->display = array();
+                            $conditions = array();
+                            $this->conditions = json_encode($conditions);
+                            $this->display = json_encode($this->display);                                
+                            return true;
+                }
+                elseif(is_string($conditions))
+                {        
+                            $conditions = array();
+                            $this->conditions = json_encode($conditions);
+                            $this->display = json_encode($this->display);                                
+                            return true;
+                }
+                elseif(is_string($this->display))
+                {                        
+                            $this->display = array();
+                            $this->conditions = json_encode($conditions);
+                            $this->display = json_encode($this->display);                                
+                            return true;
+                }
+                
+                
 	}
 
 	/**
@@ -84,7 +114,7 @@ class Reportable extends CActiveRecord
 		);
 	}
 
-	public function objectToArray($d) {
+	public static  function objectToArray($d) {
 		if (is_object($d)) {
 			// Gets the properties of the given object
 			// with get_object_vars function
@@ -138,7 +168,7 @@ class Reportable extends CActiveRecord
 
 		$attributes = $reportable->attributes;
  
-		$attributes['display'] = Reportable::objectToArray(json_decode($attributes['display']));
+		$attributes['display'] = Reportable::model()->objectToArray(json_decode($attributes['display']));
 
 		foreach($attributes['display'] as $model=>$fields){
 			foreach($fields as $ii=>$afield):
@@ -152,7 +182,7 @@ class Reportable extends CActiveRecord
 
 		//$reportable->conditions = unserialize($reportable->conditions);
 		$criteria->condition = " ";
-	 	$attributes['conditions'] = Reportable::objectToArray(json_decode($attributes['conditions']));
+	 	$attributes['conditions'] = Reportable::model()->objectToArray(json_decode($attributes['conditions']));
 		foreach($attributes['conditions'] as $field_name=>$attribs){
 			$cnd = $attribs['attrib'];
 			if ($cnd =='gt'){

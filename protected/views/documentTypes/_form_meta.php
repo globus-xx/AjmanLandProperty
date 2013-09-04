@@ -1,6 +1,6 @@
 <div class="row">
     <div class="span50">
-        <?php echo $form->labelEx($model,'meta_option'); ?>
+        <?php  echo $form->labelEx($model,'meta_option'); ?>
         <?php echo $form->textField($model,'meta_option'); ?>
         <?php echo $form->error($model,'meta_option'); ?>
         <?php if($model->id!=null):?>

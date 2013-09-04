@@ -3,20 +3,20 @@
 /* @var $model Destination */
 
 $this->breadcrumbs=array(
-	'Destinations'=>array('index'),
+	'الوجهات'=>array('index'),
 	$model->DestinationID,
 );
 
 $this->menu=array(
-	array('label'=>'List Destination', 'url'=>array('index')),
-	array('label'=>'Create Destination', 'url'=>array('create')),
-	array('label'=>'Update Destination', 'url'=>array('update', 'id'=>$model->DestinationID)),
-	array('label'=>'Delete Destination', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->DestinationID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Destination', 'url'=>array('admin')),
+	array('label'=>'عرض الوجهات', 'url'=>array('index')),
+	array('label'=>'اضافة وجهة', 'url'=>array('create')),
+	array('label'=>'تعديل وجهة', 'url'=>array('update', 'id'=>$model->DestinationID)),
+	array('label'=>'حذف وجهة', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->DestinationID),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'ادارة وجهة', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View Destination #<?php echo $model->DestinationID; ?></h1>
+<h1>عرض الوجهة   #<?php echo $model->DestinationID; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

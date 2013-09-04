@@ -63,13 +63,11 @@ class CustomerServiceController extends Controller
 	 */
 	public function actionIndex()
 	{
-
-                 $criteria = new CDbCriteria;            		
+                $criteria = new CDbCriteria;            		
                 $items = Letters::model()->findAll($criteria);
             
                 $this->render('search', array(
-				'docs'=>$items,));
-		
+				'docs'=>$items,));		
 	}
         
         
@@ -202,7 +200,7 @@ class CustomerServiceController extends Controller
                     
                     
                     
-                       // emad code update
+                       
                                 // receive the webservice post variables
                                 if (!isset($_REQUEST['returnType']))
                                 {
@@ -393,28 +391,30 @@ class CustomerServiceController extends Controller
                                 $_dids= null;
 
                                   foreach ($deedDetails as $key=>$did) {
-                                         $_dids[] = $did->DeedID;
-                                         
+                                         $_dids[] = $did->DeedID;                                         
                                    }
 //                                   print_r($_dids);
                                    // get lands related to cutomer from the DeedMaster using deed IDs where deed remarks are  cancelled
                                    
-                                   //previous lands of customer
+                                   //    previous lands of customer                                                                      
                                        $searchCriteria=new CDbCriteria;
                                        $searchCriteria->condition = '`Remarks` = "cancelled"';
                                        $searchCriteria->addInCondition("DeedID", $_dids);
                                        $LandIDs = DeedMaster::model()->findAll($searchCriteria);
-
+                                       
+                                       
                                        IF(COUNT($LandIDs)>0){
+                                             $_landids = null;                       
+                                             
                                             foreach ($LandIDs as $key=>$landId) {
                                               $_landids[] = $landId->LandID;
-
                                               }
-//                                              print_r($_landids);
+                                             
                                             $searchCriteria=new CDbCriteria;
                                             $searchCriteria->addInCondition("LandID", $_landids);
-                                               $lands["landDetails"]["previous"]=$LandInfo = LandMaster::model()->findAll($searchCriteria);
-//                                               print  $lands["landDetails"]["previous"][0]->LandID;
+                                            $lands["landDetails"]["previous"]=$LandInfo = LandMaster::model()->findAll($searchCriteria);
+
+//                                          print  $lands["landDetails"]["previous"][0]->LandID;
                                         }
                                      // get lands related to cutomer from the DeedMaster using deed IDs where deed remarks are not cancelled  
 
@@ -426,7 +426,8 @@ class CustomerServiceController extends Controller
                                        $searchCriteria->addInCondition("DeedID", $_dids);
                                        $LandIDs = DeedMaster::model()->findAll($searchCriteria);
 //                                       print "cont ".COUNT($LandIDs);
-                         IF(COUNT($LandIDs)>0){$_landids= null;
+                                       
+                                    IF(COUNT($LandIDs)>0){$_landids= null;
                                                 foreach ($LandIDs as $key=>$landId) {
 //                                                    if($landId->Remarks !="cancelled")
                                                   $_landids[] = $landId->LandID;

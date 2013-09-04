@@ -1,15 +1,15 @@
 <?php
 $this->breadcrumbs=array(
-	'Documents',
+	'الملفات',
 );
 
 $this->menu=array(
-	array('label'=>'Create Document', 'url'=>array('create')),
-	array('label'=>'Manage Document', 'url'=>array('admin')),
+	array('label'=>'اضافة ملف', 'url'=>array('create')),
+	array('label'=>'ادارة ملف', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Documents</h1>
+<h1>الملفات</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

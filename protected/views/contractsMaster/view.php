@@ -13,7 +13,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>ألعقد رقم #<?php echo $model->ContractsID; ?></h1>
+<h1>العقد رقم #<?php echo $model->ContractsID; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

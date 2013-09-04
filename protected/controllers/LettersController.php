@@ -782,9 +782,7 @@ class LettersController extends Controller
         
         
         public function actionDelete($id)
-	{
-		
-
+	{		
                 $post=Letters::model()->findByPk($id); // assuming there is a post whose ID is 10
                 $post->delete(); // delete the row from the database table
                 

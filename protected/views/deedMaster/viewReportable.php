@@ -1,14 +1,14 @@
 <div class="form">
 
 
-	<small>Report Generated for Saved Report</small>
+	<small>  التقرير المولد الخاص بالتقرير المحفوظ</small>
 	<h1><?php echo $model->title;?></h1>
 
 	<?php 
 
 	if (count($results)==0):
 	?>
-	<p>No Results</p>
+	<p>لا توجد نتائج</p>
 	<?php
 	else:
 

@@ -12,6 +12,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update DeedMaster <?php echo $model->DeedID; ?></h1>
+<h1>تعديل عقد <?php echo $model->DeedID; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

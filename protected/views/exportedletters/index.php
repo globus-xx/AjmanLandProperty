@@ -3,15 +3,15 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Exportedletters',
+	'الرسائل الصادرة',
 );
 
 $this->menu=array(	
-	array('label'=>'Manage Exportedletters', 'url'=>array('admin')),
+	array('label'=>'ادارة الرسائل الصادرة', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Exportedletters</h1>
+<h1>الرسائل الصادرة</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

@@ -3,12 +3,12 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'document-form',
 	'enableAjaxValidation'=>false,
-  'htmlOptions' => array('enctype' => 'multipart/form-data'),
+        'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->errorSummary($model);  ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
@@ -21,25 +21,31 @@
     <?php echo $form->error($model,'file'); ?>
   </div>
 	<div class="row">
-    <?php echo $form->labelEx($model,'documentTypeId'); ?>
-	  <?php
+    <?php    echo $form->labelEx($model,'documentTypeId'); ?>
+	  <?php   
     $allTypes = DocumentTypes::model()->findAll();
+    
     $list = CHtml::listData($allTypes, 'id', 'title');
     echo CHtml::dropDownList('Document[documentTypeId]', null, $list, array('empty' => '(What Type of Document Is it?)'));
     ?>
 
 	</div>
 	<div id="document-subform-container"><?php 
-	if(is_array($_model_document_metas)):
-  	echo $this->renderPartial('form-document-type', array('documentType'=>$_documentType,'_model_document_metas'=>$_model_document_metas));
-  endif;
+        
+        
+        
+        if(isset($_model_document_metas))
+	if(is_array($_model_document_metas)):  	
+                echo $this->renderPartial('form-document-type', array('documentType'=>$_documentType,'_model_document_metas'=>$_model_document_metas));
+        endif;
+  
   ?></div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
-<?php $this->endWidget(); ?>
+<?php $this->endWidget();  ?>
 
 </div><!-- form -->
 <script language="JavaScript">

@@ -3,16 +3,16 @@
 /* @var $model Destination */
 
 $this->breadcrumbs=array(
-	'Destinations'=>array('index'),
-	'Create',
+	'الوجهات'=>array('index'),
+	'انشاء',
 );
 
 $this->menu=array(
-	array('label'=>'List Destination', 'url'=>array('index')),
-	array('label'=>'Manage Destination', 'url'=>array('admin')),
+	array('label'=>'عرض الوجهات', 'url'=>array('index')),
+	array('label'=>'ادارة وجهة', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Destination</h1>
+<h1>اضافة وجهة </h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

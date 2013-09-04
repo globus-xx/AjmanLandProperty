@@ -128,7 +128,7 @@ class SiteController extends Controller
         
         
         public function actionProfile($id,$mess="")
-	{                       
+	{                               
 		$userdata = Users::model()->findAllByAttributes(array("id"=>$id));   
                 $userprofile = Profiles::model()->findAllByAttributes(array("user_id"=>$id)); 
 		$this->render('/user/edit-user-profile',array('userdata'=>$userdata,'mess'=>$mess,'userprofile'=>$userprofile));                

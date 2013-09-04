@@ -82,41 +82,50 @@ class DocumentController extends Controller
 	public function actionCreate()
 	{
 		$model = new Document();
-
+                
+                
+                // $_model_document_metas = new DocumentMeta();
+                // $_documentType = new _documentType();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Document']))
 		{
+                   
 			$attributes = $_POST['Document'];
-      $attributes['documentTypeId'] = $_POST['Document']['documentTypeId'];
+                        $attributes['documentTypeId'] = $_POST['Document']['documentTypeId'];
 
-      $file = CUploadedFile::getInstance($model,'file');
-      $attributes['fileName']= $file->name;
-      $attributes['mimeType']= $file->type;
-      $attributes['fileSize']= $file->size;
-      $model->attributes = $attributes;
-      $model->file = CUploadedFile::getInstance($model,'file');
+                        $file = CUploadedFile::getInstance($model,'file');
+                        $attributes['fileName']= $file->name;
+                        $attributes['mimeType']= $file->type;
+                        $attributes['fileSize']= $file->size;
+                        $model->attributes = $attributes;
+                        $model->file = CUploadedFile::getInstance($model,'file');
 
       
-
+ 
 			if($model->save()){
-        $model->file->saveAs(Yii::app()->basePath.'/../assets/files/'.$model->id);        
-			  // save all the meta details as well
-			  // create the document metas
-        foreach($_POST['Document']['documentMetas'] as $one_meta){
-          $_document_meta = new DocumentMeta;
-          $one_meta['documentId'] = $model->id;
-          $_document_meta->attributes = $one_meta;
-          if($_document_meta->save(false)){
-          }
-        }
+                        $model->file->saveAs(Yii::app()->basePath.'/../assets/files/'.$model->id);        
+                              // save all the meta details as well
+                              // create the document metas
+                         
+                        foreach($_POST['Document']['documentMetas'] as $one_meta){                          
+                          $_document_meta = new DocumentMeta;
+                          $one_meta['documentId'] = $model->id;
+                          $_document_meta->attributes = $one_meta;
+                          if($_document_meta->save(false)){
+                          }
+                        }
+        
+        
   			$this->redirect(array('view','id'=>$model->id));
 			}
 		}
 
+                
+                
 		$this->render('create',array(
-			'model'=>$model,
+			'model'=>$model
 		));
 	}
 
@@ -128,18 +137,13 @@ class DocumentController extends Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->loadModel($id);
-    $_model_document_metas = DocumentMeta::model()->findAllByAttributes(array('documentId'=>$id));
+                $_model_document_metas = DocumentMeta::model()->findAllByAttributes(array('documentId'=>$id));
 
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Document']))
-		{
-			$model->attributes = $_POST['Document'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+		
     
     if(isset($_POST['Document']))
     {
@@ -187,9 +191,9 @@ class DocumentController extends Controller
 
 		$this->render('update',array(
 			'model'=>$model,
-      '_model_document_metas' => $_model_document_metas,
-       '_documentType' => DocumentTypes::model()->findByPk($model->documentTypeId),
-		));
+                        '_model_document_metas' => $_model_document_metas,
+                        '_documentType' => DocumentTypes::model()->findByPk($model->documentTypeId),
+                        ));
 	}
 
 	/**
@@ -199,17 +203,23 @@ class DocumentController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
-
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+            
+            $post=  Documentable::model()->deleteAll("`documentId` = :documentId", array('documentId' => $id)); 
+            
+                $this->loadModel($id)->delete();
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                
+//		if(Yii::app()->request->isPostRequest)
+//		{   
+//			// we only allow deletion via POST request
+//			$this->loadModel($id)->delete();
+//
+//			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+//			if(!isset($_GET['ajax']))
+//				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+//		}
+		//else
+		//	throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**

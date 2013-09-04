@@ -3,20 +3,20 @@
 /* @var $model RealEstatePeople */
 
 $this->breadcrumbs=array(
-	'Real Estate Peoples'=>array('index'),
+	'الوسطاء العقاريون'=>array('index'),
 	$model->Name,
 );
 
 $this->menu=array(
-	array('label'=>'List RealEstatePeople', 'url'=>array('index')),
-	array('label'=>'Create RealEstatePeople', 'url'=>array('create')),
-	array('label'=>'Update RealEstatePeople', 'url'=>array('update', 'id'=>$model->CardID)),
-	array('label'=>'Delete RealEstatePeople', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->CardID),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage RealEstatePeople', 'url'=>array('admin')),
+	array('label'=>'عرض الوسطاء العقاريون', 'url'=>array('index')),
+	array('label'=>'اضافة وسيط عقاري', 'url'=>array('create')),
+	array('label'=>'تعديل الوسيط العقاري', 'url'=>array('update', 'id'=>$model->CardID)),
+	array('label'=>'حذف الوسيط العقاري', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->CardID),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'ادارة الوسيط العقاري', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View RealEstatePeople #<?php echo $model->CardID; ?></h1>
+<h1>عرض الوسيط  #<?php echo $model->CardID; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

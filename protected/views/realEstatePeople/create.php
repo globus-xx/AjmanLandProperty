@@ -3,16 +3,16 @@
 /* @var $model RealEstatePeople */
 
 $this->breadcrumbs=array(
-	'Real Estate Peoples'=>array('index'),
+	'الوسطاء العقاريون'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List RealEstatePeople', 'url'=>array('index')),
-	array('label'=>'Manage RealEstatePeople', 'url'=>array('admin')),
+	array('label'=>'عرض الوسطاء العقاريون', 'url'=>array('index')),
+	array('label'=>'ادارة الوسيط العقاري', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create RealEstatePeople</h1>
+<h1>اضافة وسيط عقاري</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

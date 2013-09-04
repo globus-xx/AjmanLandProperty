@@ -1,15 +1,15 @@
 <?php
 $this->breadcrumbs=array(
-	'Document Types',
+	'انواع الوثائق',
 );
 
 $this->menu=array(
-	array('label'=>'Create DocumentTypes', 'url'=>array('create')),
-	array('label'=>'Manage DocumentTypes', 'url'=>array('admin')),
+	array('label'=>'اضافة نوع', 'url'=>array('create')),
+	array('label'=>'ادارة الانواع', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Document Types</h1>
+<h1>انواع الوثائق</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

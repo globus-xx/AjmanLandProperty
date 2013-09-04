@@ -5,13 +5,13 @@
 
 
 $this->menu=array(
-	array('label'=>'Create ContractsMaster', 'url'=>array('create')),
-	array('label'=>'Custom Reports', 'url'=>array('reportables')),
-	array('label'=>'Manage ContractsMaster', 'url'=>array('admin')),
+	array('label'=>'انشاء عقد', 'url'=>array('create')),
+	array('label'=>'تقارير خاصة', 'url'=>array('reportables')),
+	array('label'=>'ادارة العقود', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Contracts Masters</h1>
+<h1>ادارة العقود</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

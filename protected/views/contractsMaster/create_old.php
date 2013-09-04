@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List ContractsMaster', 'url'=>array('index')),
-	array('label'=>'Manage ContractsMaster', 'url'=>array('admin')),
+	array('label'=>'عرض العقود', 'url'=>array('index')),
+	array('label'=>'ادارة العقود', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create ContractsMaster</h1>
+<h1>انشاء عقد</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

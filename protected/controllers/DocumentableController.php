@@ -27,10 +27,13 @@ class DocumentableController extends Controller
 		$model = new Documentable();
 		$documentableType = $_GET['documentableType'];
 		$documentableId = $_GET['documentableId'];
+                
 		$documentables = Documentable::model()->with('document')->findAllByAttributes(array('documentable_type'=>$documentableType, 'documentable_id'=>$documentableId));
 		$model->attributes = array('documentable_type'=>$documentableType, 'documentable_id'=>$documentableId);
 		$this->layout = false;
+                
 		$this->render('_view', array('model'=>$model, 'documentables'=>$documentables));
+                
 	}
 
 	public function actionDelete()

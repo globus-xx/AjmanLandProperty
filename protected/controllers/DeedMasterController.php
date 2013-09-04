@@ -473,6 +473,20 @@ class DeedMasterController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
+        
+        /**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+        public function actionDeletereport($id)
+	{
+		$post=  Reportable::model()->findByPk($id); // assuming there is a post whose ID is 10
+                $post->delete(); // delete the row from the database table                
+                
+                $this->redirect(array('Reportables'));
+	}
+        
 	/**
 	 * Lists all models.
 	 */
@@ -531,15 +545,18 @@ class DeedMasterController extends Controller
 
     $defaults = $this->getReportableDefaults();
 
+    
     if(isset($_POST['Reportable']))
-    {
+    {                
       $model->attributes = $_POST['Reportable'];
       if($model->validate())
       {
         $model->save();
         $this->redirect(array('viewReportable', 'id'=>$model->id));
-      }
+      }            
     }
+    
+    
     $this->render('newReportable',array('model'=>$model, 'defaults'=>$defaults));
   }
   
@@ -551,6 +568,7 @@ class DeedMasterController extends Controller
 
     if(isset($_POST['Reportable']))
     {
+        
       $model->attributes = $_POST['Reportable'];
       if($model->validate())
       {
@@ -558,6 +576,7 @@ class DeedMasterController extends Controller
         $this->redirect(array('viewReportable', 'id'=>$model->id));
       }
     }
+    
     $this->render('editReportable',array('model'=>$model, 'defaults'=>$defaults));
   }
   public function actionViewReportable($id)
@@ -567,7 +586,7 @@ class DeedMasterController extends Controller
 
     $this->render('viewReportable',array(
       'model'=>$model,
-      'results'=>DeedMaster::getReportFromReportable($model)
+      'results'=>DeedMaster::model()->getReportFromReportable($model)
           ));
   }
 
@@ -603,7 +622,7 @@ class DeedMasterController extends Controller
 	 * @param integer the ID of the model to be loaded
 	 */
 	public function loadModel($id)
-	{
+	{            
 		$model=DeedMaster::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');

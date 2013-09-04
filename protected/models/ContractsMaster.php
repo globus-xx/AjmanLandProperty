@@ -148,11 +148,11 @@ class ContractsMaster extends CActiveRecord
 
 			if(is_array($attribs['value'])){
 				foreach($attribs['value'] as $ii=>$vv){
-					$attribs['value'][$ii] = "'".mysql_real_escape_string($vv)."'";
+					$attribs['value'][$ii] = "'".$vv."'";
 				}
 				$attribs['value'] = $attribs['value'].join(',');
 			}else{
-				$attribs['value'] = "'".mysql_real_escape_string($attribs['value'])."'";
+				$attribs['value'] = "'".$attribs['value']."'";
 			}
 
 		    $sql.= ( strstr( $sql, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";

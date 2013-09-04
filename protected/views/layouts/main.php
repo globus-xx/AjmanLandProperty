@@ -4,14 +4,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-	
-	<link type="text/css" href="/ajman/AjmanLandProperty/css/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+            
+	<link type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
 	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
+	<link rel="stylesheet" type="text/css" href="<?php //echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
@@ -50,14 +50,14 @@
 						)),
 					array('label'=>'طباعة عقد','url'=>array('/ContractsMaster/printfrom')),
 					array('label'=>'تفصيل العقد','url'=>array('/ContractsDetail/admin')),
-					array('label'=>'Custom Reports','url'=>array('/ContractsMaster/Reportables')),
-					array('label'=>'New Custom Reports','url'=>array('/ContractsMaster/newReportable')),
+					array('label'=>'التقارير الخاصة','url'=>array('/ContractsMaster/Reportables')),
+					array('label'=>'تقرير خاص جديد','url'=>array('/ContractsMaster/newReportable')),
                 )),			
             
                 array('label'=>'حجز/ رهن','url'=>array('/HajzMaster'),
 					'items'=>array(
-						array('label'=>'hajz1','url'=>array('/HajzMaster/1')),
-						array('label'=>'hajz2','url'=>array('/HajzMaster/2')),
+						array('label'=>'الحجز1','url'=>array('/HajzMaster/1')),
+						array('label'=>'الحجز2','url'=>array('/HajzMaster/2')),
 												
                 )),	
             
@@ -67,51 +67,51 @@
 						array('label'=>'طباعة ملكية','url'=>array('/DeedMaster/printfrom')),
 						array('label'=>'تاريخ الطباعات','url'=>array('/DeedTracker/admin')),
 						array('label'=>'تفصيل الملكية','url'=>array('/DeedDetails/admin')),
-						array('label'=>'Custom Reports','url'=>array('/DeedMaster/Reportables')),
-						array('label'=>'New Custom Reports','url'=>array('/DeedMaster/newReportable')),
+						array('label'=>'التقارير الخاصة','url'=>array('/DeedMaster/Reportables')),
+						array('label'=>'تقرير خاص جديد','url'=>array('/DeedMaster/newReportable')),
                 )),
             
                 array('label'=>'مكاتب عقارية','url'=>array('/RealEstateOffices'),
 					'items'=>array(
 						array('label'=>'وسيط','url'=>array('/RealEstatePeople'),
 							'items'=>array(
-								array('label'=>'New Waseet','url'=>array('/RealEstatePeople/create')),
-								array('label'=>'Manage Waseets', 'url'=>array('/RealEstatePeople/admin')),
+								array('label'=>'وسيط جديد','url'=>array('/RealEstatePeople/create')),
+								array('label'=>'ادارة الوسطاء', 'url'=>array('/RealEstatePeople/admin')),
 						)),
 						array('label'=>'مكاتب','url'=>array('/RealEstateOffices'),
 							'items'=>array(
-								array('label'=>'New Office','url'=>array('/RealEstateOffices/create')),
-								array('label'=>'Manage Offices', 'url'=>array('/RealEstateOffices/admin')),
+								array('label'=>'مكتب جديد','url'=>array('/RealEstateOffices/create')),
+								array('label'=>'ادارة المكاتب', 'url'=>array('/RealEstateOffices/admin')),
 						)),
 					)),
             
                 array('label'=>'العملاء','url'=>array('/CustomerMaster'),
 					'items'=>array(
-								array('label'=>'New Customer','url'=>array('/CustomerMaster/create')),
-								array('label'=>'Manage Customers', 'url'=>array('/CustomerMaster/admin')),
+								array('label'=>'زبون جديد','url'=>array('/CustomerMaster/create')),
+								array('label'=>'ادارة الزبائن', 'url'=>array('/CustomerMaster/admin')),
                 )),
             
                 array('label'=>'أراضي','url'=>array('/LandMaster/update'),
 					'items'=>array(
-								array('label'=>'طباعة مجطط','url'=>array('/ContractsMaster/mukhattat')),
+								array('label'=>'طباعة مخطط','url'=>array('/ContractsMaster/mukhattat')),
 		)),
                 
                 array('label'=>'خدمة العملاء','url'=>array('/CustomerService'),                    
                      'items'=>array(
-								array('label'=>'Letter Management','url'=>array('/Letters/temp/')),
-                                                                array('label'=>'Destination Management','url'=>array('/destination/')),
-                                                                array('label'=>'Exported Letters Management','url'=>array('/exportedletters/')),
+								array('label'=>'ادارة الرسائل','url'=>array('/Letters/temp/')),
+                                                                array('label'=>'ادارة وجهات الرسائل','url'=>array('/destination/')),
+                                                                array('label'=>'ادارة الرسائل الصادرة','url'=>array('/exportedletters/')),
 								
                 )),
-              array('label'=>'DMS', 'url'=>array('/document/'), 'items'=>array(
-                  array('label'=>'Documents', 'url'=>array('/document/')),
-                  array('label'=>'Document Types', 'url'=>array('/documentTypes/')),
+              array('label'=>'نظام ادارة الملفات', 'url'=>array('/document/'), 'items'=>array(
+                  array('label'=>'الوثائق', 'url'=>array('/document/')),
+                  array('label'=>'انواع الوثائق', 'url'=>array('/documentTypes/')),
               )),
 
             
             	array('label'=>'دخول', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 
-                array('label'=>'(profile'.'('.Yii::app()->user->name, 'url'=>array('/site/profile/'.Yii::app()->user->ID), 'visible'=>!Yii::app()->user->isGuest),                            
+                array('label'=>'البيانات الشخصية ('.Yii::app()->user->name.')', 'url'=>array('/site/profile/'.Yii::app()->user->ID), 'visible'=>!Yii::app()->user->isGuest),                            
 			
 		array('label'=>'خروج '.'('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
               

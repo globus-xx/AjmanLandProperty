@@ -1,6 +1,6 @@
 <div class="well-bordered form">
-<h2  style="display:inline-block;">Attached Documents</h2>
-<a style="display:inline-block;" href="javascript:void(0)" class="toggle-attach-a-document" >Attach a Document?</a>
+<h2  style="display:inline-block;">الوثائق المرفقة</h2>
+<a style="display:inline-block;" href="javascript:void(0)" class="toggle-attach-a-document" >ارفاق وثيقة?</a>
 <div class="well document-attachinary-holder" style="display:none;">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'documentable-form',
@@ -12,14 +12,14 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'Document To Attach'); ?>
-		<small>Type to search for the document you wish to attach</small><br/>
+		<small>اكتب للبحث عن الوثيقة التي تريد ارفاقها     </small><br/>
 		<input id="search_for_document" />
 		<?php echo $form->hiddenField($model,'documentId'); ?>
 		<?php echo $form->error($model,'documentId'); ?>
 		<?php echo $form->hiddenField($model,'documentable_type'); ?>
 		<?php echo $form->hiddenField($model,'documentable_id'); ?>
-		<a id="link-attach-document-to-element" href="javascript:void(0)">Attach Document</a> |
-		<small><a href="javascript:void(0)" class="toggle-hide-attach-a-document" >Cancel</a></small>
+		<a id="link-attach-document-to-element" href="javascript:void(0)">ارفاق وثيقة</a> |
+		<small><a href="javascript:void(0)" class="toggle-hide-attach-a-document" >الغاء</a></small>
 	</div>
 
 <?php $this->endWidget(); ?>
@@ -29,8 +29,8 @@
 	 foreach($documentables as $documentable):?>
 	<li>
 		<?php echo ($documentable->document->attributes['title']);?>
-		<a href="<?php echo Yii::app()->createUrl('document/download', array('id'=>$documentable->document->id));?>">Download</a>
-		<a class="link-to-detach-document" href="javascript:void(0)" data-id="<?php echo $documentable->attributes['id'];?>">Detach</a>
+		<a href="<?php echo Yii::app()->createUrl('document/download', array('id'=>$documentable->document->id));?>">تحميل</a>
+		<a class="link-to-detach-document" href="javascript:void(0)" data-id="<?php echo $documentable->attributes['id'];?>">اخراج الوثيقة</a>
 	</li>
 <?php endforeach;?>
 </ul>

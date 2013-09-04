@@ -63,8 +63,9 @@ class DocumentTypesController extends Controller
 	public function actionCreate()
 	{
 		$model=new DocumentTypes;
-        $_model_document_type_meta = new DocumentTypeMeta();
-
+                $_model_document_type_meta = new DocumentTypeMeta();
+                
+                
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -72,25 +73,25 @@ class DocumentTypesController extends Controller
 		{
 			$model->attributes = $_POST['DocumentTypes'];
             
-
 			if($model->save()){
-			    // create the document metas
-			    foreach($_POST['DocumentTypeMeta'] as $one_meta){
-			        $model_document_type_meta = new DocumentTypeMeta;
-                    $one_meta['documentTypeId'] = $model->id;
+                                // create the document metas
+                                foreach($_POST['DocumentTypeMeta'] as $one_meta){
+                                    $model_document_type_meta = new DocumentTypeMeta;
+                                    $one_meta['documentTypeId'] = $model->id;
 
-                    $model_document_type_meta->attributes = $one_meta;
-                    if($model_document_type_meta->save(false)){
-                        
-                    }
-			    }
-          $this->redirect(array('view','id'=>$model->id));
+                                    $model_document_type_meta->attributes = $one_meta;
+                                    if($model_document_type_meta->save(false)){
+                                            
+                                    }
+                                }
+                                $this->redirect(array('view','id'=>$model->id));
 			}
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
 			'_model_document_type_meta' => $_model_document_type_meta
+                       
 		));
 	}
 
@@ -101,25 +102,48 @@ class DocumentTypesController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
-    $_model_document_type_meta = new DocumentTypeMeta();
-        
-    $_model_document_type_metas = DocumentTypeMeta::model()->findAllByAttributes(array('documentTypeId'=>$id));
+    $model=$this->loadModel($id);
+    $_model_document_type_metas = new DocumentTypeMeta();             
+    $_model_document_type_meta = DocumentTypeMeta::model()->findAllByAttributes(array('documentTypeId'=>$id));
 
+   
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+
 		if(isset($_POST['DocumentTypes']))
 		{
+                 
 			$model->attributes=$_POST['DocumentTypes'];
+                        
+                        
+                        $post=DocumentTypeMeta::model()->deleteAll("`documentTypeId` = :documentTypeId", array('documentTypeId' => $id)); 
+                       
+                
+                
+                        // create the document metas
+                                foreach($_POST['DocumentTypeMeta'] as $one_meta){
+                                    $model_document_type_meta = new DocumentTypeMeta;
+                                    $one_meta['documentTypeId'] = $model->id;
+
+                                    $model_document_type_meta->attributes = $one_meta;
+                                    if($model_document_type_meta->save(false)){
+                                            
+                                    }
+                                }
+                                
+                                
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
+                        
+                         
 		}
 
+                 
 		$this->render('update',array(
 			'model'=>$model,
-        '_model_document_type_meta' => $_model_document_type_meta,
-	      '_model_document_type_metas' => $_model_document_type_metas
+                '_model_document_type_meta' => $_model_document_type_meta,
+                '_model_document_type_metas' => $_model_document_type_metas
             
 		));
 	}
@@ -131,19 +155,29 @@ class DocumentTypesController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
-      DocumentTypeMeta::model()->deleteAllByAttributes(array('documentTypeId'=>$id));
-  
-			// we only allow deletion via POST request
+            $post=DocumentTypeMeta::model()->deleteAll("`documentTypeId` = :documentTypeId", array('documentTypeId' => $id)); 
+            
+                        // we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+            
+//            
+//		if(Yii::app()->request->isPostRequest)
+//		{
+//      DocumentTypeMeta::model()->deleteAllByAttributes(array('documentTypeId'=>$id));
+//  
+//			// we only allow deletion via POST request
+//			$this->loadModel($id)->delete();
+//
+//			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+//			if(!isset($_GET['ajax']))
+//				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+//		}
+//		else
+//			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**

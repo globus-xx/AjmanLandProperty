@@ -3,16 +3,16 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Destinations',
+	'الوجهات',
 );
 
 $this->menu=array(
-	array('label'=>'Create Destination', 'url'=>array('create')),
-	array('label'=>'Manage Destination', 'url'=>array('admin')),
+	array('label'=>'اضافة وجهة', 'url'=>array('create')),
+	array('label'=>'ادارة وجهة', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Destinations</h1>
+<h1>الوجهات</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

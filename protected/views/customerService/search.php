@@ -185,9 +185,9 @@ return false;
 		{ event.preventDefault();
                     $('#letterForm #landid').val($('#searchstring').val());
                     
-			 $('#loadingresult').show();
+			$('#loadingresult').show();
                         var searchstring =  new Array();
-                          searchstring["action"] = "search";
+                        searchstring["action"] = "search";
 
 
 			var paramJSON = JSON.stringify(searchstring);	 //ensuring that info sent to the server is stringed!

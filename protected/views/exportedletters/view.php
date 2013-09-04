@@ -3,17 +3,17 @@
 /* @var $model Exportedletters */
 
 $this->breadcrumbs=array(
-	'Exportedletters'=>array('index'),
+	'الرسائل الصادرة'=>array('index'),
 	$model->ExportedletterID,
 );
 
 $this->menu=array(
-	array('label'=>'List Exportedletters', 'url'=>array('index')),		
-	array('label'=>'Manage Exportedletters', 'url'=>array('admin')),
+	array('label'=>'قائمة الرسائل الصادرة', 'url'=>array('index')),		
+	array('label'=>'ادارة الرسائل الصادرة', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View Exportedletters #<?php echo $model->ExportedletterID; ?></h1>
+<h1>عرض الرسائل الصادرة #<?php echo $model->ExportedletterID; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

@@ -252,7 +252,7 @@ else
 </div>
 
 </body>
-<link type="text/css" href="/AjmanLandProperty/css/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+<link type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="/AjmanLandProperty/js/jquery-1.8.1.min.js"></script> 
 
 <script type='text/javascript'>

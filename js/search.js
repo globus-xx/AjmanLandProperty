@@ -89,8 +89,8 @@ function displayLandInfo(Results)// lsit previous and currnt lands from result o
 {   
     // get the current owners and list them with links to the profile on the Arabic name
      var currentOwnersContent = "<table dir=rtl class=currentOwners>";
-    currentOwnersContent+="<tr><td colspan='3'><strong>الزبون الحالي</strong></td></tr>";
-    currentOwnersContent+="<tr><td>اسم الزبون </td><td> جنسية الزبون</td><td>مشاركة(%)</td></tr>";
+    currentOwnersContent+="<tr><td colspan='3'><strong>المالك الحالي</strong></td></tr>";
+    currentOwnersContent+="<tr><td> اسم المالك </td><td> الجنسية </td><td>نسبة (%)</td></tr>";
     if(typeof(Results["current"]["customers"])!="undefined"){
         var arrayNode= Results["current"]["customers"]
         for(var i = 0; i<arrayNode.length ; i++ ){
@@ -283,6 +283,7 @@ function hideList(){
  */
 function displayPreviousLands(Results){ 
     var arrayNode =Results["landDetails"]["previous"];
+    
             var previousLands="";
             previousLands+="<table >";
                     previousLands+="<tr ><td colspan= 6>  " ;
@@ -309,7 +310,7 @@ function displayPreviousLands(Results){
  */
 function diplayUserDetails(customerID, type , CustomerResult){ // list the land info of any customerID provided
         $('#loadingresult').show();
-        var searchstring = []
+        var searchstring = [];
         searchstring["string"] = customerID;
         searchstring["action"] = "search";
 
@@ -328,12 +329,12 @@ function diplayUserDetails(customerID, type , CustomerResult){ // list the land 
                             content+="<tr ><td colspan= 6>  " ;
                             content+=       userTab(type,customerID);
                             content+="</td></tr>" ;
-                            content+="<tr class =currentOwners><td>رقم الارض</td>" ;
-                            content+="<td align='right'>نوع الارض </td>";
-                            content+="<td>جنسية</td>" ;
-                            content+="<td> عنوان المنزل</td>" ;
-                            content+="<td>القطعة</td>" ;
-                            content+="<td></td>" ;
+                            content+="<tr class =currentOwners><td> رقم السند القديم  </td>" ;
+                            content+="<td align='right'> رقم السند الجديد </td>";
+                            content+="<td>نوع التملك</td>" ;
+                            content+="<td> المنطقة </td>" ;
+                            content+="<td>المساحة</td>" ;
+                            content+="<td>الملاك</td>" ;
                             content+="</tr>" ;
                             if(typeof(CustomerResult)!="undefined") {
                                 CustomerResult[0]= null;
@@ -361,7 +362,7 @@ function diplayUserDetails(customerID, type , CustomerResult){ // list the land 
                                                     }    
                                              CurrentOwner+="</div>"
                                                }  else CurrentOwner+="<a class='searchLink2' onclick='doSearchSubmit($(this).text())' >"+arraryNodeB[0]["CustomerNameArabic"]+ "</a>(1)<br>"
-                                                    content=content+"<tr class=currentOwners><td>"+i+"</td>" ;
+                                                    content=content+"<tr class=currentOwners><td>"+arraryNode[i]['Remarks'] +"</td>" ;
                                                     content+="<td><input type='checkbox' name='lands[]' value="+arraryNode[i]['LandID']+"><a class='searchLink2' onclick='doSearchSubmit($(this).text())'  >"+arraryNode[i]['LandID']+"</a> </td>";
                                                     content+="<td>"+arraryNode[i]['Land_Type']+"</td>" ;
                                                     content+="<td>"+arraryNode[i]['location']+"</td>" ;
