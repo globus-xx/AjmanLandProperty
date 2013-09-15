@@ -5,31 +5,54 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Fields with  <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'title'); ?>
+		<?php echo $form->error($model,'title'); ?>                        
 	</div>
 
-    <fieldset id="container-for-form-meta">
+<!--    <fieldset id="container-for-form-meta">
         <legend>خيارات خاصة</legend>
         <?php 
         
-        if(isset($_model_document_type_meta))
-        if (is_array($_model_document_type_meta)):
-          foreach($_model_document_type_meta as $one_meta):
-            $this->renderPartial('//documentTypes/_form_meta', array('model' => $one_meta, 'form' => $form));
-          endforeach;
-         
-        endif;
+//        if(isset($_model_document_type_meta))
+//        if (is_array($_model_document_type_meta)):
+//          foreach($_model_document_type_meta as $one_meta):
+//            $this->renderPartial('//documentTypes/_form_meta', array('model' => $one_meta, 'form' => $form));
+//          endforeach;
+//         
+//        endif;
          
         ?>
     </fieldset>
-    <a href="javascript:void(0);" id="link-add-new-custom-option" >Add New Custom Option</a>
+    <a href="javascript:void(0);" id="link-add-new-custom-option" >Add New Custom Option</a>-->
+
+            <?php 
+            
+            if(!isset($update))
+            {
+            ?> 
+                <div class="row">
+                    <label>Type <span class="required">*</span></label>
+
+
+                    <select name = "Documenttypes[table_name]">
+                        <?php
+                        foreach($tables as $row)
+                        {
+                            echo "<option value='".$row['Tables']."'> ".$row['Tables']." </option>";
+                        }
+                        ?>
+                    </select>
+
+                </div>
+            <?php
+            }
+            ?>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

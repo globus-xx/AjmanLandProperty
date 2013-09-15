@@ -57,10 +57,13 @@ class DocumentController extends Controller
 	}
 
 	public function actionDownload($id){
-		$model = $this->loadModel($id);
-    $path =  $model->downloadPath();//Yii::app()->basePath.'/../assets/files/'.$model->id;
+    
+    $model = $this->loadModel($id);
+    //$path =  $model->downloadPath();
+    $path = Yii::app()->basePath.'/../dms/'.$model->id;
     $file =  urldecode($path);
 
+    //die($path);
     if (file_exists($file)) {
       header('Content-Description: File Transfer');
       header('Content-Type: application/octet-stream');
@@ -82,16 +85,14 @@ class DocumentController extends Controller
 	public function actionCreate()
 	{
 		$model = new Document();
-                
-                
+                                
                 // $_model_document_metas = new DocumentMeta();
                 // $_documentType = new _documentType();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Document']))
-		{
-                   
+		{                   
 			$attributes = $_POST['Document'];
                         $attributes['documentTypeId'] = $_POST['Document']['documentTypeId'];
 
@@ -123,9 +124,17 @@ class DocumentController extends Controller
 		}
 
                 
+                $sql = 'select * from filesetting;';
+                $connection=Yii::app()->db;
+                $command=$connection->createCommand($sql);
+                $result=$command->queryAll();
+                
+                $filetypes =  $result[0]['file_types'];
+                $filesize =  $result[0]['file_size'];
+                
                 
 		$this->render('create',array(
-			'model'=>$model
+			'model'=>$model, 'types' => $filetypes, 'size' => $filesize
 		));
 	}
 
@@ -187,12 +196,19 @@ class DocumentController extends Controller
       }
     }
 
-
+                $sql = 'select * from filesetting;';
+                $connection=Yii::app()->db;
+                $command=$connection->createCommand($sql);
+                $result=$command->queryAll();
+                
+                $filetypes =  $result[0]['file_types'];
+                $filesize =  $result[0]['file_size'];
+                
 
 		$this->render('update',array(
 			'model'=>$model,
                         '_model_document_metas' => $_model_document_metas,
-                        '_documentType' => DocumentTypes::model()->findByPk($model->documentTypeId),
+                        '_documentType' => DocumentTypes::model()->findByPk($model->documentTypeId),'types' => $filetypes, 'size' => $filesize
                         ));
 	}
 
@@ -233,18 +249,32 @@ class DocumentController extends Controller
 		));
 	}
 
-	public function actionSearch(){
-		$term = $_GET['term'];
+        
+        
+        public function actionSetting()
+	{		                
+                $sql = 'select * from filesetting;';
 
-		$sql = 'select documents.* from documents where documents.title like "'.$term.'%"';
+                $connection=Yii::app()->db;
+                $command=$connection->createCommand($sql);
+                $model=$command->queryAll(); 
+
+		$this->render('setting',array(
+			'model'=>$model,
+		));
+	}
+        
+        
+	public function actionSearch(){
+	$term = $_GET['term'];
+        $sql = 'select documents.* from documents where documents.title like "'.$term.'%"';
 
 	$connection=Yii::app()->db;
 	$command=$connection->createCommand($sql);
 	$models=$command->queryAll(); 
 
-    $this->layout = false;
-    echo CJSON::encode($models);
-
+        $this->layout = false;
+        echo CJSON::encode($models);
 	}
 
 	/**

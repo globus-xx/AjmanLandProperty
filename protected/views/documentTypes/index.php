@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'اضافة نوع', 'url'=>array('create')),
-	array('label'=>'ادارة الانواع', 'url'=>array('admin')),
+	array('label'=>'اضافة نوع', 'url'=>array('create'))
+	//array('label'=>'ادارة الانواع', 'url'=>array('admin')),
 );
 ?>
 

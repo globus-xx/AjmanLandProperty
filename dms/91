@@ -1,0 +1,450 @@
+<?php
+//ENGLISH LANGUAGE FILE
+// (C) 20010-2011 Stephen Lawrence Jr.
+// Translated by: Stephen Lawrence Jr.
+/*
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+$lang = array();
+global $lang;
+
+//Login
+$lang['anonymous_link'] = 'انقر هنا لرؤيةالملفات العامةالمجهولة';
+$lang['forgotpassword'] = 'نسيت كلمةالمرور ؟';
+$lang['install_folder']  = 'اشعار أمان : اذا قمت بالفعل بثبيت / تحديث بعد ذلك يجب ازالة / تثبيت المجلد قبل المعالجة';
+$lang['signup'] = 'تسجيل مستخدم ';
+$lang['welcome'] = 'OpenDocMan  أهلا وسهلا بكم في ';
+$lang['welcome2'] = 'سجل الدخول للبدء باستخدام قوة النظام في التخزين';
+$lang['welcome_anonymous_title'] = 'OpenDocMan صفحة مجهولة : اطهر الكل';
+$lang['welcome_anonymous_h1'] = 'OpenDocMan صفحة مجهولة';
+
+//GLOBAL TERMS
+$lang['action'] = 'اجراء';
+$lang['all'] = 'الكل';
+$lang['anonymous'] = 'مجهول';
+$lang['author'] = 'المحرر';
+$lang['category'] = 'الفئة';
+$lang['choose'] = 'اختر';
+$lang['date'] = 'التاريخ';
+$lang['days'] = 'الايام';
+$lang['department'] = 'قسم';
+$lang['edit'] = 'تعديل';
+$lang['enter'] = 'ادخل';
+$lang['error'] = 'خطأ';
+$lang['file'] = 'ملف';
+$lang['help'] = 'مساعدة';
+$lang['home'] = 'الصفحة الرئيسية';
+$lang['installer'] = 'ملف التحميل';
+$lang['list'] = 'قائمة';
+$lang['login'] = 'دخول';
+$lang['logout'] = 'خروج';
+$lang['new'] = 'جديد';
+$lang['owner'] = 'المالك';
+$lang['preferences'] = 'مفضلات';
+$lang['password'] = 'كلمة المرور';
+$lang['please'] = 'من فضلك';
+$lang['profile'] = 'ملف شخصي';
+$lang['public'] = 'عام';
+$lang['revision'] = 'تغيير';
+$lang['search'] = 'بحث';
+$lang['select'] = 'اختيار';
+$lang['sincerely'] = 'باخلاص';
+$lang['submit'] = 'تأكيد';
+$lang['time'] = 'الوقت';
+$lang['type'] = 'النوع';
+$lang['updated'] = 'معدل';
+$lang['username'] = 'اسم المستخدم';
+$lang['users'] = 'المستخدمين';
+$lang['value'] = 'القيمة';
+$lang['view'] = 'رؤية';
+
+// Areas
+$lang['area_add_new_category'] = 'اضافة فئة جديدة';
+$lang['area_add_new_department'] = 'اضافة قسم جديد';
+$lang['area_add_new_file'] = 'اضافة ملف جديد';
+$lang['area_add_new_udf'] = 'اضافة حقل مستخدم جديد معرف';
+$lang['area_add_new_user'] = 'اضافة مستخدم جديد';
+$lang['area_admin'] = 'الادارة';
+$lang['area_check_in_file'] = 'ملف قيد المراجعة';
+$lang['area_check_out_file'] = 'ملف تمت مراجعته';
+$lang['area_choose_department'] = 'اختيار قسم';
+$lang['area_delete_category'] = 'حذف فئة';
+$lang['area_deleted_files'] = 'حذف الملفات';
+$lang['area_department_information'] = 'معلومات القسم';
+$lang['area_display_category'] = 'اظهار جميع الملفات مقسمة الى فئات';
+$lang['area_document_listing'] = 'قائمة الوثائق';
+$lang['area_file_delete'] = 'حذف ملف';
+$lang['area_file_details'] = 'تفاصيل الملف';
+$lang['area_file_expiration'] = 'انتهاء صلاحية الملف';
+$lang['area_personal_profile'] = 'الملف الشخصي';
+$lang['area_reset_password'] = 'إعادة تعيين كلمة المرور';
+$lang['area_update_category'] = 'تحديث الفئة';
+$lang['area_update_department'] = 'تحديث إدارة';
+$lang['area_update_file'] = 'تحديث ملف';
+$lang['area_view_category'] = 'عرض الفئة';
+$lang['area_view_history'] = 'سجل';
+
+// Buttons
+$lang['button_add_category'] = 'إضافة فئة';
+$lang['button_add_department'] = 'إضافة قسم';
+$lang['button_add_document'] = 'إضافة وثيقة';
+$lang['button_authorize'] = 'ترخيص';
+$lang['button_back'] = 'للخلف';
+$lang['button_cancel'] = 'الغاء';
+$lang['button_check_in'] = 'قيد المراجعة';
+$lang['button_clear_status'] = 'مسح الحالة';
+$lang['button_click_here'] = 'انقر هنا';
+$lang['button_continue'] = 'متابعة';
+$lang['button_delete'] = 'حذف';
+$lang['button_delete_files'] = 'حذف الملفات';
+$lang['button_display_category'] = 'عرض جميع الملفات في هذا التصنيف';
+$lang['button_modify_category'] = 'تعديل الفئة';
+$lang['button_modify_department'] = 'تعديل قسم';
+$lang['button_reject'] = 'رفض';
+$lang['button_reset'] = 'إعادة تعيين';
+$lang['button_resubmit_for_review'] = 'إعادة إرسال للمراجعة';
+$lang['button_save'] = 'تخزين';
+$lang['button_undelete'] = 'استرجاع';
+$lang['button_update'] = 'تحديث';
+$lang['button_view_department'] = 'عرض القسم';
+$lang['button_yes'] = 'نعم';
+
+//Email
+$lang['email_added_to_repository'] = 'اضافة الى المستودع';
+$lang['email_a_new_file_has_been_added'] = 'تمت إضافة ملف جديد';
+$lang['email_a_new_file_has_been_rejected'] = 'تم رفض ملف جديد';
+$lang['email_automated_document_messenger'] = 'مرسل الوثائق الآلي';
+$lang['email_because_you_did_not_revise'] = 'للانك لم تنقحه لاكثر من';
+$lang['email_comments_regarding_review'] = 'تعليقات بخصوص رأيك من الوثيقة';
+$lang['email_custom_comment'] = 'تعليق مخصص';
+$lang['email_email_all_users'] = 'ارسال رسالة الى جميع المستخدمين';
+$lang['email_email_these_users'] = 'رسائل المستخدمين';
+$lang['email_email_whole_department'] = 'ارسال الى جميع مستخدمي القسم';
+$lang['email_file_expired'] = 'انتهت صلاحية الملف';
+$lang['email_file_was_rejected_because'] = 'ملفك تم رفضه لانك لم تنقحه لاكثر من';
+$lang['email_file_was_rejected_expired'] = 'انتهت صلاحية الملف. يرجى تحديث الملف في أقرب وقت ممكن. قد يكون ملف لا يمكن الوصول إليه حتى تقوم بذلك.';
+$lang['email_for_the_following_reasons'] = 'للاسباب التالية';
+$lang['email_greeting'] = 'عزيزي المحرر';
+$lang['email_i_would_like_to_inform'] = 'أود أن أحيطكم علما بأن';
+$lang['email_note_to_authors'] = 'ملاحظة للمحررين';
+$lang['email_revision_days'] = 'الحد الأقصى لعدد الأيام قبل انتهاء صلاحية:';
+$lang['email_salute'] = 'بإخلاص';
+$lang['email_someone_has_requested_password'] = 'أحد الاشخاص طلب إعادة تعيين كلمة المرور. إذا كنت ترغب في إعادة تعيين كلمة المرور الخاصة بك يرجى اتباع الرابط أدناه. إذا كنت لا ترغب في إعادة تعيين كلمة المرور الخاصة بك  فلا تفعل شيئا وتجاهل هذا البريد الإلكتروني.';
+$lang['email_status_expired'] = 'الحالة: منتهي';
+$lang['email_subject_review_status'] = 'حالة المراجعة للوثيقة ';
+$lang['email_subject'] = 'موضوع مخصص';
+$lang['email_thank_you'] = 'شكرا لك';
+$lang['email_to'] = 'مخصص ل : اسم';
+$lang['email_was_declined_for_publishing_at'] = 'تم الرفض للنشر في';
+$lang['email_was_rejected_from_repository'] = 'رفض من المستودع';
+$lang['email_you_can_now_login'] = 'الآن يمكنك تسجيل الدخول إلى حسابك في هذه الصفحة';
+$lang['email_your_account_created'] = 'تم إنشاء حسابك في إدارة الوثائق';
+$lang['email_your_file_has_been_authorized'] = 'ملفك تم اعطاؤه الاذن للنشر';
+
+// Labels
+$lang['label_active'] = 'فعال';
+$lang['label_add'] = 'اضافة';
+$lang['label_admin'] = 'المدير';
+$lang['label_allowed'] = 'مسموح';
+$lang['label_all_departments'] = 'تعيين جميع الاقسام ل..';
+$lang['label_assign_to'] = 'تعيين ل';
+$lang['label_author'] = 'الحرر';
+$lang['label_browse_by'] = 'مصنفة حسب :';
+$lang['label_case_sensitive'] = 'اعتبار حالةالاحرف';
+$lang['label_checked_out_files'] = 'ملفات تمت مراجعتها';
+$lang['label_check_expiration'] = 'تحقق من انتهاء الصلاحية';
+$lang['label_comment'] = 'تعليق';
+$lang['label_created_date'] = 'تاريخ الإنشاء';
+$lang['label_default_for_unset'] = 'اذونات القسم الافتراضية';
+$lang['label_delete'] = 'حذف';
+$lang['label_delete_undelete'] = 'حذف / استرجاع';
+$lang['label_department_authority'] = 'اذونات القسم المخصصة :';
+$lang['label_department'] = 'قسم';
+$lang['label_departments'] = 'اقسام';
+$lang['label_department_to_modify'] = 'القسم المراد تعديله';
+$lang['label_description'] = 'وصف';
+$lang['label_display'] = 'عرض';
+$lang['label_email_address'] = 'عنوان البريد الإلكتروني';
+$lang['label_empty'] = 'فارغ';
+$lang['label_exact_phrase'] = 'العبارة بالضبط';
+$lang['label_example'] = 'مثال';
+$lang['label_file_archive'] = 'ارشيف الملف';
+$lang['label_file_category'] = 'فئة الملف';
+$lang['label_file_listing'] = 'قائمة الملفات';
+$lang['label_file_location'] = 'موقع الملف';
+$lang['label_file_maintenance'] = 'صيانة الملف';
+$lang['label_filename'] = 'اسم الملف';
+$lang['label_filetype'] = 'نوع الملف';
+$lang['label_filetypes'] = 'نوع الملفات';
+$lang['label_file_name'] = 'اسم الملف';
+$lang['label_first_name'] = 'الاسم الاول';
+$lang['label_forbidden'] = 'ممنوع';
+$lang['label_found_documents'] = 'الوثائق التي وجدت';
+$lang['label_id'] = 'الرقم الموحد';
+$lang['label_is_admin'] = 'هل هو مدير ؟';
+$lang['label_is_reviewer'] = 'هل هو منقح ؟';
+$lang['label_last_name'] = 'الاسم الاخير';
+$lang['label_moderation'] = 'Moderation';
+$lang['label_modified_date'] = 'التاريخ المعدل';
+$lang['label_modify'] = 'تعديل';
+$lang['label_name'] = 'الاسم';
+$lang['label_new_password'] = 'كلمة مرور جديدة';
+$lang['label_next'] = 'التالي';
+$lang['label_note_for_revision_log'] = 'ملاحظة لمراجعة السجل';
+$lang['label_page'] = 'الصفحة';
+$lang['label_phone_number'] = 'رقم الهاتف';
+$lang['label_plugins'] = 'المكونات الإضافية';
+$lang['label_prev'] = 'السابق';
+$lang['label_radio_button'] = 'زر متعدد الخيارات';
+$lang['label_read'] = 'قراءة';
+$lang['label_reassign_to'] = 'اعادة تعيين الى';
+$lang['label_rejected_files'] = 'الملفات المرفوضة';
+$lang['label_rejections'] = 'المرفوضة';
+$lang['label_reviewer_for'] = 'قسم للمنقح';
+$lang['label_reviewer'] = 'منقح';
+$lang['label_reviews'] = 'تنقيح';
+$lang['label_rights'] = 'حقوق';
+$lang['label_run_expiration'] = 'تشغيل الأداة المساعدة لانتهاء الصلاحية';
+$lang['label_search_term'] = 'مصطلح البحث';
+$lang['label_select_a_department'] = 'حدد قسم';
+$lang['label_select_departments'] = 'حدد الاقسام';
+$lang['label_select_one'] = 'اختر واحد';
+$lang['label_settings'] = 'إعدادات';
+$lang['label_size'] = 'حجم';
+$lang['label_specific_permissions'] = 'صلاحيات محددة للمستخدم :';
+$lang['label_status'] = 'الحالة';
+$lang['label_text'] = 'النص';
+$lang['label_update'] = 'تحديث';
+$lang['label_user_defined_fields'] = 'الحقول المعرفة من قبل المستخدم';
+$lang['label_user_defined_field'] = 'حقل المعرف من قبل المستخدم';
+$lang['label_users_in_department'] = 'المستخدمين في هذا القسم';
+$lang['label_user'] = 'مستخدم';
+$lang['label_view'] = 'رؤية';
+$lang['label_userid'] = 'الرقم الموحد للمستخدم';
+$lang['label_fileid'] = 'الرقم الموحد للملف';
+$lang['label_username'] = 'اسم المستخدم';
+$lang['label_action'] = 'إجراء';
+$lang['label_date'] = 'التاريخ';
+$lang['label_type_pr_sec'] = 'النوع'; //CHM
+$lang['label_primary_type'] = 'رئيسي'; //CHM
+$lang['label_sub_select_list'] = 'تحديد فرعي للقائمة'; //CHM
+
+// Messages
+$lang['message_account_created_add_user'] = 'لقد تم إنشاء حسابك.';
+$lang['message_account_created_password'] = 'كلمة السر المولدة عشوائيا هي';
+$lang['message_account_created'] = 'لقد تم إنشاء حسابك. يرجى التحقق من البريد الإلكتروني الخاص بك للحصول على معلومات تسجيل الدخول.';
+$lang['message_action_cancelled'] = 'ألغي الاجراء';
+$lang['message_all_actions_successfull'] = 'أكملت جميع الإجراءات بنجاح';
+$lang['message_an_email_has_been_sent'] = 'لقد تم إرسال رسالة إلكترونية إلى عنوان البريد الإلكتروني الموجود في الملف مع وصلة التي يجب اتباعها من أجل إعادة تعيين كلمة المرور.';
+$lang['message_anonymous_view'] = 'قد تحولت الى وضع العرض المجهول';
+$lang['message_are_you_sure_remove'] = 'هل أنت متأكد أنك تريد إزالة هذا؟';
+$lang['message_authorized'] = 'مصرح له';
+$lang['message_category_successfully_added'] = 'الفئة اضيفت بنجاح';
+$lang['message_category_successfully_deleted'] = 'الفئة حذفت بنجاح';
+$lang['message_category_successfully_updated'] = 'الفئة عدلت بنجاح';
+$lang['message_click_to_checkout_document'] = 'انقر للتحقق من الوثيقة المختارة والبدء تنزيله إلى محطة العمل المحلية';
+$lang['message_config_value_problem'] = 'هناك مشكلة مع واحدة من قيم التهيئة الخاصة بك. يرجى التحقق.';
+$lang['message_current'] = 'الحالي';
+$lang['message_datadir_problem'] = 'هناك مشكلة مع مسار تخزين الملفات الخاص بك. تحقق للتأكد من أنه موجود وقابل للكتابة هو';
+$lang['message_datadir_problem_exists'] = 'هناك مشكلة مع  اعدادات مسار الملفات الخاص بك. لا يبدو انه موجود.';
+$lang['message_datadir_problem_writable'] = 'هناك مشكلة مع الإعداد DATADIR الخاص بك. لا يبدو أن يكون قابل للكتابة إلى خادم الويب.';
+$lang['message_department_successfully_added'] = 'تمت اضافة القسم بنجاح';
+$lang['message_department_successfully_updated'] = 'تم تعديل القسم بنجاح';
+$lang['message_directory_creation_failed'] = 'فشل إنشاء الدليل';
+$lang['message_document_added'] = 'تم اضافة الوثيقة بنجاح';
+$lang['message_document_checked_in'] = 'تم تنقيح الوثيقة بنجاح';
+$lang['message_document_checked_out_to_you'] = 'الملفات التي تمت مراجعتها من قبلك';
+$lang['message_document_has_been_archived'] = 'تم ارشفة الوثائق بنجاح';
+$lang['message_documents_expired'] = 'انتهت صلاحية الوثائق';
+$lang['message_documents_rejected'] = 'رفضت الوثائق';
+$lang['message_document_successfully_deleted'] = 'الوثيقة حذفت بنجاح';
+$lang['message_documents_waiting'] = 'الوثائق في انتظار إعادة النظر';
+$lang['message_error_performing_action'] = 'هناك خطأ في تنفيذ الاجراء المطلوب';
+$lang['message_file_authorized'] = 'ترخيص الملف انتهى بنجاح';
+$lang['message_file_does_not_exist'] = 'لا يوجد ملف أو توجد مشكلة مع الملف.';
+$lang['message_file_expired'] = 'انتهى الملف';
+$lang['message_file_rejected'] = 'تم رفض الملف بنجاح';
+$lang['message_folder_error_check'] = 'يوجد خطا في المجلد . تحقق من الرسالة الأخيرة في شريط المعلومات للحصول على التفاصيل.';
+$lang['message_folder_perms_error'] = 'خطأ في صلاحيات المجلد';
+$lang['message_for_further_assistance'] = 'لمزيد من المساعدة';
+$lang['message_found_documents'] = 'الوثائق التي وجدت';
+$lang['message_if_you_are_unable_to_view1'] = 'إذا لم تكن قادر على القيام بذلك لسبب ما، انقر فوق';
+$lang['message_if_you_are_unable_to_view2'] = 'تحميل';
+$lang['message_if_you_are_unable_to_view3'] = '<br> لبدء التحميل إلى محطة العمل المحلية لعرض محلي.';
+$lang['message_initial_import'] = 'استيراد أولي';
+$lang['message_last_message'] = 'آخر رسالة';
+$lang['message_latest_version'] = 'أحدث إصدار';
+$lang['message_need_one_department'] = 'تحتاج الى ما لا يقل عن قسم واحد';
+$lang['message_no_author_comments_available'] = 'لا يوجد تعليقات متاحة للمحرر';
+$lang['message_no_description_available'] = 'لا يوجد وصف متاح';
+$lang['message_no_documents_checked_out'] = 'لا يوجد وثائق نقحت لك';
+$lang['message_no_files_found'] = 'لا توجد ملفات';
+$lang['message_no_information_available'] = 'لا توجد معلومات متاحة';
+$lang['message_non_unique_account'] = 'حساب غير مميز';
+$lang['message_non_unique_key'] = 'المفتاح غير فريد في قاعدة البيانات';
+$lang['message_nothing_to_do'] = 'لا صلة بالموضوع';
+$lang['message_not_writeable'] = 'غير قابل للتعديل';
+$lang['message_once_the_document_has_completed'] = 'عند انتهاء تحميل الوثيقة تستطيع ';
+$lang['message_original_version'] = 'النسخة الأصلية';
+$lang['message_please_email'] = 'يرجى إرسال بريد إلكتروني';
+$lang['message_please_upload_valid_doc'] = 'يرجى تحميل وثيقة صالحة';
+$lang['message_record_exists'] = 'سجل موجود مسبقا. حاول مرة أخرى مع قيمة مختلفة.';
+$lang['message_rejected'] = 'مرفوض';
+$lang['message_rejecting_files'] = 'رفض الملفات المعدلة اخيرا ';
+$lang['message_reviewers_comments_re_rejection'] = 'تعليقات المراجعين بخصوص الرفض';
+$lang['message_session_error'] = 'خطا في الجلسة. يرجى تسجيل الدخول مرة أخرى.';
+$lang['message_set_your_new_password'] = 'عدل كلمة المرور الجديدة باستخدام النموذج أدناه.';
+$lang['message_sorry_demo_mode'] = 'عذرا، طريقة العرض فقط، لا يمكنك أن تفعل ذلك!';
+$lang['message_sorry_not_allowed'] = 'عذرا، لا يسمح لك القيام بذلك !';
+$lang['message_that_filetype_not_supported'] = 'هذا النوع من الملفات لا ندعمها حاليا. يرجى تحميل وثيقة مطابقة للأي من أنواع الملفات التالية أو إضافة  missing MIMETYPE to ';
+$lang['message_the_code_you_are_using'] = 'الكود الذي تحاول استخدامه لإعادة تعيين كلمة المرور الخاصة بك لم يعد صالحا. يرجى استخدام هذا النموذج لإعادة تعيين كلمة المرور الخاصة بك. ';
+$lang['message_the_file_is_too_large'] = 'الملف كبير جدا. تحقق من إعدادات LPD. الحد الأقصى لحجم هو';
+$lang['message_the_file_is_too_large_php_ini'] = 'الملف كبير جدا بالنسبة خادم PHP. تحقق من تكوين ملف php.ini للتحميل ماكس / آخر / الذاكرة. الحد الأقصى لحجم حاليا: ';
+$lang['message_there_was_an_error_loggin_you_in'] = 'كان هناك خطأ في تسجيل الدخول . الرجاء المحاولة مرة أخرى.';
+$lang['message_there_was_an_error_performing_the_action'] = ' هناك خطأ في تنفيذ الإجراء المطلوب.';
+$lang['message_the_username_you_entered'] = 'لم يتم العثور على اسم المستخدم الذي قمت بإدخاله في نظامنا. اتصل بنا إذا كنت قد نسيت اسم المستخدم الخاص بك.';
+$lang['message_this_file_cannot_be_checked_in'] = 'هذا الملف لا يمكن مراجعته';
+$lang['message_this_file_cannot_be_uploaded'] = 'هذا الملف لا نستطيع تحميله بشكل صحيح';
+$lang['message_this_operation_cannot_be_done_file'] = 'لا يمكن عمل هذا الاجراء على هذا الملف';
+$lang['message_this_operation_cannot_be_done_rev'] = 'هذا الاجراء لا يمكن عمله على ملف مفحوص مسبقا';
+$lang['message_this_page_requires_root'] = 'هذه الصفحة تتطلب سماحية من المسار الاساسي (الاب)';
+$lang['message_this_site_has_high_security'] = 'هذا الموقع يحتوي على مستوى عال من الأمن ونحن لا يمكن استرداد كلمة السر الخاصة بك لك. يمكنك استخدام هذا النموذج لإعادة تعيين كلمة المرور الخاصة بك. أدخل اسم المستخدم الخاص بك وسوف نقوم بإرسال بريد إلكتروني إلى عنوان البريد الإلكتروني الموجود في الملف مع وصلة التي يجب أن تتبع لإعادة تعيين كلمة المرور. في تلك المرحلة يمكنك  تعيين  أي شيء يحلو لك.';
+$lang['message_to_view_your_file'] = 'لعرض الملف في نافذة جديدة';
+$lang['message_udf_cannot_be_blank'] = ' اسم UDF لا يمكن ان يكون فارغا';
+$lang['message_udf_successfully_added'] = 'تم اضافة حقل المستخدم بنجاح';
+$lang['message_udf_successfully_deleted'] = 'تم حذف حقل المستخدم بنجاح';
+$lang['message_unable_to_determine_root'] = 'غير قادر على تحديد اسم المستخدم الجذر. يرجى التحقق من الاعدادات الخاص بك.';
+$lang['message_unable_to_find_file'] = 'غير قادر على العثور على الملف المطلوب';
+$lang['message_user_exists'] = 'المستخدم موجود مسبقا . من فضلك  <a href=\'signup.php\'> حاول مرة اخرى </a>';
+$lang['message_user_successfully_added'] = 'تمت اضافة المستخدم بنجاح !';
+$lang['message_user_successfully_deleted'] ='تم حذف المستخدم بنجاح !';
+$lang['message_user_successfully_updated'] = 'تم تعديل المستخدم بنجاح !';
+$lang['message_wrong_file_checkin'] = 'ملف خاطئ ! من فضلك افحص الملف الصحيح';
+$lang['message_you_are_not_administrator'] = 'أنت لست مديرا';
+$lang['message_you_did_not_enter_value'] = 'لم تقم بإدخال قيمة!';
+$lang['message_you_do_not_have_an_account'] = 'ليس لديك حساب حاليا. الرجاء الاتصال بالمدير لطلب واحد.';
+$lang['message_you_must_assign_rights'] = 'يجب تعيين عرض / تعديل صلاحيات على الأقل مستخدم واحد.';
+$lang['message_your_password_has_been_changed'] = 'تم تغيير كلمة المرور الخاصة بك.';
+
+$lang['view'] = $lang['label_view'];
+
+// Add File Page
+$lang['addpage_none'] = 'لا شيء';
+
+// Edit File Page
+$lang['editpage_uncheck_all'] = 'الكل تحديد جميع';
+$lang['editpage_check_all'] = 'تحديد الكل';
+$lang['editpage_of'] = 'من';
+$lang['editpage_selected'] = 'مختار';
+$lang['editpage_none_selected'] = 'حدد الخيارات';
+$lang['editpage_assign_owner'] = 'تعيين إلى المالك';
+$lang['editpage_assign_department'] = 'ربط إلى قسم';
+$lang['editpage_filter'] = 'تصفية:';
+$lang['editpage_keyword'] = 'أدخل كلمات البحث';
+$lang['editpage_none'] = 'لا شيء';
+
+// Delete/Undeleta Admin Page
+$lang['undeletepage_file_permanently_deleted'] = 'الملف قد تم حذفه نهائيا';
+$lang['undeletepage_file_undeleted'] = 'الملف قد تم استرجاعه';
+
+// Departments Page
+$lang['departmentpage_department_name_required'] = 'اسم القسم مطلوب';
+
+// Details Page
+$lang['detailspage_view'] = 'رؤية';
+$lang['detailspage_check_out'] = 'راجع';
+$lang['detailspage_edit'] = 'تحرير';
+$lang['detailspage_delete'] = 'حذف';
+$lang['detailspage_history'] = 'تاريخ';
+$lang['detailspage_are_sure'] = 'هل أنت متأكد؟';
+
+// Out Page
+$lang['outpage_view'] = 'رؤية';
+
+// History Page
+$lang['historypage_category'] = 'فئة :';
+$lang['historypage_file_size'] = 'حجم الملف :';
+$lang['historypage_creation_date'] = 'تاريخ الانشاء :';
+$lang['historypage_owner'] = 'المالك :';
+$lang['historypage_description'] = 'الوصف :';
+$lang['historypage_comment'] = 'تعليق :';
+$lang['historypage_revision'] = 'تنقيح:';
+$lang['historypage_original_revision'] = 'مراجعة اصلية';
+$lang['historypage_latest'] = 'آخر';
+$lang['historypage_history'] = 'تاريخ';
+$lang['historypage_version'] = 'نسخة';
+$lang['historypage_modification'] = 'تاريخ التعديل';
+$lang['historypage_by'] = 'بواسطة';
+$lang['historypage_note'] = 'ملاحظة';
+
+// Profile Page
+$lang['profilepage_update_profile'] = 'تحديث الملف الشخصي';
+
+// User Page
+$lang['userpage_admin'] = 'المدير';
+$lang['userpage_are_sure'] = 'هل أنت متأكد أنك تريد حذف';
+$lang['userpage_back'] = 'للخلف';
+$lang['userpage_button_add_user'] = 'اضافة مستخدم';
+$lang['userpage_button_cancel'] = 'الغاء';
+$lang['userpage_button_delete'] = 'حذف';
+$lang['userpage_button_modify'] = 'تعديل المستخدم';
+$lang['userpage_button_show'] = 'رؤية المستخدم';
+$lang['userpage_button_update'] = 'تعديل المستخدم';
+$lang['userpage_choose_departments'] = 'اختيار الاقسام';
+$lang['userpage_choose_user'] = 'اختر مستخدم للعرض';
+$lang['userpage_confirm_password'] = 'تأكيد كلمة المرور';
+$lang['userpage_department'] = 'قسم';
+$lang['userpage_email'] = 'البريد الإلكتروني';
+$lang['userpage_first_name'] = 'الاسم الأول';
+$lang['userpage_id'] = 'الرقم الموحد';
+$lang['userpage_last_name'] = 'اسم العائلة';
+$lang['userpage_leave_empty'] = 'اتركه فارغا في حال عدم التغيير';
+$lang['userpage_modify_user'] = 'تعديل المستخدم';
+$lang['userpage_no'] = 'لا';
+$lang['userpage_password'] = 'كلمة المرور';
+$lang['userpage_phone_number'] = 'رقم الهاتف';
+$lang['userpage_reviewer'] = 'منقح';
+$lang['userpage_reviewer_for'] = 'منقح ل';
+$lang['userpage_show_user'] = 'رؤية المستخدم: ';
+$lang['userpage_status_delete'] = 'حذف';
+$lang['userpage_update_user'] = 'تعديل المستخدم: ';
+$lang['userpage_update_user_demo'] = 'عذرا، وضع العرض التوضيحي فقط، لا يمكنك فعل ذلك';
+$lang['userpage_user'] = 'مستخدم';
+$lang['userpage_user_delete'] = 'اختر مستخدم للحذف';
+$lang['userpage_user_info'] = 'معلومات المستخدم';
+$lang['userpage_username'] = 'اسم المستخدم';
+$lang['userpage_yes'] = 'نعم';
+
+// Admin Page
+$lang['adminpage_edit_filetypes'] = 'تعديل انواع الملفات';
+$lang['adminpage_edit_settings'] = 'تحديث الاعدادات';
+$lang['adminpage_reports'] = 'تقارير';
+$lang['adminpage_access_log'] = 'معلومات حركةالدخول';
+
+// Access Log page
+$lang['accesslogpage_access_log'] = 'معلومات حركةالدخول';
+$lang['accesslogpage_file_added'] = 'تم اضافة الملف';
+$lang['accesslogpage_file_viewed'] = 'تمت رؤية الملف';
+$lang['accesslogpage_file_downloaded'] = 'تم تحميل الملف';
+$lang['accesslogpage_file_modified'] = 'تم تعديل الملف';
+$lang['accesslogpage_file_checked_in'] = 'الملف قيد المراجعة';
+$lang['accesslogpage_file_checked_out'] = 'الملف تمت مراجعته';
+$lang['accesslogpage_file_deleted'] = 'تم حذف الملف';
+$lang['accesslogpage_file_authorized'] = 'تم اعتماد الملف';
+$lang['accesslogpage_file_rejected'] = 'تم رفض الملف';
+$lang['accesslogpage_reserved'] = 'محجوز';
+
+//Category View Page
+$lang['categoryviewpage_list_of_files_title'] = 'الملفات خصصت لهذه الفئة :';

@@ -15,4 +15,4 @@ $this->menu=array(
 
 <h1>تعديل نوع <?php echo $model->id; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model, '_model_document_type_meta'=>$_model_document_type_meta, '_model_document_type_metas'=>$_model_document_type_metas)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, '_model_document_type_meta'=>$_model_document_type_meta, '_model_document_type_metas'=>$_model_document_type_metas, 'update' => '1')); ?>

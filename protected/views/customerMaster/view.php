@@ -39,6 +39,6 @@ $this->menu=array(
 )); ?>
 <?php 
 // code for attach a document thingamabob
-echo $this->renderPartial('/documentable/_attachinary', array('documentableType'=>'customer', 
+echo $this->renderPartial('/documentable/_attachinary', array('documentableType'=>'customermaster', 
 							'documentableId'=>$model->CustomerID));
 ?>

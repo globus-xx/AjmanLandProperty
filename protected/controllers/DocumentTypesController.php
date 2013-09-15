@@ -18,6 +18,12 @@ class DocumentTypesController extends Controller
 		);
 	}
 
+        public function get_db_name()
+        {
+              $curdb  = explode('=', Yii::app()->db->connectionString);
+              return $curdb[2];
+        }
+        
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -52,7 +58,7 @@ class DocumentTypesController extends Controller
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
-	    '_model_document_type_metas'=>DocumentTypeMeta::model()->findAllByAttributes(array('documentTypeId'=>$id))
+                        '_model_document_type_metas'=>DocumentTypeMeta::model()->findAllByAttributes(array('documentTypeId'=>$id))
 		));
 	}
 
@@ -64,34 +70,111 @@ class DocumentTypesController extends Controller
 	{
 		$model=new DocumentTypes;
                 $_model_document_type_meta = new DocumentTypeMeta();
-                
+                $database_name = $this->get_db_name();
                 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['DocumentTypes']))
+		// $this->performAjaxValidation($model);              
+		if(isset($_POST['Documenttypes']))
 		{
-			$model->attributes = $_POST['DocumentTypes'];
-            
-			if($model->save()){
-                                // create the document metas
-                                foreach($_POST['DocumentTypeMeta'] as $one_meta){
-                                    $model_document_type_meta = new DocumentTypeMeta;
-                                    $one_meta['documentTypeId'] = $model->id;
+                    
+                    $table_name = $_POST['Documenttypes']['table_name'];
+                                                
+                    // =========== get primary id       
+                        $primary_table_id = "";
+                        $sql = 'SELECT k.column_name
+                                FROM information_schema.table_constraints t
+                                JOIN information_schema.key_column_usage k
+                                USING(constraint_name,table_schema,table_name)
+                                WHERE t.constraint_type=\'PRIMARY KEY\'
+                                AND t.table_schema=\''.$database_name.'\'
+                                AND t.table_name=\''.$table_name.'\';';
 
-                                    $model_document_type_meta->attributes = $one_meta;
-                                    if($model_document_type_meta->save(false)){
-                                            
-                                    }
-                                }
+                        $connection=Yii::app()->db;
+                        $command=$connection->createCommand($sql);
+                        $primary_id=$command->queryAll();
+                    
+                        foreach($primary_id as $row)
+                        {
+                            $primary_table_id = $row['column_name'];
+                        }
+                                                
+                        
+                        
+			$model->attributes = $_POST['Documenttypes'];                        
+                        $model->primary_id = $primary_table_id;   
+                        $model->createdAt= date("Y-m-d H:i:s");
+                        $model->updatedAt= date("Y-m-d H:i:s");   
+                    
+                    if($model->save()){
+                            
+                    // ========== add new record in document type meta                                                                                              
+                    // get the metas from any table                                       
+                    $sql = 'DESCRIBE '.$table_name.' ;';
+                    
+                    $connection=Yii::app()->db;
+                    $command=$connection->createCommand($sql);
+                    $result=$command->queryAll(); 
+                
+                    if($result)
+                    {                       
+                        foreach($result as $meta)
+                        {
+                            $doctypemeta = new DocumentTypeMeta();
+                                                       
+                            if(preg_match('/int/',$meta["Type"]))
+                            $type = "integer";                            
+                            elseif(preg_match('/varchar/',$meta["Type"]))
+                            $type = "string";    
+                            else
+                            $type  = $meta["Type"];
+                                                        
+                            $newtype["title"] = $_POST['Documenttypes']['title'];
+                            $newtype["documentTypeId"] = $model->id;
+                            $newtype["meta_option"] = $meta["Field"];   
+                            $newtype["meta_type"] = $type;
+                            $newtype["createdAt"] = date("Y-m-d H:i:s");
+                            $newtype["updatedAt"] = date("Y-m-d H:i:s");   
+
+                            $doctypemeta->attributes = $newtype;                    
+                            $doctypemeta->insert();                                                       
+                        }                                                                    
+                    }
+                    
+                    
+                            
+//                                create the document metas
+//                                foreach($_POST['DocumentTypeMeta'] as $one_meta){
+//                                    $model_document_type_meta = new DocumentTypeMeta;
+//                                    $one_meta['documentTypeId'] = $model->id;
+//
+//                                    $model_document_type_meta->attributes = $one_meta;
+//                                    if($model_document_type_meta->save(false)){
+//                                            
+//                                    }
+//                                }
+                                                                                                                            
                                 $this->redirect(array('view','id'=>$model->id));
 			}
 		}
 
+                
+                
+                
+                    $sql = 'SELECT DISTINCT TABLE_NAME As Tables
+                            FROM information_schema.columns
+                            WHERE table_schema = \''.$database_name.'\'
+                            ';
+                    
+                    $connection=Yii::app()->db;
+                    $command=$connection->createCommand($sql);
+                    $tables = $command->queryAll();
+                    
+                   
+                     
 		$this->render('create',array(
 			'model'=>$model,
-			'_model_document_type_meta' => $_model_document_type_meta
-                       
+			'_model_document_type_meta' => $_model_document_type_meta   ,
+                        'tables' => $tables
 		));
 	}
 
@@ -102,49 +185,27 @@ class DocumentTypesController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-    $model=$this->loadModel($id);
-    $_model_document_type_metas = new DocumentTypeMeta();             
-    $_model_document_type_meta = DocumentTypeMeta::model()->findAllByAttributes(array('documentTypeId'=>$id));
-
+                $model=$this->loadModel($id);
+                $_model_document_type_metas = new DocumentTypeMeta();             
+                $_model_document_type_meta = DocumentTypeMeta::model()->findAllByAttributes(array('documentTypeId'=>$id));
+                
    
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
-
-		if(isset($_POST['DocumentTypes']))
+		if(isset($_POST['Documenttypes']))
 		{
                  
-			$model->attributes=$_POST['DocumentTypes'];
-                        
-                        
-                        $post=DocumentTypeMeta::model()->deleteAll("`documentTypeId` = :documentTypeId", array('documentTypeId' => $id)); 
-                       
-                
-                
-                        // create the document metas
-                                foreach($_POST['DocumentTypeMeta'] as $one_meta){
-                                    $model_document_type_meta = new DocumentTypeMeta;
-                                    $one_meta['documentTypeId'] = $model->id;
-
-                                    $model_document_type_meta->attributes = $one_meta;
-                                    if($model_document_type_meta->save(false)){
-                                            
-                                    }
-                                }
-                                
-                                
+			$model->attributes=$_POST['Documenttypes'];                                                
+                                                          
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-                        
-                         
+				$this->redirect(array('view','id'=>$model->id));                                                 
 		}
 
                  
 		$this->render('update',array(
-			'model'=>$model,
+                'model'=>$model,
                 '_model_document_type_meta' => $_model_document_type_meta,
-                '_model_document_type_metas' => $_model_document_type_metas
-            
+                '_model_document_type_metas' => $_model_document_type_metas                               
 		));
 	}
 
@@ -155,16 +216,16 @@ class DocumentTypesController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-            $post=DocumentTypeMeta::model()->deleteAll("`documentTypeId` = :documentTypeId", array('documentTypeId' => $id)); 
+            $post = DocumentTypeMeta::model()->deleteAll("`documentTypeId` = :documentTypeId", array('documentTypeId' => $id)); 
             
-                        // we only allow deletion via POST request
+            // we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
             
-//            
+            
 //		if(Yii::app()->request->isPostRequest)
 //		{
 //      DocumentTypeMeta::model()->deleteAllByAttributes(array('documentTypeId'=>$id));

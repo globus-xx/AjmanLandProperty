@@ -1301,3 +1301,11 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text
   filter: none;
 }
 
+
+.ui-state-focus
+{
+    color:White;
+    background:#C9E0ED;
+    outline:none;
+}
+

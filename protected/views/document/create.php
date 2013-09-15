@@ -17,4 +17,4 @@ $this->menu=array(
 
 <h1>اضافة ملف</h1>
 
-<?php   echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php   echo $this->renderPartial('_form', array('model'=>$model, 'types' => $types, 'size' => $size)); ?>

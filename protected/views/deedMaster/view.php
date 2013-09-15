@@ -1,3 +1,4 @@
+
 <?php
 /* @var $this DeedMasterController */
 /* @var $model DeedMaster */
@@ -30,7 +31,11 @@ $this->menu=array(
 	),
 )); ?>
 <?php 
+
+
 // code for attach a document thingamabob
-echo $this->renderPartial('/documentable/_attachinary', array('documentableType'=>'deed', 
+echo $this->renderPartial('/documentable/_attachinary', array('documentableType'=>'deedMaster', 
 							'documentableId'=>$model->DeedID));
+
+
 ?>

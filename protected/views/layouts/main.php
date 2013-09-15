@@ -103,9 +103,10 @@
                                                                 array('label'=>'ادارة الرسائل الصادرة','url'=>array('/exportedletters/')),
 								
                 )),
-              array('label'=>'نظام ادارة الملفات', 'url'=>array('/document/'), 'items'=>array(
-                  array('label'=>'الوثائق', 'url'=>array('/document/')),
+              array('label'=>'نظام ادارة الملفات', 'url'=>array('/dms/'), 'items'=>array(
+                 // array('label'=>'الوثائق', 'url'=>array('/document/')),
                   array('label'=>'انواع الوثائق', 'url'=>array('/documentTypes/')),
+                  array('label'=>'اعدادات', 'url'=>array('/filesetting/update/1/')),
               )),
 
             

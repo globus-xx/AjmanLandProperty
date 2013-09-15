@@ -15,4 +15,4 @@ $this->menu=array(
 ?>
 
 <h1>تعديل ملف<?php echo $model->id; ?></h1>
-<?php echo $this->renderPartial('_form', array('model'=>$model, '_documentType'=>$_documentType, '_model_document_metas'=>$_model_document_metas)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, '_documentType'=>$_documentType, '_model_document_metas'=>$_model_document_metas,'types' => $types, 'size' => $size)); ?>
