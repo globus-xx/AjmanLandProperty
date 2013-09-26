@@ -84,7 +84,9 @@ foreach($filetypes as $row)
 <br><br>
 
     <table id='results' border='1' style='display: none;' ></table>
-
+    <br>
+    <table id='customer_information' border='1' style='display: none;' ></table>
+    
 <br>
 <a href='<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/process/<?php echo $id+1; ?>' id='go_next' style='display:none;'>الذهاب الى الملف التالي</a>
 
@@ -103,7 +105,7 @@ foreach($filetypes as $row)
                               
                               
                               
-                                if($.trim(returnvalue) == "Deed")
+                                if($.trim(returnvalue) == "Deed" || $.trim(returnvalue) == "Mukhattat")
                                     {                                                                       
                                         $.ajax({
                                             type: "POST",
@@ -119,8 +121,7 @@ foreach($filetypes as $row)
                                         $("#choose_empty").prop("disabled", true);
                                     }      
                                     else if($.trim(returnvalue) == "Contract")
-                                    {  
-                                    
+                                    {                                      
                                         $.ajax({
                                             type: "POST",
                                             url: "<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/get_contracts",
@@ -133,9 +134,39 @@ foreach($filetypes as $row)
                                         });
                                         
                                         $("#choose_empty").prop("disabled", true);
-                                    }   
+                                    }
+                                    else if($.trim(returnvalue) == "Passport copy" || $.trim(returnvalue) == "Emirates ID")
+                                    {
+                                         $.ajax({
+                                            type: "POST",
+                                            url: "<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/get_customers",
+                                            data: "landid="+landid+"&doctype="+$('#select_type').val(),
+                                            async : false,
+                                            success: function(data) {                                                    
+                                                $("#results").show();                                                  
+                                                $("#results").html(data);                                                
+                                            }
+                                        });
+                                        
+                                        $("#choose_empty").prop("disabled", true);
+                                    }
                                     else
-                                    alert("Hello");
+                                    {
+                                    
+                                     $.ajax({
+                                            type: "POST",
+                                            url: "<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/get_deeds",
+                                            data: "landid="+landid+"&doctype="+$('#select_type').val(),
+                                            async : false,
+                                            success: function(data) {                                                    
+                                                $("#results").show();                                                  
+                                                $("#results").html(data);                                                
+                                            }
+                                        });
+                                        
+                                        $("#choose_empty").prop("disabled", true);
+                                    
+                                    }
                                                                                                         
 			});
                                                                      
@@ -151,6 +182,11 @@ foreach($filetypes as $row)
                                             async : false,
                                             success: function(data) { 
                                                  //alert(data);
+                                                if(table_name == "customerMaster")
+                                                    {                                                        
+                                                        $("#customer_information").show();                                                  
+                                                        $("#customer_information").html(data); 
+                                                    }
                                                 $('#go_next').show();
                                             }
                     });                                                                                

@@ -8,7 +8,7 @@ class DmsController extends Controller
 	 */
 	public $layout='//layouts/column2';
         public $relations =array();
-
+        
         /**
 	 * @return array action filters
 	 */
@@ -32,7 +32,7 @@ class DmsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','search', 'download', 'formDocumentType','get_lands','check_land','scan','upload','process','multipleupload','upload_files','process_docs','get_deeds','add_relation','end_process','get_contracts'),
+				'actions'=>array('create','update','search', 'download', 'formDocumentType','get_lands','check_land','check_folder','scan','upload','process','multipleupload','upload_files','process_docs','get_deeds','add_relation','end_process','get_contracts','get_customers','get_docs','delete_doc','update_file','set_id','file_recursive'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -58,9 +58,8 @@ class DmsController extends Controller
 	 * Lists all models.
 	 */
 	public function actionIndex()
-	{		            
-		$this->render('index',array(			
-		));
+	{		                                                                                                      
+                    $this->render('index',array());
 	}
 
         
@@ -103,6 +102,26 @@ class DmsController extends Controller
                              
         }
         
+         public function actionCheck_folder() {             
+            $landid = $_POST["landid"];
+            
+            $sql = 'select * from documents where  fileName LIKE \'%'.$landid.'%\'';
+            $connection=Yii::app()->db;
+            $command=$connection->createCommand($sql);
+            $model=$command->queryAll(); 
+            
+            $i=0;            
+            foreach($model as $row)
+            {
+                $i++;    
+            }
+            
+            if($i>0)
+                echo  "true";
+            else
+                echo "false";                        
+         }
+        
         
         public function actionGet_deeds()
         {
@@ -133,6 +152,104 @@ class DmsController extends Controller
         }
         
         
+                
+        public function actionGet_customers()
+        {
+            $landid  = $_POST['landid'];
+            $doctype = $_POST['doctype'];
+                                
+             
+            // ======================   Current Customers
+                $sql = "select cm.*
+                    from deeddetails dd
+                    left join deedmaster dm on dd.DeedID = dm.DeedID
+                    right join customermaster cm on cm.CustomerID = dd.CustomerID
+                    where dm.LandID = '".$landid."'  AND dm.Remarks != 'cancelled'";
+            
+                $connection=Yii::app()->db;
+                $command=$connection->createCommand($sql);
+                $model=$command->queryAll(); 
+                           
+                
+                $table  = 'customerMaster';    
+                $resultcontent = "";
+                $resultheader = "<tr><th colspan='3'>العقود الحالية</th></tr>";
+                $resultheader .= "<tr><th></th><th>رقم الزبون</th> <th> اسم الزبون</th></tr>";
+                 
+                $i=0;
+                
+                
+                foreach($model as $row)
+                {                              
+                   $resultcontent .= "<tr><td><input type='radio' name='deed' onclick='choose_deed(".$row['CustomerID'].",\"".$table."\",\"".$doctype."\")' /></td><td>".$row['CustomerID']."</td><td>".$row['CustomerNameArabic']."</td></tr>";    
+                   $i++;
+                }
+                  
+                if($i==0)
+                {$result = "";}
+                else
+                    $result = $resultheader . $resultcontent;
+                
+                 
+             // ======================   Previous Customers   
+                $sql = "select cm.*
+                    from deeddetails dd
+                    left join deedmaster dm on dd.DeedID = dm.DeedID
+                    right join customermaster cm on cm.CustomerID = dd.CustomerID
+                    where dm.LandID = '".$landid."'  AND dm.Remarks = 'cancelled'";
+            
+                $connection=Yii::app()->db;
+                $command=$connection->createCommand($sql);
+                $model=$command->queryAll(); 
+                            
+                
+                $resultheader = "<tr><th colspan='3'>العقود السابقة</th></tr>";
+                $resultheader .= "<tr><th></th><th>رقم الزبون</th> <th> اسم الزبون</th></tr>";
+                $resultcontent = "";
+                
+                $p = 0;                                
+                foreach($model as $row)
+                {                              
+                   $resultcontent .= "<tr><td><input type='radio' name='deed' onclick='choose_deed(".$row['CustomerID'].",\"".$table."\",\"".$doctype."\")' /></td><td>".$row['CustomerID']."</td><td>".$row['CustomerNameArabic']."</td></tr>";    
+                   $i++;
+                   $p++;
+                }
+                
+                if($p>0)
+                {$result .= $resultheader . $resultcontent;}
+                
+                // ======================   Buyer / Seller   
+                $sql = "select cm.*
+                    from contractsdetail cd
+                    left join contractsmaster com on cd.ContractID = com.ContractsID
+                    right join customermaster cm on cm.CustomerID = cd.CustomerID
+                    where com.LandID = '".$landid."'  AND ( cd.type = 'buyer' OR cd.type = 'seller' )";
+            
+                $connection=Yii::app()->db;
+                $command=$connection->createCommand($sql);
+                $model=$command->queryAll(); 
+                            
+                   
+                $resultheader = "<tr><th colspan='3'> بائع \ مشتري</th></tr>";
+                $resultheader .= "<tr><th></th><th>رقم الزبون</th> <th> اسم الزبون</th></tr>";
+                $resultcontent = "";
+                
+                $p = 0; 
+                foreach($model as $row)
+                {                              
+                   $resultcontent .= "<tr><td><input type='radio' name='deed' onclick='choose_deed(".$row['CustomerID'].",\"".$table."\",\"".$doctype."\")' /></td><td>".$row['CustomerID']."</td><td>".$row['CustomerNameArabic']."</td></tr>";    
+                   $i++;
+                   $p++;
+                }
+                
+                if($p>0)
+                {$result .= $resultheader . $resultcontent;}
+                                             
+            if($i==0)
+            $result = "<tr><th>لا توجد زبائن متوفرة</th></tr>";
+            
+            print $result;
+        }        
         
         public function actionGet_contracts()
         {
@@ -173,8 +290,22 @@ class DmsController extends Controller
             $relations[$tablename][$file_name] = $id ."-".$doc_type ;            
             Yii::app()->session['relation'] = $relations;            
             
+            $result = "yes";
+            if($tablename == "customerMaster")
+            {
+                $sql = 'select * from customerMaster where CustomerID = '.$id;
+
+                $connection=Yii::app()->db;
+                $command=$connection->createCommand($sql);
+                $customers=$command->queryAll();    
+                $result = "<tr><th>اسم الزبون</th><td>".$customers[0]['CustomerNameArabic']."</td></tr>";  
+                $result .= "<tr><th>التاريخ</th><td>".$customers[0]['IssuedOn']."</td></tr>";         
+                $result .= "<tr><th>تاريخ الانتهاء</th><td>".$customers[0]['ExpiresOn']."</td></tr>";  
+                $result .= "<tr><th>الجنسية</th><td>".$customers[0]['Nationality']."</td></tr>";         
+                $result .= "<tr><th>تاريخ الميلاد</th><td>".$customers[0]['DateofBirth']."</td></tr>";                           
+            }
             
-            print_r($relations);
+            print($result);
         }
         
             
@@ -260,7 +391,7 @@ class DmsController extends Controller
             if(!file_exists("dms/".$landid))
             mkdir("dms/".$landid);
             
-                                          
+//                   die(print_r($relation));                     
             foreach($relation as $table => $value)                
                 foreach($value as $image => $doctype_id)
                     {
@@ -291,7 +422,7 @@ class DmsController extends Controller
                             USING(constraint_name,table_schema,table_name)
                             WHERE t.constraint_type=\'PRIMARY KEY\'
                             AND t.table_schema=\''.$database.'\'
-                            AND t.table_name=\''.$table_name.'\';';
+                            AND t.table_name=\''.$table.'\';';
                             
                     $connection=Yii::app()->db;
                     $command=$connection->createCommand($sql);
@@ -299,7 +430,7 @@ class DmsController extends Controller
                     
                     foreach($primary_id as $row)
                     {
-                        $primary_table_id = $row['column_name'];
+                        $primary_table_id = $row['column_name'];                        
                     }
                     
                     
@@ -310,29 +441,32 @@ class DmsController extends Controller
                     $doctypemeta=$command->queryAll(); 
                 
                 // =========== save new record in document table
+                    $result_file_name = $this->actionFile_recursive($image,$landid); 
+                                                            
                     $newdoc = new Document;    
                                              
                     $attributes['title']= $image;
                     $attributes['documentTypeId']= $doctype;
-                    $attributes['fileName']= $landid.'/'.$image;                    
+                    $attributes['fileName']= $result_file_name;                    
                     $attributes['mimeType']= $this->actionmime_content_type($image);                  
                     $attributes['fileSize']= filesize( "dms/".Yii::app()->user->ID."/".$image );                     
                     $newdoc->attributes=$attributes;                                        
                     
-                    if($newdoc->insert()){                        
+                    if($newdoc->insert()){                                                                        
                         // move from the folder name of user to the new folder 
-                        if (copy("dms/".Yii::app()->user->ID."/".$image,"dms/".$landid."/".$image)) {                            
+                        if (copy("dms/".Yii::app()->user->ID."/".$image,"dms/".$result_file_name)) {                            
                             unlink("dms/".Yii::app()->user->ID."/".$image);
-                        }                                                
+                        }                                                    
                     }
                    
-                   
+                    
                // =========== get the information of the table record that document should connect with                    
                     $sql = 'select * from '.$table.' where '.$primary_table_id.' = '.$id;
                     $connection=Yii::app()->db;
                     $command=$connection->createCommand($sql);
                     $table_info=$command->queryAll(); 
                    
+                    
               // ============ save in document meta 
                     foreach($doctypemeta as $roww)
                     {
@@ -359,8 +493,7 @@ class DmsController extends Controller
                     }
             
             unset(Yii::app()->session['relation']);
-            $this->actionIndex();
-             
+            $this->actionIndex();             
         }
         
         public function actionScan() {
@@ -375,12 +508,67 @@ class DmsController extends Controller
                 $result=$command->queryAll();
                 
                 $filetypes =  $result[0]['file_types'];
-                $filesize =  $result[0]['file_size'];
+                $filesize =  $result[0]['file_size'];                                              
                 
                 $this->render('upload_docs',array('filetypes'=>$filetypes,'filesize'=>$filesize));            
         }
         
-    
+        
+                 
+        public function actionSet_id()
+        {
+            $id =$_POST['id'];
+            Yii::app()->session['selected_id'] = $id; 
+        }
+        
+        public function actionGet_docs()
+        {
+            $landid =$_POST['landid'];
+            
+                        
+            $sql = 'select * from documents where  fileName LIKE \'%'.$landid.'%\'';
+            $connection=Yii::app()->db;
+            $command=$connection->createCommand($sql);
+            $model=$command->queryAll(); 
+                            
+              
+            $result = "<tr><th></th><th> مسار الوثيقة </th> <th> عرض الوثيقة </th> <th>حذف ملف</th></tr>";
+                
+                $i=0;
+                foreach($model as $row)
+                {       
+                
+                  if($row['mimeType']=="image/jpeg" || $row['mimeType']=="image/png" || $row['mimeType']=="image/bmp")
+                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl.'/dms/'.$row['fileName']."' style='max-width:100px;max-height:100px' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";    
+                  elseif($row['mimeType']=="application/pdf")
+                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/pdf-icon.jpg' style='max-width:100px;max-height:100px' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
+                  elseif($row['mimeType']=="image/tiff")
+                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/tiff.png' style='max-width:100px;max-height:100px' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
+                  elseif($row['mimeType']=="application/msword")
+                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/docx.png' style='max-width:100px;max-height:100px' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
+                  else
+                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/unknown.png' style='max-width:100px;max-height:100px' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
+                 
+                  $i++;
+                }
+                
+                
+            if($i==0)
+            $result = "<tr><th>لا توجد وثائق متوفرة</th></tr>";
+            
+            print $result;                        
+        }
+        
+        public function actionDelete_doc()
+        {
+              $docid = $_POST['docid'];
+              $filepath = $_POST['filepath'];
+              
+              unlink('dms'.'/'.$filepath);
+              $post=  Document::model()->deleteAll("`id` = :id", array('id' => $docid)); 
+              echo "تم حذف الملف بنجاح !!!";
+        }
+            
         public function actionProcess_docs() {                                     
             $this->render('proc_docs',array());            
         }
@@ -403,17 +591,75 @@ class DmsController extends Controller
             if(!file_exists("dms/".Yii::app()->user->ID))
             mkdir("dms/".Yii::app()->user->ID);
             
+            $landid = Yii::app()->session['landid'];
             
             foreach ($_FILES["files"]["error"] as $key => $error) {
-                if ($error == UPLOAD_ERR_OK) {                    
+                if ($error == UPLOAD_ERR_OK) {
+                    
                     move_uploaded_file(
                       $_FILES["files"]["tmp_name"][$key], 
                       "dms/".Yii::app()->user->ID.'/'.$_FILES["files"]["name"][$key] 
                     ) or die("Problems with upload");
+                    
                 }
              }
                                                 
         }
+        
+        
+        public function actionFile_recursive($filename,$landid) {                                                                         
+                    if(file_exists("dms/".$landid."/".$filename))
+                    {
+                        return $this->actionFile_recursive("copy_".$filename, $landid);
+                    }
+                    else
+                        return $landid."/".$filename;              
+            }
+        
+        public function actionUpdate_file() {
+            
+            $doc_id = Yii::app()->session['selected_id'];;
+            // =============== get the old file name            
+            $sql = 'select * from documents where id='.$doc_id.';';
+            $connection=Yii::app()->db;
+            $command=$connection->createCommand($sql);
+            $document=$command->queryAll(); 
+            $file_name = "" ;
+            
+            foreach($document as $row)
+            {
+               $file_name = $row['fileName'];     
+            }
+            
+            // =============== get the land id           
+            $landid = Yii::app()->session['landid'];
+            
+            // =============== delete old file 
+            if(file_exists("dms/".$file_name))
+                    unlink("dms/".$file_name);
+                    
+                    
+                                    
+            // ============== upload the new file and update the recode related   
+            $result_file_name = $this->actionFile_recursive($_FILES["file"]["name"],$landid);   
+            
+            
+            move_uploaded_file(
+            $_FILES["file"]["tmp_name"], 
+            "dms/".$result_file_name
+            ) or die("Problems with upload");            
+                        
+                    
+                    
+           // ============= update the document record                                       
+                    Yii::app()->db
+                    ->createCommand("UPDATE documents SET fileName = '".$result_file_name."' ,mimeType = '".$this->actionmime_content_type($_FILES["file"]["name"])."' ,fileSize = ".filesize( "dms/".$landid."/".$_FILES["file"]["name"] )."  WHERE id=:ListId ")
+                    ->bindValues(array(':ListId' => $doc_id))
+                    ->execute();
+
+                    
+                    
+                 }
         
         
         

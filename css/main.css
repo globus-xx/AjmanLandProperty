@@ -234,3 +234,9 @@ div.search-form
 /**/
 .well-bordered{border:1px solid #CCCCCC; padding: 10px;direction: ltr; margin:10px 0px;}
 .well{padding:10px; margin:10px; background-color:#EFEFEF;}
+
+
+#land_id_txt
+{
+    direction: ltr;
+}

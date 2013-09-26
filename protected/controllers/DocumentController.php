@@ -150,10 +150,7 @@ class DocumentController extends Controller
 
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		
-    
+		// $this->performAjaxValidation($model);		   
     if(isset($_POST['Document']))
     {
       $attributes = $_POST['Document'];
@@ -211,7 +208,8 @@ class DocumentController extends Controller
                         '_documentType' => DocumentTypes::model()->findByPk($model->documentTypeId),'types' => $filetypes, 'size' => $filesize
                         ));
 	}
-
+                                              
+        
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.

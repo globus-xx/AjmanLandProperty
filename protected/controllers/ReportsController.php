@@ -26,7 +26,7 @@ class ReportsController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
+                        return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
@@ -35,7 +35,7 @@ class ReportsController extends Controller
 				'actions'=>array('index','Search'),
 				'users'=>array('@'),
 			),
-                    array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                        array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','autow'),
 				'users'=>array('@'),
 			),
@@ -43,13 +43,12 @@ class ReportsController extends Controller
 				'actions'=>array('index','update'),
 				'users'=>array('@'),
 			)
-                    ,
+                        ,
                         array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','OpenTable'),
 				'users'=>array('@'),
-			)
-                   
-		);
+			)                   
+                        );
 	}
 
 	/**

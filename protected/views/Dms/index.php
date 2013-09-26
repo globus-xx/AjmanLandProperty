@@ -7,9 +7,6 @@
     <input type='submit' name='sub' value='اختر وانتقل الى المرحلة الثانية'>
 </form>
 
-
-
-
     
 
 <script>
@@ -34,8 +31,7 @@
      $( "#land_check_form" ).submit(function(){
             
         if($("#land_id_txt").val()!="")
-        {                    
-         
+        {                             
         var i=0;
         
                 $.ajax({
@@ -45,13 +41,40 @@
                     async : false,
                     success: function(data) {                            
                         if(data=="true")                            
-                            i=1;                        
+                        {  
+                             
+                           
+                           $.ajax({
+                                type: "POST",
+                                url: "<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/check_folder",
+                                data: "landid="+$("#land_id_txt").val(),
+                                async : false,
+                                success: function(data2) {                                        
+                                    if(data2=="true")                            
+                                    {                                                                                
+                                       if (confirm('يوجد ملفات محملة مسبقا في النظام  ,هل تريد المتابعة ؟')) {
+                                            // Save it!
+                                            i=1;
+                                        } else {
+                                            // Do nothing!
+                                            i=2;
+                                        }
+                                    }
+                                    else
+                                        i=1;
+                                }
+                            });
+                
+                
+                        }
                     }
                 });
                 
                 
                 if(i===1)
                 return true;
+                else if(i===2)
+                return false;
                 else
                     {alert("عفوا ... رقم الارض غير صحيح!!!");return false;}
         }
@@ -61,7 +84,8 @@
         return false;
         }
         
-     });            
+     });     
+                
 </script>
 
 

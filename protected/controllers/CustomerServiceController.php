@@ -260,9 +260,7 @@ class CustomerServiceController extends Controller
                                if (CustomerMaster::model()->count($searchCriteria)>0)
                                 {
                                        $customerResult = CustomerMaster::model()->findAll($searchCriteria);
-                                       
-                                       
-                                       
+                                                                                                                     
                                         // return nothing when you search for a customer name in web service call only
                                        if($postreturn=='ws')
                                        {
@@ -277,7 +275,7 @@ class CustomerServiceController extends Controller
                                        //land details
                                        $lands = LandMaster::model()->findAllByAttributes(array("LandID"=>$searchstring));
                                                                                                                                                                                                                                                                                                                             
-//                                       print count($lands)."aa";
+//                                     print count($lands)."aa";
                                        if(count($lands)<=0) { print CJSON::encode("no result found");return;}
                                        $landDetails["landInfo"] = $lands[0];
                                        $landDetails["landws"]= $lands;
@@ -296,10 +294,9 @@ class CustomerServiceController extends Controller
                                          if(count($deedDetails)>0){
 
                                     foreach ($deedDetails as $key=>$cid) {
-                                         $_cids[] = $cid->CustomerID;
-                                         $_share[$cid->CustomerID]["sharePercentage"] = $cid->Share;
-                                         $_share[$cid->CustomerID]["shareDeedDetaisID"] = $cid->DeedDetailsID;
-                                         
+                                                $_cids[] = $cid->CustomerID;
+                                                $_share[$cid->CustomerID]["sharePercentage"] = $cid->Share;
+                                                $_share[$cid->CustomerID]["shareDeedDetaisID"] = $cid->DeedDetailsID;                                         
                                          }
                                        
                                        if($postreturn!="ws")
