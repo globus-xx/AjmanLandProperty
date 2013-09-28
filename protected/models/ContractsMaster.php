@@ -112,6 +112,19 @@ class ContractsMaster extends CActiveRecord
 			'Status' => 'الحالة',
 		);
 	}
+                
+        public function reportableFields()
+	{
+            $fields = array('DateCreated', 'UserID', 'ContractType', 'AmountCorrected', 'Fee');
+            $a = $this->attributeLabels();
+            $result = array();
+            
+            foreach($fields as $one_field){
+                $result[$one_field] = $a[$one_field];
+            }
+            
+            return $result;
+	}
 
 	public function getReportFromReportable($reportable){
 
@@ -127,6 +140,7 @@ class ContractsMaster extends CActiveRecord
 				$f[]= $model.'.'.$ii;
 			endforeach;
 		}
+    
 
 		$sql.= join(', ', $f);
 
@@ -135,6 +149,9 @@ class ContractsMaster extends CActiveRecord
 		$sql.=' LEFT JOIN LandMaster on LandMaster.LandID = ContractsMaster.LandID ';
 		$sql.=' LEFT JOIN ContractsDetail on ContractsDetail.ContractID = ContractsMaster.ContractsID ';
 		$sql.=' LEFT JOIN CustomerMaster on ContractsDetail.CustomerID = CustomerMaster.CustomerID ';
+		$sql.=' LEFT JOIN RealEstatePeople on ContractsDetail.CardID = RealEstatePeople.CardID ';
+		$sql.=' LEFT JOIN RealEstateOffices on RealEstateOffices.RealEstateID = RealEstatePeople.RealEstateID ';
+
 
 		//$reportable->conditions = unserialize($reportable->conditions);
 	 	$attributes['conditions'] = Reportable::objectToArray(json_decode($attributes['conditions']));
@@ -144,22 +161,26 @@ class ContractsMaster extends CActiveRecord
 				$cnd = '>';
 			}elseif($cnd =='lt'){
 				$cnd = '<';
-			}
+      }
 
 			if(is_array($attribs['value'])){
 				foreach($attribs['value'] as $ii=>$vv){
 					$attribs['value'][$ii] = "'".$vv."'";
 				}
-				$attribs['value'] = $attribs['value'].join(',');
-			}else{
+				$attribs['value'] = join(',', $attribs['value']);
+      }elseif($cnd=='BETWEEN'){
+        $attribs['value'] = explode('-', $attribs['value']);
+
+        $attribs['value'] = "'".trim($attribs['value'][0])."'".' AND ' ."'". trim($attribs['value'][1])."'" ;
+      }else{
 				$attribs['value'] = "'".$attribs['value']."'";
 			}
 
-		    $sql.= ( strstr( $sql, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";
+		  $sql.= ( strstr( $sql, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";
 			
 		}
 
-
+echo $sql; exit;
 		$connection = Yii::app()->db;
 		$command = $connection->createCommand($sql);
 		$results = $command->queryAll();		

@@ -61,7 +61,9 @@ class LandMaster extends CActiveRecord
 			array('LandID, LocationID, Plot_No, Piece, location, Land_Type, TotalArea, length, width, AreaUnit, Remarks, North, South, East, West', 'safe'),
 		);
 	}
+        
 
+        
 	/**
 	 * @return array relational rules.
 	 */
@@ -104,6 +106,20 @@ class LandMaster extends CActiveRecord
 		);
 	}
 
+        public function reportableFields()
+	{
+            $fields = array('LocationID', 'Plot_No', 'location', 'Land_Type', 'TotalArea');
+            $a = $this->attributeLabels();
+            $result = array();
+            
+            foreach($fields as $one_field){
+                $result[$one_field] = $a[$one_field];
+            }
+            
+            return $result;
+	}
+        
+        
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

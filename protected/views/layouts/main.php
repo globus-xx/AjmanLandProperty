@@ -16,10 +16,14 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ui.daterangepicker.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
   <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.8.1.min.js"></script> 
   <script type ="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-1.10.3.custom.min.js"></script>
+  <script type ="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/date.js"></script>
+  <script type ="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/daterangepicker.jQuery.js"></script>
+  
 
 </head>
 
@@ -140,8 +144,7 @@
 <script language="text/javascript">
   $(function(){
     $(document).on('click', '.datebox', function(){
-      console.log(this);
-      $(this).datepicker().datepicker( "show" );;
+      //$(this).daterangepicker().datepicker( "show" );;
     })
   });
 </script>

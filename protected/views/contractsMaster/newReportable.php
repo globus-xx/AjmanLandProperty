@@ -3,6 +3,6 @@
 
 <script type="text/javascript">
 $(function(){
-	$('.datebox').datepicker();
+	$('.datebox').daterangepicker();
 });
 </script>

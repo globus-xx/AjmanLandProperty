@@ -111,6 +111,18 @@ class CustomerMaster extends CActiveRecord
 		);
 	}
 
+        public function reportableFields()
+	{
+            $fields = array('CustomerNameEnglish', 'Nationality');
+            $a = $this->attributeLabels();
+            $result = array();
+            
+            foreach($fields as $one_field){
+                $result[$one_field] = $a[$one_field];
+            }
+            
+            return $result;
+	}
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

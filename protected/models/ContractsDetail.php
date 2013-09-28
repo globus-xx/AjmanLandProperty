@@ -89,6 +89,8 @@ class ContractsDetail extends CActiveRecord
 			'remarks'=>'الملاحظات',
 		);
 	}
+        
+        
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

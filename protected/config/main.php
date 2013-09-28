@@ -75,7 +75,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=ajman',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'admin123',
+			'password' => '',
 			'charset' => 'utf8',
 		),
         'authManager'=>array(
