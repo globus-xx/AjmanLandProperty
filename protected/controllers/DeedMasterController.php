@@ -548,6 +548,7 @@ class DeedMasterController extends Controller
     
     if(isset($_POST['Reportable']))
     {                
+      //var_dump($_POST['Reportable']);exit;
       $model->attributes = $_POST['Reportable'];
       if($model->validate())
       {
@@ -586,6 +587,8 @@ class DeedMasterController extends Controller
 
     $this->render('viewReportable',array(
       'model'=>$model,
+      'counter'=>$model->getSummary(),
+
       'results'=>DeedMaster::model()->getReportFromReportable($model)
           ));
   }

@@ -137,6 +137,7 @@ class ContractsMasterController extends Controller
 
     $this->render('viewReportable',array(
       'model'=>$model,
+        'counter'=>$model->getSummary(),
       'results'=>ContractsMaster::model()->getReportFromReportable($model)
           ));
   }

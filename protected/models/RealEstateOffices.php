@@ -89,17 +89,17 @@ class RealEstateOffices extends CActiveRecord
 		);
 	}
         
-                public function reportableFields()
+  public function reportableFields()
 	{
-            $fields = array('CommercialName', 'OwnerName');
-            $a = $this->attributeLabels();
-            $result = array();
-            
-            foreach($fields as $one_field){
-                $result[$one_field] = $a[$one_field];
-            }
-            
-            return $result;
+    $fields = array('CommercialName', 'OwnerName');
+    $a = $this->attributeLabels();
+    $result = array();
+
+    foreach($fields as $one_field){
+        $result[$one_field] = $a[$one_field];
+    }
+
+    return $result;
 	}
 
 	/**

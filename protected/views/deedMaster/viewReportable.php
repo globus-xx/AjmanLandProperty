@@ -32,7 +32,12 @@
 		</tr>
 
 		<?php endforeach;?>
-
+      <tr>
+        <td colspan="<?php echo count($columns); ?>">
+          <?php echo $counter['Count']; ?>
+        </td>
+        <td>Count</td>
+      </tr> 
 	</table>
 
 	<?php

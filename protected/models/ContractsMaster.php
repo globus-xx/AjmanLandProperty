@@ -126,13 +126,13 @@ class ContractsMaster extends CActiveRecord
             return $result;
 	}
 
-	public function getReportFromReportable($reportable){
+	public function getReportFromReportable($reportable, $add_total_fields = ''){
 
 		$attributes = $reportable->attributes;
  
 		$attributes['display'] = Reportable::objectToArray(json_decode($attributes['display']));
 
-		$sql = 'SELECT  ';
+		$sql = 'SELECT  '.$add_total_fields;
 		$f = array();
 
 		foreach($attributes['display'] as $model=>$fields){
@@ -172,15 +172,19 @@ class ContractsMaster extends CActiveRecord
         $attribs['value'] = explode('-', $attribs['value']);
 
         $attribs['value'] = "'".trim($attribs['value'][0])."'".' AND ' ."'". trim($attribs['value'][1])."'" ;
+        $attribs['value'] = ''; // hack
+        
       }else{
 				$attribs['value'] = "'".$attribs['value']."'";
 			}
-
-		  $sql.= ( strstr( $sql, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";
+      
+      
+      if($cnd!='BETWEEN')
+        $sql.= ( strstr( $sql, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";
 			
 		}
 
-echo $sql; exit;
+
 		$connection = Yii::app()->db;
 		$command = $connection->createCommand($sql);
 		$results = $command->queryAll();		

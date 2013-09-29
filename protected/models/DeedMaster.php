@@ -103,6 +103,20 @@ class DeedMaster extends CActiveRecord
 			'Remarks' => 'الملاحظات',
 		);
 	}
+  
+    public function reportableFields()
+	{
+    $fields = array('DateCreated', 'UserID', 'ContractID', 'Remarks');
+    $a = $this->attributeLabels();
+    $result = array();
+
+    foreach($fields as $one_field){
+        $result[$one_field] = $a[$one_field];
+    }
+
+    return $result;
+	}
+
 
 	public function getReportFromReportable($reportable){
 
@@ -143,14 +157,23 @@ class DeedMaster extends CActiveRecord
 				foreach($attribs['value'] as $ii=>$vv){
 					$attribs['value'][$ii] = "'".$vv."'";
 				}
-				$attribs['value'] = $attribs['value'].join(',');
-			}else{
+				$attribs['value'] = join(',', $attribs['value']);
+			}elseif($cnd=='BETWEEN'){
+        $attribs['value'] = explode('-', $attribs['value']);
+
+        $attribs['value'] = "'".trim($attribs['value'][0])."'".' AND ' ."'". trim($attribs['value'][1])."'" ;
+        $attribs['value'] = ''; // hack
+        
+      }else{
 				$attribs['value'] = "'".$attribs['value']."'";
 			}
-
+      
+      if($cnd!='BETWEEN')
 	    	$sql.= ( strstr( $sql, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";
 			
 		}
+    
+    //echo $sql;exit;
 
 
 		$connection = Yii::app()->db;
