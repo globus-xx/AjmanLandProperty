@@ -32,7 +32,7 @@ class DmsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','search', 'download', 'formDocumentType','get_lands','check_land','check_folder','scan','upload','process','multipleupload','upload_files','process_docs','get_deeds','add_relation','end_process','get_contracts','get_customers','get_docs','delete_doc','update_file','set_id','file_recursive'),
+				'actions'=>array('create','update','search', 'download', 'formDocumentType','get_lands','check_land','check_folder','scan','upload','process','multipleupload','upload_files','process_docs','get_deeds','add_relation','end_process','get_contracts','get_customers','get_docs','delete_doc','update_file','set_id','file_recursive','get_all_results'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -150,6 +150,90 @@ class DmsController extends Controller
             
             print $result;
         }
+        
+        
+        
+        
+        
+        
+        public function actionGet_all_results()
+        {
+            $deedid =$_POST['landid'];
+            $doctype =$_POST['doctype'];
+            
+            // ================ get the table name from doctype
+                $sql = 'select * from documenttypes where id = '.$doctype;
+                $connection=Yii::app()->db;
+                $command=$connection->createCommand($sql);
+                $documenttypes=$command->queryAll(); 
+                
+                $table_name = "";                
+                foreach($documenttypes as $row)
+                {
+                    $table_name = $row['table_name'];
+                }
+            
+            // ================ get primary id                  
+                    $primary_table_id= "";
+                    $database = $this->get_db_name();
+                    $sql = 'SELECT k.column_name
+                            FROM information_schema.table_constraints t
+                            JOIN information_schema.key_column_usage k
+                            USING(constraint_name,table_schema,table_name)
+                            WHERE t.constraint_type=\'PRIMARY KEY\'
+                            AND t.table_schema=\''.$database.'\'
+                            AND t.table_name=\''.$table_name.'\';';
+                            
+                    $connection=Yii::app()->db;
+                    $command=$connection->createCommand($sql);
+                    $primary_id=$command->queryAll();
+                    
+                    foreach($primary_id as $row)
+                    {
+                        $primary_table_id = $row['column_name'];                        
+                    }
+                    
+            // ======================= get columns from table     
+                $sql = 'SHOW COLUMNS FROM '.$table_name. ';';
+                $connection=Yii::app()->db;
+                $command=$connection->createCommand($sql);
+                $columns=$command->queryAll(); 
+                
+                            
+                
+             
+            
+            // ================ get all records from table spacified             
+                $sql = 'select * from '.$table_name;
+
+                $connection=Yii::app()->db;
+                $command=$connection->createCommand($sql);
+                $model=$command->queryAll(); 
+                            
+                
+                
+                $result = "<tr><th></th><th> التفاصيل</th> </tr>";
+                
+                $i=0;
+                foreach($model as $row)
+                {                              
+                   $result .= "<tr><td><input type='radio' name='deed' onclick='choose_deed(".$row[$primary_table_id].",\"".$table_name."\",\"".$doctype."\")' /></td>";
+                       
+                   foreach($columns as $row2)
+                        {
+                            $result .= "<td>".$row[$row2["Field"]]."</td>"; 
+                        }
+                        
+                   $result .= "</tr>";                
+                   $i++;
+                }
+
+                if($i==0)
+                $result = "<tr><th>لا توجد معلومات متوفرة</th></tr>";
+
+                print $result;
+        }
+        
         
         
                 

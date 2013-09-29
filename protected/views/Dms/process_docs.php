@@ -155,7 +155,7 @@ foreach($filetypes as $row)
                                     
                                      $.ajax({
                                             type: "POST",
-                                            url: "<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/get_deeds",
+                                            url: "<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/get_all_results",
                                             data: "landid="+landid+"&doctype="+$('#select_type').val(),
                                             async : false,
                                             success: function(data) {                                                    
@@ -164,7 +164,7 @@ foreach($filetypes as $row)
                                             }
                                         });
                                         
-                                        $("#choose_empty").prop("disabled", true);
+                                     $("#choose_empty").prop("disabled", true);
                                     
                                     }
                                                                                                         
