@@ -58,7 +58,19 @@ class RealEstateOffices extends CActiveRecord
 			array('RealEstateID, CommercialName, OwnerName, RegisteredDate, ExpiryDate, Address, MobilePhone, Email', 'safe'),
 		);
 	}
+static function getAsListForLabel($label){
+    $sql = 'SELECT RealEstateID, '.$label.' FROM RealEstateOffices GROUP BY '.$label.' ORDER BY '.$label.' ASC';
+    $connection = Yii::app()->db;
+		$command = $connection->createCommand($sql);
+		$results = $command->queryAll();		
+    
+		    $rs = array();
+    foreach($results as $vv){
+      $rs[$vv['RealEstateID']] = $vv[$label];
+    }
 
+    return $rs;
+  }
 	/**
 	 * @return array relational rules.
 	 */

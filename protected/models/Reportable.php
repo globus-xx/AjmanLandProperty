@@ -26,12 +26,16 @@ class Reportable extends CActiveRecord {
   public function tableName() {
     return 'reportables';
   }
+  
+  public function beforeCreate(){
+    $this->created_by = Yii::app()->User->ID;
+  }
 
   public function beforeSave() {
 
     // remove unenabled fields
     $conditions = $this->conditions;
-
+    $this->grouped = json_encode($this->grouped);
     //die($this->display);
     if (!is_string($conditions) && !is_string($this->display)) {
       foreach ($this->conditions as $ii => $vv) {
@@ -71,7 +75,9 @@ class Reportable extends CActiveRecord {
         array('title', 'required'),
         array('title, reportable_type', 'length', 'max' => 255),
         array('conditions', 'safe'),
+        array('grouped', 'safe'),
         array('display', 'safe'),
+        array('created_by', 'safe'),
         // The following rule is used by search().
         // Please remove those attributes that should not be searched.
         array('id, title, display, conditions, reportable_type', 'safe', 'on' => 'search'),
@@ -85,6 +91,8 @@ class Reportable extends CActiveRecord {
     // NOTE: you may need to adjust the relation name and the related
     // class name for the relations automatically generated below.
     return array(
+        'user' => array(self::BELONGS_TO, 'User', 'created_by'),
+
     );
   }
 
@@ -192,6 +200,7 @@ class Reportable extends CActiveRecord {
     $attributes = $reportable->attributes;
 
     $attributes['display'] = Reportable::model()->objectToArray(json_decode($attributes['display']));
+    $attributes['grouped'] = Reportable::model()->objectToArray(json_decode($attributes['grouped']));
 
     foreach ($attributes['display'] as $model => $fields) {
       foreach ($fields as $ii => $afield):

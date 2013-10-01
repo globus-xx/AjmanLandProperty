@@ -118,7 +118,19 @@ class LandMaster extends CActiveRecord
             
             return $result;
 	}
-        
+     static function getAsListForLabel($label) {
+    $sql = 'SELECT LandID, ' . $label . ' FROM LandMaster GROUP BY '.$label.' ORDER BY ' . $label . ' ASC';
+    $connection = Yii::app()->db;
+    $command = $connection->createCommand($sql);
+    $results = $command->queryAll();
+    
+    $rs = array();
+    foreach($results as $vv){
+      $rs[$vv['LandID']] = $vv[$label];
+    }
+
+    return $rs;
+  }     
         
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

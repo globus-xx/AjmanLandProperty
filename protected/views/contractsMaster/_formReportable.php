@@ -72,6 +72,29 @@
         }
     endforeach;
     ?>	
+    <div>
+      <table width="auto">
+        <tr>
+          <td><b>Group By (Choose up to three)</b></td>
+          <td>
+            <?php
+              $variables = array(0=>'None selected');
+              foreach($models as $model_name){
+                $attribs = $model_name::model()->reportableFields();
+                foreach($attribs as $ii=>$vv):
+                  $variables[$model_name.'.'.$ii] = $model_name.'.'.$ii; 
+                endforeach;
+                
+              }
+              for($i=0;$i<3;$i++):
+                echo CHtml::dropDownList("Reportable[grouped][".$i."][value]", (isset($model['grouped'])?$model['grouped'][$i]:''), $variables, array('multiple' => false, 'style' => 'width:200px'));
+                echo '<br/>';
+              endfor;
+            ?>
+          </td>
+        </tr>
+      </table> 
+    </div>
 
     <div class="row buttons">
         <?php echo CHtml::submitButton('Submit'); ?>
