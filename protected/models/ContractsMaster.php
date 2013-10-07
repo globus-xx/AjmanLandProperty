@@ -107,6 +107,27 @@ class ContractsMaster extends CActiveRecord {
         'Status' => 'الحالة',
     );
   }
+  
+    public function getAllowedReportableFields(){
+    $fields = $this->reportableFields();
+
+    $show = Options::getAllowedFields('ContractsMaster');
+    if($show == 1){
+      return $fields;
+    }
+    $results = array();
+    foreach($show as $vv){
+      $vv = explode('.',$vv);
+      //var_dump( $vv );
+      //var_dump( $fields );
+      
+      $k = array_search($vv[1], $fields);
+      $results[$vv[1]] = $fields[$vv[1]];
+    }
+    //var_dump($results);exit;
+    return $results;
+  }
+
 
   public function reportableFields() {
     $fields = array('DateCreated', 'UserID', 'ContractType', 'AmountCorrected', 'Fee');
@@ -184,7 +205,7 @@ class ContractsMaster extends CActiveRecord {
 
     $rs = array();
     $vv = $attributes['grouped'];
-    if ($vv[0]['value'] != '0'):
+    if (($vv[0]['value'] != '0') && ($vv!=null)) :
       // get all possibilities of this group
       $grouped_one = explode('.', $vv[0]['value']);
       $obj = $grouped_one[0];

@@ -71,6 +71,28 @@ static function getAsListForLabel($label){
 
     return $rs;
   }
+  
+  
+    public function getAllowedReportableFields(){
+    $fields = $this->reportableFields();
+
+    $show = Options::getAllowedFields('RealEstateOffices');
+    if($show == 1){
+      return $fields;
+    }
+    $results = array();
+    foreach($show as $vv){
+      $vv = explode('.',$vv);
+      $vv[1];
+      $k = array_search($vv[1], $fields);
+      $results[$k] = $fields[$vv[1]];
+    }
+    
+    return $results;
+  }
+
+  
+  
 	/**
 	 * @return array relational rules.
 	 */

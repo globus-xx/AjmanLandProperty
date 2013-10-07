@@ -113,6 +113,26 @@ class RealEstatePeople extends CActiveRecord {
 
     return $result;
   }
+  
+  
+    public function getAllowedReportableFields(){
+    $fields = $this->reportableFields();
+
+    $show = Options::getAllowedFields('RealEstatePeople');
+    if($show == 1){
+      return $fields;
+    }
+    $results = array();
+    foreach($show as $vv){
+      $vv = explode('.',$vv);
+      $vv[1];
+      $k = array_search($vv[1], $fields);
+      $results[$k] = $fields[$vv[1]];
+    }
+    
+    return $results;
+  }
+
 
   /**
    * Retrieves a list of models based on the current search/filter conditions.

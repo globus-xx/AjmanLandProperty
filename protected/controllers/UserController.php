@@ -38,7 +38,7 @@ class UserController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete', 'fieldPermission'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -101,6 +101,26 @@ class UserController extends Controller
 		}
 
 		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+  
+  public function actionFieldPermission()
+	{
+    $model = User::model()->findByName('field-permissions');
+    if($model==null):
+      $model = new Options();
+    endif;
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Option']))
+		{
+			$model->attributes=$_POST['Option'];
+			$model->save();
+		}
+
+		$this->render('field-permission',array(
 			'model'=>$model,
 		));
 	}

@@ -78,7 +78,7 @@ class ContractsMasterController extends Controller
 
     $dataProvider=new CActiveDataProvider('Reportable', array(
       'criteria'=>array(
-          'condition'=>'reportable_type=\'ContractsMaster\'',
+          'condition'=>'reportable_type=\'ContractsMaster\' AND created_by=\''.Yii::app()->User->ID.'\'',
       )
     ));
     $this->render('reportables',array(

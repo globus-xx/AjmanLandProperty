@@ -119,8 +119,27 @@ class CustomerMaster extends CActiveRecord {
 
     return $rs;
   }
+  
+  public function getAllowedReportableFields(){
+    $fields = $this->reportableFields();
+
+    $show = Options::getAllowedFields('CustomerMaster');
+    if($show == 1){
+      return $fields;
+    }
+    $results = array();
+    foreach($show as $vv){
+      $vv = explode('.',$vv);
+      $vv[1];
+      $k = array_search($vv[1], $fields);
+      $results[$k] = $fields[$vv[1]];
+    }
+    
+    return $results;
+  }
 
   public function reportableFields() {
+
     $fields = array('CustomerNameEnglish', 'Nationality');
     $a = $this->attributeLabels();
     $result = array();
@@ -128,6 +147,7 @@ class CustomerMaster extends CActiveRecord {
     foreach ($fields as $one_field) {
       $result[$one_field] = $a[$one_field];
     }
+    
 
     return $result;
   }

@@ -27,15 +27,15 @@ class Reportable extends CActiveRecord {
     return 'reportables';
   }
   
-  public function beforeCreate(){
-    $this->created_by = Yii::app()->User->ID;
-  }
-
   public function beforeSave() {
 
     // remove unenabled fields
     $conditions = $this->conditions;
     $this->grouped = json_encode($this->grouped);
+    
+    if((int)$this->id == 0)
+      $this->created_by = Yii::app()->User->ID;
+
     //die($this->display);
     if (!is_string($conditions) && !is_string($this->display)) {
       foreach ($this->conditions as $ii => $vv) {

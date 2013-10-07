@@ -37,7 +37,7 @@
   
   
   $models = array('DeedMaster' => 'DeedMaster',
-        'DeedDetails' => 'CustomersMaster',
+        'DeedDetails' => 'CustomerMaster',
         'LandMaster' => 'LandMaster');
   
       $condition = Reportable::model()->objectToArray(json_decode($data['conditions']));
@@ -51,7 +51,7 @@
         <b> <?php echo $model_name; ?> حقول</b>
 
         <?php $attribs = $model_name::model()->attributeLabels(); ?>
-        <?php $attribs = $model_name::model()->reportableFields(); ?>
+        <?php $attribs = $model_name::model()->getAllowedReportableFields();//reportableFields(); ?>
         <?php
         if (!isset($edit)) {
             echo $this->renderPartial('_reportableFields', array('attribs' => $attribs, 'condition' => $condition,
@@ -62,6 +62,29 @@
         }
     endforeach;
   ?>
+    <div>
+      <table width="auto">
+        <tr>
+          <td><b>Group By (Choose up to three)</b></td>
+          <td>
+            <?php
+              $variables = array(0=>'None selected');
+              foreach($models as $model_name){
+                $attribs = $model_name::model()->reportableFields();
+                foreach($attribs as $ii=>$vv):
+                  $variables[$model_name.'.'.$ii] = $model_name.'.'.$ii; 
+                endforeach;
+                
+              }
+              for($i=0;$i<3;$i++):
+                echo CHtml::dropDownList("Reportable[grouped][".$i."][value]", (isset($model['grouped'])?$model['grouped'][$i]:''), $variables, array('multiple' => false, 'style' => 'width:200px'));
+                echo '<br/>';
+              endfor;
+            ?>
+          </td>
+        </tr>
+      </table> 
+    </div>
   
   <div class="row buttons">
   <?php echo CHtml::submitButton('Submit'); ?>

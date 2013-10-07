@@ -8164,3 +8164,1265 @@ Stack trace:
 #16 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
 #17 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
 REQUEST_URI=/AjmanLandProperty/index.php/contractsMaster/viewReportable/8
+2013/10/03 16:11:14 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'CustomerMaster.Nationality' in 'where clause'. The SQL statement executed was: SELECT  DeedMaster.DateCreated, DeedMaster.UserID, DeedMaster.ContractID, LandMaster.LocationID, LandMaster.Plot_No FROM DeedMaster  LEFT JOIN ContractsMaster on DeedMaster.DeedID = ContractsMaster.DeedID  LEFT JOIN LandMaster on LandMaster.LandID = DeedMaster.LandID  LEFT JOIN HajzMaster on HajzMaster.DeedID = DeedMaster.DeedID  LEFT JOIN User on User.UserID = DeedMaster.UserID  WHERE   ( CustomerMaster.Nationality   IN ( 'ماليزيا','ايرلندا','زنجبار','سنغافورة','كازخستان','سيريلانكا','إيرلندا','اليونان','جنوب افريقيا','غينيا','طاجكستان','اليابان','تنزانيا','مالي','تركمنستان','أبخازيا','جزر القمر' ) ) .
+2013/10/03 16:11:14 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'CustomerMaster.Nationality' in 'where clause'' in G:\wamp\www\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 G:\wamp\www\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 G:\wamp\www\AjmanLandProperty\protected\models\DeedMaster.php(241): CDbCommand->queryAll()
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\DeedMasterController.php(592): DeedMaster->getReportFromReportable(Object(Reportable))
+#3 [internal function]: DeedMasterController->actionViewReportable('6')
+#4 G:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(DeedMasterController), Array)
+#5 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(DeedMasterController), Object(ReflectionMethod), Array)
+#6 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#10 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#11 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('viewReportable')
+#15 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('deedMaster/view...')
+#16 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#18 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/deedMaster/viewReportable/6
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/DeedMaster/Reportables
+---
+2013/10/03 16:13:59 [error] [php] include(CustomersMaster.php): failed to open stream: No such file or directory (G:\wamp\www\yii\framework\YiiBase.php:427)
+Stack trace:
+#0 G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\_formReportable.php(47): spl_autoload_call()
+#1 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(95): DeedMasterController->renderInternal()
+#3 G:\wamp\www\yii\framework\web\CController.php(869): DeedMasterController->renderFile()
+#4 G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\newReportable.php(3): DeedMasterController->renderPartial()
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(95): DeedMasterController->renderInternal()
+#7 G:\wamp\www\yii\framework\web\CController.php(869): DeedMasterController->renderFile()
+#8 G:\wamp\www\yii\framework\web\CController.php(782): DeedMasterController->renderPartial()
+#9 G:\wamp\www\AjmanLandProperty\protected\controllers\DeedMasterController.php(561): DeedMasterController->render()
+#10 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): DeedMasterController->actionNewReportable()
+#11 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#12 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): DeedMasterController->runAction()
+#13 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#14 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#15 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): DeedMasterController->filterRights()
+#16 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#17 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#18 G:\wamp\www\yii\framework\web\CController.php(265): DeedMasterController->runActionWithFilters()
+#19 G:\wamp\www\yii\framework\web\CWebApplication.php(282): DeedMasterController->run()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#21 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#22 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/DeedMaster/newReportable
+2013/10/03 16:20:41 [error] [php] include(CustomersMaster.php): failed to open stream: No such file or directory (G:\wamp\www\yii\framework\YiiBase.php:427)
+Stack trace:
+#0 G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\_formReportable.php(47): spl_autoload_call()
+#1 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(95): DeedMasterController->renderInternal()
+#3 G:\wamp\www\yii\framework\web\CController.php(869): DeedMasterController->renderFile()
+#4 G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\newReportable.php(3): DeedMasterController->renderPartial()
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(95): DeedMasterController->renderInternal()
+#7 G:\wamp\www\yii\framework\web\CController.php(869): DeedMasterController->renderFile()
+#8 G:\wamp\www\yii\framework\web\CController.php(782): DeedMasterController->renderPartial()
+#9 G:\wamp\www\AjmanLandProperty\protected\controllers\DeedMasterController.php(561): DeedMasterController->render()
+#10 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): DeedMasterController->actionNewReportable()
+#11 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#12 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): DeedMasterController->runAction()
+#13 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#14 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#15 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): DeedMasterController->filterRights()
+#16 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#17 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#18 G:\wamp\www\yii\framework\web\CController.php(265): DeedMasterController->runActionWithFilters()
+#19 G:\wamp\www\yii\framework\web\CWebApplication.php(282): DeedMasterController->run()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#21 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#22 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/DeedMaster/newReportable
+2013/10/03 16:27:20 [error] [php] json_decode() expects parameter 1 to be string, array given (G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\_formReportable.php:31)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CBaseController.php(95): DeedMasterController->renderInternal()
+#1 G:\wamp\www\yii\framework\web\CController.php(869): DeedMasterController->renderFile()
+#2 G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\newReportable.php(3): DeedMasterController->renderPartial()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(95): DeedMasterController->renderInternal()
+#5 G:\wamp\www\yii\framework\web\CController.php(869): DeedMasterController->renderFile()
+#6 G:\wamp\www\yii\framework\web\CController.php(782): DeedMasterController->renderPartial()
+#7 G:\wamp\www\AjmanLandProperty\protected\controllers\DeedMasterController.php(561): DeedMasterController->render()
+#8 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): DeedMasterController->actionNewReportable()
+#9 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#10 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): DeedMasterController->runAction()
+#11 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#13 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): DeedMasterController->filterRights()
+#14 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#15 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#16 G:\wamp\www\yii\framework\web\CController.php(265): DeedMasterController->runActionWithFilters()
+#17 G:\wamp\www\yii\framework\web\CWebApplication.php(282): DeedMasterController->run()
+#18 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#19 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#20 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/DeedMaster/newReportable
+2013/10/03 16:28:25 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'DeedMaster.CustomerID' in 'on clause'. The SQL statement executed was: SELECT  DeedMaster.DateCreated, DeedMaster.UserID, DeedMaster.ContractID, DeedMaster.Remarks, CustomerMaster.Nationality, LandMaster.LocationID, LandMaster.Plot_No FROM DeedMaster  LEFT JOIN ContractsMaster on DeedMaster.DeedID = ContractsMaster.DeedID  LEFT JOIN CustomerMaster on DeedMaster.CustomerID = CustomerMaster.CustomerID  LEFT JOIN LandMaster on LandMaster.LandID = DeedMaster.LandID  LEFT JOIN HajzMaster on HajzMaster.DeedID = DeedMaster.DeedID  LEFT JOIN User on User.UserID = DeedMaster.UserID  WHERE   ( CustomerMaster.Nationality   = ''  ) .
+2013/10/03 16:28:25 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'DeedMaster.CustomerID' in 'on clause'' in G:\wamp\www\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 G:\wamp\www\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 G:\wamp\www\AjmanLandProperty\protected\models\DeedMaster.php(234): CDbCommand->queryAll()
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\DeedMasterController.php(592): DeedMaster->getReportFromReportable(Object(Reportable))
+#3 [internal function]: DeedMasterController->actionViewReportable('9')
+#4 G:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(DeedMasterController), Array)
+#5 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(DeedMasterController), Object(ReflectionMethod), Array)
+#6 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#10 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#11 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('viewReportable')
+#15 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('deedMaster/view...')
+#16 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#18 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/deedMaster/viewReportable/9
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/DeedMaster/newReportable
+---
+2013/10/03 16:39:32 [error] [php] json_decode() expects parameter 1 to be string, array given (G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\_formReportable.php:31)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CBaseController.php(95): DeedMasterController->renderInternal()
+#1 G:\wamp\www\yii\framework\web\CController.php(869): DeedMasterController->renderFile()
+#2 G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\newReportable.php(3): DeedMasterController->renderPartial()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(95): DeedMasterController->renderInternal()
+#5 G:\wamp\www\yii\framework\web\CController.php(869): DeedMasterController->renderFile()
+#6 G:\wamp\www\yii\framework\web\CController.php(782): DeedMasterController->renderPartial()
+#7 G:\wamp\www\AjmanLandProperty\protected\controllers\DeedMasterController.php(561): DeedMasterController->render()
+#8 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): DeedMasterController->actionNewReportable()
+#9 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#10 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): DeedMasterController->runAction()
+#11 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#13 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): DeedMasterController->filterRights()
+#14 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#15 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#16 G:\wamp\www\yii\framework\web\CController.php(265): DeedMasterController->runActionWithFilters()
+#17 G:\wamp\www\yii\framework\web\CWebApplication.php(282): DeedMasterController->run()
+#18 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#19 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#20 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/DeedMaster/newReportable
+2013/10/03 16:45:27 [error] [exception.CException] exception 'CException' with message 'DeedMaster and its behaviors do not have a method or closure named "getAsListForLabel".' in G:\wamp\www\yii\framework\base\CComponent.php:266
+Stack trace:
+#0 G:\wamp\www\yii\framework\db\ar\CActiveRecord.php(227): CComponent->__call('getAsListForLab...', Array)
+#1 G:\wamp\www\AjmanLandProperty\protected\models\DeedMaster.php(194): CActiveRecord->__call('getAsListForLab...', Array)
+#2 G:\wamp\www\AjmanLandProperty\protected\models\DeedMaster.php(194): DeedMaster->getAsListForLabel('Remarks')
+#3 G:\wamp\www\AjmanLandProperty\protected\controllers\DeedMasterController.php(592): DeedMaster->getReportFromReportable(Object(Reportable))
+#4 [internal function]: DeedMasterController->actionViewReportable('11')
+#5 G:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(DeedMasterController), Array)
+#6 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(DeedMasterController), Object(ReflectionMethod), Array)
+#7 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#9 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#10 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#11 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#12 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#13 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#14 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('viewReportable')
+#16 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('deedMaster/view...')
+#17 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#18 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#19 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/deedMaster/viewReportable/11
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/DeedMaster/newReportable
+---
+2013/10/03 16:46:20 [error] [php] Undefined index: ContractsID (G:\wamp\www\AjmanLandProperty\protected\models\DeedMaster.php:114)
+Stack trace:
+#0 unknown(0): DeedMasterController->actionViewReportable()
+#1 G:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#2 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#3 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#4 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): DeedMasterController->runAction()
+#5 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#7 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): DeedMasterController->filterRights()
+#8 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#9 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#10 G:\wamp\www\yii\framework\web\CController.php(265): DeedMasterController->runActionWithFilters()
+#11 G:\wamp\www\yii\framework\web\CWebApplication.php(282): DeedMasterController->run()
+#12 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#13 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/deedMaster/viewReportable/11
+2013/10/03 16:59:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "index.php/site/page".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('index.php/site/...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/index.php/site/page?view=about
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/
+---
+2013/10/03 17:11:30 [error] [php] require(): Filename cannot be empty (G:\wamp\www\yii\framework\web\CBaseController.php:130)
+Stack trace:
+#0 G:\wamp\www\yii\framework\zii\widgets\CListView.php(291): SiteController->renderFile()
+#1 G:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(167): CListView->renderItems()
+#2 unknown(0): CListView->renderSection()
+#3 G:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(150): preg_replace_callback()
+#4 G:\wamp\www\yii\framework\zii\widgets\CBaseListView.php(135): CListView->renderContent()
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(173): CListView->run()
+#6 G:\wamp\www\AjmanLandProperty\protected\views\site\pages\about.php(20): SiteController->widget()
+#7 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#8 G:\wamp\www\yii\framework\web\CBaseController.php(95): SiteController->renderInternal()
+#9 G:\wamp\www\yii\framework\web\CController.php(869): SiteController->renderFile()
+#10 G:\wamp\www\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#11 G:\wamp\www\yii\framework\web\actions\CViewAction.php(140): SiteController->render()
+#12 G:\wamp\www\yii\framework\web\actions\CAction.php(76): CViewAction->run()
+#13 G:\wamp\www\yii\framework\web\CController.php(308): CViewAction->runWithParams()
+#14 G:\wamp\www\yii\framework\web\CController.php(286): SiteController->runAction()
+#15 G:\wamp\www\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#16 G:\wamp\www\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#17 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#18 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#19 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/site/page?view=about
+2013/10/03 17:19:04 [error] [exception.CException] exception 'CException' with message 'SiteController cannot find the requested view "_viewReportable".' in G:\wamp\www\yii\framework\web\CController.php:878
+Stack trace:
+#0 G:\wamp\www\AjmanLandProperty\protected\views\site\pages\about.php(18): CController->renderPartial('_viewReportable', Array)
+#1 G:\wamp\www\yii\framework\web\CBaseController.php(126): require('G:\wamp\www\Ajm...')
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('G:\wamp\www\Ajm...', NULL, true)
+#3 G:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('G:\wamp\www\Ajm...', NULL, true)
+#4 G:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('pages/about', NULL, true)
+#5 G:\wamp\www\yii\framework\web\actions\CViewAction.php(140): CController->render('pages/about')
+#6 G:\wamp\www\yii\framework\web\actions\CAction.php(76): CViewAction->run()
+#7 G:\wamp\www\yii\framework\web\CController.php(308): CAction->runWithParams(Array)
+#8 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CViewAction))
+#9 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CViewAction), Array)
+#10 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('page')
+#11 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/page')
+#12 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#14 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/site/page?view=about
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/
+---
+2013/10/03 17:45:16 [error] [exception.CException] exception 'CException' with message 'Alias "application.widgets.rgraph.RGraphBar" is invalid. Make sure it points to an existing PHP file and the file is readable.' in G:\wamp\www\yii\framework\YiiBase.php:322
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWidgetFactory.php(146): YiiBase::import('application.wid...', true)
+#1 G:\wamp\www\yii\framework\web\CBaseController.php(146): CWidgetFactory->createWidget(Object(DeedMasterController), 'application.wid...', Array)
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(172): CBaseController->createWidget('application.wid...', Array)
+#3 G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\viewReportable.php(150): CBaseController->widget('application.wid...', Array)
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(126): require('G:\wamp\www\Ajm...')
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('G:\wamp\www\Ajm...', Array, true)
+#6 G:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('G:\wamp\www\Ajm...', Array, true)
+#7 G:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('viewReportable', Array, true)
+#8 G:\wamp\www\AjmanLandProperty\protected\controllers\DeedMasterController.php(593): CController->render('viewReportable', Array)
+#9 [internal function]: DeedMasterController->actionViewReportable('11')
+#10 G:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(DeedMasterController), Array)
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(DeedMasterController), Object(ReflectionMethod), Array)
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('viewReportable')
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('deedMaster/view...')
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#24 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/deedMaster/viewReportable/11
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/DeedMaster/Reportables
+---
+2013/10/03 17:49:31 [error] [exception.CException] exception 'CException' with message 'Alias "application.widgets.rgraph.RGraphBar" is invalid. Make sure it points to an existing PHP file and the file is readable.' in G:\wamp\www\yii\framework\YiiBase.php:322
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWidgetFactory.php(146): YiiBase::import('application.wid...', true)
+#1 G:\wamp\www\yii\framework\web\CBaseController.php(146): CWidgetFactory->createWidget(Object(DeedMasterController), 'application.wid...', Array)
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(172): CBaseController->createWidget('application.wid...', Array)
+#3 G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\viewReportable.php(150): CBaseController->widget('application.wid...', Array)
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(126): require('G:\wamp\www\Ajm...')
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('G:\wamp\www\Ajm...', Array, true)
+#6 G:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('G:\wamp\www\Ajm...', Array, true)
+#7 G:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('viewReportable', Array, true)
+#8 G:\wamp\www\AjmanLandProperty\protected\controllers\DeedMasterController.php(593): CController->render('viewReportable', Array)
+#9 [internal function]: DeedMasterController->actionViewReportable('11')
+#10 G:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(DeedMasterController), Array)
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(DeedMasterController), Object(ReflectionMethod), Array)
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('viewReportable')
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('deedMaster/view...')
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#24 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/deedMaster/viewReportable/11
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/DeedMaster/Reportables
+---
+2013/10/03 17:49:56 [error] [exception.CException] exception 'CException' with message 'Alias "application.widgets.rgraph.RGraphBar" is invalid. Make sure it points to an existing PHP file and the file is readable.' in G:\wamp\www\yii\framework\YiiBase.php:322
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWidgetFactory.php(146): YiiBase::import('application.wid...', true)
+#1 G:\wamp\www\yii\framework\web\CBaseController.php(146): CWidgetFactory->createWidget(Object(DeedMasterController), 'application.wid...', Array)
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(172): CBaseController->createWidget('application.wid...', Array)
+#3 G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\viewReportable.php(150): CBaseController->widget('application.wid...', Array)
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(126): require('G:\wamp\www\Ajm...')
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('G:\wamp\www\Ajm...', Array, true)
+#6 G:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('G:\wamp\www\Ajm...', Array, true)
+#7 G:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('viewReportable', Array, true)
+#8 G:\wamp\www\AjmanLandProperty\protected\controllers\DeedMasterController.php(593): CController->render('viewReportable', Array)
+#9 [internal function]: DeedMasterController->actionViewReportable('11')
+#10 G:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(DeedMasterController), Array)
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(DeedMasterController), Object(ReflectionMethod), Array)
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('viewReportable')
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('deedMaster/view...')
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#24 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/deedMaster/viewReportable/11
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/DeedMaster/Reportables
+---
+2013/10/03 17:50:21 [error] [exception.CException] exception 'CException' with message 'The asset "G:\wamp\www\AjmanLandProperty\protected\extensions\rgraph\css" to be published does not exist.' in G:\wamp\www\yii\framework\web\CAssetManager.php:257
+Stack trace:
+#0 G:\wamp\www\AjmanLandProperty\protected\extensions\rgraph\RGraphWidget.php(116): CAssetManager->publish('G:\wamp\www\Ajm...')
+#1 G:\wamp\www\AjmanLandProperty\protected\extensions\rgraph\RGraphWidget.php(56): RGraphWidget->registerScripts()
+#2 G:\wamp\www\AjmanLandProperty\protected\extensions\rgraph\RGraphBar.php(12): RGraphWidget->init()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(147): RGraphBar->init()
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(172): CBaseController->createWidget('application.ext...', Array)
+#5 G:\wamp\www\AjmanLandProperty\protected\views\deedMaster\viewReportable.php(150): CBaseController->widget('application.ext...', Array)
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(126): require('G:\wamp\www\Ajm...')
+#7 G:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('G:\wamp\www\Ajm...', Array, true)
+#8 G:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('G:\wamp\www\Ajm...', Array, true)
+#9 G:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('viewReportable', Array, true)
+#10 G:\wamp\www\AjmanLandProperty\protected\controllers\DeedMasterController.php(593): CController->render('viewReportable', Array)
+#11 [internal function]: DeedMasterController->actionViewReportable('11')
+#12 G:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(DeedMasterController), Array)
+#13 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(DeedMasterController), Object(ReflectionMethod), Array)
+#14 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#15 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#16 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#17 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#18 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#19 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#21 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('viewReportable')
+#23 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('deedMaster/view...')
+#24 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#25 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#26 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/deedMaster/viewReportable/11
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/DeedMaster/Reportables
+---
+2013/10/04 14:19:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "viewReportable".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('viewReportable')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('viewReportable')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/viewReport...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/site/viewReportable/11
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/site/page?view=about
+---
+2013/10/04 14:20:46 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'DeedMaster.Remarks' in 'where clause'. The SQL statement executed was: SELECT  ContractsMaster.AmountCorrected as AC, ContractsMaster.Fee as FF,LandMaster.LocationID, LandMaster.Plot_No, LandMaster.location, LandMaster.Land_Type FROM ContractsMaster  LEFT JOIN LandMaster on LandMaster.LandID = ContractsMaster.LandID  LEFT JOIN ContractsDetail on ContractsDetail.ContractID = ContractsMaster.ContractsID  LEFT JOIN CustomerMaster on ContractsDetail.CustomerID = CustomerMaster.CustomerID  LEFT JOIN RealEstatePeople on ContractsDetail.CardID = RealEstatePeople.CardID  LEFT JOIN RealEstateOffices on RealEstateOffices.RealEstateID = RealEstatePeople.RealEstateID  WHERE   ( DeedMaster.Remarks   = ''  ) .
+2013/10/04 14:20:46 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'DeedMaster.Remarks' in 'where clause'' in G:\wamp\www\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 G:\wamp\www\yii\framework\db\CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 G:\wamp\www\AjmanLandProperty\protected\models\ContractsMaster.php(232): CDbCommand->queryAll()
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(141): ContractsMaster->getReportFromReportable(Object(Reportable))
+#3 [internal function]: ContractsMasterController->actionViewReportable('11')
+#4 G:\wamp\www\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ContractsMasterController), Array)
+#5 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ContractsMasterController), Object(ReflectionMethod), Array)
+#6 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#10 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#11 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#13 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('viewReportable')
+#15 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('ContractsMaster...')
+#16 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#18 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/viewReportable/11
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/site/page?view=about
+---
+2013/10/07 09:29:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/fieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/fieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/fieldPermission
+---
+2013/10/07 09:29:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/fieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/fieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/fieldPermission
+---
+2013/10/07 09:29:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/fieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/fieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/fieldPermission
+---
+2013/10/07 09:29:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/FieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/FieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/FieldPermission
+---
+2013/10/07 09:29:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/FieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/FieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/FieldPermission
+---
+2013/10/07 09:30:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/FieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/FieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/FieldPermission
+---
+2013/10/07 09:30:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/fieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/fieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/fieldPermission
+---
+2013/10/07 09:31:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/fieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/fieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/fieldPermission
+---
+2013/10/07 09:31:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/fieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/fieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/fieldPermission
+---
+2013/10/07 09:32:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/FieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/FieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/FieldPermission
+---
+2013/10/07 09:32:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/fieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/fieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/fieldPermission
+---
+2013/10/07 09:32:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/fieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/fieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/fieldPermission
+---
+2013/10/07 09:32:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/fieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/fieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/fieldPermission
+---
+2013/10/07 09:32:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "fieldPermission".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('fieldPermission')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('fieldPermission')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/user/field...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/user/fieldPermission
+---
+2013/10/07 09:32:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "FieldPermission".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('FieldPermission')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('FieldPermission')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/user/Field...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/user/FieldPermission
+---
+2013/10/07 09:32:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "fieldPermission".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('fieldPermission')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('fieldPermission')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/user/field...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/user/fieldPermission
+---
+2013/10/07 09:33:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "fieldPermission".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('fieldPermission')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('fieldPermission')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/user/field...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/user/fieldPermission
+---
+2013/10/07 09:33:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/fieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/fieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/fieldPermission
+---
+2013/10/07 09:33:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "fieldPermission".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('fieldPermission')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('fieldPermission')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/user/field...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/user/fieldPermission
+---
+2013/10/07 09:33:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "create".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('create')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('create')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/user/creat...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/user/create
+---
+2013/10/07 09:33:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "fieldPermission".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('fieldPermission')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('fieldPermission')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/user/field...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/user/fieldPermission
+---
+2013/10/07 09:33:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "FieldPermission".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('FieldPermission')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('FieldPermission')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/user/Field...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/user/FieldPermission
+---
+2013/10/07 09:33:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "fieldPermission".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('fieldPermission')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('fieldPermission')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/user/field...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/user/fieldPermission
+---
+2013/10/07 09:33:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/create".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/create')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/create
+---
+2013/10/07 09:33:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "fieldPermission".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('fieldPermission')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('fieldPermission')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/user/field...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/user/fieldPermission
+---
+2013/10/07 09:46:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/FieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/FieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/FieldPermission
+---
+2013/10/07 09:47:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/fieldPermission".' in G:\wamp\www\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('user/fieldPermi...')
+#1 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/user/fieldPermission
+---
+2013/10/07 09:49:41 [error] [exception.CException] exception 'CException' with message 'User and its behaviors do not have a method or closure named "findByName".' in G:\wamp\www\yii\framework\base\CComponent.php:266
+Stack trace:
+#0 G:\wamp\www\yii\framework\db\ar\CActiveRecord.php(227): CComponent->__call('findByName', Array)
+#1 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(12): CActiveRecord->__call('findByName', Array)
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(12): User->findByName('field-permissio...')
+#3 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#4 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('Permissions')
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/Permiss...')
+#9 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+---
+2013/10/07 09:51:38 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.name" is not defined.' in G:\wamp\www\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 G:\wamp\www\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('name', 'field-permissio...')
+#1 G:\wamp\www\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 G:\wamp\www\yii\framework\db\ar\CActiveRecord.php(1455): CDbCommandBuilder->createCriteria(Array, Array)
+#3 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(12): CActiveRecord->find(Array)
+#4 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#5 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('Permissions')
+#9 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/Permiss...')
+#10 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#12 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+---
+2013/10/07 09:52:15 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.name" is not defined.' in G:\wamp\www\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 G:\wamp\www\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('name', 'field-permissio...')
+#1 G:\wamp\www\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 G:\wamp\www\yii\framework\db\ar\CActiveRecord.php(1455): CDbCommandBuilder->createCriteria(Array, Array)
+#3 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(12): CActiveRecord->find(Array)
+#4 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#5 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('Permissions')
+#9 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/Permiss...')
+#10 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#12 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+---
+2013/10/07 09:52:16 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.name" is not defined.' in G:\wamp\www\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 G:\wamp\www\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('name', 'field-permissio...')
+#1 G:\wamp\www\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 G:\wamp\www\yii\framework\db\ar\CActiveRecord.php(1455): CDbCommandBuilder->createCriteria(Array, Array)
+#3 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(12): CActiveRecord->find(Array)
+#4 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#5 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('Permissions')
+#9 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/Permiss...')
+#10 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#12 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+---
+2013/10/07 09:52:17 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.name" is not defined.' in G:\wamp\www\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 G:\wamp\www\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('name', 'field-permissio...')
+#1 G:\wamp\www\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 G:\wamp\www\yii\framework\db\ar\CActiveRecord.php(1455): CDbCommandBuilder->createCriteria(Array, Array)
+#3 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(12): CActiveRecord->find(Array)
+#4 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#5 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('Permissions')
+#9 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/Permiss...')
+#10 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#12 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+---
+2013/10/07 09:52:18 [error] [exception.CException] exception 'CException' with message 'Property "CDbCriteria.name" is not defined.' in G:\wamp\www\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 G:\wamp\www\yii\framework\db\schema\CDbCriteria.php(160): CComponent->__set('name', 'field-permissio...')
+#1 G:\wamp\www\yii\framework\db\schema\CDbCommandBuilder.php(585): CDbCriteria->__construct(Array)
+#2 G:\wamp\www\yii\framework\db\ar\CActiveRecord.php(1455): CDbCommandBuilder->createCriteria(Array, Array)
+#3 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(12): CActiveRecord->find(Array)
+#4 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#5 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#7 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('Permissions')
+#9 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/Permiss...')
+#10 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#12 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+---
+2013/10/07 09:52:33 [error] [php] Undefined variable: DeedMaster (G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php:42)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): OptionsController->renderFile()
+#1 G:\wamp\www\yii\framework\web\CController.php(782): OptionsController->renderPartial()
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(27): OptionsController->render()
+#3 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#4 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 G:\wamp\www\yii\framework\web\CController.php(286): OptionsController->runAction()
+#6 G:\wamp\www\yii\framework\web\CController.php(265): OptionsController->runActionWithFilters()
+#7 G:\wamp\www\yii\framework\web\CWebApplication.php(282): OptionsController->run()
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+2013/10/07 09:53:36 [error] [php] Undefined variable: DeedMaster (G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php:42)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): OptionsController->renderFile()
+#1 G:\wamp\www\yii\framework\web\CController.php(782): OptionsController->renderPartial()
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(27): OptionsController->render()
+#3 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#4 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 G:\wamp\www\yii\framework\web\CController.php(286): OptionsController->runAction()
+#6 G:\wamp\www\yii\framework\web\CController.php(265): OptionsController->runActionWithFilters()
+#7 G:\wamp\www\yii\framework\web\CWebApplication.php(282): OptionsController->run()
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+2013/10/07 09:53:40 [error] [php] Undefined variable: DeedMaster (G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php:42)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): OptionsController->renderFile()
+#1 G:\wamp\www\yii\framework\web\CController.php(782): OptionsController->renderPartial()
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(27): OptionsController->render()
+#3 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#4 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 G:\wamp\www\yii\framework\web\CController.php(286): OptionsController->runAction()
+#6 G:\wamp\www\yii\framework\web\CController.php(265): OptionsController->runActionWithFilters()
+#7 G:\wamp\www\yii\framework\web\CWebApplication.php(282): OptionsController->run()
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+2013/10/07 09:53:57 [error] [php] Undefined variable: DeedMaster (G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php:42)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): OptionsController->renderFile()
+#1 G:\wamp\www\yii\framework\web\CController.php(782): OptionsController->renderPartial()
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(27): OptionsController->render()
+#3 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#4 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 G:\wamp\www\yii\framework\web\CController.php(286): OptionsController->runAction()
+#6 G:\wamp\www\yii\framework\web\CController.php(265): OptionsController->runActionWithFilters()
+#7 G:\wamp\www\yii\framework\web\CWebApplication.php(282): OptionsController->run()
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+2013/10/07 09:54:44 [error] [php] Undefined variable: CustomerMaster (G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php:42)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): OptionsController->renderFile()
+#1 G:\wamp\www\yii\framework\web\CController.php(782): OptionsController->renderPartial()
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(27): OptionsController->render()
+#3 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#4 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 G:\wamp\www\yii\framework\web\CController.php(286): OptionsController->runAction()
+#6 G:\wamp\www\yii\framework\web\CController.php(265): OptionsController->runActionWithFilters()
+#7 G:\wamp\www\yii\framework\web\CWebApplication.php(282): OptionsController->run()
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+2013/10/07 09:54:58 [error] [exception.CException] exception 'CException' with message 'OptionsController contains improperly nested widget tags in its view "G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php". A CActiveForm widget does not have an endWidget() call.' in G:\wamp\www\yii\framework\web\CBaseController.php:101
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('G:\wamp\www\Ajm...', Array, true)
+#1 G:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('permissions', Array, true)
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(27): CController->render('permissions', Array)
+#3 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#4 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#6 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('Permissions')
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/Permiss...')
+#9 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#11 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+---
+2013/10/07 09:58:21 [error] [php] Undefined index: DeedMaster.ContractID (G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php:46)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): OptionsController->renderFile()
+#1 G:\wamp\www\yii\framework\web\CController.php(782): OptionsController->renderPartial()
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(27): OptionsController->render()
+#3 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#4 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 G:\wamp\www\yii\framework\web\CController.php(286): OptionsController->runAction()
+#6 G:\wamp\www\yii\framework\web\CController.php(265): OptionsController->runActionWithFilters()
+#7 G:\wamp\www\yii\framework\web\CWebApplication.php(282): OptionsController->run()
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+2013/10/07 10:00:00 [error] [php] Illegal string offset 'DeedMaster.DateCreated' (G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php:46)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): OptionsController->renderFile()
+#1 G:\wamp\www\yii\framework\web\CController.php(782): OptionsController->renderPartial()
+#2 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(29): OptionsController->render()
+#3 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#4 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 G:\wamp\www\yii\framework\web\CController.php(286): OptionsController->runAction()
+#6 G:\wamp\www\yii\framework\web\CController.php(265): OptionsController->runActionWithFilters()
+#7 G:\wamp\www\yii\framework\web\CWebApplication.php(282): OptionsController->run()
+#8 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+2013/10/07 10:05:05 [error] [php] Trying to get property of non-object (G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php:27)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(286): OptionsController->runAction()
+#1 G:\wamp\www\yii\framework\web\CController.php(265): OptionsController->runActionWithFilters()
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(282): OptionsController->run()
+#3 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+2013/10/06 23:28:46 [error] [exception.CException] exception 'CException' with message 'CustomerMaster and its behaviors do not have a method or closure named "get_class".' in G:\wamp\www\yii\framework\base\CComponent.php:266
+Stack trace:
+#0 G:\wamp\www\yii\framework\db\ar\CActiveRecord.php(227): CComponent->__call('get_class', Array)
+#1 G:\wamp\www\AjmanLandProperty\protected\models\CustomerMaster.php(126): CActiveRecord->__call('get_class', Array)
+#2 G:\wamp\www\AjmanLandProperty\protected\models\CustomerMaster.php(126): CustomerMaster->get_class()
+#3 G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php(30): CustomerMaster->getAllowedReportableFields()
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(126): require('G:\wamp\www\Ajm...')
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('G:\wamp\www\Ajm...', Array, true)
+#6 G:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('G:\wamp\www\Ajm...', Array, true)
+#7 G:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('permissions', Array, true)
+#8 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(30): CController->render('permissions', Array)
+#9 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#10 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#12 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('Permissions')
+#14 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/Permiss...')
+#15 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#17 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/options/Permissions
+---
+2013/10/06 23:29:16 [error] [exception.CException] exception 'CException' with message 'Property "RWebUser.superuser" is not defined.' in G:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\auth\CWebUser.php(146): CComponent->__get('superuser')
+#1 G:\wamp\www\AjmanLandProperty\protected\models\Options.php(29): CWebUser->__get('superuser')
+#2 G:\wamp\www\AjmanLandProperty\protected\models\CustomerMaster.php(126): Options::getAllowedFields('CustomerMaster')
+#3 G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php(30): CustomerMaster->getAllowedReportableFields()
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(126): require('G:\wamp\www\Ajm...')
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('G:\wamp\www\Ajm...', Array, true)
+#6 G:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('G:\wamp\www\Ajm...', Array, true)
+#7 G:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('permissions', Array, true)
+#8 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(30): CController->render('permissions', Array)
+#9 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#10 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#12 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('Permissions')
+#14 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/Permiss...')
+#15 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#17 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/options/Permissions
+---
+2013/10/06 23:29:44 [error] [exception.CException] exception 'CException' with message 'Property "RWebUser.superuser" is not defined.' in G:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\auth\CWebUser.php(146): CComponent->__get('superuser')
+#1 G:\wamp\www\AjmanLandProperty\protected\models\Options.php(29): CWebUser->__get('superuser')
+#2 G:\wamp\www\AjmanLandProperty\protected\models\CustomerMaster.php(126): Options::getAllowedFields('CustomerMaster')
+#3 G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php(30): CustomerMaster->getAllowedReportableFields()
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(126): require('G:\wamp\www\Ajm...')
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('G:\wamp\www\Ajm...', Array, true)
+#6 G:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('G:\wamp\www\Ajm...', Array, true)
+#7 G:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('permissions', Array, true)
+#8 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(30): CController->render('permissions', Array)
+#9 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#10 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#12 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('Permissions')
+#14 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/Permiss...')
+#15 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#17 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/options/Permissions
+---
+2013/10/06 23:31:42 [error] [exception.CException] exception 'CException' with message 'Property "RWebUser.superuser" is not defined.' in G:\wamp\www\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\auth\CWebUser.php(146): CComponent->__get('superuser')
+#1 G:\wamp\www\AjmanLandProperty\protected\models\Options.php(29): CWebUser->__get('superuser')
+#2 G:\wamp\www\AjmanLandProperty\protected\models\CustomerMaster.php(126): Options::getAllowedFields('CustomerMaster')
+#3 G:\wamp\www\AjmanLandProperty\protected\views\options\permissions.php(31): CustomerMaster->getAllowedReportableFields()
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(126): require('G:\wamp\www\Ajm...')
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('G:\wamp\www\Ajm...', Array, true)
+#6 G:\wamp\www\yii\framework\web\CController.php(869): CBaseController->renderFile('G:\wamp\www\Ajm...', Array, true)
+#7 G:\wamp\www\yii\framework\web\CController.php(782): CController->renderPartial('permissions', Array, true)
+#8 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(30): CController->render('permissions', Array)
+#9 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#10 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 G:\wamp\www\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#12 G:\wamp\www\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('Permissions')
+#14 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/Permiss...')
+#15 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#17 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+HTTP_REFERER=http://lvh.me/AjmanLandProperty/index.php/options/Permissions
+---
+2013/10/06 23:34:15 [error] [php] Non-static method CActiveRecord::findByPk() should not be called statically (G:\wamp\www\AjmanLandProperty\protected\models\Users.php:60)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#1 G:\wamp\www\yii\framework\web\CBaseController.php(95): OptionsController->renderInternal()
+#2 G:\wamp\www\yii\framework\web\CController.php(869): OptionsController->renderFile()
+#3 G:\wamp\www\yii\framework\web\CController.php(782): OptionsController->renderPartial()
+#4 G:\wamp\www\AjmanLandProperty\protected\controllers\OptionsController.php(30): OptionsController->render()
+#5 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): OptionsController->actionPermissions()
+#6 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#7 G:\wamp\www\yii\framework\web\CController.php(286): OptionsController->runAction()
+#8 G:\wamp\www\yii\framework\web\CController.php(265): OptionsController->runActionWithFilters()
+#9 G:\wamp\www\yii\framework\web\CWebApplication.php(282): OptionsController->run()
+#10 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#12 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/options/Permissions
+2013/10/06 23:42:44 [error] [php] Non-static method CActiveRecord::find() should not be called statically (G:\wamp\www\AjmanLandProperty\protected\models\Options.php:32)
+Stack trace:
+#0 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(64): ContractsMaster->getAllowedReportableFields()
+#1 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#3 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#4 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#7 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#8 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#9 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#10 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#11 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#12 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#13 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#14 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#15 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#16 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#17 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#18 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#19 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#21 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#22 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/06 23:43:36 [error] [php] Invalid argument supplied for foreach() (G:\wamp\www\AjmanLandProperty\protected\models\Options.php:38)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#1 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#2 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#3 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#5 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#6 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#7 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#8 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#9 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#10 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#11 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#12 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#13 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#14 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#15 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#16 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#17 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#18 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#19 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#20 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#21 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/06 23:45:56 [error] [php] Undefined offset: 0 (G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_reportableFields.php:11)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#1 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(68): ContractsMasterController->renderPartial()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#4 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#5 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#7 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#8 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#9 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#10 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/06 23:49:01 [error] [php] Undefined offset: 0 (G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_reportableFields.php:11)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#1 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(68): ContractsMasterController->renderPartial()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#4 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#5 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#7 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#8 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#9 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#10 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/06 23:49:50 [error] [php] Undefined offset: 0 (G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_reportableFields.php:11)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#1 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(68): ContractsMasterController->renderPartial()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#4 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#5 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#7 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#8 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#9 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#10 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/06 23:56:32 [error] [php] Undefined offset: 0 (G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_reportableFields.php:11)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#1 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(70): ContractsMasterController->renderPartial()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#4 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#5 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#7 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#8 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#9 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#10 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/06 23:58:46 [error] [php] Undefined offset: 0 (G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_reportableFields.php:11)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#1 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(70): ContractsMasterController->renderPartial()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#4 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#5 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#7 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#8 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#9 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#10 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/07 00:00:51 [error] [php] Undefined index: o (G:\wamp\www\AjmanLandProperty\protected\models\ContractsMaster.php:125)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#1 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#2 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#4 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#5 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#6 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#7 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#8 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#9 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#10 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#11 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#13 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#14 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#15 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#16 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#17 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#18 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#19 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#20 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/07 00:01:06 [error] [php] Undefined offset: 0 (G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_reportableFields.php:11)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#1 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(70): ContractsMasterController->renderPartial()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#4 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#5 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#7 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#8 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#9 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#10 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/07 00:01:20 [error] [php] Undefined offset: 0 (G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_reportableFields.php:11)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#1 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(70): ContractsMasterController->renderPartial()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#4 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#5 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#7 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#8 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#9 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#10 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/07 00:06:07 [error] [php] Undefined offset: 0 (G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_reportableFields.php:11)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#1 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(74): ContractsMasterController->renderPartial()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#4 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#5 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#7 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#8 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#9 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#10 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable

@@ -63,6 +63,9 @@ class User extends CActiveRecord
 			array('userID, Password, Name, EmployeeID, ManagerID', 'safe', 'on'=>'search'),
 		);
 	}
+  
+  
+  
 
 	/**
 	 * @return array relational rules.

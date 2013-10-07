@@ -45,7 +45,9 @@
     <?php
     $models = array('ContractsMaster', 'LandMaster', 'ContractsDetail', 'CustomerMaster');
     $condition = Reportable::model()->objectToArray(json_decode($data['conditions']));
-    $models = array('ContractMaster' => 'ContractsMaster',
+    
+    //var_dump(CustomerMaster::model()->getAllowedReportableFields());exit;
+    $models = array('ContractsMaster' => 'ContractsMaster',
         'Buyer' => 'CustomerMaster',
         'Seller' => 'RealEstatePeople',
         'LandMaster' => 'LandMaster',
@@ -57,19 +59,24 @@
         $c = new $model_name();
         $columns = $c->getTableSchema()->columns;
         // loop through all the attributes for the ContractsMaster
+        
         ?>
         <b> <?php echo $model_name; ?> حقول</b>
 
         <?php $attribs = $model_name::model()->attributeLabels(); ?>
-        <?php $attribs = $model_name::model()->reportableFields(); ?>
+        <?php $attribs = $model_name::model()->getAllowedReportableFields();//reportableFields(); ?>
         <?php
-        if (!isset($edit)) {
-            echo $this->renderPartial('_reportableFields', array('attribs' => $attribs, 'condition' => $condition,
-                'defaults' => $defaults, 'display'=>$display, 'model' => $condition, 'the_model' => $model_name, 'columns' => $columns));
-        }else{
-            echo $this->renderPartial('_reportableFields', array('attribs' => $attribs, 'condition' => $condition,
-                'defaults' => $defaults, 'display'=>$display, 'model' => $condition, 'the_model' => $model_name, 'columns' => $columns, 'edit' => "yes"));
-        }
+        
+        if(count($attribs)>0):
+          
+          if (!isset($edit)) {
+              echo $this->renderPartial('_reportableFields', array('attribs' => $attribs, 'condition' => $condition,
+                  'defaults' => $defaults, 'display'=>$display, 'model' => $condition, 'the_model' => $model_name, 'columns' => $columns));
+          }else{
+              echo $this->renderPartial('_reportableFields', array('attribs' => $attribs, 'condition' => $condition,
+                  'defaults' => $defaults, 'display'=>$display, 'model' => $condition, 'the_model' => $model_name, 'columns' => $columns, 'edit' => "yes"));
+          }
+        endif;
     endforeach;
     ?>	
     <div>

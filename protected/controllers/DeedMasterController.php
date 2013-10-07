@@ -529,7 +529,7 @@ class DeedMasterController extends Controller
 
     $dataProvider=new CActiveDataProvider('Reportable', array(
       'criteria'=>array(
-          'condition'=>'reportable_type=\'DeedMaster\'',
+          'condition'=>'reportable_type=\'DeedMaster\' AND created_by=\''.Yii::app()->User->ID.'\'',
       )
     ));
     $this->render('reportables',array(
@@ -587,7 +587,7 @@ class DeedMasterController extends Controller
 
     $this->render('viewReportable',array(
       'model'=>$model,
-      'counter'=>$model->getSummary(),
+      //'counter'=>$model->getSummary(),
 
       'results'=>DeedMaster::model()->getReportFromReportable($model)
           ));

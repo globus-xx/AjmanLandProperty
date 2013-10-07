@@ -54,7 +54,20 @@ class Users extends CActiveRecord
             // Please remove those attributes that should not be searched.
             array('id, username, password, email, activkey, create_at, lastvisit_at, superuser, status', 'safe', 'on'=>'search'),
         );
+    }   
+    public static function isSuperUser($id){
+      $u = self::getUser($id);
+      if($u['superuser']==1){
+       // return true;
+      }
+      
+      return false;
     }
+  public static function getUser($id){
+    $u = new self();
+    $s = $u->findByPk($id);
+    return $s->attributes;
+  }
 
     /**
      * @return array relational rules.
