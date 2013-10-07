@@ -8,6 +8,7 @@ class DmsController extends Controller
 	 */
 	public $layout='//layouts/column2';
         public $relations =array();
+                             
         
         /**
 	 * @return array action filters
@@ -19,6 +20,9 @@ class DmsController extends Controller
 		);
 	}
 
+        
+        
+        
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -45,14 +49,14 @@ class DmsController extends Controller
 		);
 	}
 
+        
+      
          public function get_db_name()
         {
               $curdb  = explode('=', Yii::app()->db->connectionString);
               return $curdb[2];
         }
         
-	
-
 	
 	/**
 	 * Lists all models.
