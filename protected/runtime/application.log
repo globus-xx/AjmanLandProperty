@@ -9463,3 +9463,262 @@ Stack trace:
 #5 {main}
 REQUEST_URI=/AjmanLandProperty/index.php/options/permission
 ---
+2013/10/07 10:22:49 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.options' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `options`.
+2013/10/07 10:22:49 [error] [exception.CDbException] exception 'CDbException' with message 'The table "options" for active record class "Options" cannot be found in the database.' in C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php:2264
+Stack trace:
+#0 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(379): CActiveRecordMetaData->__construct(Object(Options))
+#1 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(394): CActiveRecord::model('Options')
+#2 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(78): CActiveRecord->getMetaData()
+#3 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\models\Options.php(32): CActiveRecord->__construct()
+#4 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\models\ContractsMaster.php(114): Options::getAllowedFields('ContractsMaster')
+#5 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(67): ContractsMaster->getAllowedReportableFields()
+#6 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#7 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#9 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): CController->renderPartial('_formReportable', Array)
+#10 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#11 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#12 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#13 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(783): CController->renderPartial('newReportable', Array, true)
+#14 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): CController->render('newReportable', Array)
+#15 C:\xampp\htdocs\ajman\yii\framework\web\actions\CInlineAction.php(50): ContractsMasterController->actionNewReportable()
+#16 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#17 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#18 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#19 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#20 C:\xampp\htdocs\ajman\yii\framework\web\filters\CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#21 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(292): CFilterChain->run()
+#23 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(276): CController->run('newReportable')
+#25 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('ContractsMaster...')
+#26 C:\xampp\htdocs\ajman\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#27 C:\xampp\htdocs\ajman\AjmanLandProperty\index.php(14): CApplication->run()
+#28 {main}
+REQUEST_URI=/ajman/ajmanlandproperty/index.php/ContractsMaster/newReportable
+HTTP_REFERER=http://localhost/ajman/ajmanlandproperty/index.php/ContractsMaster
+---
+2013/10/07 10:23:22 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.options' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `options`.
+2013/10/07 10:23:22 [error] [exception.CDbException] exception 'CDbException' with message 'The table "options" for active record class "Options" cannot be found in the database.' in C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php:2264
+Stack trace:
+#0 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(379): CActiveRecordMetaData->__construct(Object(Options))
+#1 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(394): CActiveRecord::model('Options')
+#2 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(78): CActiveRecord->getMetaData()
+#3 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\models\Options.php(32): CActiveRecord->__construct()
+#4 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\models\ContractsMaster.php(114): Options::getAllowedFields('ContractsMaster')
+#5 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(67): ContractsMaster->getAllowedReportableFields()
+#6 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#7 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#9 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): CController->renderPartial('_formReportable', Array)
+#10 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#11 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#12 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#13 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(783): CController->renderPartial('newReportable', Array, true)
+#14 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): CController->render('newReportable', Array)
+#15 C:\xampp\htdocs\ajman\yii\framework\web\actions\CInlineAction.php(50): ContractsMasterController->actionNewReportable()
+#16 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#17 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#18 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#19 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#20 C:\xampp\htdocs\ajman\yii\framework\web\filters\CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#21 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(292): CFilterChain->run()
+#23 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(276): CController->run('newReportable')
+#25 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('ContractsMaster...')
+#26 C:\xampp\htdocs\ajman\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#27 C:\xampp\htdocs\ajman\AjmanLandProperty\index.php(14): CApplication->run()
+#28 {main}
+REQUEST_URI=/ajman/ajmanlandproperty/index.php/ContractsMaster/newReportable
+HTTP_REFERER=http://localhost/ajman/ajmanlandproperty/index.php/ContractsMaster/newReportable
+---
+2013/10/07 10:23:24 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_by' in 'where clause'. The SQL statement executed was: SELECT COUNT(*) FROM `reportables` `t` WHERE reportable_type='ContractsMaster' AND created_by='1'.
+2013/10/07 10:23:24 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_by' in 'where clause'' in C:\xampp\htdocs\ajman\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 C:\xampp\htdocs\ajman\yii\framework\db\CDbCommand.php(425): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(1536): CDbCommand->queryScalar()
+#2 C:\xampp\htdocs\ajman\yii\framework\web\CActiveDataProvider.php(179): CActiveRecord->count(Object(CDbCriteria))
+#3 C:\xampp\htdocs\ajman\yii\framework\web\CDataProvider.php(193): CActiveDataProvider->calculateTotalItemCount()
+#4 C:\xampp\htdocs\ajman\yii\framework\web\CActiveDataProvider.php(129): CDataProvider->getTotalItemCount()
+#5 C:\xampp\htdocs\ajman\yii\framework\web\CDataProvider.php(137): CActiveDataProvider->fetchData()
+#6 C:\xampp\htdocs\ajman\yii\framework\zii\widgets\CBaseListView.php(105): CDataProvider->getData()
+#7 C:\xampp\htdocs\ajman\yii\framework\zii\widgets\CListView.php(173): CBaseListView->init()
+#8 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(148): CListView->init()
+#9 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(173): CBaseController->createWidget('zii.widgets.CLi...', Array)
+#10 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\views\contractsMaster\reportables.php(18): CBaseController->widget('zii.widgets.CLi...', Array)
+#11 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#12 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#13 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#14 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(783): CController->renderPartial('reportables', Array, true)
+#15 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\controllers\ContractsMasterController.php(86): CController->render('reportables', Array)
+#16 C:\xampp\htdocs\ajman\yii\framework\web\actions\CInlineAction.php(50): ContractsMasterController->actionReportables()
+#17 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#18 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#19 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#20 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#21 C:\xampp\htdocs\ajman\yii\framework\web\filters\CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#22 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#23 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(292): CFilterChain->run()
+#24 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#25 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(276): CController->run('Reportables')
+#26 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('ContractsMaster...')
+#27 C:\xampp\htdocs\ajman\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#28 C:\xampp\htdocs\ajman\AjmanLandProperty\index.php(14): CApplication->run()
+#29 {main}
+REQUEST_URI=/ajman/ajmanlandproperty/index.php/ContractsMaster/Reportables
+HTTP_REFERER=http://localhost/ajman/ajmanlandproperty/index.php/ContractsMaster/newReportable
+---
+2013/10/07 10:23:31 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_by' in 'where clause'. The SQL statement executed was: SELECT COUNT(*) FROM `reportables` `t` WHERE reportable_type='DeedMaster' AND created_by='1'.
+2013/10/07 10:23:31 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_by' in 'where clause'' in C:\xampp\htdocs\ajman\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 C:\xampp\htdocs\ajman\yii\framework\db\CDbCommand.php(425): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(1536): CDbCommand->queryScalar()
+#2 C:\xampp\htdocs\ajman\yii\framework\web\CActiveDataProvider.php(179): CActiveRecord->count(Object(CDbCriteria))
+#3 C:\xampp\htdocs\ajman\yii\framework\web\CDataProvider.php(193): CActiveDataProvider->calculateTotalItemCount()
+#4 C:\xampp\htdocs\ajman\yii\framework\web\CActiveDataProvider.php(129): CDataProvider->getTotalItemCount()
+#5 C:\xampp\htdocs\ajman\yii\framework\web\CDataProvider.php(137): CActiveDataProvider->fetchData()
+#6 C:\xampp\htdocs\ajman\yii\framework\zii\widgets\CBaseListView.php(105): CDataProvider->getData()
+#7 C:\xampp\htdocs\ajman\yii\framework\zii\widgets\CListView.php(173): CBaseListView->init()
+#8 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(148): CListView->init()
+#9 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(173): CBaseController->createWidget('zii.widgets.CLi...', Array)
+#10 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\views\deedMaster\reportables.php(18): CBaseController->widget('zii.widgets.CLi...', Array)
+#11 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#12 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#13 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#14 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(783): CController->renderPartial('reportables', Array, true)
+#15 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\controllers\DeedMasterController.php(537): CController->render('reportables', Array)
+#16 C:\xampp\htdocs\ajman\yii\framework\web\actions\CInlineAction.php(50): DeedMasterController->actionReportables()
+#17 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#18 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#19 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#20 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#21 C:\xampp\htdocs\ajman\yii\framework\web\filters\CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#22 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#23 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(292): CFilterChain->run()
+#24 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#25 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(276): CController->run('Reportables')
+#26 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('DeedMaster/Repo...')
+#27 C:\xampp\htdocs\ajman\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#28 C:\xampp\htdocs\ajman\AjmanLandProperty\index.php(14): CApplication->run()
+#29 {main}
+REQUEST_URI=/ajman/ajmanlandproperty/index.php/DeedMaster/Reportables
+HTTP_REFERER=http://localhost/ajman/ajmanlandproperty/index.php/HajzMaster
+---
+2013/10/07 10:23:33 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.options' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `options`.
+2013/10/07 10:23:33 [error] [exception.CDbException] exception 'CDbException' with message 'The table "options" for active record class "Options" cannot be found in the database.' in C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php:2264
+Stack trace:
+#0 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(379): CActiveRecordMetaData->__construct(Object(Options))
+#1 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(394): CActiveRecord::model('Options')
+#2 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(78): CActiveRecord->getMetaData()
+#3 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\models\Options.php(32): CActiveRecord->__construct()
+#4 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\models\DeedMaster.php(135): Options::getAllowedFields('DeedMaster')
+#5 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\views\deedMaster\_formReportable.php(54): DeedMaster->getAllowedReportableFields()
+#6 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#7 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#9 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\views\deedMaster\newReportable.php(3): CController->renderPartial('_formReportable', Array)
+#10 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#11 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#12 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#13 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(783): CController->renderPartial('newReportable', Array, true)
+#14 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\controllers\DeedMasterController.php(561): CController->render('newReportable', Array)
+#15 C:\xampp\htdocs\ajman\yii\framework\web\actions\CInlineAction.php(50): DeedMasterController->actionNewReportable()
+#16 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#17 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#18 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#19 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#20 C:\xampp\htdocs\ajman\yii\framework\web\filters\CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#21 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(292): CFilterChain->run()
+#23 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(276): CController->run('newReportable')
+#25 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('DeedMaster/newR...')
+#26 C:\xampp\htdocs\ajman\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#27 C:\xampp\htdocs\ajman\AjmanLandProperty\index.php(14): CApplication->run()
+#28 {main}
+REQUEST_URI=/ajman/ajmanlandproperty/index.php/DeedMaster/newReportable
+HTTP_REFERER=http://localhost/ajman/ajmanlandproperty/index.php/DeedMaster/Reportables
+---
+2013/10/07 10:34:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "Images".' in C:\xampp\htdocs\ajman\yii\framework\web\CController.php:484
+Stack trace:
+#0 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(271): CController->missingAction('Images')
+#1 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(276): CController->run('Images')
+#2 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('Dms/Images/arro...')
+#3 C:\xampp\htdocs\ajman\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\ajman\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/ajman/ajmanlandproperty/index.php/Dms/Images/arrow.gif
+HTTP_REFERER=http://localhost/ajman/ajmanlandproperty/index.php/Dms/scan
+---
+2013/10/07 10:34:48 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_by' in 'where clause'. The SQL statement executed was: SELECT COUNT(*) FROM `reportables` `t` WHERE reportable_type='ContractsMaster' AND created_by='1'.
+2013/10/07 10:34:48 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_by' in 'where clause'' in C:\xampp\htdocs\ajman\yii\framework\db\CDbCommand.php:528
+Stack trace:
+#0 C:\xampp\htdocs\ajman\yii\framework\db\CDbCommand.php(425): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(1536): CDbCommand->queryScalar()
+#2 C:\xampp\htdocs\ajman\yii\framework\web\CActiveDataProvider.php(179): CActiveRecord->count(Object(CDbCriteria))
+#3 C:\xampp\htdocs\ajman\yii\framework\web\CDataProvider.php(193): CActiveDataProvider->calculateTotalItemCount()
+#4 C:\xampp\htdocs\ajman\yii\framework\web\CActiveDataProvider.php(129): CDataProvider->getTotalItemCount()
+#5 C:\xampp\htdocs\ajman\yii\framework\web\CDataProvider.php(137): CActiveDataProvider->fetchData()
+#6 C:\xampp\htdocs\ajman\yii\framework\zii\widgets\CBaseListView.php(105): CDataProvider->getData()
+#7 C:\xampp\htdocs\ajman\yii\framework\zii\widgets\CListView.php(173): CBaseListView->init()
+#8 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(148): CListView->init()
+#9 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(173): CBaseController->createWidget('zii.widgets.CLi...', Array)
+#10 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\views\contractsMaster\reportables.php(18): CBaseController->widget('zii.widgets.CLi...', Array)
+#11 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#12 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#13 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#14 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(783): CController->renderPartial('reportables', Array, true)
+#15 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\controllers\ContractsMasterController.php(86): CController->render('reportables', Array)
+#16 C:\xampp\htdocs\ajman\yii\framework\web\actions\CInlineAction.php(50): ContractsMasterController->actionReportables()
+#17 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#18 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#19 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#20 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#21 C:\xampp\htdocs\ajman\yii\framework\web\filters\CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#22 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#23 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(292): CFilterChain->run()
+#24 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#25 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(276): CController->run('Reportables')
+#26 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('ContractsMaster...')
+#27 C:\xampp\htdocs\ajman\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#28 C:\xampp\htdocs\ajman\AjmanLandProperty\index.php(14): CApplication->run()
+#29 {main}
+REQUEST_URI=/ajman/ajmanlandproperty/index.php/ContractsMaster/Reportables
+HTTP_REFERER=http://localhost/ajman/ajmanlandproperty/index.php/ContractsMaster
+---
+2013/10/07 10:34:50 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ajman.options' doesn't exist. The SQL statement executed was: SHOW COLUMNS FROM `options`.
+2013/10/07 10:34:50 [error] [exception.CDbException] exception 'CDbException' with message 'The table "options" for active record class "Options" cannot be found in the database.' in C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php:2264
+Stack trace:
+#0 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(379): CActiveRecordMetaData->__construct(Object(Options))
+#1 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(394): CActiveRecord::model('Options')
+#2 C:\xampp\htdocs\ajman\yii\framework\db\ar\CActiveRecord.php(78): CActiveRecord->getMetaData()
+#3 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\models\Options.php(32): CActiveRecord->__construct()
+#4 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\models\ContractsMaster.php(114): Options::getAllowedFields('ContractsMaster')
+#5 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(67): ContractsMaster->getAllowedReportableFields()
+#6 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#7 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#8 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#9 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): CController->renderPartial('_formReportable', Array)
+#10 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(127): require('C:\xampp\htdocs...')
+#11 C:\xampp\htdocs\ajman\yii\framework\web\CBaseController.php(96): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#12 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(870): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#13 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(783): CController->renderPartial('newReportable', Array, true)
+#14 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): CController->render('newReportable', Array)
+#15 C:\xampp\htdocs\ajman\yii\framework\web\actions\CInlineAction.php(50): ContractsMasterController->actionNewReportable()
+#16 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(309): CInlineAction->runWithParams(Array)
+#17 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(134): CController->runAction(Object(CInlineAction))
+#18 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilter.php(41): CFilterChain->run()
+#19 C:\xampp\htdocs\ajman\AjmanLandProperty\protected\modules\rights\components\RController.php(36): CFilter->filter(Object(CFilterChain))
+#20 C:\xampp\htdocs\ajman\yii\framework\web\filters\CInlineFilter.php(59): RController->filterRights(Object(CFilterChain))
+#21 C:\xampp\htdocs\ajman\yii\framework\web\filters\CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#22 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(292): CFilterChain->run()
+#23 C:\xampp\htdocs\ajman\yii\framework\web\CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#24 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(276): CController->run('newReportable')
+#25 C:\xampp\htdocs\ajman\yii\framework\web\CWebApplication.php(135): CWebApplication->runController('ContractsMaster...')
+#26 C:\xampp\htdocs\ajman\yii\framework\base\CApplication.php(162): CWebApplication->processRequest()
+#27 C:\xampp\htdocs\ajman\AjmanLandProperty\index.php(14): CApplication->run()
+#28 {main}
+REQUEST_URI=/ajman/ajmanlandproperty/index.php/ContractsMaster/newReportable
+HTTP_REFERER=http://localhost/ajman/ajmanlandproperty/index.php/ContractsMaster/Reportables
+---
