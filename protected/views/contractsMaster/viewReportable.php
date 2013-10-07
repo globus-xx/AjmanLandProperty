@@ -87,7 +87,8 @@
   elseif (isset($results['GROUPED'])):
     $results = $results['GROUPED'];
     foreach ($results as $index => $rows):
-      echo '<h2>' . $index . '</h2>';
+      $indx = explode(' IS ', $index);
+      echo '<p></p><table dir="rtl " align="right" style=" width:30%" border="1"><tr><td style="text-align:right"><b><i>' . $indx[0] .'</i><b></td><td><i>'.$indx[1] . '</i></td></tr></table><p></p>';
       if (count($rows) == 0):
         ?>
         <p>لا توجد نتائج</p>

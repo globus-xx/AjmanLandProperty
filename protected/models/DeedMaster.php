@@ -129,7 +129,7 @@ class DeedMaster extends CActiveRecord
 
     return $result;
 	}
-  public function getAllowedReportableFields(){
+    public function getAllowedReportableFields(){
     $fields = $this->reportableFields();
 
     $show = Options::getAllowedFields('DeedMaster');
@@ -139,11 +139,13 @@ class DeedMaster extends CActiveRecord
     $results = array();
     foreach($show as $vv){
       $vv = explode('.',$vv);
-      $vv[1];
+      //var_dump( $vv );
+      //var_dump( $fields );
+      
       $k = array_search($vv[1], $fields);
-      $results[$k] = $fields[$vv[1]];
+      $results[$vv[1]] = $fields[$vv[1]];
     }
-    
+    //var_dump($results);exit;
     return $results;
   }
 

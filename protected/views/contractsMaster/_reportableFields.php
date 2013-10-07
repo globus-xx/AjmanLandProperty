@@ -8,9 +8,11 @@
   <?php
   foreach ($attribs as $ii => $vv):
     $index = $the_model . '.' . $ii;
-    $column = $columns[$ii];
+    if(isset($columns[$ii]))
+      $column = $columns[$ii];
+    else
+      $column = ' - ';
     
-
     if (isset($edit)) {
 
 

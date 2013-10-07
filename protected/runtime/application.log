@@ -9426,3 +9426,40 @@ Stack trace:
 #22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
 #23 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
 REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/07 00:11:08 [error] [php] Trying to get property of non-object (G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_reportableFields.php:125)
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#1 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\_formReportable.php(74): ContractsMasterController->renderPartial()
+#2 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#3 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#4 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#5 G:\wamp\www\AjmanLandProperty\protected\views\contractsMaster\newReportable.php(2): ContractsMasterController->renderPartial()
+#6 G:\wamp\www\yii\framework\web\CBaseController.php(126): require()
+#7 G:\wamp\www\yii\framework\web\CBaseController.php(95): ContractsMasterController->renderInternal()
+#8 G:\wamp\www\yii\framework\web\CController.php(869): ContractsMasterController->renderFile()
+#9 G:\wamp\www\yii\framework\web\CController.php(782): ContractsMasterController->renderPartial()
+#10 G:\wamp\www\AjmanLandProperty\protected\controllers\ContractsMasterController.php(106): ContractsMasterController->render()
+#11 G:\wamp\www\yii\framework\web\actions\CInlineAction.php(49): ContractsMasterController->actionNewReportable()
+#12 G:\wamp\www\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#13 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(133): ContractsMasterController->runAction()
+#14 G:\wamp\www\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 G:\wamp\www\AjmanLandProperty\protected\modules\rights\components\RController.php(36): RightsFilter->filter()
+#16 G:\wamp\www\yii\framework\web\filters\CInlineFilter.php(58): ContractsMasterController->filterRights()
+#17 G:\wamp\www\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#18 G:\wamp\www\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 G:\wamp\www\yii\framework\web\CController.php(265): ContractsMasterController->runActionWithFilters()
+#20 G:\wamp\www\yii\framework\web\CWebApplication.php(282): ContractsMasterController->run()
+#21 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#22 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#23 G:\wamp\www\AjmanLandProperty\index.php(14): CWebApplication->run()
+REQUEST_URI=/AjmanLandProperty/index.php/ContractsMaster/newReportable
+2013/10/07 00:26:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "permission".' in G:\wamp\www\yii\framework\web\CController.php:483
+Stack trace:
+#0 G:\wamp\www\yii\framework\web\CController.php(270): CController->missingAction('permission')
+#1 G:\wamp\www\yii\framework\web\CWebApplication.php(282): CController->run('permission')
+#2 G:\wamp\www\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('options/permiss...')
+#3 G:\wamp\www\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 G:\wamp\www\AjmanLandProperty\index.php(14): CApplication->run()
+#5 {main}
+REQUEST_URI=/AjmanLandProperty/index.php/options/permission
+---
