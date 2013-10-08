@@ -45,6 +45,15 @@ class DeedMaster extends CActiveRecord
 		return 'DeedMaster';
 	}
 
+        public function check_string($string)
+        {                        
+                  if (preg_match('/[^a-zA-Z\d]/', $string) ){                
+                      return  false;
+                    }
+                  else  
+                  return $string;
+        }
+    
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -225,7 +234,7 @@ class DeedMaster extends CActiveRecord
       $obj = $grouped_one[0];
       $grouped_options = ($obj::getAsListForLabel($grouped_one[1]));
       foreach ($grouped_options as $ix => $vx):
-        $esql.= ( strstr($esql, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $vv[0]['value'] . "   = '" . mysql_real_escape_string($vx) . "'  ) ";
+        $esql.= ( strstr($esql, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $vv[0]['value'] . "   = '" . $this->check_string($vx) . "'  ) ";
         // loop through the next to see if there is another group
         // this loop goes for each within the previous loop
         if ($vv[1]['value'] != '0'):
@@ -235,7 +244,7 @@ class DeedMaster extends CActiveRecord
           $obj = $grouped_one_1[0];
           $grouped_options_1 = ($obj::getAsListForLabel($grouped_one_1[1]));
           foreach ($grouped_options_1 as $ix1 => $vx1):
-            $esql1.= ( strstr($esql1, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $vv[1]['value'] . "   =  '" . mysql_real_escape_string($vx1) . "'  ) ";
+            $esql1.= ( strstr($esql1, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $vv[1]['value'] . "   =  '" . $this->check_string($vx1) . "'  ) ";
             // loop through the next to see if there is another group
             // this loop goes for each within the previous loop
             if ($vv[2]['value'] != '0'):
@@ -246,7 +255,7 @@ class DeedMaster extends CActiveRecord
               $obj = $grouped_one_2[0];
               $grouped_options_2 = ($obj::getAsListForLabel($grouped_one_2[1]));
               foreach ($grouped_options_2 as $ix2 => $vx2):
-                $esql2.= ( strstr($esql2, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $vv[2]['value'] . "   =  '" . mysql_real_escape_string($vx2) . "'  ) ";
+                $esql2.= ( strstr($esql2, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $vv[2]['value'] . "   =  '" . $this->check_string($vx2) . "'  ) ";
                 $command = $connection->createCommand($esql2);
                 $rs[$vv[0]['value'] . "  IS " . $vx.' AND '.$vv[1]['value'] . "  IS " . $vx1.' AND '.$vv[2]['value'] . "  IS " . $vx2] = $command->queryAll();
                 $esql2 = $esql1;

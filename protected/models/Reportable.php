@@ -27,6 +27,15 @@ class Reportable extends CActiveRecord {
     return 'reportables';
   }
   
+  public function check_string($string)
+    {                        
+                  if (preg_match('/[^a-zA-Z\d]/', $string) ){                
+                      return  false;
+                    }
+                  else  
+                  return $string;
+    }
+        
   public function beforeSave() {
 
     // remove unenabled fields
@@ -225,11 +234,11 @@ class Reportable extends CActiveRecord {
 
       if (is_array($attribs['value'])) {
         foreach ($attribs['value'] as $ii => $vv) {
-          $attribs['value'][$ii] = "'" . mysql_real_escape_string($vv) . "'";
+          $attribs['value'][$ii] = "'" . $this->check_string($vv) . "'";
         }
         $attribs['value'] = join(',', $attribs['value']);
       } else {
-        $attribs['value'] = "'" . mysql_real_escape_string($attribs['value']) . "'";
+        $attribs['value'] = "'" . $this->check_string($attribs['value']) . "'";
       }
 
       //$criteria->condition.= ( strstr( $criteria->condition, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";

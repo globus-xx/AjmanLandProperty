@@ -53,6 +53,16 @@ class ContractsMasterController extends Controller
           );
 	}
 
+  public function actionCheck_string()
+  {                        
+            if (preg_match('/[^a-zA-Z\d]/', $string) ){                
+                return  false;
+              }
+            else  
+            return true;
+  }
+  
+  
   public function getReportableDefaults(){
     $defaults = array();
     $defaults['ContractTypes'] = array(
