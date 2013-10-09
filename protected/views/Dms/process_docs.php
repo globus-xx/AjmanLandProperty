@@ -89,6 +89,8 @@ foreach($filetypes as $row)
     
 <br>
 <a href='<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/process/<?php echo $id+1; ?>' id='go_next' style='display:none;'>الذهاب الى الملف التالي</a>
+&nbsp;&nbsp;&nbsp;
+<a href='<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/process/<?php echo $id-1; ?>' id='go_prev' style='display:none;'>الذهاب الى الملف السابق</a>
 
 </center>
 
@@ -188,6 +190,11 @@ foreach($filetypes as $row)
                                                         $("#customer_information").html(data); 
                                                     }
                                                 $('#go_next').show();
+                                                
+                                                var current_id = <?php echo $id;?>;
+                                                
+                                                if(current_id != 0)
+                                                $('#go_prev').show();
                                             }
                     });                                                                                
                 }

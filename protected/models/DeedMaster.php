@@ -205,7 +205,7 @@ class DeedMaster extends CActiveRecord
         $attribs['value'] = explode('-', $attribs['value']);
 
         $attribs['value'] = "'".trim($attribs['value'][0])."'".' AND ' ."'". trim($attribs['value'][1])."'" ;
-        $attribs['value'] = ''; // hack
+       // $attribs['value'] = ''; // hack
         
       }else{
 				$attribs['value'] = "'".$attribs['value']."'";

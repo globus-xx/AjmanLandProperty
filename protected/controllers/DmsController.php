@@ -36,7 +36,7 @@ class DmsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','search', 'download', 'formDocumentType','get_lands','check_land','check_folder','scan','upload','process','multipleupload','upload_files','process_docs','get_deeds','add_relation','end_process','get_contracts','get_customers','get_docs','delete_doc','update_file','set_id','file_recursive','get_all_results'),
+				'actions'=>array('create','update','search', 'download', 'formDocumentType','get_lands','check_land','check_folder','scan','upload','process','process2','multipleupload','upload_files','process_docs','get_deeds','add_relation','end_process','get_contracts','get_customers','get_docs','delete_doc','update_file','set_id','file_recursive','get_all_results','view_files'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -627,15 +627,15 @@ class DmsController extends Controller
                 {       
                 
                   if($row['mimeType']=="image/jpeg" || $row['mimeType']=="image/png" || $row['mimeType']=="image/bmp")
-                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl.'/dms/'.$row['fileName']."' style='max-width:100px;max-height:100px' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";    
+                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl.'/dms/'.$row['fileName']."' style='max-width:100px;max-height:100px;border:1px solid #000;' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";    
                   elseif($row['mimeType']=="application/pdf")
-                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/pdf-icon.jpg' style='max-width:100px;max-height:100px' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
+                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/pdf-icon.jpg' style='max-width:100px;max-height:100px;border:1px solid #000;' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
                   elseif($row['mimeType']=="image/tiff")
-                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/tiff.png' style='max-width:100px;max-height:100px' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
+                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/tiff.png' style='max-width:100px;max-height:100px;border:1px solid #000;' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
                   elseif($row['mimeType']=="application/msword")
-                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/docx.png' style='max-width:100px;max-height:100px' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
+                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/docx.png' style='max-width:100px;max-height:100px;border:1px solid #000;' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
                   else
-                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/unknown.png' style='max-width:100px;max-height:100px' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
+                  $result .= "<tr><td><input type='radio' name='doc' value='".$row['id']."' /></td><td> ".$row['fileName']."   </td>   <td>   <img src='".Yii::app()->request->baseUrl."/images/unknown.png' style='max-width:100px;max-height:100px;border:1px solid #000;' /> </td>   <td> <a href='javascript:;' onclick='delete_file(".$row['id'].",\"".$row['fileName']."\")' > Delete </a> </td> </tr>";   
                  
                   $i++;
                 }
@@ -658,9 +658,14 @@ class DmsController extends Controller
         }
             
         public function actionProcess_docs() {                                     
-            $this->render('proc_docs',array());            
+            $this->render('proc_docs');            
         }
                 
+        public function actionView_files()
+        {                     
+            $this->render('load_docs');     
+        }
+
         public function actionProcess($id=0) {                        
             $sql = 'select * from documenttypes;';
 
@@ -672,6 +677,34 @@ class DmsController extends Controller
             $this->renderPartial('process_docs',array('id'=>$id , 'filetypes' =>$model));            
         }
         
+        
+        public function actionProcess2($id=0) {   
+            $landid = Yii::app()->session['landid'];
+            $this->renderPartial('view_docs',array('id'=>$id,'landid'=>$landid));            
+        }
+        
+        
+        public function actionDownload(){
+            
+            $file_name = $_GET['file_name'];
+            $landid = Yii::app()->session['landid'];
+            $path = Yii::app()->basePath.'/../dms/'.$landid.'/'.$file_name;
+            $file =  urldecode($path);
+
+            
+            if (file_exists($file)) {
+              header('Content-Description: File Transfer');
+              header('Content-Type: application/octet-stream');
+              header('Content-Disposition: attachment; filename=' . $file_name);
+              header('Content-Length: ' . filesize($file));
+              echo file_get_contents($path);
+              exit;
+            }else{
+              echo "file not exist: ".$file_name;            
+            }
+            exit;
+            
+	}
         
         
         public function actionMultipleupload($id=0) {       

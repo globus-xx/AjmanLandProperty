@@ -142,7 +142,7 @@ class CustomerMaster extends CActiveRecord {
 
   public function reportableFields() {
 
-    $fields = array('CustomerNameEnglish', 'Nationality');
+    $fields = array('CustomerNameArabic', 'Nationality');
     $a = $this->attributeLabels();
     $result = array();
 

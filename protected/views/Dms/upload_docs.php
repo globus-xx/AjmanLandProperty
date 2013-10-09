@@ -24,16 +24,18 @@
         <!-- The file input field used as target for the file upload widget -->
         <input id="fileupload" type="file" name="files[]" multiple>
 </span>
-
     <br>
     <br>
     <!-- The global progress bar -->
     <div id="progress" class="progress">
         <div class="progress-bar progress-bar-success"></div>
     </div>
+    
+    <a href='<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/process_docs' id='go_link' style='display: none;'>الذهاب الى المرحلة التالية</a>
     <!-- The container for the uploaded files -->
     <div id="files" class="files">
         <h3>الملفات المحملة مسبقا</h3>
+         <a href="<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/view_files">رؤية الملفات</a>   
         <table id='results' style="display: none;border:1px solid #000;" ></table>
         <br><br>
         <form id="update_file" style="display: none">
@@ -49,9 +51,10 @@
             </span>
            
         </form>
+            
     </div>
 
-<a href='process_docs' id='go_link' style='display: none;'>الذهاب الى المرحلة التالية</a>
+
     
 <script src="<?php echo Yii::app()->request->baseUrl;?>/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl;?>/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script>

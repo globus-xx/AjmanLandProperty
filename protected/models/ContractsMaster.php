@@ -182,11 +182,14 @@ class ContractsMaster extends CActiveRecord {
     $attributes['conditions'] = Reportable::objectToArray(json_decode($attributes['conditions']));
     foreach ($attributes['conditions'] as $field_name => $attribs) {
       $cnd = $attribs['attrib'];
+      
       if ($cnd == 'gt') {
         $cnd = '>';
       } elseif ($cnd == 'lt') {
         $cnd = '<';
       }
+      elseif($cnd == "eq")
+          $cnd = '=';
 
       if (is_array($attribs['value'])) {
         foreach ($attribs['value'] as $ii => $vv) {
@@ -197,7 +200,7 @@ class ContractsMaster extends CActiveRecord {
         $attribs['value'] = explode('-', $attribs['value']);
 
         $attribs['value'] = "'" . trim($attribs['value'][0]) . "'" . ' AND ' . "'" . trim($attribs['value'][1]) . "'";
-        $attribs['value'] = ''; // hack
+       // $attribs['value'] = ''; // hack
       } else {
         $attribs['value'] = "'" . $attribs['value'] . "'";
       }
@@ -205,8 +208,11 @@ class ContractsMaster extends CActiveRecord {
 
       if ($cnd != 'BETWEEN')
         $sql.= ( strstr($sql, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $attribs['field'] . "   " . $cnd . " ( " . $attribs['value'] . " ) ) " . "";
+      
+
     }
 
+//    die($sql);
     $connection = Yii::app()->db;
 
     $attributes['grouped'] = Reportable::objectToArray(json_decode($attributes['grouped']));
@@ -271,6 +277,7 @@ class ContractsMaster extends CActiveRecord {
       $rs['RESULTS'] = $command->queryAll();
     endif;
 
+die($esql);
 
 //		$command = $connection->createCommand($sql);
 //		$results = $command->queryAll();		
