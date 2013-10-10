@@ -52,12 +52,16 @@
           <tr>
             <?php foreach ($columns as $column): ?>
               <td><?php
-                echo $row[$column];
+                echo $row[$column];                
+                ?></td>
+              
+          <?php endforeach; 
                 $AC+= $row['AC'];
                 $FF+= $row['FF'];
                 $COUNT++;
-                ?></td>
-          <?php endforeach; ?>
+          ?>
+              
+              
           </tr>
 
             <?php endforeach; ?>
@@ -134,7 +138,7 @@
             <tr>
       <?php foreach ($columns_to_show as $column): ?>
                 <th><?php echo $column; ?></th>
-          <?php endforeach; ?>
+          <?php endforeach; ?>               
             </tr>
           </thead>
           <?php
@@ -142,16 +146,21 @@
             ?>
             <tr> 
               <?php foreach ($columns_to_show as $column): ?>
-                <td><?php echo $row[$column]; ?></td>
-                <?php
-                $AC+= $row['AC'];
-                $FF+= $row['FF'];
-                $COUNT++;
-              endforeach;
-              ?>
+                <td>
+                <?php echo $row[$column];?>                
+                </td>
+                
+                    <?php  endforeach; 
+                        $AC+= $row['AC'];
+                        $FF+= $row['FF'];
+                        $COUNT++;
+                    ?>
+                
             </tr>
 
               <?php endforeach; ?>
+            
+            <td><?php echo $AC; ?></td>
           <tr>
             <td dir="ltr" colspan="<?php echo count($columns_to_show) - 1; ?>">
       <?php echo $AC; ?>

@@ -154,7 +154,6 @@ class ContractsMaster extends CActiveRecord {
   public function getReportFromReportable($reportable, $add_total_fields = 'ContractsMaster.AmountCorrected as AC, ContractsMaster.Fee as FF,') {
 
     $attributes = $reportable->attributes;
-
     $attributes['display'] = Reportable::objectToArray(json_decode($attributes['display']));
 
     $sql = 'SELECT  ' . $add_total_fields;
@@ -183,6 +182,7 @@ class ContractsMaster extends CActiveRecord {
     foreach ($attributes['conditions'] as $field_name => $attribs) {
       $cnd = $attribs['attrib'];
       
+      
       if ($cnd == 'gt') {
         $cnd = '>';
       } elseif ($cnd == 'lt') {
@@ -191,25 +191,54 @@ class ContractsMaster extends CActiveRecord {
       elseif($cnd == "eq")
           $cnd = '=';
 
+      
       if (is_array($attribs['value'])) {
         foreach ($attribs['value'] as $ii => $vv) {
           $attribs['value'][$ii] = "'" . $vv . "'";
         }
         $attribs['value'] = join(',', $attribs['value']);
       } elseif ($cnd == 'BETWEEN') {
-        $attribs['value'] = explode('-', $attribs['value']);
-
-        $attribs['value'] = "'" . trim($attribs['value'][0]) . "'" . ' AND ' . "'" . trim($attribs['value'][1]) . "'";
-       // $attribs['value'] = ''; // hack
+                                                           
+            if (strpos($attribs['value'], '-') !== FALSE)
+            {
+                 $attribs['value'] = explode('-', $attribs['value']); 
+                 
+                 $result = explode('/' , $attribs['value'][0]);
+                 $month  = trim($result[0]);
+                 $day    = trim($result[1]);
+                 $year   = trim($result[2]);   
+                 $final_date1 = $year . "/" . $month . "/" .$day;    
+                                
+                 
+                 
+                 $result = explode('/' , $attribs['value'][1]);
+                 $month  = trim($result[0]);
+                 $day    = trim($result[1]);
+                 $year   = trim($result[2]);  
+                 $final_date2 = $year . "/" . $month . "/" .$day; 
+                                  
+                 $attribs['value'] = "'" . trim($final_date1) . "'" . ' AND ' . "'" . trim($final_date2) . "'";                                                 
+            }
+            else
+            {
+                $result = explode('/' , $attribs['value']);                
+                $month  = trim($result[0]);
+                 $day    = trim($result[1]);
+                 $year   = trim($result[2]);                 
+                $final_date = $year . "/" . $month . "/" .$day;                
+                $attribs['value'] = "'" . trim($final_date) . "'" ;                                                   
+                $cnd = "=";
+            }                        
+                      
       } else {
         $attribs['value'] = "'" . $attribs['value'] . "'";
       }
-
-
-      if ($cnd != 'BETWEEN')
-        $sql.= ( strstr($sql, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $attribs['field'] . "   " . $cnd . " ( " . $attribs['value'] . " ) ) " . "";
-      
-
+     
+      if($cnd != "BETWEEN")
+        $sql.= ( strstr($sql, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $attribs['field'] . "   " . $cnd . " ( " . $attribs['value'] . " ) ) " . "";      
+    else 
+        $sql.= ( strstr($sql, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $attribs['field'] . "   " . $cnd . " " . $attribs['value'] . ")" . "";      
+    
     }
 
 //    die($sql);
@@ -277,10 +306,11 @@ class ContractsMaster extends CActiveRecord {
       $rs['RESULTS'] = $command->queryAll();
     endif;
 
-die($esql);
+//die($esql);
 
 //		$command = $connection->createCommand($sql);
-//		$results = $command->queryAll();		
+//		$results = $command->queryAll();	
+    
     return $rs;
   }
 

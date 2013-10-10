@@ -106,6 +106,7 @@ class ContractsMasterController extends Controller
 
     if(isset($_POST['Reportable']))
     {
+      
       $model->attributes = $_POST['Reportable'];
       if($model->validate())
       {
