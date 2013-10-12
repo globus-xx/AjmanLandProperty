@@ -41,13 +41,13 @@
           <tr>
             <?php foreach ($columns as $column): ?>
               <td><?php
-                echo $row[$column];
-                $COUNT++;
+                echo $row[$column];                
                 ?></td>
-          <?php endforeach; ?>
+          <?php endforeach; 
+          $COUNT++;
+          ?>
           </tr>
-
-            <?php endforeach; ?>
+          <?php endforeach; ?>
 
         <tr>
           <td dir="ltr"  colspan="<?php echo count($columns) - 1; ?>">
@@ -103,9 +103,9 @@
             <tr> 
               <?php foreach ($columns_to_show as $column): ?>
                 <td><?php echo $row[$column]; ?></td>
-                <?php
-                $COUNT++;
+                <?php                
               endforeach;
+              $COUNT++;
               ?>
             </tr>
 
@@ -113,10 +113,9 @@
           
           <tr>
             <td dir="ltr"  colspan="<?php echo count($columns_to_show) - 1; ?>">
-      <?php echo $COUNT; 
-      $grph[$index] = $COUNT;
-      
-      ?>
+                <?php echo $COUNT; 
+                $grph[$index] = $COUNT;      
+                ?>
             </td>
             <td>Count</td>
           </tr>

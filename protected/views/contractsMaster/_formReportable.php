@@ -79,6 +79,7 @@
         endif;
     endforeach;
     ?>	
+      
     <div>
       <table width="auto">
         <tr>

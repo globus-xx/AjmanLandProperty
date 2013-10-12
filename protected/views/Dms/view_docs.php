@@ -5,32 +5,32 @@
 
 <?php
 $user = getenv("username");
-$dir = "dms/".$landid ;
-$dh = opendir($dir);
+$dir2 = "dms/".$landid ;
+$dh2 = opendir($dir2);
 $i=0;
 $counter = 0;
 
-while (($file = readdir($dh)) !== false) {    
-    if($file!="."&&$file!="..")
+while (($file2 = readdir($dh2)) !== false) {    
+    if($file2!="."&&$file2!="..")
     {
         $counter++;
     }
 }
-closedir($dh);  
+closedir($dh2);  
 
 
-$dh = opendir($dir);
-while (($file = readdir($dh)) !== false) {
+$dh2 = opendir($dir2);
+while (($file2 = readdir($dh2)) !== false) {
     
-if($file!="."&&$file!="..")
+if($file2!="."&&$file2!="..")
 {
     
     if($id==$i)
     {
-        $ext=pathinfo($file, PATHINFO_EXTENSION);
+        $ext=pathinfo($file2, PATHINFO_EXTENSION);
         
         if($ext=="jpg"||$ext=="png"||$ext=="bmp")
-          echo "<img src='".Yii::app()->request->baseUrl.'/'.$dir.'/'.$file."' style='max-width:500px;max-height:375px' /> ";        
+          echo "<img src='".Yii::app()->request->baseUrl.'/'.$dir2.'/'.$file2."' style='max-width:500px;max-height:375px' /> ";        
         else if($ext=="pdf")
           echo "<img src='".Yii::app()->request->baseUrl."/images/pdf-icon.jpg' style='max-width:500px;max-height:375px' />";
         else if($ext=="tiff" || $ext=="tif")
@@ -41,7 +41,7 @@ if($file!="."&&$file!="..")
             echo "<img src='".Yii::app()->request->baseUrl."/images/unknown.png' style='max-width:500px;max-height:375px' />";
        
         echo "<br>"; 
-        echo CHtml::link('تحميل',array('dms/download', 'file_name'=>$file));
+        echo CHtml::link('تحميل',array('dms/download', 'file_name'=>$file2));
         echo "<br>";
         
         break;                
@@ -52,7 +52,7 @@ if($file!="."&&$file!="..")
 }
 
 }                                               
-closedir($dh);                  
+closedir($dh2);                  
 
 
 if($counter==$i)
@@ -65,7 +65,16 @@ else
 {    
 ?>
 <a href='<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/process2/<?php echo $id+1; ?>' >الذهاب الى الملف التالي</a> &nbsp;&nbsp;&nbsp;
+
+<?php
+if($id>0)
+{
+?>
 <a href='<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/process2/<?php echo $id-1; ?>' >الذهاب الى الملف السابق</a> &nbsp;&nbsp;&nbsp;
+<?php
+}
+?>
+
 <a href='<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/upload/' target='_parent'> اغلاق  </a>    
 <?php
 }

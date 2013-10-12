@@ -93,3 +93,17 @@
   <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+
+<script>
+    $('#reportable-reportable-form').submit(function() {
+
+
+        if ($("#Reportable_title").val() == "")
+        {
+            alert("من فضلك ادخل اسم التقرير !!!");
+            return false;
+        }
+
+    });
+</script>

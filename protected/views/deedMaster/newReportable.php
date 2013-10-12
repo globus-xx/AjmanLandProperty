@@ -1,4 +1,4 @@
-<h1>اضافة تقرير خاص للعقود</h1>
+<h1>اضافة تقرير خاص بالملكيات</h1>
 
 <?php echo $this->renderPartial('_formReportable', array( 'model'=>$model, 'defaults'=>$defaults )); ?>
 

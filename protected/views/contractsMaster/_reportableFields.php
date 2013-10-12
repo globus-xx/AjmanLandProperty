@@ -46,7 +46,7 @@
               elseif (($the_model == 'CustomerMaster') && ($ii == 'Nationality')):                  
                 echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
                 echo 'IN';
-                echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value]", (isset($model[$index])?$model[$index]['value']:''), $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
+                echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value][]", (isset($model[$index])?$model[$index]['value']:''), $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
               else:
 
                 switch ($column->type):
@@ -120,7 +120,7 @@
           elseif (($the_model == 'CustomerMaster') && ($ii == 'Nationality')):
             echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
             echo 'IN';
-            echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value]", $model[$index]['value'], $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
+            echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value][]", $model[$index]['value'], $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
           else:
             switch ($column->type):
               case 'integer':
@@ -163,4 +163,7 @@
 
 
   endforeach;
-  ?></table>
+  ?>
+</table>
+
+

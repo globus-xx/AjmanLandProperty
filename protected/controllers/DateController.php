@@ -7,11 +7,12 @@
         // we have three tables (deedmaster , contractsmaster , hajzmaster) and three columns (DeedID , ContractsID , HajzID)
         // I have made 5 functions to complete the date conversion properly 
         // i will explain one by one 
-        // first is the print_all which will print alll the dates inside specified table 
-        // second is the check_special_case which will print all the dates existing that is not like this format 00/00/0000
-        // third is Create_new_column which will create new column in the specified table called  newdateccreated
-        // forth is convert_dates will convert all dates and save them in the new column newdateccreated (note in this function : due to larg data existing its better to uncomment the parts of code between {{step to comment}} to make the conversion step by step and dont make exception of max excution time  )
-        // fifth is Finish_conversion which will delete the old date column and rename the new column same as the old column
+        // before starting you should change table name and the primary keyand the date column
+        // first is the print_all which will print all the dates inside specified table   (1)
+        // second is the check_special_case which will print all the dates existing that is not like this format 00/00/0000 (2)
+        // third is Create_new_column which will create new column in the specified table called  newdateccreated (3)
+        // forth is convert_dates will convert all dates and save them in the new column newdateccreated (note in this function : due to larg data existing its better to uncomment the parts of code between {{step to comment}} to make the conversion step by step and dont make exception of max excution time  )  (4)
+        // fifth is Finish_conversion which will delete the old date column and rename the new column same as the old column (5)
 
 
 class DateController extends Controller
@@ -280,20 +281,20 @@ class DateController extends Controller
 
 //                             ==============================================  step to comment      ((Here You should encrease max excution time))
                      
-//                                $year = $date[2];
-//                                $month = $date[0];
-//                                $day = $date[1];
-//                                
-//                                $result_date = $year ."-". $month."-". $day;
-//                                
-//                               
-//                                        $sql = 'UPDATE '.$this->table_name.'
-//                                        SET newdateccreated= \''.$result_date.'\'
-//                                        WHERE '.$this->primary_key.'='.$row[$this->primary_key].';';
-//                                                                
-//                                $connection=Yii::app()->db;
-//                                $command=$connection->createCommand($sql);
-//                                $command->execute();                                                                 
+                                $year = $date[2];
+                                $month = $date[0];
+                                $day = $date[1];
+                                
+                                $result_date = $year ."-". $month."-". $day;
+                                
+                               
+                                        $sql = 'UPDATE '.$this->table_name.'
+                                        SET newdateccreated= \''.$result_date.'\'
+                                        WHERE '.$this->primary_key.'='.$row[$this->primary_key].';';
+                                                                
+                                $connection=Yii::app()->db;
+                                $command=$connection->createCommand($sql);
+                                $command->execute();                                                                 
                                 echo "00/00/0000 case conversion  ======== ".$dateori." ======= ".$row['newdateccreated']." ===== <br>"; 
                                 
 //                            =============================================   

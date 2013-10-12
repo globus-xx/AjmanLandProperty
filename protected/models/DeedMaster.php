@@ -195,28 +195,64 @@ class DeedMaster extends CActiveRecord
 			}elseif($cnd =='lt'){
 				$cnd = '<';
 			}
-
+                        elseif($cnd == "eq")
+                        $cnd = '=';
+                        
 			if(is_array($attribs['value'])){
 				foreach($attribs['value'] as $ii=>$vv){
 					$attribs['value'][$ii] = "'".$vv."'";
 				}
 				$attribs['value'] = join(',', $attribs['value']);
 			}elseif($cnd=='BETWEEN'){
-        $attribs['value'] = explode('-', $attribs['value']);
-
-        $attribs['value'] = "'".trim($attribs['value'][0])."'".' AND ' ."'". trim($attribs['value'][1])."'" ;
-       // $attribs['value'] = ''; // hack
-        
+                                                
+                                                                                                   
+                                                           
+            if (strpos($attribs['value'], '-') !== FALSE)
+            {
+                 $attribs['value'] = explode('-', $attribs['value']); 
+                 
+                 $result = explode('/' , $attribs['value'][0]);
+                 $month  = trim($result[0]);
+                 $day    = trim($result[1]);
+                 $year   = trim($result[2]);   
+                 $final_date1 = $year . "/" . $month . "/" .$day;    
+                                
+                 
+                 
+                 $result = explode('/' , $attribs['value'][1]);
+                 $month  = trim($result[0]);
+                 $day    = trim($result[1]);
+                 $year   = trim($result[2]);  
+                 $final_date2 = $year . "/" . $month . "/" .$day; 
+                                  
+                 $attribs['value'] = "'" . trim($final_date1) . "'" . ' AND ' . "'" . trim($final_date2) . "'";                                                 
+            }
+            else
+            {
+                $result = explode('/' , $attribs['value']);                
+                $month  = trim($result[0]);
+                 $day    = trim($result[1]);
+                 $year   = trim($result[2]);                 
+                $final_date = $year . "/" . $month . "/" .$day;                
+                $attribs['value'] = "'" . trim($final_date) . "'" ;                                                   
+                $cnd = "=";
+            }  
+            
+            
+            
       }else{
 				$attribs['value'] = "'".$attribs['value']."'";
 			}
       
-      if($cnd!='BETWEEN')
-	    	$sql.= ( strstr( $sql, "WHERE" ) ?  " AND " : " WHERE " )."  ( ".$attribs['field']."   ".$cnd." ( ".$attribs['value']." ) ) "."";
-			
+    
+    if($cnd != "BETWEEN")
+    $sql.= ( strstr($sql, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $attribs['field'] . "   " . $cnd . " ( " . $attribs['value'] . " ) ) " . "";      
+    else 
+    $sql.= ( strstr($sql, "WHERE") ? " AND " : " WHERE " ) . "  ( " . $attribs['field'] . "   " . $cnd . " " . $attribs['value'] . ")" . "";      
+
 		}
     
-    //echo $sql;exit;
+//     die($sql);
 
 
     $connection = Yii::app()->db;

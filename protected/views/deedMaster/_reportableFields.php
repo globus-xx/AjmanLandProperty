@@ -40,7 +40,7 @@ foreach ($attribs as $ii => $vv):
         elseif (($the_model == 'CustomerMaster') && ($ii == 'Nationality')):
           echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
           echo 'IN';
-          echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value]", (isset($model[$index])?$model[$index]['value']:''), $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
+          echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value][]", (isset($model[$index])?$model[$index]['value']:''), $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
         else:
 
           switch ($column->type):
@@ -54,13 +54,23 @@ foreach ($attribs as $ii => $vv):
             case 'date':
             case 'datetime':
               echo CHtml::dropDownList("Reportable[conditions][" . $index . "][attrib]", $model[$index]['attrib'], array('before' => 'Before', 'after' => 'After', 'on' => 'On'));
-              echo CHtml::textField("Reportable[conditions][" . $index . "][value]", (isset($model[$index])?$model[$index]['value']:''), array('class' => 'datebox'));
+              $result = isset($model[$index])?$model[$index]['value']:'';  
+              echo CHtml::textField("Reportable[conditions][" . $index . "][value]", $result , array('class' => 'datebox'));
               break;
             case 'string':
             default:
-              echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
-              echo 'IN/EQUAL TO';
-              echo CHtml::textField("Reportable[conditions][" . $index . "][value]", (isset($model[$index])?$model[$index]['value']:''));
+                            
+                if (strstr(strtolower($index), 'date')):
+                echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'BETWEEN');
+                echo 'BETWEEN';
+                 $result = isset($model[$index])?$model[$index]['value']:'';  
+                echo CHtml::textField("Reportable[conditions][" . $index . "][value]", $result, array('class' => 'datebox'));
+                else:
+                  echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
+                  echo 'IN/EQUAL TO';
+                   echo CHtml::textField("Reportable[conditions][" . $index . "][value]", (isset($model[$index])?$model[$index]['value']:''));
+                endif;
+            
               ?> 
               <?php
               break;
@@ -108,7 +118,7 @@ foreach ($attribs as $ii => $vv):
       elseif (($the_model == 'CustomerMaster') && ($ii == 'Nationality')):
         echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
         echo 'IN';
-        echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value]", $model[$index]['value'], $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
+        echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value][]", $model[$index]['value'], $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
       else:
         switch ($column->type):
           case 'integer':

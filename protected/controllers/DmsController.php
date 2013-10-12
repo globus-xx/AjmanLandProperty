@@ -70,7 +70,7 @@ class DmsController extends Controller
         public function actionGet_lands() {
 
         $term = $_GET['term'];
-        $sql = 'select LandID from landmaster where LandID like "'.$term.'%"';
+        $sql = 'select LandID from LandMaster where LandID like "'.$term.'%"';
 
 	$connection=Yii::app()->db;
 	$command=$connection->createCommand($sql);
@@ -84,7 +84,7 @@ class DmsController extends Controller
         public function actionCheck_land() {
 
         $term = $_POST['landid'];
-        $sql = 'select LandID from landmaster where LandID = "'.$term.'"';
+        $sql = 'select LandID from LandMaster where LandID = "'.$term.'"';
 
 	$connection=Yii::app()->db;
 	$command=$connection->createCommand($sql);
@@ -109,7 +109,7 @@ class DmsController extends Controller
          public function actionCheck_folder() {             
             $landid = $_POST["landid"];
             
-            $sql = 'select * from documents where  fileName LIKE \'%'.$landid.'%\'';
+            $sql = 'select * from Documents where  fileName LIKE \'%'.$landid.'%\'';
             $connection=Yii::app()->db;
             $command=$connection->createCommand($sql);
             $model=$command->queryAll(); 
@@ -133,13 +133,13 @@ class DmsController extends Controller
             $doctype =$_POST['doctype'];
             
             
-            $sql = 'select * from deedmaster where LandID = '.$deedid;
+            $sql = 'select * from DeedMaster where LandID = '.$deedid;
 
                 $connection=Yii::app()->db;
                 $command=$connection->createCommand($sql);
                 $model=$command->queryAll(); 
                             
-                $table='deedMaster';     
+                $table='DeedMaster';     
                 $result = "<tr><th></th><th>رقم الملكية</th> <th>تاريخ الملكية</th></tr>";
                 
                 $i=0;
@@ -166,7 +166,7 @@ class DmsController extends Controller
             $doctype =$_POST['doctype'];
             
             // ================ get the table name from doctype
-                $sql = 'select * from documenttypes where id = '.$doctype;
+                $sql = 'select * from DocumentTypes where id = '.$doctype;
                 $connection=Yii::app()->db;
                 $command=$connection->createCommand($sql);
                 $documenttypes=$command->queryAll(); 
@@ -249,9 +249,9 @@ class DmsController extends Controller
              
             // ======================   Current Customers
                 $sql = "select cm.*
-                    from deeddetails dd
-                    left join deedmaster dm on dd.DeedID = dm.DeedID
-                    right join customermaster cm on cm.CustomerID = dd.CustomerID
+                    from DeedDetails dd
+                    left join DeedMaster dm on dd.DeedID = dm.DeedID
+                    right join CustomerMaster cm on cm.CustomerID = dd.CustomerID
                     where dm.LandID = '".$landid."'  AND dm.Remarks != 'cancelled'";
             
                 $connection=Yii::app()->db;
@@ -259,7 +259,7 @@ class DmsController extends Controller
                 $model=$command->queryAll(); 
                            
                 
-                $table  = 'customerMaster';    
+                $table  = 'CustomerMaster';    
                 $resultcontent = "";
                 $resultheader = "<tr><th colspan='3'>العقود الحالية</th></tr>";
                 $resultheader .= "<tr><th></th><th>رقم الزبون</th> <th> اسم الزبون</th></tr>";
@@ -281,9 +281,9 @@ class DmsController extends Controller
                  
              // ======================   Previous Customers   
                 $sql = "select cm.*
-                    from deeddetails dd
-                    left join deedmaster dm on dd.DeedID = dm.DeedID
-                    right join customermaster cm on cm.CustomerID = dd.CustomerID
+                    from DeedDetails dd
+                    left join DeedMaster dm on dd.DeedID = dm.DeedID
+                    right join CustomerMaster cm on cm.CustomerID = dd.CustomerID
                     where dm.LandID = '".$landid."'  AND dm.Remarks = 'cancelled'";
             
                 $connection=Yii::app()->db;
@@ -308,9 +308,9 @@ class DmsController extends Controller
                 
                 // ======================   Buyer / Seller   
                 $sql = "select cm.*
-                    from contractsdetail cd
-                    left join contractsmaster com on cd.ContractID = com.ContractsID
-                    right join customermaster cm on cm.CustomerID = cd.CustomerID
+                    from ContractsDetail cd
+                    left join ContractsMaster com on cd.ContractID = com.ContractsID
+                    right join CustomerMaster cm on cm.CustomerID = cd.CustomerID
                     where com.LandID = '".$landid."'  AND ( cd.type = 'buyer' OR cd.type = 'seller' )";
             
                 $connection=Yii::app()->db;
@@ -345,13 +345,13 @@ class DmsController extends Controller
             $doctype =$_POST['doctype'];
             
             
-                $sql = 'select * from contractsmaster where LandID = '.$landid;
+                $sql = 'select * from ContractsMaster where LandID = '.$landid;
 
                 $connection=Yii::app()->db;
                 $command=$connection->createCommand($sql);
                 $model=$command->queryAll(); 
                             
-                $table='contractsMaster';     
+                $table='ContractsMaster';     
                 $result = "<tr><th></th><th>رقم العقد</th> <th>تاريخ العقد</th></tr>";
                 $i=0;
                 foreach($model as $row)
@@ -379,9 +379,9 @@ class DmsController extends Controller
             Yii::app()->session['relation'] = $relations;            
             
             $result = "yes";
-            if($tablename == "customerMaster")
+            if($tablename == "CustomerMaster")
             {
-                $sql = 'select * from customerMaster where CustomerID = '.$id;
+                $sql = 'select * from CustomerMaster where CustomerID = '.$id;
 
                 $connection=Yii::app()->db;
                 $command=$connection->createCommand($sql);
