@@ -80,6 +80,19 @@ class ContractsMasterController extends Controller
     while(($row=$dataReader->read())!==false){
       $defaults['CustomerNationalities'][$row['Nationality']] = $row['Nationality'];
     }
+    
+      // get the unique set of realestate offices
+    $sql = 'SELECT  CommercialName FROM `RealEstateOffices`';
+    $connection = Yii::app()->db;   // assuming you have configured a "db" connection
+    $command = $connection->createCommand($sql);
+    $dataReader = $command->query();
+    $defaults['real_estate_offices'] = array();
+    while(($row=$dataReader->read())!==false){
+      $defaults['real_estate_offices'][$row['CommercialName']] = $row['CommercialName'];
+    }
+    
+    
+    
     return $defaults;
   }
 

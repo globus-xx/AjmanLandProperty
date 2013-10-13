@@ -66,7 +66,7 @@
 $(function () {
     'use strict';
     // Change this to the location of your server-side upload handler:
-    var url =  'multipleupload';
+    var url =  '<?php echo Yii::app()->request->baseUrl;?>/index.php/Dms/multipleupload';
     $('#fileupload').fileupload({
         url: url,
         dataType: 'json',              

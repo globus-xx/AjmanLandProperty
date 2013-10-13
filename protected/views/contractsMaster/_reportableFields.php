@@ -43,14 +43,24 @@
                 echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
                 echo 'IN';
                 echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value]", (isset($model[$index])?$model[$index]['value']:''), $defaults['ContractTypes'], array('multiple' => true, 'style' => 'width:200px'));
-              elseif (($the_model == 'CustomerMaster') && ($ii == 'Nationality')):                  
+                elseif (($the_model == 'CustomerMaster') && ($ii == 'Nationality')):                  
                 echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
                 echo 'IN';
                 echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value][]", (isset($model[$index])?$model[$index]['value']:''), $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
+                elseif (($the_model == 'ContractsMaster') && ($ii == 'Nationality')):                  
+                echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
+                echo 'IN';
+                echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value][]", (isset($model[$index])?$model[$index]['value']:''), $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
+                elseif (($the_model == 'ContractsMaster') && ($ii == 'RealEstateOffice')):                    
+                echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
+                echo 'IN';
+                echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value][]", (isset($model[$index])?$model[$index]['value']:''), $defaults['real_estate_offices'], array('multiple' => true, 'style' => 'width:200px'));
+              
               else:
 
                 switch ($column->type):
                   case 'integer':
+                    case 'double':
                     echo CHtml::dropDownList("Reportable[conditions][" . $index . "][attrib]", (isset($model[$index])?$model[$index]['attrib']:''), array('lt' => 'Less Than', 'gt' => 'Greater Than', 'eq' => 'Equals'));
                     echo CHtml::textField("Reportable[conditions][" . $index . "][value]", (isset($model[$index])?$model[$index]['value']:'') );
 
@@ -73,7 +83,7 @@
                       echo CHtml::textField("Reportable[conditions][" . $index . "][value]", $result , array('class' => 'datebox'));
                     else:
                       echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
-                      echo 'IN/EQUAL TO';
+                      echo 'IN/EQUAL TO';                      
                       echo CHtml::textField("Reportable[conditions][" . $index . "][value]", (isset($model[$index])?$model[$index]['value']:''));
                     endif;
                     ?> 
@@ -121,14 +131,24 @@
             echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
             echo 'IN';
             echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value][]", $model[$index]['value'], $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
+            elseif (($the_model == 'ContractsMaster') && ($ii == 'Nationality')):                  
+                echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
+                echo 'IN';
+                echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value][]", (isset($model[$index])?$model[$index]['value']:''), $defaults['CustomerNationalities'], array('multiple' => true, 'style' => 'width:200px'));
+               elseif (($the_model == 'ContractsMaster') && ($ii == 'RealEstateOffice')):                    
+                echo CHtml::hiddenField("Reportable[conditions][" . $index . "][attrib]", 'IN');
+                echo 'IN';
+                echo CHtml::dropDownList("Reportable[conditions][" . $index . "][value][]", (isset($model[$index])?$model[$index]['value']:''), $defaults['real_estate_offices'], array('multiple' => true, 'style' => 'width:200px'));
+              
           else:
             switch ($column->type):
               case 'integer':
+                  case 'double':
                 echo CHtml::dropDownList("Reportable[conditions][" . $index . "][attrib]", $model[$index]['attrib'], array('lt' => 'Less Than', 'gt' => 'Greater Than', 'eq' => 'Equals'));
                 echo CHtml::textField("Reportable[conditions][" . $index . "][value]", $model[$index]['value']);
 
-                echo CHtml::checkBox("Reportable[conditions][" . $index . "][show_sum]", $model[$index]['show_value']);
-                echo 'Show Sum at End';
+//                echo CHtml::checkBox("Reportable[conditions][" . $index . "][show_sum]", $model[$index]['show_value']);
+//                echo 'Show Sum at End';
                 break;
               case 'date':
               case 'datetime':

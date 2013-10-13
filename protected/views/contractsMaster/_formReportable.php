@@ -48,11 +48,12 @@
     
     //var_dump(CustomerMaster::model()->getAllowedReportableFields());exit;
     $models = array('ContractsMaster' => 'ContractsMaster',
-        'Buyer' => 'CustomerMaster',
-        'Seller' => 'RealEstatePeople',
+//        'Buyer' => 'CustomerMaster',
+//        'Seller' => 'RealEstatePeople',
         'LandMaster' => 'LandMaster',
-        'Buyer' => 'CustomerMaster',
-        'Real Estate' => 'RealEstateOffices');
+//        'Buyer' => 'CustomerMaster',
+//        'Real Estate' => 'RealEstateOffices'
+        );
 
     foreach ($models as $model_name):
         // get the columns for the current models table

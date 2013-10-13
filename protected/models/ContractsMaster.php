@@ -115,6 +115,8 @@ class ContractsMaster extends CActiveRecord {
         'InvoiceNo' => 'رقم الايصال',
         'Remarks' => 'الملاحظات',
         'Status' => 'الحالة',
+        'Nationality' => 'الجنسية',
+        'RealEstateOffice' => 'المكتب العقاري',
     );
   }
   
@@ -140,7 +142,7 @@ class ContractsMaster extends CActiveRecord {
 
 
   public function reportableFields() {
-    $fields = array('DateCreated', 'UserID', 'ContractType', 'AmountCorrected', 'Fee');
+    $fields = array('DateCreated', 'UserID', 'ContractType', 'AmountCorrected', 'Fee' ,'Nationality' , 'RealEstateOffice');
     $a = $this->attributeLabels();
     $result = array();
 
@@ -171,18 +173,18 @@ class ContractsMaster extends CActiveRecord {
     $sql.= ' FROM ContractsMaster ';
 
     $sql.=' LEFT JOIN LandMaster on LandMaster.LandID = ContractsMaster.LandID ';
-    $sql.=' LEFT JOIN ContractsDetail on ContractsDetail.ContractID = ContractsMaster.ContractsID ';
-    $sql.=' LEFT JOIN CustomerMaster on ContractsDetail.CustomerID = CustomerMaster.CustomerID ';
-    $sql.=' LEFT JOIN RealEstatePeople on ContractsDetail.CardID = RealEstatePeople.CardID ';
-    $sql.=' LEFT JOIN RealEstateOffices on RealEstateOffices.RealEstateID = RealEstatePeople.RealEstateID ';
+//    $sql.=' LEFT JOIN ContractsDetail on ContractsDetail.ContractID = ContractsMaster.ContractsID ';
+//    $sql.=' LEFT JOIN CustomerMaster on ContractsDetail.CustomerID = CustomerMaster.CustomerID ';
+//    $sql.=' LEFT JOIN RealEstatePeople on ContractsDetail.CardID = RealEstatePeople.CardID ';
+//    $sql.=' LEFT JOIN RealEstateOffices on RealEstateOffices.RealEstateID = RealEstatePeople.RealEstateID ';
 
 
     //$reportable->conditions = unserialize($reportable->conditions);
     $attributes['conditions'] = Reportable::objectToArray(json_decode($attributes['conditions']));
     foreach ($attributes['conditions'] as $field_name => $attribs) {
       $cnd = $attribs['attrib'];
-      
-      
+              
+          
       if ($cnd == 'gt') {
         $cnd = '>';
       } elseif ($cnd == 'lt') {
